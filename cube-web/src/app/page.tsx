@@ -1,10 +1,12 @@
-import LastLayer from "@/components/diagram/3x3/LastLayer";
-// import getCubeColorMap from "@/utils/cube/3x3/getCubeColorMap";
+import BasicLayout from "@/components/layout/Basic";
+import FullHeightLayout from "@/components/layout/FullHeight";
 
 export default function Home() {
   return (
-    <div>
-      <LastLayer colorMap={{ BC: "blue" }} />
-    </div>
+    <FullHeightLayout>
+      <BasicLayout>
+        <main></main>
+      </BasicLayout>
+    </FullHeightLayout>
   );
 }

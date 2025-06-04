@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Sans_TC, Noto_Sans_Mono, Noto_Serif_TC } from "next/font/google";
 import "./globals.css";
+import clsx from "clsx";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+export const noto_sans_tc = Noto_Sans_TC({
   subsets: ["latin"],
+  variable: "--font-noto-sans-tc",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+export const noto_serif_tc = Noto_Serif_TC({
   subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "900"],
+  variable: "--font-noto-serif-tc",
+  display: "swap",
+});
+
+export const noto_sans_mono = Noto_Sans_Mono({
+  subsets: ["latin"],
+  variable: "--font-noto-sans-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +35,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={clsx(
+          noto_sans_tc.className,
+          noto_sans_tc.variable,
+          noto_serif_tc.variable,
+          noto_sans_mono.variable,
+          "antialiased",
+        )}
       >
         {children}
       </body>
