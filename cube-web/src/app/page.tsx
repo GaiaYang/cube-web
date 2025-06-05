@@ -4,6 +4,7 @@ import cn from "@/utils/cn";
 
 import BasicLayout from "@/components/layout/Basic";
 import FullHeightLayout from "@/components/layout/FullHeight";
+import CTASection from "./components/CTASection";
 
 export default function Home() {
   return (
@@ -30,7 +31,7 @@ export default function Home() {
             <Highlight>CFOP平均 14秒</Highlight>
             <span>的心路歷程與實用技巧。</span>
           </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6"></div>
+          <CTASection />
         </main>
       </BasicLayout>
     </FullHeightLayout>
