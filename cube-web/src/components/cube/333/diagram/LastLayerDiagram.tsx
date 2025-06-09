@@ -2,40 +2,10 @@ import cn from "@/utils/cn";
 import * as React from "react";
 import { SVGProps } from "react";
 
-export type PatternPosition =
-  | "TL"
-  | "TC"
-  | "TR"
-  | "CL"
-  | "CR"
-  | "CC"
-  | "BL"
-  | "BC"
-  | "BR"
-  | "S-TL"
-  | "S-TC"
-  | "S-TR"
-  | "S-BL"
-  | "S-BC"
-  | "S-BR"
-  | "S-RT"
-  | "S-RC"
-  | "S-RB"
-  | "S-LT"
-  | "S-LC"
-  | "S-LB";
-
-export type PatternColor =
-  | "red"
-  | "orange"
-  | "white"
-  | "yellow"
-  | "blue"
-  | "green"
-  | "none";
+import type { FaceletPosition, FaceletColor } from "@/schema/cube/333";
 
 export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
-  colorMap?: Partial<Record<PatternPosition, PatternColor>>;
+  colorMap?: Partial<Record<FaceletPosition, FaceletColor>>;
 }
 
 /** 最後一層圖案 */
@@ -52,7 +22,7 @@ export default function LastLayerDiagram({
           "stroke-0 [stroke-dasharray:none]",
           colorMap
             ? (function () {
-                switch (colorMap[item.id as PatternPosition]) {
+                switch (colorMap[item.id as FaceletPosition]) {
                   case "red":
                     return "fill-red-500";
                   case "orange":

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "es-toolkit": "^1.38.0",
+    "es-toolkit": "^1.39.3",
     "fast-equals": "^5.2.2",
     "next": "15.3.3",
     "react": "^19.1.0",
@@ -21,7 +21,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.1.8",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^22.15.29",
+    "@types/node": "^22.15.30",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
     "daisyui": "^5.0.43",
@@ -34,5 +34,5 @@
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@10.11.1"
+  "packageManager": "pnpm@10.12.1"
 }

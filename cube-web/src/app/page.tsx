@@ -13,7 +13,7 @@ export default function Home() {
         <main
           className={cn(
             "mx-auto max-w-3xl text-center",
-            "flex flex-1 flex-col items-center justify-center gap-8",
+            "flex flex-1 flex-col justify-center gap-8",
             "px-6 lg:px-8",
             "py-8 sm:py-12 lg:py-14",
           )}
@@ -31,7 +31,9 @@ export default function Home() {
             <Highlight>CFOP平均 14秒</Highlight>
             <span>的心路歷程與實用技巧。</span>
           </p>
-          <CTASection />
+          <div className="mt-16 sm:mt-20 lg:mt-24">
+            <CTASection />
+          </div>
         </main>
       </BasicLayout>
     </FullHeightLayout>
