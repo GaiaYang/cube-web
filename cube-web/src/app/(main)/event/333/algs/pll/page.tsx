@@ -1,5 +1,67 @@
 import React from "react";
+import Link from "next/link";
+
+import cn from "@/utils/cn";
+import type { PLLDefinition } from "@/schema/cube/333";
+import { labels } from "@/options/cube/333/pllCategory";
+
+import definitions from "@/content/cube/333/pll/definitions";
+import HeaderSection from "@/components/HeaderSection";
+import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";
 
 export default function Page() {
-  return <div>Page</div>;
+  return (
+    <main>
+      <h1 className="sr-only">PLL 公式列表</h1>
+      <HeaderSection title="PLL 公式列表" description="這裡是 PLL 公式的列表" />
+      <div
+        className={cn(
+          "mx-auto max-w-2xl lg:max-w-7xl",
+          "px-4 sm:px-6 lg:px-8",
+          "pb-16 sm:pb-24",
+        )}
+      >
+        <ul
+          role="list"
+          className={cn(
+            "grid",
+            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+            "gap-x-6 xl:gap-x-8",
+            "gap-y-10",
+          )}
+        >
+          {definitions.map(_renderItem)}
+        </ul>
+      </div>
+    </main>
+  );
+}
+
+function _renderItem(params: PLLDefinition) {
+  return (
+    <li key={params.id} className="group relative">
+      <div className="relative flex flex-col gap-4 p-4">
+        <div>
+          <Diagram className="w-full" />
+        </div>
+        <div className="flex-1 text-center">
+          <h3 className="text-lg font-semibold">{params.name}</h3>
+          <p className="badge badge-soft badge-primary btn mt-1">
+            {labels[params.category]}
+          </p>
+        </div>
+      </div>
+      <Link
+        href={`pll/${params.id}`}
+        target="_blank"
+        className={cn(
+          "absolute inset-0",
+          "rounded border border-transparent",
+          "group-hover:bg-base-content/5 group-hover:border-base-content/10",
+        )}
+      >
+        <span className="sr-only">{params.name}</span>
+      </Link>
+    </li>
+  );
 }

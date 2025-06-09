@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import cn from "@/utils/cn";
 import type { OLLDefinition } from "@/schema/cube/333";
@@ -13,7 +14,13 @@ export default function Page() {
     <main>
       <h1 className="sr-only">OLL 公式列表</h1>
       <HeaderSection title="OLL 公式列表" description="這裡是 OLL 公式的列表" />
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <div
+        className={cn(
+          "mx-auto max-w-2xl lg:max-w-7xl",
+          "px-4 sm:px-6 lg:px-8",
+          "pb-16 sm:pb-24",
+        )}
+      >
         <ul
           role="list"
           className={cn(
@@ -32,14 +39,29 @@ export default function Page() {
 
 function _renderItem(params: OLLDefinition) {
   return (
-    <li key={params.id} className="flex flex-col gap-4 p-4">
-      <div>
-        <Diagram className="w-full" pattern={params.patternPositions} />
+    <li key={params.id} className="group relative">
+      <div className="relative flex flex-col gap-4 p-4">
+        <div>
+          <Diagram className="w-full" pattern={params.patternPositions} />
+        </div>
+        <div className="flex-1 text-center">
+          <h3 className="text-lg font-semibold">{params.name}</h3>
+          <p className="badge badge-soft badge-primary btn mt-1">
+            {labels[params.category]}
+          </p>
+        </div>
       </div>
-      <div className="flex-1 text-center">
-        <h3 className="text-lg font-semibold">{params.name}</h3>
-        <p className="badge badge-soft mt-1">{labels[params.category]}</p>
-      </div>
+      <Link
+        href={`oll/${params.id}`}
+        target="_blank"
+        className={cn(
+          "absolute inset-0",
+          "rounded border border-transparent",
+          "group-hover:bg-base-content/5 group-hover:border-base-content/10",
+        )}
+      >
+        <span className="sr-only">{params.name}</span>
+      </Link>
     </li>
   );
 }

@@ -57,5 +57,5 @@ export interface PLLDefinition {
   /** 圖案標記 */
   patternColors: Partial<Record<FaceletPosition, FaceletColor>>;
   /** 類別 */
-  category?: PLLCategory;
+  category: PLLCategory;
 }

@@ -3,7 +3,7 @@ import { OLLCategory } from "@/schema/cube/enum/333";
 
 const definitions: OLLDefinition[] = [
   {
-    id: "Oll_1",
+    id: "1",
     name: "OLL-1",
     setupAlgorithms: [
       "F",
@@ -18,11 +18,21 @@ const definitions: OLLDefinition[] = [
       "U2'",
       "R'",
     ],
-    patternPositions: ["CC"],
+    patternPositions: [
+      "CC",
+      "S-TC",
+      "S-BC",
+      "S-LT",
+      "S-LC",
+      "S-LB",
+      "S-RT",
+      "S-RC",
+      "S-RB",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_2",
+    id: "2",
     name: "OLL-2",
     setupAlgorithms: [
       "f",
@@ -38,11 +48,21 @@ const definitions: OLLDefinition[] = [
       "R'",
       "F'",
     ],
-    patternPositions: ["CC"],
+    patternPositions: [
+      "CC",
+      "S-TC",
+      "S-TR",
+      "S-LT",
+      "S-LC",
+      "S-LB",
+      "S-RC",
+      "S-BC",
+      "S-BR",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_3",
+    id: "3",
     name: "OLL-3",
     setupAlgorithms: [
       "F",
@@ -60,11 +80,21 @@ const definitions: OLLDefinition[] = [
       "f'",
       "y",
     ],
-    patternPositions: ["CC"],
+    patternPositions: [
+      "CC",
+      "BL",
+      "S-TL",
+      "S-TC",
+      "S-LC",
+      "S-BC",
+      "S-BR",
+      "S-RT",
+      "S-RC",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_4",
+    id: "4",
     name: "OLL-4",
     setupAlgorithms: [
       "F",
@@ -86,35 +116,35 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_5",
+    id: "5",
     name: "OLL-5",
     setupAlgorithms: ["r'", "U'", "R", "U'", "R'", "U2'", "r"],
     patternPositions: ["CC"],
     category: OLLCategory.SQUARE_SHAPES,
   },
   {
-    id: "Oll_6",
+    id: "6",
     name: "OLL-6",
     setupAlgorithms: ["r", "U", "R'", "U", "R", "U2'", "r'"],
     patternPositions: ["CC"],
     category: OLLCategory.SQUARE_SHAPES,
   },
   {
-    id: "Oll_7",
+    id: "7",
     name: "OLL-7",
     setupAlgorithms: ["r", "U2'", "R'", "U'", "R", "U'", "r'"],
     patternPositions: ["CC"],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
-    id: "Oll_8",
+    id: "8",
     name: "OLL-8",
     setupAlgorithms: ["r'", "U2'", "R", "U", "R'", "U", "r", "y2'"],
     patternPositions: ["CC"],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
-    id: "Oll_9",
+    id: "9",
     name: "OLL-9",
     setupAlgorithms: [
       "F",
@@ -134,7 +164,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.FISH_SHAPES,
   },
   {
-    id: "Oll_10",
+    id: "10",
     name: "OLL-10",
     setupAlgorithms: [
       "R",
@@ -153,14 +183,14 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.FISH_SHAPES,
   },
   {
-    id: "Oll_11",
+    id: "11",
     name: "OLL-11",
     setupAlgorithms: ["M", "U'", "R", "U2'", "R'", "U'", "R", "U'", "R2'", "r"],
     patternPositions: ["CC"],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
-    id: "Oll_12",
+    id: "12",
     name: "OLL-12",
     setupAlgorithms: [
       "F",
@@ -181,35 +211,35 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
-    id: "Oll_13",
+    id: "13",
     name: "OLL-13",
     setupAlgorithms: ["F'", "U'", "F", "r", "U'", "r'", "U", "r", "U", "r'"],
     patternPositions: ["CC"],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
-    id: "Oll_14",
+    id: "14",
     name: "OLL-14",
     setupAlgorithms: ["F", "U", "F'", "R'", "F", "R", "U'", "R'", "F'", "R"],
     patternPositions: ["CC"],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
-    id: "Oll_15",
+    id: "15",
     name: "OLL-15",
     setupAlgorithms: ["r'", "U'", "r", "U'", "R'", "U", "R", "r'", "U", "r"],
     patternPositions: ["CC"],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
-    id: "Oll_16",
+    id: "16",
     name: "OLL-16",
     setupAlgorithms: ["r", "U", "r'", "U", "R", "U'", "R'", "r", "U'", "r'"],
     patternPositions: ["CC"],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
-    id: "Oll_17",
+    id: "17",
     name: "OLL-17",
     setupAlgorithms: [
       "F",
@@ -230,7 +260,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_18",
+    id: "18",
     name: "OLL-18",
     setupAlgorithms: [
       "r'",
@@ -251,7 +281,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_19",
+    id: "19",
     name: "OLL-19",
     setupAlgorithms: [
       "F",
@@ -270,7 +300,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_20",
+    id: "20",
     name: "OLL-20",
     setupAlgorithms: [
       "r",
@@ -289,7 +319,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "Oll_21",
+    id: "21",
     name: "OLL-21",
     setupAlgorithms: [
       "R",
@@ -309,56 +339,56 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.OCLL,
   },
   {
-    id: "Oll_22",
+    id: "22",
     name: "OLL-22",
     setupAlgorithms: ["R'", "U2'", "R2'", "U", "R2'", "U", "R2'", "U2'", "R'"],
     patternPositions: ["CC"],
     category: OLLCategory.OCLL,
   },
   {
-    id: "Oll_23",
+    id: "23",
     name: "OLL-23",
     setupAlgorithms: ["R", "U2'", "R", "D", "R'", "U2'", "R", "D'", "R2'"],
     patternPositions: ["CC"],
     category: OLLCategory.OCLL,
   },
   {
-    id: "Oll_24",
+    id: "24",
     name: "OLL-24",
     setupAlgorithms: ["F", "R'", "F'", "r", "U", "R", "U'", "r'"],
     patternPositions: ["CC"],
     category: OLLCategory.OCLL,
   },
   {
-    id: "Oll_25",
+    id: "25",
     name: "OLL-25",
     setupAlgorithms: ["R'", "F'", "r", "U", "R", "U'", "r'", "F", "y'"],
     patternPositions: ["CC"],
     category: OLLCategory.OCLL,
   },
   {
-    id: "Oll_26",
+    id: "26",
     name: "OLL-26",
     setupAlgorithms: ["R", "U", "R'", "U", "R", "U2'", "R'", "y'"],
     patternPositions: ["CC"],
     category: OLLCategory.OCLL,
   },
   {
-    id: "Oll_27",
+    id: "27",
     name: "OLL-27",
     setupAlgorithms: ["R", "U2'", "R'", "U'", "R", "U'", "R'"],
     patternPositions: ["CC"],
     category: OLLCategory.OCLL,
   },
   {
-    id: "Oll_28",
+    id: "28",
     name: "OLL-28",
     setupAlgorithms: ["R", "U", "R'", "U'", "M'", "U", "R", "U'", "r'"],
     patternPositions: ["CC"],
     category: OLLCategory.ALL_CORNERS_ORIENTED,
   },
   {
-    id: "Oll_29",
+    id: "29",
     name: "OLL-29",
     setupAlgorithms: [
       "M",
@@ -377,7 +407,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
-    id: "Oll_30",
+    id: "30",
     name: "OLL-30",
     setupAlgorithms: [
       "F",
@@ -397,28 +427,28 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
-    id: "Oll_31",
+    id: "31",
     name: "OLL-31",
     setupAlgorithms: ["R'", "F", "R", "U", "R'", "U'", "F'", "U", "R"],
     patternPositions: ["CC"],
     category: OLLCategory.P_SHAPES,
   },
   {
-    id: "Oll_32",
+    id: "32",
     name: "OLL-32",
     setupAlgorithms: ["f", "R'", "F'", "R", "U", "R", "U'", "R'", "S'"],
     patternPositions: ["CC"],
     category: OLLCategory.P_SHAPES,
   },
   {
-    id: "Oll_33",
+    id: "33",
     name: "OLL-33",
     setupAlgorithms: ["F", "R'", "F'", "R", "U", "R", "U'", "R'"],
     patternPositions: ["CC"],
     category: OLLCategory.T_SHAPES,
   },
   {
-    id: "Oll_34",
+    id: "34",
     name: "OLL-34",
     setupAlgorithms: [
       "F",
@@ -438,14 +468,14 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.C_SHAPES,
   },
   {
-    id: "Oll_35",
+    id: "35",
     name: "OLL-35",
     setupAlgorithms: ["R", "U2'", "R'", "F", "R'", "F'", "R2'", "U2'", "R'"],
     patternPositions: ["CC"],
     category: OLLCategory.FISH_SHAPES,
   },
   {
-    id: "Oll_36",
+    id: "36",
     name: "OLL-36",
     setupAlgorithms: [
       "F'",
@@ -466,14 +496,14 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.W_SHAPES,
   },
   {
-    id: "Oll_37",
+    id: "37",
     name: "OLL-37",
     setupAlgorithms: ["F", "R", "U'", "R'", "U", "R", "U", "R'", "F'"],
     patternPositions: ["CC"],
     category: OLLCategory.FISH_SHAPES,
   },
   {
-    id: "Oll_38",
+    id: "38",
     name: "OLL-38",
     setupAlgorithms: [
       "F",
@@ -493,21 +523,21 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.W_SHAPES,
   },
   {
-    id: "Oll_39",
+    id: "39",
     name: "OLL-39",
     setupAlgorithms: ["L", "U", "F'", "U'", "L'", "U", "L", "F", "L'", "y'"],
     patternPositions: ["CC"],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
-    id: "Oll_40",
+    id: "40",
     name: "OLL-40",
     setupAlgorithms: ["R'", "U'", "F", "U", "R", "U'", "R'", "F'", "R", "y'"],
     patternPositions: ["CC"],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
-    id: "Oll_41",
+    id: "41",
     name: "OLL-41",
     setupAlgorithms: [
       "F",
@@ -529,7 +559,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
-    id: "Oll_42",
+    id: "42",
     name: "OLL-42",
     setupAlgorithms: [
       "F",
@@ -550,49 +580,49 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
-    id: "Oll_43",
+    id: "43",
     name: "OLL-43",
     setupAlgorithms: ["f'", "U'", "L'", "U", "L", "f"],
     patternPositions: ["CC"],
     category: OLLCategory.P_SHAPES,
   },
   {
-    id: "Oll_44",
+    id: "44",
     name: "OLL-44",
     setupAlgorithms: ["f", "U", "R", "U'", "R'", "f'"],
     patternPositions: ["CC"],
     category: OLLCategory.P_SHAPES,
   },
   {
-    id: "Oll_45",
+    id: "45",
     name: "OLL-45",
     setupAlgorithms: ["F", "U", "R", "U'", "R'", "F'"],
     patternPositions: ["CC"],
     category: OLLCategory.T_SHAPES,
   },
   {
-    id: "Oll_46",
+    id: "46",
     name: "OLL-46",
     setupAlgorithms: ["R'", "U'", "F", "R'", "F'", "R", "U", "R"],
     patternPositions: ["CC"],
     category: OLLCategory.C_SHAPES,
   },
   {
-    id: "Oll_47",
+    id: "47",
     name: "OLL-47",
     setupAlgorithms: ["F'", "U'", "L'", "U", "L", "U'", "L'", "U", "L", "F"],
     patternPositions: ["CC"],
     category: OLLCategory.L_SHAPES,
   },
   {
-    id: "Oll_48",
+    id: "48",
     name: "OLL-48",
     setupAlgorithms: ["F", "U", "R", "U'", "R'", "U", "R", "U'", "R'", "F'"],
     patternPositions: ["CC"],
     category: OLLCategory.L_SHAPES,
   },
   {
-    id: "Oll_49",
+    id: "49",
     name: "OLL-49",
     setupAlgorithms: [
       "r'",
@@ -610,28 +640,28 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.L_SHAPES,
   },
   {
-    id: "Oll_50",
+    id: "50",
     name: "OLL-50",
     setupAlgorithms: ["r", "U'", "r2'", "U", "r2'", "U", "r2'", "U'", "r"],
     patternPositions: ["CC"],
     category: OLLCategory.L_SHAPES,
   },
   {
-    id: "Oll_51",
+    id: "51",
     name: "OLL-51",
     setupAlgorithms: ["f", "U", "R", "U'", "R'", "U", "R", "U'", "R'", "f'"],
     patternPositions: ["CC"],
     category: OLLCategory.LINE_SHAPES,
   },
   {
-    id: "Oll_52",
+    id: "52",
     name: "OLL-52",
     setupAlgorithms: ["F", "R", "U", "R'", "d", "R'", "U'", "R", "U'", "R'"],
     patternPositions: ["CC"],
     category: OLLCategory.LINE_SHAPES,
   },
   {
-    id: "Oll_53",
+    id: "53",
     name: "OLL-53",
     setupAlgorithms: [
       "r'",
@@ -650,7 +680,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.L_SHAPES,
   },
   {
-    id: "Oll_54",
+    id: "54",
     name: "OLL-54",
     setupAlgorithms: [
       "r",
@@ -669,7 +699,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.L_SHAPES,
   },
   {
-    id: "Oll_55",
+    id: "55",
     name: "OLL-55",
     setupAlgorithms: [
       "F",
@@ -688,7 +718,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.LINE_SHAPES,
   },
   {
-    id: "Oll_56",
+    id: "56",
     name: "OLL-56",
     setupAlgorithms: [
       "r",
@@ -710,7 +740,7 @@ const definitions: OLLDefinition[] = [
     category: OLLCategory.LINE_SHAPES,
   },
   {
-    id: "Oll_57",
+    id: "57",
     name: "OLL-57",
     setupAlgorithms: ["r", "U", "R'", "U'", "M", "U", "R", "U'", "R'"],
     patternPositions: ["CC"],

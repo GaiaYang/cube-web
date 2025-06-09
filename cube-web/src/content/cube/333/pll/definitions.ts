@@ -3,7 +3,7 @@ import { PLLCategory } from "@/schema/cube/enum/333";
 
 const definitions: PLLDefinition[] = [
   {
-    id: "PLL_Aa",
+    id: "Aa",
     name: "Aa",
     setupAlgorithms: [
       "x",
@@ -22,7 +22,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Ab",
+    id: "Ab",
     name: "Ab",
     setupAlgorithms: [
       "x",
@@ -41,7 +41,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_E",
+    id: "E",
     name: "E",
     setupAlgorithms: [
       "x'",
@@ -68,7 +68,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.OPP_SWAP,
   },
   {
-    id: "PLL_F",
+    id: "F",
     name: "F",
     setupAlgorithms: [
       "R'",
@@ -95,7 +95,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Ga",
+    id: "Ga",
     name: "Ga",
     setupAlgorithms: [
       "R'",
@@ -118,7 +118,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Gb",
+    id: "Gb",
     name: "Gb",
     setupAlgorithms: [
       "R2'",
@@ -141,7 +141,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Gc",
+    id: "Gc",
     name: "Gc",
     setupAlgorithms: [
       "D'",
@@ -164,7 +164,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Gd",
+    id: "Gd",
     name: "Gd",
     setupAlgorithms: [
       "R2'",
@@ -187,14 +187,14 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_H",
+    id: "H",
     name: "H",
     setupAlgorithms: ["M2'", "U'", "M2'", "U2'", "M2'", "U'", "M2'"],
     patternColors: {},
     category: PLLCategory.EPLL,
   },
   {
-    id: "PLL_Ja",
+    id: "Ja",
     name: "Ja",
     setupAlgorithms: [
       "L'",
@@ -213,7 +213,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Jb",
+    id: "Jb",
     name: "Jb",
     setupAlgorithms: [
       "R",
@@ -234,7 +234,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Na",
+    id: "Na",
     name: "Na",
     setupAlgorithms: [
       "R",
@@ -263,7 +263,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.OPP_SWAP,
   },
   {
-    id: "PLL_Nb",
+    id: "Nb",
     name: "Nb",
     setupAlgorithms: [
       "F",
@@ -287,7 +287,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.OPP_SWAP,
   },
   {
-    id: "PLL_Ra",
+    id: "Ra",
     name: "Ra",
     setupAlgorithms: [
       "R",
@@ -311,7 +311,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Rb",
+    id: "Rb",
     name: "Rb",
     setupAlgorithms: [
       "R'",
@@ -334,7 +334,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_T",
+    id: "T",
     name: "T",
     setupAlgorithms: [
       "F",
@@ -356,21 +356,21 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.ADJ_SWAP,
   },
   {
-    id: "PLL_Ua",
+    id: "Ua",
     name: "Ua",
     setupAlgorithms: ["M2'", "U'", "M'", "U2'", "M", "U'", "M2'"],
     patternColors: {},
     category: PLLCategory.EPLL,
   },
   {
-    id: "PLL_Ub",
+    id: "Ub",
     name: "Ub",
     setupAlgorithms: ["M2'", "U", "M'", "U2'", "M", "U", "M2'"],
     patternColors: {},
     category: PLLCategory.EPLL,
   },
   {
-    id: "PLL_V",
+    id: "V",
     name: "V",
     setupAlgorithms: [
       "D2'",
@@ -394,7 +394,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.OPP_SWAP,
   },
   {
-    id: "PLL_Y",
+    id: "Y",
     name: "Y",
     setupAlgorithms: [
       "F",
@@ -419,7 +419,7 @@ const definitions: PLLDefinition[] = [
     category: PLLCategory.OPP_SWAP,
   },
   {
-    id: "PLL_Z",
+    id: "Z",
     name: "Z",
     setupAlgorithms: ["M", "U2'", "M2'", "U2'", "M", "U'", "M2'", "U'", "M2'"],
     patternColors: {},
