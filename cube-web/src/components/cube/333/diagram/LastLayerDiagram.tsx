@@ -5,11 +5,13 @@ import { SVGProps } from "react";
 import type { FaceletPosition, FaceletColor } from "@/schema/cube/333";
 
 export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
+  size?: number;
   colorMap?: Partial<Record<FaceletPosition, FaceletColor>>;
 }
 
 /** 最後一層圖案 */
 export default function LastLayerDiagram({
+  size,
   colorMap,
   ...props
 }: LastLayerDiagramProps) {
@@ -19,35 +21,36 @@ export default function LastLayerDiagram({
         {...item}
         key={item.id}
         className={cn(
-          "stroke-0 [stroke-dasharray:none]",
+          "stroke-[0.1px] [stroke-dasharray:none]",
+          "stroke-neutral-500",
           colorMap
             ? (function () {
                 switch (colorMap[item.id as FaceletPosition]) {
                   case "red":
-                    return "fill-red-500";
+                    return "fill-red-300";
                   case "orange":
-                    return "fill-orange-500";
+                    return "fill-orange-300";
                   case "white":
                     return "fill-white";
                   case "yellow":
-                    return "fill-yellow-500";
+                    return "fill-yellow-300";
                   case "blue":
-                    return "fill-blue-500";
+                    return "fill-blue-300";
                   case "green":
-                    return "fill-green-500";
+                    return "fill-green-300";
                   case "none":
                   default:
-                    return "fill-neutral-500";
+                    return "fill-gray-300 dark:fill-gray-500";
                 }
               })()
-            : "fill-neutral-500",
+            : "fill-gray-300 dark:fill-gray-500",
         )}
       />
     );
   }
 
   return (
-    <svg width={48} height={48} {...props}>
+    <svg width={size} height={size} {...props} viewBox="0 0 48 48">
       {paths.map(_renderPath)}
     </svg>
   );

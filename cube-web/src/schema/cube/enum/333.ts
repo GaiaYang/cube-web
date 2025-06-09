@@ -9,11 +9,11 @@ export enum OLLCategory {
   FISH_SHAPES = "FISH_SHAPES",
   /** 騎士移動型（類似西洋棋中馬的移動路徑）*/
   KNIGHT_MOVE_SHAPES = "KNIGHT_MOVE_SHAPES",
-  /** OCLL（僅角塊朝向，邊塊已正確）*/
+  /** 角塊定向（Orient Corners of the Last Layer）*/
   OCLL = "OCLL",
-  /** 全部角塊已正確朝上*/
+  /** 全角朝上 */
   ALL_CORNERS_ORIENTED = "ALL_CORNERS_ORIENTED",
-  /** 難以辨識或不規則形狀*/
+  /** 不規則型 */
   AWKWARD_SHAPES = "AWKWARD_SHAPES",
   /** P型（形狀像英文字母P）*/
   P_SHAPES = "P_SHAPES",

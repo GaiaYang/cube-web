@@ -7,3 +7,7 @@
   --font-serif: var(--font-noto-serif-tc);
   --font-mono: var(--font-noto-sans-mono);
 }
+
+@utility container {
+  margin-inline: auto;
+}
