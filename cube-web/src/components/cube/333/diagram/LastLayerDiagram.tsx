@@ -27,17 +27,17 @@ export default function LastLayerDiagram({
           (function () {
             switch (colorMap?.[item.id]) {
               case "red":
-                return "fill-red-300";
+                return "fill-red-500";
               case "orange":
-                return "fill-orange-300";
+                return "fill-orange-400";
               case "white":
                 return "fill-white";
               case "yellow":
                 return "fill-yellow-300";
               case "blue":
-                return "fill-blue-300";
+                return "fill-blue-500";
               case "green":
-                return "fill-green-300";
+                return "fill-green-500";
               case "none":
               default:
                 return "fill-gray-300 dark:fill-gray-500";
