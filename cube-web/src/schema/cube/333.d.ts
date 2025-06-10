@@ -1,7 +1,7 @@
 import { OLLCategory, PLLCategory } from "./enum/333";
 
 /** 方塊方位 */
-export type CubePosition = "U" | "D" | "L" | "R" | "F" | "B";
+export type CubeFace = "U" | "D" | "L" | "R" | "F" | "B";
 
 /** 方塊面塊位置編號 */
 export type FaceletPosition =
@@ -62,7 +62,7 @@ export interface PLLDefinition {
    *
    * > 只需要指定`S-`開頭的面塊
    * */
-  patternColors: Partial<Record<FaceletPosition, CubePosition>>;
+  patternColors: Partial<Record<FaceletPosition, CubeFace>>;
   /** 類別 */
   category: PLLCategory;
 }

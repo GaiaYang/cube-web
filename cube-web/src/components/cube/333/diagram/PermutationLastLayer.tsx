@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CubePosition, FaceletPosition, FaceletColor } from "@/schema/cube/333";
+import { CubeFace, FaceletPosition, FaceletColor } from "@/schema/cube/333";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 import getCubeColorMap from "@/utils/cube/3x3/getCubeColorMap";
@@ -8,7 +8,7 @@ import getCubeColorMap from "@/utils/cube/3x3/getCubeColorMap";
 export interface PermutationLastLayerProps
   extends Omit<LastLayerDiagramProps, "colorMap"> {
   /** 圖案 */
-  pattern?: Partial<Record<FaceletPosition, CubePosition>>;
+  pattern?: Partial<Record<FaceletPosition, CubeFace>>;
   /** 頂層顏色 */
   topColor?: FaceletColor;
   /** 前層顏色 */
@@ -30,7 +30,7 @@ export default function PermutationLastLayer({
 }
 
 function createColorMap(
-  pattern?: Partial<Record<FaceletPosition, CubePosition>>,
+  pattern?: Partial<Record<FaceletPosition, CubeFace>>,
   topColor?: FaceletColor,
   frontColor?: FaceletColor,
 ) {
