@@ -15,35 +15,34 @@ export default function LastLayerDiagram({
   colorMap,
   ...props
 }: LastLayerDiagramProps) {
-  function _renderPath(item: PathProps) {
+  function _renderPath(item: PathItem) {
     return (
       <path
         {...item}
         key={item.id}
+        vectorEffect="non-scaling-stroke"
         className={cn(
-          "stroke-[0.1px] [stroke-dasharray:none]",
-          "stroke-neutral-500",
-          colorMap
-            ? (function () {
-                switch (colorMap[item.id as FaceletPosition]) {
-                  case "red":
-                    return "fill-red-300";
-                  case "orange":
-                    return "fill-orange-300";
-                  case "white":
-                    return "fill-white";
-                  case "yellow":
-                    return "fill-yellow-300";
-                  case "blue":
-                    return "fill-blue-300";
-                  case "green":
-                    return "fill-green-300";
-                  case "none":
-                  default:
-                    return "fill-gray-300 dark:fill-gray-500";
-                }
-              })()
-            : "fill-gray-300 dark:fill-gray-500",
+          "stroke-1 [stroke-dasharray:none]",
+          "stroke-neutral-500 dark:stroke-neutral-300",
+          (function () {
+            switch (colorMap?.[item.id]) {
+              case "red":
+                return "fill-red-300";
+              case "orange":
+                return "fill-orange-300";
+              case "white":
+                return "fill-white";
+              case "yellow":
+                return "fill-yellow-300";
+              case "blue":
+                return "fill-blue-300";
+              case "green":
+                return "fill-green-300";
+              case "none":
+              default:
+                return "fill-gray-300 dark:fill-gray-500";
+            }
+          })(),
         )}
       />
     );
@@ -56,9 +55,11 @@ export default function LastLayerDiagram({
   );
 }
 
-type PathProps = Required<Pick<React.SVGProps<SVGPathElement>, "id" | "d">>;
+interface PathItem extends Pick<React.SVGProps<SVGPathElement>, "d"> {
+  id: FaceletPosition;
+}
 
-const paths: PathProps[] = [
+const paths: PathItem[] = [
   {
     id: "TL",
     d: "m 6.2466019,6.2466019 v 2.7547533 5.5095058 2.754753 h 3.3844112 4.8798479 2.125095 c 0.34883,0 0.629658,-0.280828 0.629658,-0.629658 V 9.6310131 6.2466019 h -2.754753 z",

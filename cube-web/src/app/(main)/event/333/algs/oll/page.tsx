@@ -13,7 +13,10 @@ export default function Page() {
   return (
     <main>
       <h1 className="sr-only">OLL 公式列表</h1>
-      <HeaderSection title="OLL 公式列表" description="這裡是 OLL 公式的列表" />
+      <HeaderSection
+        title="OLL 公式列表"
+        description="Orientation of the Last Layer"
+      />
       <div
         className={cn(
           "mx-auto max-w-2xl lg:max-w-7xl",

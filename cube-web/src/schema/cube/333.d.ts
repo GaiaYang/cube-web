@@ -1,5 +1,8 @@
 import { OLLCategory, PLLCategory } from "./enum/333";
 
+/** 方塊方位 */
+export type CubePosition = "U" | "D" | "L" | "R" | "F" | "B";
+
 /** 方塊面塊位置編號 */
 export type FaceletPosition =
   | "TL"
@@ -40,7 +43,7 @@ export interface OLLDefinition {
   /** 名稱 */
   name: string;
   /** 設置公式 */
-  setupAlgorithms: string[];
+  setupAlgorithms: string;
   /** 圖案標記 */
   patternPositions: FaceletPosition[];
   /** 類別 */
@@ -53,9 +56,13 @@ export interface PLLDefinition {
   /** 名稱 */
   name: string;
   /** 設置公式 */
-  setupAlgorithms: string[];
-  /** 圖案標記 */
-  patternColors: Partial<Record<FaceletPosition, FaceletColor>>;
+  setupAlgorithms: string;
+  /**
+   * 圖案標記
+   *
+   * > 只需要指定`S-`開頭的面塊
+   * */
+  patternColors: Partial<Record<FaceletPosition, CubePosition>>;
   /** 類別 */
   category: PLLCategory;
 }

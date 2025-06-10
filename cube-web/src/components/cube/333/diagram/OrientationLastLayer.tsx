@@ -4,19 +4,20 @@ import { FaceletPosition, FaceletColor } from "@/schema/cube/333";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 
-export interface OrientationLastLayerProps extends LastLayerDiagramProps {
-  /** 圖案代號 */
+export interface OrientationLastLayerProps
+  extends Omit<LastLayerDiagramProps, "colorMap"> {
+  /** 圖案 */
   pattern?: FaceletPosition[];
-  /** 主要顏色 */
-  mainColor?: FaceletColor;
+  /** 頂層顏色 */
+  topColor?: FaceletColor;
 }
 
 export default function OrientationLastLayer({
   pattern,
-  mainColor = "yellow",
+  topColor = "yellow",
   ...props
 }: OrientationLastLayerProps) {
-  return <LastLayer {...props} colorMap={createColorMap(pattern, mainColor)} />;
+  return <LastLayer {...props} colorMap={createColorMap(pattern, topColor)} />;
 }
 
 function createColorMap(array?: FaceletPosition[], color?: FaceletColor) {

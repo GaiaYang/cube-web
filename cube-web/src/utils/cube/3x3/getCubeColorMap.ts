@@ -1,5 +1,7 @@
-type Face = "white" | "yellow" | "green" | "blue" | "red" | "orange";
-type Direction = "u" | "d" | "f" | "b" | "l" | "r";
+import type { FaceletColor } from "@/schema/cube/333";
+
+type Face = Exclude<FaceletColor, "none">;
+type Direction = "U" | "D" | "F" | "B" | "L" | "R";
 type CubeColorMap = Record<Direction, Face>;
 
 const opposites: Record<Face, Face> = {
@@ -24,7 +26,7 @@ const faceVectors: Record<Face, [number, number, number]> = {
 // 向量叉積，用來算右手定則得出右方
 function cross(
   a: [number, number, number],
-  b: [number, number, number]
+  b: [number, number, number],
 ): [number, number, number] {
   return [
     a[1] * b[2] - a[2] * b[1],
@@ -44,17 +46,19 @@ function vectorToFace(vec: [number, number, number]): Face | undefined {
 }
 
 /** 指定U, F顏色取得所有方位的顏色 */
-export default function getCubeColorMap(u: Face, f: Face): CubeColorMap {
-  if (u === f || opposites[u] === f) {
-    // 非法：上下或同色
-    return {
-      u: "white",
-      f: "green",
-      r: "red",
-      l: "orange",
-      d: "yellow",
-      b: "blue",
-    };
+export default function getCubeColorMap(
+  u?: FaceletColor,
+  f?: FaceletColor,
+): CubeColorMap | undefined {
+  if (
+    !u ||
+    u === "none" ||
+    !f ||
+    f === "none" ||
+    u === f ||
+    opposites[u] === f
+  ) {
+    return;
   }
 
   const upVec = faceVectors[u];
@@ -72,10 +76,10 @@ export default function getCubeColorMap(u: Face, f: Face): CubeColorMap {
     -frontVec[2],
   ];
 
-  const r = vectorToFace(rightVec)!;
-  const l = vectorToFace(leftVec)!;
-  const d = vectorToFace(downVec)!;
-  const b = vectorToFace(backVec)!;
+  const R = vectorToFace(rightVec)!;
+  const L = vectorToFace(leftVec)!;
+  const D = vectorToFace(downVec)!;
+  const B = vectorToFace(backVec)!;
 
-  return { u, f, r, l, d, b };
+  return { U: u, F: f, R, L, D, B };
 }

@@ -7,13 +7,16 @@ import { labels } from "@/options/cube/333/pllCategory";
 
 import definitions from "@/content/cube/333/pll/definitions";
 import HeaderSection from "@/components/HeaderSection";
-import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";
+import Diagram from "@/components/cube/333/diagram/PermutationLastLayer";
 
 export default function Page() {
   return (
     <main>
       <h1 className="sr-only">PLL 公式列表</h1>
-      <HeaderSection title="PLL 公式列表" description="這裡是 PLL 公式的列表" />
+      <HeaderSection
+        title="PLL 公式列表"
+        description="Permutation of the Last Layer"
+      />
       <div
         className={cn(
           "mx-auto max-w-2xl lg:max-w-7xl",
@@ -42,7 +45,7 @@ function _renderItem(params: PLLDefinition) {
     <li key={params.id} className="group relative">
       <div className="relative flex flex-col gap-4 p-4">
         <div>
-          <Diagram className="w-full" />
+          <Diagram className="w-full" pattern={params.patternColors} />
         </div>
         <div className="flex-1 text-center">
           <h3 className="text-lg font-semibold">{params.name}</h3>
