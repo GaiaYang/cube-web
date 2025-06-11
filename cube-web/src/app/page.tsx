@@ -4,7 +4,6 @@ import cn from "@/utils/cn";
 
 import BasicLayout from "@/components/layout/Basic";
 import FullHeightLayout from "@/components/layout/FullHeight";
-import CTASection from "./components/CTASection";
 
 export default function Home() {
   return (
@@ -31,9 +30,7 @@ export default function Home() {
             <Highlight>CFOP平均 14秒</Highlight>
             <span>的心路歷程與實用技巧。</span>
           </p>
-          <div className="mt-16 sm:mt-20 lg:mt-24">
-            <CTASection />
-          </div>
+          <div className="mt-16 sm:mt-20 lg:mt-24"></div>
         </main>
       </BasicLayout>
     </FullHeightLayout>
