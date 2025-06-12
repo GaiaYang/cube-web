@@ -1,0 +1,86 @@
+"use client";
+
+import React from "react";
+import { ChevronDownIcon } from "lucide-react";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+
+import type { MenuOption } from "../types";
+
+import cn from "@/utils/cn";
+import { options } from "./config";
+
+import LabelLink from "./LabelLink";
+
+/** 桌面版菜單 */
+export default function DesktopMenu() {
+  function _renderLink({ label, href, submenu }: MenuOption, index: number) {
+    return (
+      <Menu key={index} as="li">
+        {({ open }) => {
+          if (Array.isArray(submenu)) {
+            return (
+              <>
+                <MenuButton
+                  as="button"
+                  type="button"
+                  className="btn btn-ghost font-normal"
+                >
+                  {label}
+                  <ChevronDownIcon
+                    className={cn("size-3.5 transition-transform", {
+                      "rotate-180": open,
+                    })}
+                    aria-hidden
+                  />
+                </MenuButton>
+                <MenuItems
+                  anchor="bottom"
+                  as="ul"
+                  className="menu bg-base-200 rounded-box z-10 shadow-sm"
+                >
+                  {submenu.map(_renderListItem)}
+                </MenuItems>
+              </>
+            );
+          } else {
+            return (
+              <MenuItem>
+                <LabelLink
+                  href={href}
+                  label={label}
+                  className="btn btn-ghost font-normal"
+                />
+              </MenuItem>
+            );
+          }
+        }}
+      </Menu>
+    );
+  }
+
+  return (
+    <ul className={cn("flex items-center px-1", "hidden md:flex")}>
+      {options.map(_renderLink)}
+    </ul>
+  );
+}
+
+function _renderListItem(
+  { label, href, submenu }: MenuOption,
+  index: number,
+): React.ReactElement {
+  return (
+    <li key={index}>
+      {Array.isArray(submenu) ? (
+        <details>
+          <summary>{label}</summary>
+          <ul>{submenu.map(_renderListItem)}</ul>
+        </details>
+      ) : (
+        <MenuItem>
+          <LabelLink href={href} label={label} />
+        </MenuItem>
+      )}
+    </li>
+  );
+}
