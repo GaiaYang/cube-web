@@ -3,17 +3,17 @@
 import Link from "next/link";
 import React from "react";
 import { ChevronDownIcon, MenuIcon } from "lucide-react";
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 import cn from "@/utils/cn";
 
-interface MenuItem {
+interface MenuOption {
   label: string;
-  href: string;
-  submenu?: MenuItem[];
+  href?: string;
+  submenu?: MenuOption[];
 }
 
-const links: MenuItem[] = [
+const links: MenuOption[] = [
   {
     label: "公式表",
     href: "/algs",
@@ -41,41 +41,50 @@ export default function Navbar() {
 
 /** 桌面版菜單 */
 function DesktopMenu() {
+  function _renderLink({ label, href, submenu }: MenuOption, index: number) {
+    return (
+      <Menu key={index} as="li">
+        {({ open }) => {
+          if (Array.isArray(submenu)) {
+            return (
+              <>
+                <MenuButton as="button" className="btn btn-ghost font-normal">
+                  {label}
+                  <ChevronDownIcon
+                    className={cn("size-3.5 transition-transform", {
+                      "rotate-180": open,
+                    })}
+                    aria-hidden
+                  />
+                </MenuButton>
+                <MenuItems
+                  anchor="bottom"
+                  as="ul"
+                  className="menu bg-base-200 rounded-box z-10 shadow-sm"
+                >
+                  {submenu.map(_renderListItem)}
+                </MenuItems>
+              </>
+            );
+          } else {
+            return (
+              <MenuItem>
+                <LinkLabel
+                  href={href}
+                  label={label}
+                  className="btn btn-ghost font-normal"
+                />
+              </MenuItem>
+            );
+          }
+        }}
+      </Menu>
+    );
+  }
+
   return (
     <ul className={cn("flex items-center px-1", "hidden md:flex")}>
-      {links.map((item) => {
-        return (
-          <li key={item.label}>
-            {Array.isArray(item.submenu) ? (
-              <Popover className="dropdown dropdown-center">
-                {({ open }) => (
-                  <>
-                    <PopoverButton className="btn btn-ghost font-normal">
-                      {item.label}
-                      <ChevronDownIcon
-                        size={14}
-                        className={cn({ "rotate-180": open })}
-                      />
-                    </PopoverButton>
-                    <PopoverPanel transition>
-                      <ul
-                        className={cn(
-                          "dropdown-content menu menu-lg",
-                          "bg-base-100 rounded-box z-1 shadow-sm",
-                        )}
-                      >
-                        {item.submenu!.map(_renderListItem)}
-                      </ul>
-                    </PopoverPanel>
-                  </>
-                )}
-              </Popover>
-            ) : (
-              <Link href={item.href}>{item.label}</Link>
-            )}
-          </li>
-        );
-      })}
+      {links.map(_renderLink)}
     </ul>
   );
 }
@@ -83,36 +92,66 @@ function DesktopMenu() {
 /** 手機版菜單 */
 function MobileMenu() {
   return (
-    <Popover className={cn("dropdown dropdown-end", "md:hidden")}>
-      <PopoverButton className="btn btn-ghost btn-circle">
-        <MenuIcon aria-hidden className="size-5" />
-      </PopoverButton>
-      <PopoverPanel transition>
-        <ul
-          className={cn(
-            "dropdown-content menu w-48",
-            "bg-base-100 rounded-box shadow-sm",
-          )}
-        >
-          {links.map(_renderListItem)}
-        </ul>
-      </PopoverPanel>
-    </Popover>
+    <Menu as="div" className="flex md:hidden">
+      {({ open }) => (
+        <>
+          <MenuButton as="button" className="btn btn-ghost btn-circle">
+            <MenuIcon
+              className={cn("size-5 transition-transform", {
+                "rotate-180": open,
+              })}
+              aria-hidden
+            />
+          </MenuButton>
+          <MenuItems
+            as="ul"
+            anchor="bottom"
+            className={cn(
+              "menu bg-base-200 rounded-box z-10 shadow-sm",
+              "min-w-40",
+            )}
+          >
+            {links.map(_renderListItem)}
+          </MenuItems>
+        </>
+      )}
+    </Menu>
   );
 }
 
-function _renderListItem(item: MenuItem) {
+function LinkLabel({
+  href,
+  label,
+  className,
+}: Pick<MenuOption, "href" | "label"> & { className?: string }) {
+  const _className = cn(className, "text-nowrap");
+
+  if (href) {
+    return (
+      <Link href={href} className={_className}>
+        {label}
+      </Link>
+    );
+  } else {
+    return <span className={_className}>{label}</span>;
+  }
+}
+
+function _renderListItem(
+  { label, href, submenu }: MenuOption,
+  index: number,
+): React.ReactElement {
   return (
-    <li key={item.label}>
-      {Array.isArray(item.submenu) ? (
-        <details className="w-40">
-          <summary>{item.label}</summary>
-          <ul>{item.submenu.map(_renderListItem)}</ul>
+    <li key={index}>
+      {Array.isArray(submenu) ? (
+        <details>
+          <summary>{label}</summary>
+          <ul>{submenu.map(_renderListItem)}</ul>
         </details>
       ) : (
-        <Link href={item.href} className="text-nowrap">
-          {item.label}
-        </Link>
+        <MenuItem>
+          <LinkLabel href={href} label={label} />
+        </MenuItem>
       )}
     </li>
   );
