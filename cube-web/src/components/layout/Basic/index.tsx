@@ -10,14 +10,14 @@ import { DrawerMenu } from "./menu/MobileMenu";
 export default function BasicLayout({ children }: React.PropsWithChildren) {
   return (
     <>
-      <div className="flex min-h-screen flex-col">
-        <header className="sticky top-0 z-10">
-          <Navbar />
-        </header>
-        <Drawer id={drawerId} renderSide={<DrawerMenu />}>
+      <Drawer id={drawerId} renderSide={<DrawerMenu />}>
+        <div className="flex min-h-screen flex-col">
+          <header className="sticky top-0 z-10">
+            <Navbar />
+          </header>
           <div className="flex flex-1 flex-col">{children}</div>
-        </Drawer>
-      </div>
+        </div>
+      </Drawer>
       <Footer />
     </>
   );

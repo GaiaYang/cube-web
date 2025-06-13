@@ -14,9 +14,9 @@ export default function Drawer({
   const drawerId = id || _id;
 
   return (
-    <div className="drawer drawer-end flex-1">
+    <div className="drawer drawer-end min-h-screen">
       <input id={drawerId} type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col">{children}</div>
+      <div className="drawer-content">{children}</div>
       <div className="drawer-side z-20">
         <label
           htmlFor={drawerId}
