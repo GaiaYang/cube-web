@@ -1,4 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
+import { deepEqual } from "fast-equals";
 
 import { CubeFace, FaceletPosition, FaceletColor } from "@/schema/cube/333";
 
@@ -15,7 +16,7 @@ export interface PermutationLastLayerProps
   frontColor?: FaceletColor;
 }
 
-export default function PermutationLastLayer({
+export default memo(function PermutationLastLayer({
   pattern,
   topColor = "yellow",
   frontColor = "green",
@@ -27,7 +28,7 @@ export default function PermutationLastLayer({
       colorMap={createColorMap(pattern, topColor, frontColor)}
     />
   );
-}
+}, deepEqual);
 
 function createColorMap(
   pattern?: Partial<Record<FaceletPosition, CubeFace>>,

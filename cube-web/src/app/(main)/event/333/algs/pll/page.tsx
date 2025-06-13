@@ -19,19 +19,13 @@ export default function Page() {
         eyebrow="Permutation of the Last Layer"
       />
       <div
-        className={cn(
-          "mx-auto max-w-2xl lg:max-w-7xl",
-          "px-4 sm:px-6 lg:px-8",
-          "pb-16 sm:pb-24",
-        )}
+        className={cn("container", "px-4 sm:px-6 lg:px-8", "pb-16 sm:pb-24")}
       >
         <ul
           role="list"
           className={cn(
-            "grid",
+            "grid gap-6",
             "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
-            "gap-x-6 xl:gap-x-8",
-            "gap-y-10",
           )}
         >
           {definitions.map(_renderItem)}

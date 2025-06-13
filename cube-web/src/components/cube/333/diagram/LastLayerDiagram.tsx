@@ -1,6 +1,7 @@
+import React, { memo, type SVGProps } from "react";
+import { deepEqual } from "fast-equals";
+
 import cn from "@/utils/cn";
-import * as React from "react";
-import { SVGProps } from "react";
 
 import type { FaceletPosition, FaceletColor } from "@/schema/cube/333";
 
@@ -10,7 +11,7 @@ export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
 }
 
 /** 最後一層圖案 */
-export default function LastLayerDiagram({
+export default memo(function LastLayerDiagram({
   size,
   colorMap,
   ...props
@@ -53,7 +54,7 @@ export default function LastLayerDiagram({
       {paths.map(_renderPath)}
     </svg>
   );
-}
+}, deepEqual);
 
 interface PathItem extends Pick<React.SVGProps<SVGPathElement>, "d"> {
   id: FaceletPosition;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
+import { deepEqual } from "fast-equals";
 
 import { FaceletPosition, FaceletColor } from "@/schema/cube/333";
 
@@ -12,13 +13,13 @@ export interface OrientationLastLayerProps
   topColor?: FaceletColor;
 }
 
-export default function OrientationLastLayer({
+export default memo(function OrientationLastLayer({
   pattern,
   topColor = "yellow",
   ...props
 }: OrientationLastLayerProps) {
   return <LastLayer {...props} colorMap={createColorMap(pattern, topColor)} />;
-}
+}, deepEqual);
 
 function createColorMap(array?: FaceletPosition[], color?: FaceletColor) {
   const result: LastLayerDiagramProps["colorMap"] = {
