@@ -1,5 +1,5 @@
 import enumToOptions from "@/options/enumToOptions";
-import { PLLCategory } from "@/schema/cube/enum/333";
+import { PLLCategory } from "@/enums/cube/333";
 
 const { labels, options } = enumToOptions(PLLCategory, {
   [PLLCategory.ADJ_SWAP]: "相鄰交換",

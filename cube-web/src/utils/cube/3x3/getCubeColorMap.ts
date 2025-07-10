@@ -1,4 +1,4 @@
-import type { FaceletColor } from "@/schema/cube/333";
+import type { FaceletColor } from "@/types/cube/333";
 
 type Face = Exclude<FaceletColor, "none">;
 type Direction = "U" | "D" | "F" | "B" | "L" | "R";

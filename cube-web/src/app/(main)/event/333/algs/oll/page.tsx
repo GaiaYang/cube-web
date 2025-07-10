@@ -1,10 +1,10 @@
 import React from "react";
 
 import cn from "@/utils/cn";
-import type { OLLDefinition } from "@/schema/cube/333";
+import type { OLLDefinition } from "@/types/cube/333";
 import { labels } from "@/options/cube/333/ollCategory";
 
-import definitions from "@/content/cube/333/oll/definitions";
+import definitions from "@/contents/cube/333/oll/definitions";
 import HeaderSection from "@/components/HeaderSection";
 import OverlayLink from "@/components/OverlayLink";
 import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";

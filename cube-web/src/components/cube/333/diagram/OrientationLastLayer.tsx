@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { deepEqual } from "fast-equals";
 
-import { FaceletPosition, FaceletColor } from "@/schema/cube/333";
+import { FaceletPosition, FaceletColor } from "@/types/cube/333";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 

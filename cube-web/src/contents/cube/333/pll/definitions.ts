@@ -1,5 +1,5 @@
-import type { PLLDefinition } from "@/schema/cube/333";
-import { PLLCategory } from "@/schema/cube/enum/333";
+import type { PLLDefinition } from "@/types/cube/333";
+import { PLLCategory } from "@/enums/cube/333";
 
 const definitions: PLLDefinition[] = [
   {

@@ -3,7 +3,7 @@ import { deepEqual } from "fast-equals";
 
 import cn from "@/utils/cn";
 
-import type { FaceletPosition, FaceletColor } from "@/schema/cube/333";
+import type { FaceletPosition, FaceletColor } from "@/types/cube/333";
 
 export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;

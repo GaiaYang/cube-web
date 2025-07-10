@@ -1,4 +1,4 @@
-import { OLLCategory, PLLCategory } from "./enum/333";
+import { OLLCategory, PLLCategory } from "@/enums/cube/333";
 
 /** 方塊方位 */
 export type CubeFace = "U" | "D" | "L" | "R" | "F" | "B";

@@ -1,5 +1,5 @@
 import enumToOptions from "@/options/enumToOptions";
-import { OLLCategory } from "@/schema/cube/enum/333";
+import { OLLCategory } from "@/enums/cube/333";
 
 const { labels, options } = enumToOptions(OLLCategory, {
   [OLLCategory.DOT_CASE]: "點型",
