@@ -19,6 +19,7 @@ export function DrawerMenu() {
       <div className="navbar">
         <div className="flex-1" />
         <button
+          aria-label="關閉行動版菜單"
           type="button"
           className="btn btn-ghost btn-circle"
           onClick={() => document.getElementById("drawer-menu")?.click()}

@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 import cn from "@/utils/cn";
 import type { PLLDefinition } from "@/schema/cube/333";
@@ -7,6 +6,7 @@ import { labels } from "@/options/cube/333/pllCategory";
 
 import definitions from "@/content/cube/333/pll/definitions";
 import HeaderSection from "@/components/HeaderSection";
+import OverlayLink from "@/components/OverlayLink";
 import Diagram from "@/components/cube/333/diagram/PermutationLastLayer";
 
 export default function Page() {
@@ -38,7 +38,7 @@ export default function Page() {
 function _renderItem(params: PLLDefinition) {
   return (
     <li key={params.id} className="group relative">
-      <div className="relative flex flex-col gap-4 p-4">
+      <div className="flex flex-col gap-4 p-4">
         <div>
           <Diagram className="w-full" pattern={params.patternColors} />
         </div>
@@ -49,17 +49,11 @@ function _renderItem(params: PLLDefinition) {
           </p>
         </div>
       </div>
-      <Link
+      <OverlayLink
         href={`pll/${params.id}`}
         target="_blank"
-        className={cn(
-          "absolute inset-0",
-          "rounded border border-transparent",
-          "group-hover:bg-base-content/5 group-hover:border-base-content/10",
-        )}
-      >
-        <span className="sr-only">{params.name}</span>
-      </Link>
+        label={params.name}
+      />
     </li>
   );
 }
