@@ -24,11 +24,11 @@ export default memo(function LastLayerDiagram({
         vectorEffect="non-scaling-stroke"
         className={cn(
           "stroke-1 [stroke-dasharray:none]",
-          "stroke-neutral-500 dark:stroke-neutral-300",
+          "stroke-neutral-300",
           (function () {
             switch (colorMap?.[item.id]) {
               case "red":
-                return "fill-red-500";
+                return "fill-red-400";
               case "orange":
                 return "fill-orange-400";
               case "white":
@@ -36,9 +36,9 @@ export default memo(function LastLayerDiagram({
               case "yellow":
                 return "fill-yellow-300";
               case "blue":
-                return "fill-blue-500";
+                return "fill-blue-400";
               case "green":
-                return "fill-green-500";
+                return "fill-green-400";
               case "none":
               default:
                 return "fill-gray-300 dark:fill-gray-500";
