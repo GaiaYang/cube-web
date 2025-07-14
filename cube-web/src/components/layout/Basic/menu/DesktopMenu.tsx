@@ -15,7 +15,7 @@ import LabelLink from "./LabelLink";
 export default function DesktopMenu() {
   function _renderLink({ label, href, submenu }: MenuOption, index: number) {
     return (
-      <Menu key={index} as="li">
+      <Menu key={index} as="li" className="relative">
         {({ open }) => {
           if (Array.isArray(submenu)) {
             return (
@@ -38,18 +38,21 @@ export default function DesktopMenu() {
                   as="ul"
                   className="menu bg-base-200 rounded-box z-10 shadow-sm"
                 >
-                  {submenu.map(_renderListItem)}
+                  {submenu.map((item, i) => _renderListItem(item, i))}
                 </MenuItems>
               </>
             );
           } else {
             return (
               <MenuItem>
-                <LabelLink
-                  href={href}
-                  label={label}
-                  className="btn btn-ghost font-normal"
-                />
+                {({ close }) => (
+                  <LabelLink
+                    href={href}
+                    label={label}
+                    className="btn btn-ghost font-normal"
+                    onClick={close}
+                  />
+                )}
               </MenuItem>
             );
           }
@@ -69,18 +72,28 @@ function _renderListItem(
   { label, href, submenu }: MenuOption,
   index: number,
 ): React.ReactElement {
-  return (
-    <li key={index}>
-      {Array.isArray(submenu) ? (
+  const key = index;
+
+  if (Array.isArray(submenu)) {
+    return (
+      <li key={key}>
         <details>
-          <summary>{label}</summary>
-          <ul>{submenu.map(_renderListItem)}</ul>
+          <summary className="cursor-pointer px-4 py-2 select-none">
+            {label}
+          </summary>
+          <ul>{submenu.map((item, i) => _renderListItem(item, i))}</ul>
         </details>
-      ) : (
-        <MenuItem>
-          <LabelLink href={href} label={label} />
-        </MenuItem>
-      )}
-    </li>
-  );
+      </li>
+    );
+  } else {
+    return (
+      <MenuItem key={key}>
+        {({ close }) => (
+          <li>
+            <LabelLink href={href} label={label} onClick={close} />
+          </li>
+        )}
+      </MenuItem>
+    );
+  }
 }

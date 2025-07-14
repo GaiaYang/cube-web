@@ -5,20 +5,29 @@ import type { MenuOption } from "../types";
 
 import cn from "@/utils/cn";
 
+export interface LabelLinkProps
+  extends Pick<MenuOption, "href" | "label">,
+    React.HTMLAttributes<HTMLElement> {}
+
 export default function LabelLink({
   href,
   label,
   className,
-}: Pick<MenuOption, "href" | "label"> & { className?: string }) {
+  ...props
+}: LabelLinkProps) {
   const _className = cn(className, "text-nowrap");
 
   if (href) {
     return (
-      <Link href={href} className={_className}>
+      <Link {...props} href={href} className={_className}>
         {label}
       </Link>
     );
   } else {
-    return <span className={_className}>{label}</span>;
+    return (
+      <span {...props} className={_className}>
+        {label}
+      </span>
+    );
   }
 }
