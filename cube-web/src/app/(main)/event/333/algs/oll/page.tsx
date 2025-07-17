@@ -1,4 +1,5 @@
 import React from "react";
+import { UserLockIcon } from "lucide-react";
 
 import cn from "@/utils/cn";
 import type { OLLDefinition } from "@/types/cube/333";
@@ -21,14 +22,14 @@ export default function Page() {
       <div
         className={cn("container", "px-4 sm:px-6 lg:px-8", "pb-16 sm:pb-24")}
       >
-        <ul
+        <UserLockIcon
           className={cn(
             "grid gap-6",
             "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
           )}
         >
           {definitions.map(_renderItem)}
-        </ul>
+        </UserLockIcon>
       </div>
     </main>
   );
