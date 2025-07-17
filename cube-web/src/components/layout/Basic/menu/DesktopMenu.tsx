@@ -38,7 +38,7 @@ export default function DesktopMenu() {
                   as="ul"
                   className="menu bg-base-200 rounded-box z-10 shadow-sm"
                 >
-                  {submenu.map((item, i) => _renderListItem(item, i))}
+                  {submenu.map(_renderListItem)}
                 </MenuItems>
               </>
             );
@@ -81,7 +81,7 @@ function _renderListItem(
           <summary className="cursor-pointer px-4 py-2 select-none">
             {label}
           </summary>
-          <ul>{submenu.map((item, i) => _renderListItem(item, i))}</ul>
+          <ul>{submenu.map(_renderListItem)}</ul>
         </details>
       </li>
     );

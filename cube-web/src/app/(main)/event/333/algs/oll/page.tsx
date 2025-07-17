@@ -22,7 +22,6 @@ export default function Page() {
         className={cn("container", "px-4 sm:px-6 lg:px-8", "pb-16 sm:pb-24")}
       >
         <ul
-          role="list"
           className={cn(
             "grid gap-6",
             "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",

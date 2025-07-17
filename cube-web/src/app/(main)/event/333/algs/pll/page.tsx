@@ -8,6 +8,7 @@ import definitions from "@/contents/cube/333/pll/definitions";
 import HeaderSection from "@/components/HeaderSection";
 import OverlayLink from "@/components/OverlayLink";
 import Diagram from "@/components/cube/333/diagram/PermutationLastLayer";
+import FilterPanel from "./components/FilterPanel";
 
 export default function Page() {
   return (
@@ -21,8 +22,8 @@ export default function Page() {
       <div
         className={cn("container", "px-4 sm:px-6 lg:px-8", "pb-16 sm:pb-24")}
       >
+        <FilterPanel />
         <ul
-          role="list"
           className={cn(
             "grid gap-6",
             "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",

@@ -24,7 +24,7 @@ export default memo(function LastLayerDiagram({
         vectorEffect="non-scaling-stroke"
         className={cn(
           "stroke-1 [stroke-dasharray:none]",
-          "stroke-neutral-300",
+          "stroke-neutral-400",
           (function () {
             switch (colorMap?.[item.id]) {
               case "red":
