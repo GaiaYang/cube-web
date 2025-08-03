@@ -37,16 +37,14 @@ export default function Page() {
 function _renderItem(params: OLLDefinition) {
   return (
     <li key={params.id} className="group relative">
-      <div className="flex flex-col gap-4 p-4">
+      <div className="flex flex-col items-center gap-2 p-4">
         <div>
           <Diagram className="w-full" pattern={params.patternPositions} />
         </div>
-        <div className="flex-1 text-center">
-          <h3 className="text-lg font-semibold">{params.name}</h3>
-          <p className="badge badge-soft badge-primary btn mt-1">
-            {labels[params.category]}
-          </p>
-        </div>
+        <h3 className="text-lg font-semibold">{params.name}</h3>
+        <p className="badge badge-soft badge-primary badge-lg">
+          {labels[params.category]}
+        </p>
       </div>
       <OverlayLink
         href={`oll/${params.id}`}

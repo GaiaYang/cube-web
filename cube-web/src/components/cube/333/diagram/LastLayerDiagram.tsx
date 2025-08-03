@@ -4,6 +4,7 @@ import { deepEqual } from "fast-equals";
 import cn from "@/utils/cn";
 
 import type { FaceletPosition, FaceletColor } from "@/types/cube/333";
+import { fillColors } from "@/themes/cube/colors";
 
 export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
@@ -24,26 +25,8 @@ export default memo(function LastLayerDiagram({
         vectorEffect="non-scaling-stroke"
         className={cn(
           "stroke-1 [stroke-dasharray:none]",
-          "stroke-neutral-400",
-          (function () {
-            switch (colorMap?.[item.id]) {
-              case "red":
-                return "fill-red-400";
-              case "orange":
-                return "fill-orange-400";
-              case "white":
-                return "fill-white";
-              case "yellow":
-                return "fill-yellow-300";
-              case "blue":
-                return "fill-blue-400";
-              case "green":
-                return "fill-green-400";
-              case "none":
-              default:
-                return "fill-gray-300 dark:fill-gray-500";
-            }
-          })(),
+          "stroke-neutral-300",
+          fillColors[colorMap?.[item.id] ?? "none"] ?? fillColors.none,
         )}
       />
     );
