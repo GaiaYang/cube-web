@@ -47,9 +47,13 @@ function cross(
  * @param front 前方顏色
  */
 export default function getLeftRightColors(
-  up: Face,
-  front: Face,
-): { left: Face; right: Face } | null {
+  up: FaceletColor,
+  front: FaceletColor,
+): { left: FaceletColor; right: FaceletColor } | null {
+  if (up === "none" || front === "none") {
+    return null;
+  }
+
   const rightVec = cross(faceVectors[up], faceVectors[front]);
 
   if (rightVec.every((v) => v === 0)) {

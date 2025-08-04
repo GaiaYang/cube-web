@@ -13,7 +13,6 @@ import FilterPanel from "./components/FilterPanel";
 export default function Page() {
   return (
     <main>
-      <h1 className="sr-only">PLL 公式列表</h1>
       <HeaderSection
         title="PLL 公式列表"
         description="使頂層的方塊位置排列正確，共有 21 種情況"
@@ -38,7 +37,7 @@ export default function Page() {
 
 function _renderItem(params: PLLDefinition) {
   return (
-    <li key={params.id} className="group relative">
+    <li key={params.id} className="group relative" title={params.name}>
       <div className="flex flex-col items-center gap-2 p-4">
         <div>
           <Diagram className="w-full" pattern={params.patternColors} />

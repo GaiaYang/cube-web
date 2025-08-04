@@ -1,18 +1,14 @@
-import React, { useId } from "react";
+import { XIcon } from "lucide-react";
+import React from "react";
+import MobileMenu from "./menu/MobileMenu";
 
-export interface DrawerProps {
-  id?: string;
-  renderSide?: React.ReactNode | (() => React.ReactNode);
-}
+import { drawerId } from "./config";
+
+export interface DrawerProps {}
 
 export default function Drawer({
-  id,
-  renderSide,
   children,
 }: React.PropsWithChildren<DrawerProps>) {
-  const _id = useId();
-  const drawerId = id || _id;
-
   return (
     <div className="drawer drawer-end min-h-screen">
       <input id={drawerId} type="checkbox" className="drawer-toggle" />
@@ -20,11 +16,33 @@ export default function Drawer({
       <div className="drawer-side z-20">
         <label
           htmlFor={drawerId}
-          aria-label="close drawer"
+          aria-label="背景關閉行動版菜單"
           className="drawer-overlay"
         />
-        {typeof renderSide === "function" ? renderSide() : renderSide}
+        <DrawerContent id={drawerId}>
+          <MobileMenu />
+        </DrawerContent>
       </div>
+    </div>
+  );
+}
+
+function DrawerContent({
+  id,
+  children,
+}: React.PropsWithChildren<{ id: string }>) {
+  return (
+    <div className="bg-base-100 h-full w-60">
+      <div className="navbar justify-end">
+        <label
+          htmlFor={id}
+          aria-label="關閉行動版菜單"
+          className="btn btn-circle"
+        >
+          <XIcon className="size-6" />
+        </label>
+      </div>
+      {children}
     </div>
   );
 }

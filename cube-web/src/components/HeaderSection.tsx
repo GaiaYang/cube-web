@@ -13,6 +13,9 @@ export default function HeaderSection({
   description,
   eyebrow,
 }: HeaderSectionProps) {
+  const hasTitle = Boolean(title);
+  const hasEyebrow = Boolean(eyebrow);
+
   return (
     <div className={cn("w-full", "px-6 lg:px-8", "py-24 sm:py-32")}>
       <div className="mx-auto w-full max-w-2xl text-center">
@@ -22,20 +25,20 @@ export default function HeaderSection({
           </p>
         ) : null}
         {title ? (
-          <h2
+          <h1
             className={cn(
               "text-base-content text-5xl font-semibold tracking-tight sm:text-7xl",
-              { "mt-2": Boolean(eyebrow) },
+              { "mt-2": hasEyebrow },
             )}
           >
             {title}
-          </h2>
+          </h1>
         ) : null}
         {description ? (
           <p
             className={cn(
-              "text-base-content/50 text-lg font-medium text-pretty sm:text-xl/8",
-              { "mt-8": Boolean(title) || Boolean(eyebrow) },
+              "text-base-content/60 text-lg font-medium text-pretty sm:text-xl/8",
+              { "mt-8": hasTitle || hasEyebrow },
             )}
           >
             {description}

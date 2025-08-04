@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import DesktopMenu from "./menu/DesktopMenu";
-import DrawerButton from "./menu/DrawerButton";
+import DrawerButton from "./DrawerButton";
 
 export default function Navbar() {
   return (

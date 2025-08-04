@@ -1,4 +1,4 @@
-import type { MenuOption } from "../types";
+import type { MenuOption } from "./types";
 
 export const options: MenuOption[] = [
   {

@@ -1,5 +1,4 @@
-import React, { memo, type SVGProps } from "react";
-import { deepEqual } from "fast-equals";
+import React, { type SVGProps } from "react";
 
 import cn from "@/utils/cn";
 
@@ -12,7 +11,7 @@ export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
 }
 
 /** 最後一層圖案 */
-export default memo(function LastLayerDiagram({
+export default function LastLayerDiagram({
   size,
   colorMap,
   ...props
@@ -25,7 +24,7 @@ export default memo(function LastLayerDiagram({
         vectorEffect="non-scaling-stroke"
         className={cn(
           "stroke-1",
-          "stroke-neutral-300",
+          "drak:stroke-slate-300 stroke-slate-400",
           fillColors[colorMap?.[item.id] ?? "none"] ?? fillColors.none,
         )}
       />
@@ -37,7 +36,7 @@ export default memo(function LastLayerDiagram({
       {rectangles.map(_renderItem)}
     </svg>
   );
-}, deepEqual);
+}
 
 interface RectItem extends React.SVGProps<SVGRectElement> {
   id: FaceletPosition;

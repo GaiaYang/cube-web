@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import type { MenuOption } from "../types";
+import type { MenuOption } from "./types";
 
 import cn from "@/utils/cn";
 

@@ -4,7 +4,7 @@ import { OLLCategory } from "@/enums/cube/333";
 const definitions: OLLDefinition[] = [
   {
     id: "1",
-    name: "OLL-1",
+    name: "OLL 1",
     setupAlgorithms: "F R' F' R U2' F R' F' R2' U2' R'",
     patternPositions: [
       "CC",
@@ -21,7 +21,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "2",
-    name: "OLL-2",
+    name: "OLL 2",
     setupAlgorithms: "f U R U' R' f' F U R U' R' F'",
     patternPositions: [
       "CC",
@@ -38,7 +38,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "3",
-    name: "OLL-3",
+    name: "OLL 3",
     setupAlgorithms: "F U R U' R' F' U f U R U' R' f' y",
     patternPositions: [
       "CC",
@@ -55,7 +55,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "4",
-    name: "OLL-4",
+    name: "OLL 4",
     setupAlgorithms: "F U R U' R' F' U' f U R U' R' f' y",
     patternPositions: [
       "CC",
@@ -72,7 +72,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "5",
-    name: "OLL-5",
+    name: "OLL 5",
     setupAlgorithms: "r' U' R U' R' U2' r",
     patternPositions: [
       "CC",
@@ -89,7 +89,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "6",
-    name: "OLL-6",
+    name: "OLL 6",
     setupAlgorithms: "r U R' U R U2' r'",
     patternPositions: [
       "CC",
@@ -106,7 +106,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "7",
-    name: "OLL-7",
+    name: "OLL 7",
     setupAlgorithms: "r U2' R' U' R U' r'",
     patternPositions: [
       "CC",
@@ -123,7 +123,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "8",
-    name: "OLL-8",
+    name: "OLL 8",
     setupAlgorithms: "r' U2' R U R' U r y2'",
     patternPositions: [
       "CC",
@@ -140,7 +140,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "9",
-    name: "OLL-9",
+    name: "OLL 9",
     setupAlgorithms: "F U R U' R2' F' R U R U' R' y'",
     patternPositions: [
       "CC",
@@ -157,7 +157,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "10",
-    name: "OLL-10",
+    name: "OLL 10",
     setupAlgorithms: "R U2' R' F R' F' R U' R U' R'",
     patternPositions: [
       "CC",
@@ -174,7 +174,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "11",
-    name: "OLL-11",
+    name: "OLL 11",
     setupAlgorithms: "M U' R U2' R' U' R U' R2' r",
     patternPositions: [
       "CC",
@@ -191,7 +191,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "12",
-    name: "OLL-12",
+    name: "OLL 12",
     setupAlgorithms: "F U R U' R' F' U' F U R U' R' F'",
     patternPositions: [
       "CC",
@@ -208,7 +208,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "13",
-    name: "OLL-13",
+    name: "OLL 13",
     setupAlgorithms: "F' U' F r U' r' U r U r'",
     patternPositions: [
       "CC",
@@ -225,7 +225,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "14",
-    name: "OLL-14",
+    name: "OLL 14",
     setupAlgorithms: "F U F' R' F R U' R' F' R",
     patternPositions: [
       "CC",
@@ -242,7 +242,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "15",
-    name: "OLL-15",
+    name: "OLL 15",
     setupAlgorithms: "r' U' r U' R' U R r' U r",
     patternPositions: [
       "CC",
@@ -259,7 +259,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "16",
-    name: "OLL-16",
+    name: "OLL 16",
     setupAlgorithms: "r U r' U R U' R' r U' r'",
     patternPositions: [
       "CC",
@@ -276,7 +276,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "17",
-    name: "OLL-17",
+    name: "OLL 17",
     setupAlgorithms: "F R' F' R U2' F R' F' R U' R U' R'",
     patternPositions: [
       "CC",
@@ -293,7 +293,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "18",
-    name: "OLL-18",
+    name: "OLL 18",
     setupAlgorithms: "r' U2' R U R' U r2' U2' R' U' R U' r'",
     patternPositions: [
       "CC",
@@ -311,7 +311,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "19",
-    name: "OLL-19",
+    name: "OLL 19",
     setupAlgorithms: "F R' F' R M U R U' R' U' M'",
     patternPositions: [
       "CC",
@@ -328,7 +328,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "20",
-    name: "OLL-20",
+    name: "OLL 20",
     setupAlgorithms: "r U R' U' M2' U R U' R' U' M'",
     patternPositions: [
       "CC",
@@ -345,7 +345,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "21",
-    name: "OLL-21",
+    name: "OLL 21",
     setupAlgorithms: "R U R' U R U' R' U R U2' R' y'",
     patternPositions: [
       "CC",
@@ -362,7 +362,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "22",
-    name: "OLL-22",
+    name: "OLL 22",
     setupAlgorithms: "R' U2' R2' U R2' U R2' U2' R'",
     patternPositions: [
       "CC",
@@ -379,7 +379,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "23",
-    name: "OLL-23",
+    name: "OLL 23",
     setupAlgorithms: "R U2' R D R' U2' R D' R2'",
     patternPositions: [
       "CC",
@@ -396,7 +396,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "24",
-    name: "OLL-24",
+    name: "OLL 24",
     setupAlgorithms: "F R' F' r U R U' r'",
     patternPositions: [
       "CC",
@@ -413,7 +413,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "25",
-    name: "OLL-25",
+    name: "OLL 25",
     setupAlgorithms: "R' F' r U R U' r' F y'",
     patternPositions: [
       "CC",
@@ -430,7 +430,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "26",
-    name: "OLL-26",
+    name: "OLL 26",
     setupAlgorithms: "R U R' U R U2' R' y'",
     patternPositions: [
       "CC",
@@ -447,7 +447,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "27",
-    name: "OLL-27",
+    name: "OLL 27",
     setupAlgorithms: "R U2' R' U' R U' R'",
     patternPositions: [
       "CC",
@@ -464,7 +464,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "28",
-    name: "OLL-28",
+    name: "OLL 28",
     setupAlgorithms: "R U R' U' M' U R U' r'",
     patternPositions: [
       "CC",
@@ -481,7 +481,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "29",
-    name: "OLL-29",
+    name: "OLL 29",
     setupAlgorithms: "M F R' F' R U R U' R' U' M'",
     patternPositions: [
       "CC",
@@ -498,7 +498,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "30",
-    name: "OLL-30",
+    name: "OLL 30",
     setupAlgorithms: "F U R U2' R' U R U2' R' U' F' y2'",
     patternPositions: [
       "CC",
@@ -515,7 +515,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "31",
-    name: "OLL-31",
+    name: "OLL 31",
     setupAlgorithms: "R' F R U R' U' F' U R",
     patternPositions: [
       "CC",
@@ -532,7 +532,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "32",
-    name: "OLL-32",
+    name: "OLL 32",
     setupAlgorithms: "f R' F' R U R U' R' S'",
     patternPositions: [
       "CC",
@@ -549,7 +549,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "33",
-    name: "OLL-33",
+    name: "OLL 33",
     setupAlgorithms: "F R' F' R U R U' R'",
     patternPositions: [
       "CC",
@@ -566,7 +566,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "34",
-    name: "OLL-34",
+    name: "OLL 34",
     setupAlgorithms: "F U R' U' R' F' R U R2' U' R' y2'",
     patternPositions: [
       "CC",
@@ -583,7 +583,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "35",
-    name: "OLL-35",
+    name: "OLL 35",
     setupAlgorithms: "R U2' R' F R' F' R2' U2' R'",
     patternPositions: [
       "CC",
@@ -600,7 +600,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "36",
-    name: "OLL-36",
+    name: "OLL 36",
     setupAlgorithms: "F' L F L' U' L' U' L U L' U L y2'",
     patternPositions: [
       "CC",
@@ -617,7 +617,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "37",
-    name: "OLL-37",
+    name: "OLL 37",
     setupAlgorithms: "F R U' R' U R U R' F'",
     patternPositions: [
       "CC",
@@ -634,7 +634,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "38",
-    name: "OLL-38",
+    name: "OLL 38",
     setupAlgorithms: "F R' F' R U R U R' U' R U' R'",
     patternPositions: [
       "CC",
@@ -651,7 +651,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "39",
-    name: "OLL-39",
+    name: "OLL 39",
     setupAlgorithms: "L U F' U' L' U L F L' y'",
     patternPositions: [
       "CC",
@@ -668,7 +668,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "40",
-    name: "OLL-40",
+    name: "OLL 40",
     setupAlgorithms: "R' U' F U R U' R' F' R y'",
     patternPositions: [
       "CC",
@@ -685,7 +685,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "41",
-    name: "OLL-41",
+    name: "OLL 41",
     setupAlgorithms: "F U R U' R' F' R U2' R' U' R U' R' y2'",
     patternPositions: [
       "CC",
@@ -702,7 +702,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "42",
-    name: "OLL-42",
+    name: "OLL 42",
     setupAlgorithms: "F U R U' R' F' R' U2' R U R' U R",
     patternPositions: [
       "CC",
@@ -719,7 +719,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "43",
-    name: "OLL-43",
+    name: "OLL 43",
     setupAlgorithms: "f' U' L' U L f",
     patternPositions: [
       "CC",
@@ -736,7 +736,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "44",
-    name: "OLL-44",
+    name: "OLL 44",
     setupAlgorithms: "f U R U' R' f'",
     patternPositions: [
       "CC",
@@ -753,7 +753,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "45",
-    name: "OLL-45",
+    name: "OLL 45",
     setupAlgorithms: "F U R U' R' F'",
     patternPositions: [
       "CC",
@@ -770,7 +770,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "46",
-    name: "OLL-46",
+    name: "OLL 46",
     setupAlgorithms: "R' U' F R' F' R U R",
     patternPositions: [
       "CC",
@@ -787,7 +787,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "47",
-    name: "OLL-47",
+    name: "OLL 47",
     setupAlgorithms: "F' U' L' U L U' L' U L F",
     patternPositions: [
       "CC",
@@ -804,7 +804,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "48",
-    name: "OLL-48",
+    name: "OLL 48",
     setupAlgorithms: "F U R U' R' U R U' R' F'",
     patternPositions: [
       "CC",
@@ -821,7 +821,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "49",
-    name: "OLL-49",
+    name: "OLL 49",
     setupAlgorithms: "r' U r2' U' r2' U' r2' U r' y2'",
     patternPositions: [
       "CC",
@@ -838,7 +838,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "50",
-    name: "OLL-50",
+    name: "OLL 50",
     setupAlgorithms: "r U' r2' U r2' U r2' U' r",
     patternPositions: [
       "CC",
@@ -855,7 +855,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "51",
-    name: "OLL-51",
+    name: "OLL 51",
     setupAlgorithms: "f U R U' R' U R U' R' f'",
     patternPositions: [
       "CC",
@@ -872,7 +872,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "52",
-    name: "OLL-52",
+    name: "OLL 52",
     setupAlgorithms: "F R U R' d R' U' R U' R'",
     patternPositions: [
       "CC",
@@ -889,7 +889,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "53",
-    name: "OLL-53",
+    name: "OLL 53",
     setupAlgorithms: "r' U2' R U R' U' R U R' U r",
     patternPositions: [
       "CC",
@@ -906,7 +906,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "54",
-    name: "OLL-54",
+    name: "OLL 54",
     setupAlgorithms: "r U2' R' U' R U R' U' R U' r'",
     patternPositions: [
       "CC",
@@ -923,7 +923,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "55",
-    name: "OLL-55",
+    name: "OLL 55",
     setupAlgorithms: "F R' F' U2' R U R' U R2' U2' R'",
     patternPositions: [
       "CC",
@@ -940,7 +940,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "56",
-    name: "OLL-56",
+    name: "OLL 56",
     setupAlgorithms: "r U r' R U R' U' R U R' U' r U' r'",
     patternPositions: [
       "CC",
@@ -957,7 +957,7 @@ const definitions: OLLDefinition[] = [
   },
   {
     id: "57",
-    name: "OLL-57",
+    name: "OLL 57",
     setupAlgorithms: "r U R' U' M U R U' R'",
     patternPositions: [
       "CC",

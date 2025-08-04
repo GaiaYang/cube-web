@@ -12,7 +12,6 @@ import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";
 export default function Page() {
   return (
     <main>
-      <h1 className="sr-only">OLL 公式列表</h1>
       <HeaderSection
         title="OLL 公式列表"
         description="使頂層的方塊顏色一致，總共有 57 種情況"
@@ -36,7 +35,7 @@ export default function Page() {
 
 function _renderItem(params: OLLDefinition) {
   return (
-    <li key={params.id} className="group relative">
+    <li key={params.id} className="group relative" title={params.name}>
       <div className="flex flex-col items-center gap-2 p-4">
         <div>
           <Diagram className="w-full" pattern={params.patternPositions} />

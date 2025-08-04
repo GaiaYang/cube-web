@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Page() {
-  return <div>3階主頁面</div>;
+  return <main>三階主頁面</main>;
 }
