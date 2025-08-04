@@ -34,7 +34,7 @@ export default function HeaderSection({
         {description ? (
           <p
             className={cn(
-              "text-base-content/40 text-lg font-medium text-pretty sm:text-xl/8",
+              "text-base-content/50 text-lg font-medium text-pretty sm:text-xl/8",
               { "mt-8": Boolean(title) || Boolean(eyebrow) },
             )}
           >
