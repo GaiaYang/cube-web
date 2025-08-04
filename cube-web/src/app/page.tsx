@@ -21,7 +21,7 @@ export default function Home() {
             "ring-1 ring-gray-900/10 hover:ring-gray-900/20",
           )}
         >
-          網站內容涵蓋公式整理、進階觀念解析以及輔助訓練的工具，協助你更系統化地提升速度與理解。
+          網站內容涵蓋公式整理、進階觀念解析以及輔助工具，協助你更系統化地提升速度與理解。
         </p>
         <h1
           className={cn(
@@ -31,37 +31,16 @@ export default function Home() {
         >
           一個魔方愛好者的網站
         </h1>
-        <p
+        <div
           className={cn(
             "text-base-content/60 font-medium text-pretty",
             "text-lg sm:text-xl/8",
           )}
         >
-          <span>這裡是為三階魔方進階玩家打造的教學平台，分享從</span>
-          <Highlight>LBL 解法平均 40 秒</Highlight>
-          一路精進到
-          <Highlight>CFOP平均 14秒</Highlight>
-          <span>的心路歷程與實用技巧。</span>
-        </p>
+          <p>這裡是為三階魔方進階玩家打造的教學平台</p>
+          <p>分享作者如何從LBL解法平均40秒一路精進到CFOP平均13秒的玩家</p>
+        </div>
       </main>
     </BasicLayout>
-  );
-}
-
-function Highlight({
-  children,
-}: React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLSpanElement>,
-  HTMLSpanElement
->) {
-  return (
-    <span
-      className={cn(
-        "badge badge-soft badge-primary mx-1",
-        "badge-lg sm:badge-xl",
-      )}
-    >
-      {children}
-    </span>
   );
 }

@@ -11,7 +11,12 @@ export default function Drawer({
 }: React.PropsWithChildren<DrawerProps>) {
   return (
     <div className="drawer drawer-end min-h-screen">
-      <input id={drawerId} type="checkbox" className="drawer-toggle" />
+      <input
+        id={drawerId}
+        type="checkbox"
+        className="drawer-toggle"
+        aria-label="行動版菜單開關"
+      />
       <div className="drawer-content">{children}</div>
       <div className="drawer-side z-20">
         <label

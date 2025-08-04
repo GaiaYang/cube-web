@@ -1,4 +1,5 @@
 import React from "react";
+import { type Metadata } from "next";
 
 import cn from "@/utils/cn";
 import type { OLLDefinition } from "@/types/cube/333";
@@ -8,6 +9,11 @@ import definitions from "@/contents/cube/333/oll/definitions";
 import HeaderSection from "@/components/HeaderSection";
 import OverlayLink from "@/components/OverlayLink";
 import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";
+
+export const metadata: Metadata = {
+  title: "OLL 公式列表",
+  description: "使頂層的方塊顏色一致，總共有57種情況",
+};
 
 export default function Page() {
   return (
@@ -20,7 +26,9 @@ export default function Page() {
       <div
         className={cn("container", "px-4 sm:px-6 lg:px-8", "pb-16 sm:pb-24")}
       >
+        <h2 className="sr-only">公式列表</h2>
         <ol
+          aria-label="公式列表"
           className={cn(
             "grid gap-6",
             "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
