@@ -4,7 +4,7 @@
    width="56"
    height="56"
    id="svg53"
-   sodipodi:docname="oll拷貝.svg"
+   sodipodi:docname="oll-blueprint拷貝.svg"
    inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,9 +23,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:lockguides="false"
      showgrid="true"
-     inkscape:zoom="11.93508"
-     inkscape:cx="28.026623"
-     inkscape:cy="27.73337"
+     inkscape:zoom="9.3226615"
+     inkscape:cx="25.850987"
+     inkscape:cy="29.283483"
      inkscape:window-width="1472"
      inkscape:window-height="891"
      inkscape:window-x="0"
@@ -49,7 +49,7 @@
   </sodipodi:namedview>
   <rect
      style=""
-     id="rect62-85"
+     id="BR"
      width="12"
      height="12"
      x="36"
@@ -57,7 +57,7 @@
      inkscape:label="BR" />
   <rect
      style=""
-     id="rect62-41"
+     id="BC"
      width="12"
      height="12"
      x="22"
@@ -65,7 +65,7 @@
      inkscape:label="BC" />
   <rect
      style=""
-     id="rect62-47"
+     id="BL"
      width="12"
      height="12"
      x="8"
@@ -73,146 +73,146 @@
      inkscape:label="BL" />
   <rect
      style=""
-     id="rect62-2"
+     id="CR"
      width="12"
      height="12"
      x="36"
      y="22"
      inkscape:label="CR" />
   <rect
-     style=""
-     id="rect62-06"
+     id="CC"
      width="12"
      height="12"
      x="22"
      y="22"
-     inkscape:label="CC" />
+     inkscape:label="CC"
+     style="" />
   <rect
      style=""
-     id="rect62-0"
+     id="CL"
      width="12"
      height="12"
      x="8"
      y="22"
      inkscape:label="CL" />
   <rect
-     style=""
-     id="rect62-4"
+     id="TR"
      width="12"
      height="12"
      x="36"
      y="8"
-     inkscape:label="TR" />
+     inkscape:label="TR"
+     style="" />
   <rect
      style=""
-     id="rect62-8"
+     id="TC"
      width="12"
      height="12"
      x="22"
      y="8"
      inkscape:label="TC" />
   <rect
-     style=""
-     id="rect62"
+     id="TL"
      width="12"
      height="12"
      x="8"
      y="8"
-     inkscape:label="TL" />
+     inkscape:label="TL"
+     style="" />
   <rect
-     style=""
-     id="rect63"
+     id="S-TL"
      width="12"
      height="4"
      x="8"
      y="2"
-     inkscape:label="S-TL" />
+     inkscape:label="S-TL"
+     style="" />
   <rect
-     style=""
-     id="rect63-8"
+     id="S-TC"
      width="12"
      height="4"
      x="22"
      y="2"
-     inkscape:label="S-TC" />
+     inkscape:label="S-TC"
+     style="" />
   <rect
-     style=""
-     id="rect63-0"
+     id="S-TR"
      width="12"
      height="4"
      x="36"
      y="2"
-     inkscape:label="S-TR" />
+     inkscape:label="S-TR"
+     style="" />
   <rect
-     style=""
-     id="rect63-05"
+     id="S-BL"
      width="12"
      height="4"
      x="8"
      y="50"
-     inkscape:label="S-BL" />
+     inkscape:label="S-BL"
+     style="" />
   <rect
-     style=""
-     id="rect63-8-6"
+     id="S-BC"
      width="12"
      height="4"
      x="22"
      y="50"
-     inkscape:label="S-BC" />
+     inkscape:label="S-BC"
+     style="" />
   <rect
-     style=""
-     id="rect63-0-7"
+     id="S-BR"
      width="12"
      height="4"
      x="36"
      y="50"
-     inkscape:label="S-BR" />
+     inkscape:label="S-BR"
+     style="" />
   <rect
-     style=""
-     id="rect64"
+     id="S-LT"
      width="4"
      height="12"
      x="2"
      y="8"
-     inkscape:label="S-LT" />
+     inkscape:label="S-LT"
+     style="" />
   <rect
-     style=""
-     id="rect64-9"
+     id="S-LC"
      width="4"
      height="12"
      x="2"
      y="22"
-     inkscape:label="S-LC" />
+     inkscape:label="S-LC"
+     style="" />
   <rect
-     style=""
-     id="rect64-2"
+     id="S-LB"
      width="4"
      height="12"
      x="2"
      y="36"
-     inkscape:label="S-LB" />
+     inkscape:label="S-LB"
+     style="" />
   <rect
-     style=""
-     id="rect64-91"
+     id="S-RT"
      width="4"
      height="12"
      x="50"
      y="8"
-     inkscape:label="S-RT" />
+     inkscape:label="S-RT"
+     style="" />
   <rect
-     style=""
-     id="rect64-9-0"
+     id="S-RC"
      width="4"
      height="12"
      x="50"
      y="22"
-     inkscape:label="S-RC" />
+     inkscape:label="S-RC"
+     style="" />
   <rect
-     style=""
-     id="rect64-2-9"
+     id="S-RB"
      width="4"
      height="12"
      x="50"
      y="36"
-     inkscape:label="S-RB" />
+     inkscape:label="S-RB"
+     style="" />
 </svg>
