@@ -46,7 +46,7 @@ export default function Page() {
 
 function _renderItem(params: PLLDefinition) {
   return (
-    <li key={params.id} className="group relative" title={params.name}>
+    <li key={params.id} className="relative" title={params.name}>
       <div className="flex flex-col items-center gap-2 p-4">
         <div>
           <Diagram className="w-full" pattern={params.patternColors} />
