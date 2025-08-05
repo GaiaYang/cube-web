@@ -1,12 +1,10 @@
 import React, { Suspense } from "react";
 import { type Metadata } from "next";
 
-import cn from "@/utils/cn";
-
 import ContentSection from "@/components/ContentSection";
+import ContentContainer from "@/components/ContentContainer";
 import FilterPanel from "./components/FilterPanel";
 import Algorithms from "./components/Algorithms";
-import ContentContainer from "@/components/ContentContainer";
 
 export const metadata: Metadata = {
   title: "PLL 公式列表",

@@ -1,1 +1,1 @@
-export const drawerId = "drawer-menu";
+export const drawerId = "drawer";

@@ -6,7 +6,7 @@ import BasicLayout from "@/components/layout/Basic";
 
 export default function Home() {
   return (
-    <BasicLayout>
+    <BasicLayout autoExpandDrawer={false}>
       <main
         className={cn(
           "mx-auto max-w-3xl items-center text-center",
