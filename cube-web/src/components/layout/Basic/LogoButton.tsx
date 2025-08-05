@@ -1,9 +1,18 @@
 import Link from "next/link";
 import React from "react";
 
-export default function LogoButton() {
+import cn from "@/utils/cn";
+
+export interface LogoButtonProps
+  extends Omit<React.HTMLAttributes<HTMLAnchorElement>, "href"> {}
+
+export default function LogoButton({ className, ...props }: LogoButtonProps) {
   return (
-    <Link href="/" className="btn btn-ghost text-xl">
+    <Link
+      {...props}
+      href="/"
+      className={cn("btn btn-ghost text-xl", className)}
+    >
       首頁
     </Link>
   );

@@ -6,6 +6,7 @@ import cn from "@/utils/cn";
 
 import LogoButton from "./LogoButton";
 import DrawerMenu from "./DrawerMenu";
+import { XIcon } from "lucide-react";
 
 export interface DrawerProps extends CommonProps {}
 
@@ -35,11 +36,18 @@ export default function Drawer({
           <div
             className={cn(
               "navbar bg-base-100/90 shadow-xs backdrop-blur",
-              "sticky top-0 z-20 hidden",
-              { "lg:flex": autoExpandDrawer },
+              "sticky top-0 z-20",
             )}
           >
-            <LogoButton />
+            <LogoButton className="max-lg:hidden" />
+            <div className="flex-1" />
+            <label
+              htmlFor={drawerId}
+              aria-label="關閉菜單"
+              className="btn btn-ghost btn-circle lg:hidden"
+            >
+              <XIcon />
+            </label>
           </div>
           <DrawerMenu />
         </aside>
