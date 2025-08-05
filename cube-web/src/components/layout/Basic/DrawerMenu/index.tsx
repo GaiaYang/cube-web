@@ -10,13 +10,13 @@ export default function DrawerMenu() {
 }
 
 function _renderItem(
-  { label, href, submenu }: MenuOption,
+  { label, href, submenu, defaultOpen }: MenuOption,
   index: number,
 ): React.ReactElement {
   return (
     <li key={index}>
       {Array.isArray(submenu) ? (
-        <details>
+        <details open={defaultOpen}>
           <summary>{label}</summary>
           <ul>{submenu.map(_renderItem)}</ul>
         </details>
