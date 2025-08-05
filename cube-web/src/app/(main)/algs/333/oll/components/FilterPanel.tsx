@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
 import { useSearchParams } from "next/navigation";
+import React from "react";
 
-import { options as pllOptions } from "@/options/cube/333/pllCategory";
-import { PLLCategory } from "@/enums/cube/333";
+import { options as ollOptions } from "@/options/cube/333/ollCategory";
+import { OLLCategory } from "@/enums/cube/333";
 import searchParamToEnum from "@/utils/searchParamToEnum";
 import updateSearchParams from "@/utils/updateSearchParams";
 
@@ -18,7 +18,7 @@ export default function FilterPanel() {
 
 function CategoryFilter() {
   const searchParams = useSearchParams();
-  const category = searchParamToEnum(PLLCategory, searchParams.get("category"));
+  const category = searchParamToEnum(OLLCategory, searchParams.get("category"));
   const value = category || "";
 
   const onChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
@@ -34,7 +34,7 @@ function CategoryFilter() {
       className="select focus:select-primary"
     >
       <option value="">{value ? "全部" : "請選擇分類"}</option>
-      {pllOptions.map((item) => (
+      {ollOptions.map((item) => (
         <option key={item.id} value={item.value}>
           {item.label}
         </option>
