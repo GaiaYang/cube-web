@@ -31,7 +31,7 @@ export default function Drawer({
           aria-label="關閉菜單"
           className="drawer-overlay"
         />
-        <aside className="bg-base-100 min-h-screen w-80">
+        <aside className="bg-base-100 min-h-dvh w-80">
           <div
             className={cn(
               "navbar bg-base-100/90 shadow-xs backdrop-blur",
