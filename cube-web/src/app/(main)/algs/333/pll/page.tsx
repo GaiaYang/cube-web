@@ -3,9 +3,10 @@ import { type Metadata } from "next";
 
 import cn from "@/utils/cn";
 
-import HeaderSection from "@/components/HeaderSection";
+import ContentSection from "@/components/ContentSection";
 import FilterPanel from "./components/FilterPanel";
 import Algorithms from "./components/Algorithms";
+import ContentContainer from "@/components/ContentContainer";
 
 export const metadata: Metadata = {
   title: "PLL 公式列表",
@@ -16,19 +17,12 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <HeaderSection
-        title="PLL 公式列表"
-        description="歸位最後一層的所有方塊，這個步驟完全依靠公式處理，共有 21 種情況。"
-        eyebrow="Permutation of the Last Layer"
-      />
-      <div
-        className={cn(
-          "container",
-          "px-4 sm:px-6 lg:px-8",
-          "pb-16 sm:pb-24",
-          "grid gap-6 xl:gap-8",
-        )}
-      >
+      <ContentContainer className="grid gap-6 xl:gap-8">
+        <ContentSection
+          title="PLL 公式列表"
+          description="歸位最後一層的所有方塊，這個步驟完全依靠公式處理，共有 21 種情況。"
+          eyebrow="Permutation of the Last Layer"
+        />
         <h2 className="sr-only">搜尋列</h2>
         <Suspense>
           <FilterPanel />
@@ -37,7 +31,7 @@ export default function Page() {
         <Suspense>
           <Algorithms />
         </Suspense>
-      </div>
+      </ContentContainer>
     </main>
   );
 }

@@ -27,7 +27,8 @@ export default function HeaderSection({
         {title ? (
           <h1
             className={cn(
-              "text-base-content text-5xl font-semibold tracking-tight sm:text-7xl",
+              "text-base-content font-semibold tracking-tight",
+              "text-5xl sm:text-7xl",
               { "mt-2": hasEyebrow },
             )}
           >
@@ -37,7 +38,8 @@ export default function HeaderSection({
         {description ? (
           <p
             className={cn(
-              "text-base-content/60 text-lg font-medium text-pretty sm:text-xl/8",
+              "text-base-content/70 font-medium text-pretty",
+              "text-lg sm:text-xl/8",
               { "mt-8": hasTitle || hasEyebrow },
             )}
           >
