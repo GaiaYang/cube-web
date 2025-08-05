@@ -5,8 +5,7 @@ import { options } from "./config";
 
 import LabelLink from "./LabelLink";
 
-/** 行動版菜單 */
-export default function MobileMenu() {
+export default function DrawerMenu() {
   return <ul className="menu w-full">{options.map(_renderItem)}</ul>;
 }
 

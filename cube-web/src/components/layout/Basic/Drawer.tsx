@@ -1,8 +1,10 @@
-import { XIcon } from "lucide-react";
 import React from "react";
-import MobileMenu from "./menu/MobileMenu";
 
 import { drawerId } from "./config";
+import cn from "@/utils/cn";
+
+import LogoButton from "./LogoButton";
+import DrawerMenu from "./DrawerMenu";
 
 export interface DrawerProps {}
 
@@ -10,44 +12,42 @@ export default function Drawer({
   children,
 }: React.PropsWithChildren<DrawerProps>) {
   return (
-    <div className="drawer drawer-end min-h-screen">
-      <input
-        id={drawerId}
-        type="checkbox"
-        className="drawer-toggle"
-        aria-label="行動版菜單開關"
-      />
-      <div className="drawer-content">{children}</div>
-      <div className="drawer-side z-20">
+    <div
+      className={cn(
+        "drawer lg:drawer-open",
+        "bg-base-100 mx-auto max-w-[100rem]",
+      )}
+    >
+      <input id={drawerId} type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex min-h-screen flex-col">
+        {children}
+      </div>
+      <div className={cn("drawer-side z-40", "scroll-pt-20 scroll-smooth")}>
         <label
           htmlFor={drawerId}
-          aria-label="背景關閉行動版菜單"
+          aria-label="關閉菜單"
           className="drawer-overlay"
         />
-        <DrawerContent id={drawerId}>
-          <MobileMenu />
+        <DrawerContent>
+          <DrawerMenu />
         </DrawerContent>
       </div>
     </div>
   );
 }
 
-function DrawerContent({
-  id,
-  children,
-}: React.PropsWithChildren<{ id: string }>) {
+function DrawerContent({ children }: React.PropsWithChildren) {
   return (
-    <div className="bg-base-100 h-full w-60">
-      <div className="navbar justify-end">
-        <label
-          htmlFor={id}
-          aria-label="關閉行動版菜單"
-          className="btn btn-circle"
-        >
-          <XIcon className="size-6" />
-        </label>
+    <aside className="min-h-screen w-80">
+      <div
+        className={cn(
+          "navbar bg-base-100/90 shadow-xs backdrop-blur",
+          "sticky top-0 z-20 hidden lg:flex",
+        )}
+      >
+        <LogoButton />
       </div>
       {children}
-    </div>
+    </aside>
   );
 }
