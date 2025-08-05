@@ -9,6 +9,7 @@ export const options: MenuOption[] = [
         label: "三階公式表",
         submenu: [
           { label: "總覽", href: "/algs/333" },
+          { label: "F2L", href: "/algs/333/f2l" },
           { label: "OLL", href: "/algs/333/oll" },
           { label: "PLL", href: "/algs/333/pll" },
         ],

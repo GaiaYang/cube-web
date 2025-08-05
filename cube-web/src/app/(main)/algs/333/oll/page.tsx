@@ -12,7 +12,8 @@ import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";
 
 export const metadata: Metadata = {
   title: "OLL 公式列表",
-  description: "使頂層的方塊顏色一致，總共有57種情況",
+  description:
+    "OLL（Orientation of the Last Layer）是 CFOP 的第三個步驟，目標是將頂層方塊朝向正確方向。",
 };
 
 export default function Page() {
@@ -20,7 +21,7 @@ export default function Page() {
     <main>
       <HeaderSection
         title="OLL 公式列表"
-        description="使頂層的方塊顏色一致，總共有 57 種情況"
+        description="將頂層方塊朝向正確方向，這個步驟完全依賴公式處理，共有 57 種情況。"
         eyebrow="Orientation of the Last Layer"
       />
       <div
