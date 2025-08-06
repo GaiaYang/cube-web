@@ -37,10 +37,7 @@ export default function Home() {
             className="btn btn-primary btn-lg group rounded-full"
           >
             開始速解
-            <MoveRightIcon
-              aria-hidden
-              className="transition-transform group-hover:translate-x-1"
-            />
+            <MoveRightIcon className="transition-transform group-hover:translate-x-1" />
           </Link>
           <Link href="/algs/333" className="btn btn-lg rounded-full">
             公式查詢

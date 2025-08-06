@@ -17,10 +17,20 @@ export default function NotFound() {
     >
       <div className="text-center">
         <p className="text-primary text-base font-semibold">404</p>
-        <h1 className="text-base-content mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
+        <h1
+          className={cn(
+            "text-base-content mt-4 font-semibold tracking-tight text-balance",
+            "text-5xl sm:text-7xl",
+          )}
+        >
           找不到頁面
         </h1>
-        <p className="text-base-content/50 mt-6 text-lg font-medium text-pretty sm:text-xl/8">
+        <p
+          className={cn(
+            "text-base-content/60 mt-6 font-medium text-pretty",
+            "text-lg sm:text-xl/8",
+          )}
+        >
           抱歉，我們找不到您要找的頁面。
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">

@@ -11,10 +11,9 @@ export default function LogoButton({ className, ...props }: LogoButtonProps) {
     <Link
       {...props}
       href="/"
-      aria-label="首頁"
       className={cn("btn btn-ghost text-xl", className)}
     >
-      首頁
+      <span className="sr-only">首頁</span>
     </Link>
   );
 }

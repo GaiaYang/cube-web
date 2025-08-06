@@ -14,12 +14,12 @@ export default function Navbar({ autoExpandDrawer }: NavbarProps) {
     <nav className="navbar bg-base-100/90 shadow-xs">
       <label
         htmlFor={drawerId}
-        aria-label="開啟菜單"
         className={cn("btn btn-ghost btn-circle", {
           "lg:hidden": autoExpandDrawer,
         })}
       >
-        <MenuIcon className="size-6" aria-hidden />
+        <MenuIcon className="size-6" />
+        <span className="sr-only">開啟菜單</span>
       </label>
       <div
         className={cn("flex items-center gap-2", {
