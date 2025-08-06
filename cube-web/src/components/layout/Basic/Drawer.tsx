@@ -1,12 +1,11 @@
 import React from "react";
+import { XIcon } from "lucide-react";
 
 import type { CommonProps } from "./types";
 import { drawerId } from "./config";
 import cn from "@/utils/cn";
 
-import LogoButton from "./LogoButton";
 import DrawerMenu from "./DrawerMenu";
-import { XIcon } from "lucide-react";
 
 export interface DrawerProps extends CommonProps {}
 
@@ -39,12 +38,11 @@ export default function Drawer({
               "sticky top-0 z-20",
             )}
           >
-            <LogoButton className="max-lg:hidden" />
             <div className="flex-1" />
             <label
               htmlFor={drawerId}
               aria-label="關閉菜單"
-              className="btn btn-ghost btn-circle lg:hidden"
+              className="btn btn-ghost btn-circle"
             >
               <XIcon />
             </label>

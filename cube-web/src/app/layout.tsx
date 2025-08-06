@@ -8,7 +8,7 @@ import { SITE_URL } from "@/lib/config";
 export const metadata: Metadata = {
   title: { default: "Cube web", template: "%s | Cube web" },
   description:
-    "一個魔方愛好者的網站，這裡是為三階魔方進階玩家打造的教學平台，分享如何從LBL解法精進到CFOP進階玩家。",
+    "針對已能還原三階魔術方塊的玩家，分享作者邁向速解進階的教學與心法，提供 CFOP 系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。",
   metadataBase: new URL(SITE_URL),
 };
 

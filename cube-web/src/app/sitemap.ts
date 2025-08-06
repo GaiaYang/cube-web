@@ -16,12 +16,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${SITE_URL}/algs/333/oll`,
       changeFrequency: "never",
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: `${SITE_URL}/algs/333/pll`,
       changeFrequency: "never",
-      priority: 0.7,
+      priority: 0.9,
     },
   ];
 }

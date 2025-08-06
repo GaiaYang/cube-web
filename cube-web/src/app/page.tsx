@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import { MoveRightIcon } from "lucide-react";
 
 import cn from "@/utils/cn";
 
@@ -9,36 +11,40 @@ export default function Home() {
     <BasicLayout autoExpandDrawer={false}>
       <main
         className={cn(
-          "mx-auto max-w-3xl items-center text-center",
-          "flex flex-1 flex-col justify-center gap-8",
+          "flex flex-1 flex-col justify-center",
+          "mx-auto max-w-2xl lg:text-center",
           "px-6 lg:px-8",
-          "py-8 sm:py-12 lg:py-14",
         )}
       >
-        <p
-          className={cn(
-            "text-base-content/70 relative rounded-2xl px-3 py-1 text-sm/6",
-            "ring-1 ring-gray-900/10 hover:ring-gray-900/20",
-          )}
-        >
-          網站內容涵蓋公式整理、進階觀念解析以及輔助工具，協助你更系統化地提升速度與理解。
-        </p>
+        <h2 className="text-primary text-base/7 font-semibold">
+          專為想邁向進階的玩家設計的教學資源
+        </h2>
         <h1
           className={cn(
-            "text-base-content font-semibold tracking-tight text-balance",
-            "text-5xl sm:text-6xl md:text-7xl",
+            "text-4xl sm:text-5xl",
+            "text-pretty lg:text-balance",
+            "text-base-content mt-2 font-semibold tracking-tight",
           )}
         >
-          一個魔方愛好者的網站
+          三階魔術方塊速解教學網站
         </h1>
-        <div
-          className={cn(
-            "text-base-content/60 font-medium text-pretty",
-            "text-lg sm:text-xl/8",
-          )}
-        >
-          <p>這裡是為三階魔方進階玩家打造的教學平台</p>
-          <p>分享作者如何從LBL解法平均40秒一路精進到CFOP平均13秒的玩家</p>
+        <p className="text-base-content/70 mt-6 text-lg/8">
+          針對已能還原三階魔術方塊的你，提供系統化的速解教學與公式查詢，從基礎觀念到進階技巧，全面提升還原效率與理解力。
+        </p>
+        <div className="mt-10 flex items-center justify-center gap-x-6">
+          <Link
+            href="/tutorial/333"
+            className="btn btn-primary btn-lg group rounded-full"
+          >
+            開始速解
+            <MoveRightIcon
+              aria-hidden
+              className="transition-transform group-hover:translate-x-1"
+            />
+          </Link>
+          <Link href="/algs/333" className="btn btn-lg rounded-full">
+            公式查詢
+          </Link>
         </div>
       </main>
     </BasicLayout>

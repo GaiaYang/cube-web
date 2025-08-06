@@ -19,15 +19,15 @@ export default function LabelLink({
   className,
   ...props
 }: LabelLinkProps) {
-  const _className = cn("text-nowrap", className);
-
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
     const checkbox = document.getElementById(
       drawerId,
     ) as HTMLInputElement | null;
+
     if (checkbox && checkbox.checked) {
       checkbox.checked = false;
     }
+
     onClick?.(event);
   };
 
@@ -35,7 +35,7 @@ export default function LabelLink({
     React.HTMLAttributes<HTMLElement>,
     "className" | "onClick"
   > = {
-    className: _className,
+    className: cn("text-nowrap", className),
     onClick: handleClick,
   };
 

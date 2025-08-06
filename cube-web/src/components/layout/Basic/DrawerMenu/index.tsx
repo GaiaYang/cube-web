@@ -10,7 +10,7 @@ export default function DrawerMenu() {
 }
 
 function _renderItem(
-  { label, href, submenu, defaultOpen }: MenuOption,
+  { label, href, onClick, submenu, defaultOpen }: MenuOption,
   index: number,
 ): React.ReactElement {
   return (
@@ -21,7 +21,7 @@ function _renderItem(
           <ul>{submenu.map(_renderItem)}</ul>
         </details>
       ) : (
-        <LabelLink href={href} label={label} />
+        <LabelLink href={href} label={label} onClick={onClick} />
       )}
     </li>
   );
