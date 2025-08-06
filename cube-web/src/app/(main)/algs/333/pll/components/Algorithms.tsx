@@ -8,7 +8,7 @@ import searchParamToEnum from "@/utils/searchParamToEnum";
 import type { PLLDefinition } from "@/types/cube/333";
 import { labels } from "@/options/cube/333/pllCategory";
 import { PLLCategory } from "@/enums/cube/333";
-import definitions from "@/contents/cube/333/pll/definitions";
+import { definitions } from "@/contents/cube/333/pll/definitions";
 
 import OverlayLink from "@/components/OverlayLink";
 import Diagram from "@/components/cube/333/diagram/PermutationLastLayer";
@@ -44,7 +44,7 @@ function _renderItem(params: PLLDefinition) {
     <li key={params.id} className="relative" title={params.name}>
       <div className="flex flex-col items-center gap-2 p-4">
         <div>
-          <Diagram className="w-full" pattern={params.patternColors} />
+          <Diagram className="w-full" pattern={params.pattern} />
         </div>
         <h3 className="text-lg font-semibold">{params.name}</h3>
         <p className="badge badge-soft badge-primary badge-lg">

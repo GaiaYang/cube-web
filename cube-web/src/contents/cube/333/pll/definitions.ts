@@ -1,12 +1,14 @@
 import type { PLLDefinition } from "@/types/cube/333";
 import { PLLCategory } from "@/enums/cube/333";
 
-const definitions: PLLDefinition[] = [
+export type { PLLDefinition, PLLCaseId } from "@/types/cube/333";
+
+export const definitions: PLLDefinition[] = [
   {
     id: "Aa",
     name: "Aa",
     setupAlgorithms: "x R2' D2' R U R' D2' R U' R x'",
-    patternColors: {
+    pattern: {
       "S-TL": "R",
       "S-TC": "B",
       "S-TR": "R",
@@ -26,7 +28,7 @@ const definitions: PLLDefinition[] = [
     id: "Ab",
     name: "Ab",
     setupAlgorithms: "x R' U R' D2' R U' R' D2' R2' x'",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "B",
       "S-TR": "L",
@@ -46,7 +48,7 @@ const definitions: PLLDefinition[] = [
     id: "E",
     name: "E",
     setupAlgorithms: "x' D R U R' D' R U' R' D R U' R' D' R U R' x y'",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "R",
       "S-TR": "B",
@@ -66,7 +68,7 @@ const definitions: PLLDefinition[] = [
     id: "F",
     name: "F",
     setupAlgorithms: "R' U' R U' R' U R U R2' F' R U R U' R' F U R y'",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "R",
       "S-TR": "B",
@@ -86,7 +88,7 @@ const definitions: PLLDefinition[] = [
     id: "Ga",
     name: "Ga",
     setupAlgorithms: "R' U' R D' U R2' U R' U R U' R U' R2' D",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "F",
       "S-TR": "R",
@@ -106,7 +108,7 @@ const definitions: PLLDefinition[] = [
     id: "Gb",
     name: "Gb",
     setupAlgorithms: "R2' U R' U R' U' R U' R2' D U' R' U R D'",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "L",
       "S-TR": "R",
@@ -126,7 +128,7 @@ const definitions: PLLDefinition[] = [
     id: "Gc",
     name: "Gc",
     setupAlgorithms: "D' R U R' U' D R2' U' R U' R' U R' U R2'",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "R",
       "S-TR": "R",
@@ -146,7 +148,7 @@ const definitions: PLLDefinition[] = [
     id: "Gd",
     name: "Gd",
     setupAlgorithms: "R2' U' R U' R U R' U R2' D' U R U' R' D",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "F",
       "S-TR": "R",
@@ -166,7 +168,7 @@ const definitions: PLLDefinition[] = [
     id: "H",
     name: "H",
     setupAlgorithms: "M2' U' M2' U2' M2' U' M2'",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "F",
       "S-TR": "B",
@@ -186,7 +188,7 @@ const definitions: PLLDefinition[] = [
     id: "Ja",
     name: "Ja",
     setupAlgorithms: "L' R' U2' R U R' U2' L U' R y'",
-    patternColors: {
+    pattern: {
       "S-TL": "R",
       "S-TC": "F",
       "S-TR": "F",
@@ -206,7 +208,7 @@ const definitions: PLLDefinition[] = [
     id: "Jb",
     name: "Jb",
     setupAlgorithms: "R U R2' F' R U R U' R' F R U' R'",
-    patternColors: {
+    pattern: {
       "S-TL": "R",
       "S-TC": "R",
       "S-TR": "F",
@@ -226,7 +228,7 @@ const definitions: PLLDefinition[] = [
     id: "Na",
     name: "Na",
     setupAlgorithms: "R U R' U2' R U R2' F' R U R U' R' F R U' R' U' R U' R'",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "B",
       "S-TR": "F",
@@ -246,7 +248,7 @@ const definitions: PLLDefinition[] = [
     id: "Nb",
     name: "Nb",
     setupAlgorithms: "F r' F' r U r U' r2' D' F r U r' F' D r",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "B",
       "S-TR": "B",
@@ -266,7 +268,7 @@ const definitions: PLLDefinition[] = [
     id: "Ra",
     name: "Ra",
     setupAlgorithms: "R U2' R D R' U R D' R' U' R' U R U R' y'",
-    patternColors: {
+    pattern: {
       "S-TL": "L",
       "S-TC": "F",
       "S-TR": "R",
@@ -286,7 +288,7 @@ const definitions: PLLDefinition[] = [
     id: "Rb",
     name: "Rb",
     setupAlgorithms: "R' U R U R' U' R' D' R U R' D R U2' R",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "R",
       "S-TR": "B",
@@ -306,7 +308,7 @@ const definitions: PLLDefinition[] = [
     id: "T",
     name: "T",
     setupAlgorithms: "F R' F' R U R U R2' F' R U R U' R'",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "B",
       "S-TR": "R",
@@ -326,7 +328,7 @@ const definitions: PLLDefinition[] = [
     id: "Ua",
     name: "Ua",
     setupAlgorithms: "M2' U' M' U2' M U' M2'",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "L",
       "S-TR": "B",
@@ -346,7 +348,7 @@ const definitions: PLLDefinition[] = [
     id: "Ub",
     name: "Ub",
     setupAlgorithms: "M2' U M' U2' M U M2'",
-    patternColors: {
+    pattern: {
       "S-TL": "B",
       "S-TC": "R",
       "S-TR": "B",
@@ -366,7 +368,7 @@ const definitions: PLLDefinition[] = [
     id: "V",
     name: "V",
     setupAlgorithms: "D2' R' U R D' R2' U' R' U R' U R' D' R U2' R'",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "R",
       "S-TR": "B",
@@ -386,7 +388,7 @@ const definitions: PLLDefinition[] = [
     id: "Y",
     name: "Y",
     setupAlgorithms: "F R' F' R U R U' R' F R U' R' U R U R' F'",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "L",
       "S-TR": "B",
@@ -406,7 +408,7 @@ const definitions: PLLDefinition[] = [
     id: "Z",
     name: "Z",
     setupAlgorithms: "M U2' M2' U2' M U' M2' U' M2'",
-    patternColors: {
+    pattern: {
       "S-TL": "F",
       "S-TC": "R",
       "S-TR": "F",
@@ -424,4 +426,6 @@ const definitions: PLLDefinition[] = [
   },
 ];
 
-export default definitions;
+export const definitionMap = new Map(
+  definitions.map((definition) => [definition.id, definition]),
+);

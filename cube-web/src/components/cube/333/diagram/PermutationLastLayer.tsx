@@ -15,6 +15,7 @@ export interface PermutationLastLayerProps
   frontColor?: FaceletColor;
 }
 
+/** PLL顯示圖案組件 */
 export default function PermutationLastLayer({
   pattern,
   topColor = "yellow",

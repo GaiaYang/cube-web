@@ -12,6 +12,7 @@ export interface OrientationLastLayerProps
   topColor?: FaceletColor;
 }
 
+/** OLL顯示圖案組件 */
 export default function OrientationLastLayer({
   pattern,
   topColor = "yellow",
