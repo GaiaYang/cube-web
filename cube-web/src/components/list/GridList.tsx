@@ -13,6 +13,7 @@ export default function GridList<ItemT extends object>({
   renderItem,
   keyExtractor,
   getTitle,
+  renderListEmpty,
   ...props
 }: GridListProps<ItemT>) {
   function _renderItem(item: ItemT, index: number) {
@@ -27,6 +28,20 @@ export default function GridList<ItemT extends object>({
     );
   }
 
+  function _render() {
+    if (Array.isArray(data)) {
+      if (data.length > 0) {
+        return data.map(_renderItem);
+      }
+
+      if (renderListEmpty) {
+        <li>{renderListEmpty}</li>;
+      }
+    }
+
+    return null;
+  }
+
   return (
     <ol
       {...props}
@@ -36,7 +51,7 @@ export default function GridList<ItemT extends object>({
         props.className,
       )}
     >
-      {data.map(_renderItem)}
+      {_render()}
     </ol>
   );
 }

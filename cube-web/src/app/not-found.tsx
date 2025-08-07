@@ -1,8 +1,8 @@
 import React from "react";
+import Link from "next/link";
 
 import cn from "@/utils/cn";
 
-import Link from "next/link";
 import BackButton from "./components/BackButton";
 
 export default function NotFound() {

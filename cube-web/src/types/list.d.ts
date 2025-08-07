@@ -20,4 +20,6 @@ export interface ListProps<ItemT extends ListItemProps> {
    * 預設的提取器會先檢查 `item.key`，然後檢查 `item.id`，然後返回到 `index`
    */
   keyExtractor?: (item: ItemT, index: number) => string;
+  /** 當 `data` 為空時渲染組件 */
+  renderListEmpty?: React.ReactElement;
 }

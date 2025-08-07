@@ -9,7 +9,7 @@ import Algorithms from "./components/Algorithms";
 export const metadata: Metadata = {
   title: "F2L 公式列表",
   description:
-    "將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體，這裡只列出位於頂層以及目標槽位的案例，共有 41 條公式。",
+    "將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體。",
 };
 
 export default function Page() {
@@ -18,7 +18,7 @@ export default function Page() {
       <ContentContainer className="grid gap-6 xl:gap-8">
         <ContentSection
           title="F2L 公式列表"
-          description="將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體，這裡只列出位於頂層以及目標槽位的案例，共有 41 條公式。"
+          description="將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體，這裡只列出位於頂層以及目標槽位的案例，共有 41 種情況。"
           eyebrow="First Two Layers"
         />
         <h2 className="sr-only">搜尋列</h2>
