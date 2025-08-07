@@ -6,12 +6,11 @@ import { useSearchParams } from "next/navigation";
 import cn from "@/utils/cn";
 import searchParamToEnum from "@/utils/searchParamToEnum";
 import type { OLLDefinition } from "@/types/cube/333";
-import { labels } from "@/options/cube/333/ollCategory";
 import { OLLCategory } from "@/enums/cube/333";
 import { definitions } from "@/contents/cube/333/oll/definitions";
 
 import OverlayLink from "@/components/OverlayLink";
-import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";
+import OLLAlgoithm from "@/components/gridItems/OLLAlgoithm";
 
 /** OLL公式列表 */
 export default function Algorithms() {
@@ -42,15 +41,7 @@ export default function Algorithms() {
 function _renderItem(params: OLLDefinition) {
   return (
     <li key={params.id} className="relative" title={params.name}>
-      <div className="flex flex-col items-center gap-2 p-4">
-        <div>
-          <Diagram className="w-full" pattern={params.pattern} />
-        </div>
-        <h3 className="text-lg font-semibold">{params.name}</h3>
-        <p className="badge badge-soft badge-primary badge-lg">
-          {labels[params.category]}
-        </p>
-      </div>
+      <OLLAlgoithm {...params} />
       <OverlayLink
         href={`oll/${params.id}`}
         target="_blank"

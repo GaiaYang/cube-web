@@ -42,7 +42,7 @@ export default function Drawer({
             <label
               htmlFor={drawerId}
               aria-label="關閉菜單"
-              className="btn btn-ghost btn-circle"
+              className="btn btn-ghost btn-circle lg:hidden"
             >
               <XIcon />
             </label>

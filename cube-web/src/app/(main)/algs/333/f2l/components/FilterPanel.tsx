@@ -1,7 +1,7 @@
 import React from "react";
 
-import { options as ollOptions } from "@/options/cube/333/ollCategory";
-import { OLLCategory } from "@/enums/cube/333";
+import { options as f2lOptions } from "@/options/cube/333/f2lCategory";
+import { F2LCategory } from "@/enums/cube/333";
 
 import SelectFilter from "@/components/searchParamsTools/SelectFilter";
 
@@ -16,8 +16,8 @@ export default function FilterPanel() {
         placeholder="請選擇分類"
         resetTitle="清除分類"
         paramKey="category"
-        options={ollOptions}
-        enumMap={OLLCategory}
+        options={f2lOptions}
+        enumMap={F2LCategory}
       />
     </section>
   );

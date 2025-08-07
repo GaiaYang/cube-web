@@ -37,3 +37,18 @@ export enum PLLCategory {
   /** 邊塊排列（EPLL） */
   EPLL = "EPLL",
 }
+
+export enum F2LCategory {
+  /** 已連接的對組（Connected Pairs） */
+  CONNECTED_PAIRS = "CONNECTED_PAIRS",
+  /** 角塊已在正確位置（Corner in Slot） */
+  CORNER_IN_SLOT = "CORNER_IN_SLOT",
+  /** 尚未連接的對組（Disconnected Pairs） */
+  DISCONNECTED_PAIRS = "DISCONNECTED_PAIRS",
+  /** 邊塊已在正確位置（Edge in Slot） */
+  EDGE_IN_SLOT = "EDGE_IN_SLOT",
+  /** 可自由移動的對組（Free Pairs） */
+  FREE_PAIRS = "FREE_PAIRS",
+  /** 有其他塊卡在插槽中（Pieces in Slot） */
+  PIECES_IN_SLOT = "PIECES_IN_SLOT",
+}

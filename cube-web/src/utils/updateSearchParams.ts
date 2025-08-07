@@ -1,4 +1,4 @@
-import { isNotNil, isPlainObject } from "es-toolkit";
+import { isNotNil, isPlainObject, isString } from "es-toolkit";
 import { type ReadonlyURLSearchParams } from "next/navigation";
 
 export type SearchParamsInput =
@@ -16,7 +16,7 @@ export default function updateSearchParams(
   updates: Record<string, string | null | undefined>,
 ) {
   const params = new URLSearchParams(
-    typeof source === "string" ? source : source.toString(),
+    isString(source) ? source : source.toString(),
   );
 
   if (!isPlainObject(updates)) {
@@ -24,7 +24,7 @@ export default function updateSearchParams(
   }
 
   for (const [name, value] of Object.entries(updates)) {
-    if (isNotNil(value) && value !== "") {
+    if (isNotNil(value) && isString(value) && value !== "") {
       params.set(name, value);
     } else {
       params.delete(name);
