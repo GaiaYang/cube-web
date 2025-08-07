@@ -1,8 +1,7 @@
 import React from "react";
 import { type Metadata } from "next";
 
-import ContentSection from "@/components/ContentSection";
-import ContentContainer from "@/components/ContentContainer";
+import Article from "@/components/Article";
 
 export const metadata: Metadata = {
   title: "OLL",
@@ -13,13 +12,13 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <ContentContainer>
-        <ContentSection
-          title="PLL"
-          description="PLL 是 CFOP 的第四個也是最後一個步驟，目標是排列最後一層的所有方塊使其復原。"
-          eyebrow="Permutation of the Last Layer"
-        />
-      </ContentContainer>
+      <Article>
+        <h1>PLL</h1>
+        <p>
+          PLL 是 CFOP
+          的第四個也是最後一個步驟，目標是排列最後一層的所有方塊使其復原。
+        </p>
+      </Article>
     </main>
   );
 }

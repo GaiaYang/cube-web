@@ -1,10 +1,9 @@
 import type { FaceletColor } from "@/types/cube/333";
 
-type Face = Exclude<FaceletColor, "none">;
+/** 六面顏色 */
+export type Face = Exclude<FaceletColor, "none">;
 
-/**
- * 魔術方塊六面顏色對應的三維單位向量（右手坐標系）
- */
+/** 魔術方塊六面顏色對應的三維單位向量（右手坐標系）*/
 const faceVectors: Record<Face, [number, number, number]> = {
   white: [0, 1, 0],
   yellow: [0, -1, 0],
@@ -14,9 +13,7 @@ const faceVectors: Record<Face, [number, number, number]> = {
   orange: [-1, 0, 0],
 };
 
-/**
- * 建立向量到 Face 的查找表，用逗號連接做為 key
- */
+/** 建立向量到 `Face` 的查找表，用逗號連接做為 `key` */
 const vectorToFaceMap: Map<string, Face> = new Map(
   Object.entries(faceVectors).map(([face, vec]) => [
     vec.join(","),
@@ -24,16 +21,12 @@ const vectorToFaceMap: Map<string, Face> = new Map(
   ]),
 );
 
-/**
- * 將三維向量對應回 Face 顏色
- */
+/** 將三維向量對應回 `Face` 顏色 */
 function vectorToFace(vec: [number, number, number]): Face | null {
   return vectorToFaceMap.get(vec.join(",")) ?? null;
 }
 
-/**
- * 向量叉積計算，用於取得右手坐標系的右方向向量
- */
+/** 向量叉積計算，用於取得右手坐標系的右方向向量 */
 function cross(
   [ax, ay, az]: [number, number, number],
   [bx, by, bz]: [number, number, number],

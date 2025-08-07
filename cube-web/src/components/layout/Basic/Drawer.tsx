@@ -39,7 +39,7 @@ export default function Drawer({
               "sticky top-0 z-20",
             )}
           >
-            <div className={cn(autoExpandDrawer ? "max-lg:hidden" : "hidden")}>
+            <div className="lg:hidden">
               <LogoButton />
             </div>
             <div className="flex-1" />

@@ -1,5 +1,6 @@
 import type { FaceletColor } from "@/types/cube/333";
 
+/** 方塊顏色對照表 */
 const map: Record<FaceletColor, FaceletColor> = {
   none: "none",
   white: "yellow",

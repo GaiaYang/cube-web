@@ -13,7 +13,7 @@
     "es-toolkit": "^1.39.8",
     "fast-equals": "^5.2.2",
     "jotai": "^2.13.0",
-    "lucide-react": "^0.536.0",
+    "lucide-react": "^0.537.0",
     "next": "15.4.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

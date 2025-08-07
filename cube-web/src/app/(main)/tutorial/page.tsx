@@ -6,7 +6,7 @@ import ContentContainer from "@/components/ContentContainer";
 
 export const metadata: Metadata = {
   title: "教學總覽",
-  description: "本站有書寫的教學項目一覽，主要以三階方塊為主",
+  description: "本站教學項目一覽，主要以三階方塊為主",
 };
 
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
       <ContentContainer>
         <ContentSection
           title="教學總覽"
-          description="本站有書寫的教學項目一覽，主要以三階方塊為主"
+          description="本站教學項目一覽，主要以三階方塊為主"
         />
       </ContentContainer>
     </main>

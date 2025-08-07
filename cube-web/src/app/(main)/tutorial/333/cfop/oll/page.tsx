@@ -1,8 +1,7 @@
 import React from "react";
 import { type Metadata } from "next";
 
-import ContentSection from "@/components/ContentSection";
-import ContentContainer from "@/components/ContentContainer";
+import Article from "@/components/Article";
 
 export const metadata: Metadata = {
   title: "OLL",
@@ -13,13 +12,10 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <ContentContainer>
-        <ContentSection
-          title="OLL"
-          description="OLL 是 CFOP 的第三個步驟，目標是將頂層方塊朝向正確方向。"
-          eyebrow="Orientation of the Last Layer"
-        />
-      </ContentContainer>
+      <Article>
+        <h1>OLL</h1>
+        <p>OLL 是 CFOP 的第三個步驟，目標是將頂層方塊朝向正確方向。</p>
+      </Article>
     </main>
   );
 }
