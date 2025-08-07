@@ -13,7 +13,8 @@ export default function LogoButton({ className, ...props }: LogoButtonProps) {
       href="/"
       className={cn("btn btn-ghost text-xl", className)}
     >
-      <span className="sr-only">首頁</span>
+      <span className="sr-only">前往首頁</span>
+      首頁
     </Link>
   );
 }

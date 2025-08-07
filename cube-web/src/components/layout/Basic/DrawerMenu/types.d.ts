@@ -1,6 +1,8 @@
 export interface MenuOption {
+  /** 標籤標題 */
+  title?: string;
   /** 標籤名稱 */
-  label: string;
+  label?: string;
   /**
    * 連結網址
    *

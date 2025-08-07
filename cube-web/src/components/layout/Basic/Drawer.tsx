@@ -6,6 +6,7 @@ import { drawerId } from "./config";
 import cn from "@/utils/cn";
 
 import DrawerMenu from "./DrawerMenu";
+import LogoButton from "./LogoButton";
 
 export interface DrawerProps extends CommonProps {}
 
@@ -31,23 +32,30 @@ export default function Drawer({
           aria-label="關閉菜單"
           className="drawer-overlay"
         />
-        <aside className="bg-base-100 min-h-dvh w-80">
+        <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-80">
           <div
             className={cn(
               "navbar bg-base-100/90 shadow-xs backdrop-blur",
               "sticky top-0 z-20",
             )}
           >
+            <div className={cn(autoExpandDrawer ? "max-lg:hidden" : "hidden")}>
+              <LogoButton />
+            </div>
             <div className="flex-1" />
             <label
               htmlFor={drawerId}
               aria-label="關閉菜單"
-              className="btn btn-ghost btn-circle lg:hidden"
+              className={cn("btn btn-ghost btn-circle", {
+                "lg:hidden": autoExpandDrawer,
+              })}
             >
               <XIcon />
             </label>
           </div>
-          <DrawerMenu />
+          <nav aria-label="主選單導覽">
+            <DrawerMenu />
+          </nav>
         </aside>
       </div>
     </div>

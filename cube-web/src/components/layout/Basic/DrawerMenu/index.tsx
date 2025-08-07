@@ -12,28 +12,36 @@ export default function DrawerMenu() {
   const pathname = usePathname();
 
   function _renderItem(
-    { label, href, onClick, submenu, defaultOpen }: MenuOption,
+    { title, label, href, onClick, submenu, defaultOpen = false }: MenuOption,
     index: number,
   ): React.ReactElement {
     const active = pathname === href;
 
-    return (
-      <li key={index}>
-        {Array.isArray(submenu) ? (
+    function _render() {
+      if (title) {
+        return <h2 className="menu-title">{title}</h2>;
+      }
+
+      if (Array.isArray(submenu)) {
+        return (
           <details open={defaultOpen}>
             <summary>{label}</summary>
             <ul>{submenu.map(_renderItem)}</ul>
           </details>
-        ) : (
-          <LabelLink
-            href={href}
-            label={label}
-            onClick={onClick}
-            active={active}
-          />
-        )}
-      </li>
-    );
+        );
+      }
+
+      return (
+        <LabelLink
+          href={href}
+          label={label}
+          onClick={onClick}
+          active={active}
+        />
+      );
+    }
+
+    return <li key={index}>{_render()}</li>;
   }
 
   return <ul className="menu w-full">{options.map(_renderItem)}</ul>;
