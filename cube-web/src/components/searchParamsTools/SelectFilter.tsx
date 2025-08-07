@@ -6,10 +6,12 @@ import { RotateCcwIcon } from "lucide-react";
 
 import type { Option } from "@/options/types";
 
+import cn from "@/utils/cn";
 import searchParamToEnum from "@/utils/searchParamToEnum";
 import updateSearchParams from "@/utils/updateSearchParams";
 
-export interface SelectFilterProps<TEnum extends Record<string, string>> {
+export interface SelectFilterProps<TEnum extends Record<string, string>>
+  extends React.HTMLAttributes<HTMLDivElement> {
   /** 選擇器選項 */
   options: Option<TEnum[keyof TEnum]>[];
   /** Enum 物件 */
@@ -19,7 +21,7 @@ export interface SelectFilterProps<TEnum extends Record<string, string>> {
   /** 下拉選單的 placeholder */
   placeholder?: string;
   /** 重設按鈕的 title / aria-label */
-  resetTitle?: string;
+  resetLabel?: string;
   /** 選擇器的 aria-label */
   ariaLabel?: string;
 }
@@ -29,8 +31,9 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
   enumMap,
   paramKey,
   placeholder = "請選擇",
-  resetTitle = "清除選項",
+  resetLabel = "清除選項",
   ariaLabel = "選擇選項",
+  ...props
 }: SelectFilterProps<TEnum>) {
   const searchParams = useSearchParams();
 
@@ -54,7 +57,7 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
   };
 
   return (
-    <div className="join">
+    <div {...props} className={cn("join", props.className)}>
       <select
         aria-label={ariaLabel}
         value={selectedValue}
@@ -69,10 +72,10 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
       <button
         type="button"
         onClick={handleReset}
-        title={resetTitle}
+        title={resetLabel}
         className="join-item btn btn-error btn-square"
       >
-        <span className="sr-only">{resetTitle}</span>
+        <span className="sr-only">{resetLabel}</span>
         <RotateCcwIcon />
       </button>
     </div>

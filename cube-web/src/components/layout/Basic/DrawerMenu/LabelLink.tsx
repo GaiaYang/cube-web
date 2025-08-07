@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 
@@ -10,12 +8,16 @@ import { drawerId } from "../config";
 
 export interface LabelLinkProps
   extends Pick<MenuOption, "href" | "label">,
-    React.HTMLAttributes<HTMLElement> {}
+    React.HTMLAttributes<HTMLElement> {
+  /** 是否被啟用 */
+  active?: boolean;
+}
 
 export default function LabelLink({
   href,
   onClick,
   label,
+  active,
   className,
   ...props
 }: LabelLinkProps) {
@@ -35,7 +37,7 @@ export default function LabelLink({
     React.HTMLAttributes<HTMLElement>,
     "className" | "onClick"
   > = {
-    className: cn("text-nowrap", className),
+    className: cn("text-nowrap", { "menu-active": active }, className),
     onClick: handleClick,
   };
 

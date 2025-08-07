@@ -14,7 +14,7 @@ export default function FilterPanel() {
       <SelectFilter
         ariaLabel="選擇分類"
         placeholder="請選擇分類"
-        resetTitle="清除分類"
+        resetLabel="清除分類"
         paramKey="category"
         options={f2lOptions}
         enumMap={F2LCategory}

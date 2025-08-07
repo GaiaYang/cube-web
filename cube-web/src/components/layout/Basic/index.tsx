@@ -13,13 +13,11 @@ export default function BasicLayout({
   children,
 }: React.PropsWithChildren<BasicLayoutProps>) {
   return (
-    <>
-      <Drawer autoExpandDrawer={autoExpandDrawer}>
-        <Header>
-          <Navbar autoExpandDrawer={autoExpandDrawer} />
-        </Header>
-        {children}
-      </Drawer>
-    </>
+    <Drawer autoExpandDrawer={autoExpandDrawer}>
+      <Header>
+        <Navbar autoExpandDrawer={autoExpandDrawer} />
+      </Header>
+      {children}
+    </Drawer>
   );
 }

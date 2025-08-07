@@ -3,7 +3,6 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
-import cn from "@/utils/cn";
 import searchParamToEnum from "@/utils/searchParamToEnum";
 import type { OLLDefinition } from "@/types/cube/333";
 import { OLLCategory } from "@/enums/cube/333";
@@ -11,6 +10,7 @@ import { definitions } from "@/contents/cube/333/oll/definitions";
 
 import OverlayLink from "@/components/OverlayLink";
 import OLLAlgoithm from "@/components/gridItems/OLLAlgoithm";
+import GridList, { type GridListProps } from "@/components/list/GridList";
 
 /** OLL公式列表 */
 export default function Algorithms() {
@@ -26,27 +26,20 @@ export default function Algorithms() {
   }, [category]);
 
   return (
-    <ol
+    <GridList
       aria-label="公式列表"
-      className={cn(
-        "grid gap-6",
-        "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
-      )}
-    >
-      {data.map(_renderItem)}
-    </ol>
+      data={data}
+      renderItem={_renderItem}
+      getTitle={(item) => item.name}
+    />
   );
 }
 
-function _renderItem(params: OLLDefinition) {
+const _renderItem: GridListProps<OLLDefinition>["renderItem"] = ({ item }) => {
   return (
-    <li key={params.id} className="relative" title={params.name}>
-      <OLLAlgoithm {...params} />
-      <OverlayLink
-        href={`oll/${params.id}`}
-        target="_blank"
-        label={params.name}
-      />
-    </li>
+    <>
+      <OLLAlgoithm {...item} />
+      <OverlayLink href={`oll/${item.id}`} target="_blank" label={item.name} />
+    </>
   );
-}
+};
