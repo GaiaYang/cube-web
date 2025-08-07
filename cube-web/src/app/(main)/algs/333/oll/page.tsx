@@ -9,7 +9,7 @@ import Algorithms from "./components/Algorithms";
 export const metadata: Metadata = {
   title: "OLL 公式列表",
   description:
-    "OLL（Orientation of the Last Layer）是 CFOP 的第三個步驟，目標是將頂層方塊朝向正確方向。",
+    "將頂層方塊朝向正確方向，這個步驟完全依靠公式處理，共有 57 種情況。",
 };
 
 export default function Page() {

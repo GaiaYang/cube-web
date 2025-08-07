@@ -5,9 +5,8 @@ import ContentSection from "@/components/ContentSection";
 import ContentContainer from "@/components/ContentContainer";
 
 export const metadata: Metadata = {
-  title: "F2L",
-  description:
-    "F2L（First Two Layers） 是 CFOP 的第二個步驟，目標是還原 3x3 魔術方塊的底部前兩層。",
+  title: "教學總覽",
+  description: "本站有書寫的教學項目一覽，主要以三階方塊為主",
 };
 
 export default function Page() {
@@ -15,9 +14,8 @@ export default function Page() {
     <main>
       <ContentContainer>
         <ContentSection
-          title="F2L"
-          description="F2L 是 CFOP 的第二個步驟，目標是還原 3x3 魔術方塊的底部前兩層。"
-          eyebrow="First Two Layers"
+          title="教學總覽"
+          description="本站有書寫的教學項目一覽，主要以三階方塊為主"
         />
       </ContentContainer>
     </main>

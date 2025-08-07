@@ -4,6 +4,7 @@ export const options: MenuOption[] = [
   {
     label: "教學",
     submenu: [
+      { label: "總覽", href: "/tutorial" },
       { title: "三階" },
       {
         label: "CFOP",
@@ -14,8 +15,10 @@ export const options: MenuOption[] = [
           { label: "頂面方向", href: "/tutorial/333/cfop/oll" },
           { label: "頂層位置", href: "/tutorial/333/cfop/pll" },
         ],
+        defaultOpen: true,
       },
     ],
+    defaultOpen: true,
   },
   {
     label: "公式表",

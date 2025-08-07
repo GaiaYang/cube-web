@@ -12,7 +12,7 @@ export default function Home() {
       <main
         className={cn(
           "flex flex-1 flex-col justify-center",
-          "mx-auto max-w-2xl lg:text-center",
+          "mx-auto max-w-2xl text-center",
           "px-6 lg:px-8",
         )}
       >
@@ -33,7 +33,7 @@ export default function Home() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link
-            href="/tutorial/333"
+            href="/tutorial/333/cfop"
             className="btn btn-primary btn-lg group rounded-full"
           >
             開始速解

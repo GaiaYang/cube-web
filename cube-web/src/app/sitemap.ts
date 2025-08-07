@@ -9,19 +9,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/algs/333/f2l`,
+      url: `${SITE_URL}/tutorial/333/cross`,
       changeFrequency: "never",
       priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/tutorial/333/f2l`,
+      changeFrequency: "never",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/tutorial/333/oll`,
+      changeFrequency: "never",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/tutorial/333/pll`,
+      changeFrequency: "never",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/algs/333/f2l`,
+      changeFrequency: "never",
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/algs/333/oll`,
       changeFrequency: "never",
-      priority: 0.9,
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/algs/333/pll`,
       changeFrequency: "never",
-      priority: 0.9,
+      priority: 0.8,
     },
   ];
 }
