@@ -1,4 +1,4 @@
-import { OLLCategory, PLLCategory } from "@/enums/cube/333";
+import { OLLCategory, PLLCategory, F2LCategory } from "@/enums/cube/333";
 
 /** 方塊方位 */
 export type CubeFace = "U" | "D" | "L" | "R" | "F" | "B";
@@ -147,4 +147,58 @@ export interface PLLDefinition {
   pattern: Partial<Record<FaceletPosition, CubeFace>>;
   /** 類別 */
   category: PLLCategory;
+}
+
+export type F2LCaseId =
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "7"
+  | "8"
+  | "9"
+  | "10"
+  | "11"
+  | "12"
+  | "13"
+  | "14"
+  | "15"
+  | "16"
+  | "17"
+  | "18"
+  | "19"
+  | "20"
+  | "21"
+  | "22"
+  | "23"
+  | "24"
+  | "25"
+  | "26"
+  | "27"
+  | "28"
+  | "29"
+  | "30"
+  | "31"
+  | "32"
+  | "33"
+  | "34"
+  | "35"
+  | "36"
+  | "37"
+  | "38"
+  | "39"
+  | "40"
+  | "41";
+
+/** F2L定義 */
+export interface F2LDefinition {
+  id: F2LCaseId;
+  /** 名稱 */
+  name: string;
+  /** 設置公式 */
+  setupAlgorithms: string;
+  /** 類別 */
+  category: F2LCategory;
 }

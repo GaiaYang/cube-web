@@ -21,13 +21,11 @@ export default function Navbar({ autoExpandDrawer }: NavbarProps) {
         <MenuIcon className="size-6" />
         <span className="sr-only">開啟菜單</span>
       </label>
-      <div
-        className={cn("flex items-center gap-2", {
+      <LogoButton
+        className={cn({
           "lg:hidden": autoExpandDrawer,
         })}
-      >
-        <LogoButton />
-      </div>
+      />
     </nav>
   );
 }

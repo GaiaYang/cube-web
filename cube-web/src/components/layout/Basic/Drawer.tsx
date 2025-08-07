@@ -39,9 +39,7 @@ export default function Drawer({
               "sticky top-0 z-20",
             )}
           >
-            <div className="lg:hidden">
-              <LogoButton />
-            </div>
+            <LogoButton />
             <div className="flex-1" />
             <label
               htmlFor={drawerId}

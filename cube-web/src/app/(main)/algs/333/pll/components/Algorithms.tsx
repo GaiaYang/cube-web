@@ -27,7 +27,6 @@ export default function Algorithms() {
 
   return (
     <GridList
-      aria-label="公式列表"
       data={data}
       renderItem={_renderItem}
       getTitle={(item) => item.name}

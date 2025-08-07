@@ -14,7 +14,7 @@ export default function PLLAlgoithm({
 }: PLLAlgoithmProps) {
   return (
     <div className="flex flex-col items-center gap-2 p-4">
-      <div>
+      <div className="w-full">
         <Diagram className="w-full" pattern={pattern} />
       </div>
       <h3 className="text-lg font-semibold">{name}</h3>
