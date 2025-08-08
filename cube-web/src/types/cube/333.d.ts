@@ -229,6 +229,14 @@ export interface F2LDefinition {
   name: string;
   /** 設置公式 */
   setupAlgorithms: string;
+  /**
+   * 圖案標記
+   *
+   * - `S-`開頭表示側邊
+   * - `F-`開頭表示面向自己這邊
+   * - `U-`開頭表示上邊
+   */
+  pattern: Partial<Record<CubeBlockPosition3D, CubeFaceCode>>;
   /** 類別 */
   category: F2LCategory;
 }

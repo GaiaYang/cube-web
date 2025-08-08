@@ -1,18 +1,17 @@
 import React from "react";
 
-import { CubeFaceletPosition2D, CubeFaceColor } from "@/types/cube/333";
+import { CubeFaceColor, OLLDefinition } from "@/types/cube/333";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 
 export interface OrientationLastLayerProps
-  extends Omit<LastLayerDiagramProps, "colorMap"> {
-  /** 圖案 */
-  pattern?: CubeFaceletPosition2D[];
+  extends Omit<LastLayerDiagramProps, "colorMap">,
+    Partial<Pick<OLLDefinition, "pattern">> {
   /** 頂層顏色 */
   topColor?: CubeFaceColor;
 }
 
-/** OLL顯示圖案組件 */
+/** OLL圖案 */
 export default function OrientationLastLayer({
   pattern,
   topColor = "yellow",
@@ -22,9 +21,13 @@ export default function OrientationLastLayer({
 }
 
 function createColorMap(
-  array?: CubeFaceletPosition2D[],
+  pattern?: OLLDefinition["pattern"],
   color?: CubeFaceColor,
 ) {
+  if (!Array.isArray(pattern)) {
+    return;
+  }
+
   const result: LastLayerDiagramProps["colorMap"] = {
     TL: "none",
     TC: "none",
@@ -49,11 +52,7 @@ function createColorMap(
     "S-LB": "none",
   };
 
-  if (!Array.isArray(array)) {
-    return result;
-  }
-
-  for (const item of array) {
+  for (const item of pattern) {
     result[item] = color;
   }
 

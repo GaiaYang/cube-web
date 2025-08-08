@@ -16,7 +16,7 @@ export interface OrientationLastLayerByCaseProps
 }
 
 /**
- * OLL顯示特定的圖案組件
+ * OLL顯示特定的圖案
  *
  * 只提供`caseId`直接顯示指定圖案
  * */

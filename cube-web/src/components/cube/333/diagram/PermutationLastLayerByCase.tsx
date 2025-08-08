@@ -16,7 +16,7 @@ export interface PermutationLastLayerByCaseProps
 }
 
 /**
- * PLL顯示特定的圖案組件
+ * PLL顯示特定的圖案
  *
  * 只提供`caseId`直接顯示指定圖案
  * */

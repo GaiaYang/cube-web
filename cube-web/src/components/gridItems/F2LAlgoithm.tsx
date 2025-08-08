@@ -9,13 +9,13 @@ import AlgorithmCard from "@/components/AlgorithmCard";
 export interface F2LAlgoithmProps extends F2LDefinition {}
 
 export default function F2LAlgoithm({
-  // pattern,
+  pattern,
   name,
   category,
 }: F2LAlgoithmProps) {
   return (
     <AlgorithmCard name={name} category={labels[category]}>
-      <Diagram />
+      <Diagram pattern={pattern} />
     </AlgorithmCard>
   );
 }

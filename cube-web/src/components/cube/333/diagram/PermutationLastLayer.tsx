@@ -1,25 +1,25 @@
 import React from "react";
+import { isPlainObject } from "es-toolkit";
 
 import {
-  CubeFaceCode,
   CubeFaceletPosition2D,
   CubeFaceColor,
+  PLLDefinition,
 } from "@/types/cube/333";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 import getCubeColorMap from "@/utils/cube/3x3/getCubeColorMap";
 
 export interface PermutationLastLayerProps
-  extends Omit<LastLayerDiagramProps, "colorMap"> {
-  /** 圖案 */
-  pattern?: Partial<Record<CubeFaceletPosition2D, CubeFaceCode>>;
+  extends Omit<LastLayerDiagramProps, "colorMap">,
+    Partial<Pick<PLLDefinition, "pattern">> {
   /** 頂層顏色 */
   topColor?: CubeFaceColor;
   /** 前層顏色 */
   frontColor?: CubeFaceColor;
 }
 
-/** PLL顯示圖案組件 */
+/** PLL顯示圖案 */
 export default function PermutationLastLayer({
   pattern,
   topColor = "yellow",
@@ -35,10 +35,14 @@ export default function PermutationLastLayer({
 }
 
 function createColorMap(
-  pattern?: Partial<Record<CubeFaceletPosition2D, CubeFaceCode>>,
+  pattern?: PLLDefinition["pattern"],
   topColor?: CubeFaceColor,
   frontColor?: CubeFaceColor,
 ) {
+  if (!isPlainObject(pattern)) {
+    return;
+  }
+
   const colorMap: LastLayerDiagramProps["colorMap"] = {
     TL: "none",
     TC: "none",
