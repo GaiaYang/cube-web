@@ -3,10 +3,19 @@ import { F2LCategory } from "@/enums/cube/333";
 
 export type { F2LDefinition, F2LCaseId } from "@/types/cube/333";
 
-/** 固定中心 */
-const centerPattern: Pick<F2LDefinition["pattern"], "F-CC" | "S-CC"> = {
+/** 固定上色 */
+const fixedPattern: Pick<
+  F2LDefinition["pattern"],
+  "F-CC" | "F-CL" | "F-BL" | "F-BC" | "S-CC" | "S-CR" | "S-BC" | "S-BR"
+> = {
   "F-CC": "F",
+  "F-CL": "F",
+  "F-BL": "F",
+  "F-BC": "F",
   "S-CC": "R",
+  "S-CR": "R",
+  "S-BC": "R",
+  "S-BR": "R",
 };
 
 export const definitions: F2LDefinition[] = [
@@ -16,18 +25,12 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F R' F' R",
     category: F2LCategory.FREE_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
       "U-CR": "F",
       "U-BR": "F",
       "F-TR": "D",
-      "F-CL": "F",
-      "F-BL": "F",
-      "F-BC": "F",
       "S-TL": "R",
       "S-TC": "R",
-      "S-CR": "R",
-      "S-BC": "R",
-      "S-BR": "R",
     },
   },
   {
@@ -36,18 +39,12 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R' F R F'",
     category: F2LCategory.FREE_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
       "U-BC": "R",
       "U-BR": "R",
       "F-TC": "F",
       "F-TR": "F",
-      "F-CL": "F",
-      "F-BL": "F",
-      "F-BC": "F",
       "S-TL": "D",
-      "S-CR": "R",
-      "S-BC": "R",
-      "S-BR": "R",
     },
   },
   {
@@ -56,7 +53,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' U F",
     category: F2LCategory.FREE_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -65,7 +62,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R'",
     category: F2LCategory.FREE_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -74,7 +71,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U2' R U' R' U",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -83,7 +80,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' U' F U2' F' U F U'",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -92,7 +89,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U2' R U2' R' U",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -101,7 +98,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "r' U' R2 U' R2' U2' r",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -110,7 +107,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' U F U' R U R' U",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -119,7 +116,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U' R U' R' U",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -128,7 +125,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' U F U' R U2' R' U",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -137,7 +134,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U2' R U R' U' R U R'",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -146,7 +143,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "r U2' R' U R U' R' U M",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -155,7 +152,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U' R U R' U",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -164,7 +161,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U' R U R' U2' R U' R'",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -173,7 +170,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' U F U2' R U R'",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -182,7 +179,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U R U2' R'",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -191,7 +188,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U' R U R' F R' F' R",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -200,7 +197,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U' R U2' R' U'",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -209,7 +206,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' F R' F' R2' U R' U",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -218,7 +215,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U2' R U R'",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -227,7 +224,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' L' U2' L F",
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -236,7 +233,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U R U' R' U2' R U' R'",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -245,7 +242,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' F R U R' U' F'",
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -254,7 +251,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' R U R' U' R' F R",
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -263,7 +260,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' U' F U R U R' U'",
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -272,7 +269,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U' R U R'",
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -281,7 +278,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R' F R F' U R U' R'",
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -290,7 +287,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F R' F' R F R' F' R",
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -299,7 +296,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U R U' R'",
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -308,7 +305,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' F R' F' R U",
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -317,7 +314,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U R U' R' U R U' R'",
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -326,7 +323,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' U2' R U R' U",
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -335,7 +332,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U2' R U' R' U'",
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -344,7 +341,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "F' U F U' R U' R' U",
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -353,7 +350,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U2' F R' F' R U2'",
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -362,7 +359,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R U2' F R2' F' U2' R2'",
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -371,7 +368,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U R U2' R' U R U' R'",
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -380,7 +377,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U' R' U' R U R' U2' R U' R'",
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -389,7 +386,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R U R' F U R U' R' F' R U R'",
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
   {
@@ -398,7 +395,7 @@ export const definitions: F2LDefinition[] = [
     setupAlgorithms: "R F U R U' R' F' U' R'",
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
-      ...centerPattern,
+      ...fixedPattern,
     },
   },
 ];
