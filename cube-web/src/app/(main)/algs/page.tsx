@@ -7,6 +7,7 @@ import ContentContainer from "@/components/ContentContainer";
 export const metadata: Metadata = {
   title: "公式總覽",
   description: "依照項目分類本站收入的所有公式總覽。",
+  alternates: { canonical: "/algs" },
 };
 
 export default function Page() {

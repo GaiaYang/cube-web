@@ -5,7 +5,7 @@ export const options: MenuOption[] = [
     label: "教學",
     submenu: [
       { label: "總覽", href: "/tutorial", key: "/tutorial" },
-      { title: "三階", key: "tutorial/333title" },
+      { title: "三階教學", key: "tutorial/333title" },
       {
         label: "CFOP",
         submenu: [
@@ -55,7 +55,7 @@ export const options: MenuOption[] = [
     submenu: [
       { label: "公式總覽", href: "/algs", key: "/algs" },
       // 三階公式表
-      { title: "三階", key: "algs/333title" },
+      { title: "三階公式表", key: "algs/333title" },
       { label: "總覽", href: "/algs/333", key: "/algs/333" },
       { label: "F2L", href: "/algs/333/f2l", key: "/algs/333/f2l" },
       { label: "OLL", href: "/algs/333/oll", key: "/algs/333/oll" },

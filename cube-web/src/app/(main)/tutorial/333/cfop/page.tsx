@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "CFOP",
   description:
     "CFOP 是最多人使用速解方法，其變體解法跟資源十分充足，適合入門速解的方法。",
+  alternates: { canonical: "/tutorial/333/cfop" },
 };
 
 export default function Page() {

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "F2L 公式列表",
   description:
     "將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體。",
+  alternates: { canonical: "/algs/333/f2l" },
 };
 
 export default function Page() {
