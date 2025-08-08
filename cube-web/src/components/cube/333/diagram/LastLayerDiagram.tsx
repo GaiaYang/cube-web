@@ -1,4 +1,5 @@
-import React, { type SVGProps } from "react";
+import React, { memo, type SVGProps } from "react";
+import { deepEqual } from "fast-equals";
 
 import cn from "@/utils/cn";
 
@@ -11,7 +12,7 @@ export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
 }
 
 /** 最後一層圖案 */
-export default function LastLayerDiagram({
+export default memo(function LastLayerDiagram({
   size,
   colorMap,
   ...props
@@ -36,7 +37,7 @@ export default function LastLayerDiagram({
       {rectangles.map(_renderItem)}
     </svg>
   );
-}
+}, deepEqual);
 
 interface RectItem extends React.SVGProps<SVGRectElement> {
   id: CubeFaceletPosition2D;
