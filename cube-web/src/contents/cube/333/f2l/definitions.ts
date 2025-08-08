@@ -54,6 +54,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.FREE_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CL": "R",
+      "U-BR": "F",
+      "F-TR": "D",
+      "S-TL": "R",
     },
   },
   {
@@ -63,6 +67,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.FREE_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-TC": "F",
+      "U-BR": "R",
+      "F-TR": "F",
+      "S-TL": "D",
     },
   },
   {
@@ -72,6 +80,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-TC": "F",
+      "U-BR": "F",
+      "F-TR": "D",
+      "S-TL": "R",
     },
   },
   {
@@ -81,6 +93,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CL": "R",
+      "U-BR": "R",
+      "F-TR": "F",
+      "S-TL": "D",
     },
   },
   {
@@ -90,6 +106,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CL": "F",
+      "U-BR": "F",
+      "F-TR": "D",
+      "S-TL": "R",
     },
   },
   {
@@ -99,6 +119,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-TC": "R",
+      "U-BR": "R",
+      "F-TR": "F",
+      "S-TL": "D",
     },
   },
   {
@@ -108,6 +132,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-TC": "R",
+      "U-BR": "F",
+      "F-TR": "D",
+      "S-TL": "R",
     },
   },
   {
@@ -117,6 +145,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CL": "F",
+      "U-BR": "R",
+      "F-TR": "F",
+      "S-TL": "D",
     },
   },
   {
@@ -126,6 +158,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CR": "R",
+      "U-BR": "F",
+      "F-TR": "D",
+      "S-TL": "R",
+      "S-TC": "F",
     },
   },
   {
@@ -135,6 +172,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-BC": "F",
+      "U-BR": "R",
+      "F-TC": "R",
+      "F-TR": "F",
+      "S-TL": "D",
     },
   },
   {
@@ -144,6 +186,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-BC": "R",
+      "U-BR": "F",
+      "F-TC": "F",
+      "F-TR": "D",
+      "S-TL": "R",
     },
   },
   {
@@ -153,6 +200,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CR": "F",
+      "U-BR": "R",
+      "F-TR": "F",
+      "S-TL": "D",
+      "S-TC": "R",
     },
   },
   {
@@ -162,6 +214,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-BC": "F",
+      "U-BR": "F",
+      "F-TC": "R",
+      "F-TR": "D",
+      "S-TL": "R",
     },
   },
   {
@@ -171,6 +228,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CR": "R",
+      "U-BR": "R",
+      "F-TR": "F",
+      "S-TL": "D",
+      "S-TC": "F",
     },
   },
   {
@@ -180,6 +242,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CR": "F",
+      "U-BR": "D",
+      "F-TR": "R",
+      "S-TL": "F",
+      "S-TC": "R",
     },
   },
   {
@@ -189,6 +256,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-BC": "R",
+      "U-BR": "D",
+      "F-TC": "F",
+      "F-TR": "R",
+      "S-TL": "F",
     },
   },
   {
@@ -198,6 +270,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-TC": "F",
+      "U-BR": "D",
+      "F-TR": "R",
+      "S-TL": "F",
     },
   },
   {
@@ -207,6 +283,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CL": "R",
+      "U-BR": "D",
+      "F-TR": "R",
+      "S-TL": "F",
     },
   },
   {
@@ -216,6 +296,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-CL": "F",
+      "U-BR": "D",
+      "F-TR": "R",
+      "S-TL": "F",
     },
   },
   {
@@ -225,6 +309,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-TC": "R",
+      "U-BR": "D",
+      "F-TR": "R",
+      "S-TL": "F",
     },
   },
   {
@@ -234,6 +322,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+      "U-BC": "F",
+      "U-BR": "D",
+      "F-TC": "R",
+      "F-TR": "R",
+      "S-TL": "F",
     },
   },
   {
@@ -243,6 +336,12 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
+
+      "U-CR": "R",
+      "U-BR": "D",
+      "F-TR": "R",
+      "S-TL": "F",
+      "S-TC": "F",
     },
   },
   {
