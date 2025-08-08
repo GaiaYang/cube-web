@@ -1,4 +1,5 @@
 export interface MenuOption {
+  key: string;
   /** 標籤標題 */
   title?: string;
   /** 標籤名稱 */
@@ -17,6 +18,4 @@ export interface MenuOption {
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
   /** 子菜單 */
   submenu?: MenuOption[];
-  /** 是否預設展開子菜單 */
-  defaultOpen?: boolean;
 }
