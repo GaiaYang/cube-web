@@ -2,12 +2,12 @@ import React, { type SVGProps } from "react";
 
 import cn from "@/utils/cn";
 
-import type { FaceletPosition, FaceletColor } from "@/types/cube/333";
+import type { CubeFaceletPosition2D, CubeFaceColor } from "@/types/cube/333";
 import { fillColors } from "@/themes/cube/colors";
 
 export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
-  colorMap?: Partial<Record<FaceletPosition, FaceletColor>>;
+  colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;
 }
 
 /** 最後一層圖案 */
@@ -39,7 +39,7 @@ export default function LastLayerDiagram({
 }
 
 interface RectItem extends React.SVGProps<SVGRectElement> {
-  id: FaceletPosition;
+  id: CubeFaceletPosition2D;
 }
 
 const rectangles: RectItem[] = [

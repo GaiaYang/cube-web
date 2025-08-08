@@ -1,15 +1,15 @@
 import React from "react";
 
-import { FaceletPosition, FaceletColor } from "@/types/cube/333";
+import { CubeFaceletPosition2D, CubeFaceColor } from "@/types/cube/333";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 
 export interface OrientationLastLayerProps
   extends Omit<LastLayerDiagramProps, "colorMap"> {
   /** 圖案 */
-  pattern?: FaceletPosition[];
+  pattern?: CubeFaceletPosition2D[];
   /** 頂層顏色 */
-  topColor?: FaceletColor;
+  topColor?: CubeFaceColor;
 }
 
 /** OLL顯示圖案組件 */
@@ -21,7 +21,10 @@ export default function OrientationLastLayer({
   return <LastLayer {...props} colorMap={createColorMap(pattern, topColor)} />;
 }
 
-function createColorMap(array?: FaceletPosition[], color?: FaceletColor) {
+function createColorMap(
+  array?: CubeFaceletPosition2D[],
+  color?: CubeFaceColor,
+) {
   const result: LastLayerDiagramProps["colorMap"] = {
     TL: "none",
     TC: "none",

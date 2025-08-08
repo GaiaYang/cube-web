@@ -1,7 +1,7 @@
-import type { FaceletColor } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/333";
 
 /** 六面顏色 */
-export type Face = Exclude<FaceletColor, "none">;
+export type Face = Exclude<CubeFaceColor, "none">;
 
 /** 魔術方塊六面顏色對應的三維單位向量（右手坐標系）*/
 const faceVectors: Record<Face, [number, number, number]> = {
@@ -40,9 +40,9 @@ function cross(
  * @param front 前方顏色
  */
 export default function getLeftRightColors(
-  up: FaceletColor,
-  front: FaceletColor,
-): { left: FaceletColor; right: FaceletColor } | null {
+  up: CubeFaceColor,
+  front: CubeFaceColor,
+): { left: CubeFaceColor; right: CubeFaceColor } | null {
   if (up === "none" || front === "none") {
     return null;
   }

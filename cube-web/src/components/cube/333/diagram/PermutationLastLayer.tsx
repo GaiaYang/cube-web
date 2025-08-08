@@ -1,6 +1,10 @@
 import React from "react";
 
-import { CubeFace, FaceletPosition, FaceletColor } from "@/types/cube/333";
+import {
+  CubeFaceCode,
+  CubeFaceletPosition2D,
+  CubeFaceColor,
+} from "@/types/cube/333";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 import getCubeColorMap from "@/utils/cube/3x3/getCubeColorMap";
@@ -8,11 +12,11 @@ import getCubeColorMap from "@/utils/cube/3x3/getCubeColorMap";
 export interface PermutationLastLayerProps
   extends Omit<LastLayerDiagramProps, "colorMap"> {
   /** 圖案 */
-  pattern?: Partial<Record<FaceletPosition, CubeFace>>;
+  pattern?: Partial<Record<CubeFaceletPosition2D, CubeFaceCode>>;
   /** 頂層顏色 */
-  topColor?: FaceletColor;
+  topColor?: CubeFaceColor;
   /** 前層顏色 */
-  frontColor?: FaceletColor;
+  frontColor?: CubeFaceColor;
 }
 
 /** PLL顯示圖案組件 */
@@ -31,9 +35,9 @@ export default function PermutationLastLayer({
 }
 
 function createColorMap(
-  pattern?: Partial<Record<FaceletPosition, CubeFace>>,
-  topColor?: FaceletColor,
-  frontColor?: FaceletColor,
+  pattern?: Partial<Record<CubeFaceletPosition2D, CubeFaceCode>>,
+  topColor?: CubeFaceColor,
+  frontColor?: CubeFaceColor,
 ) {
   const colorMap: LastLayerDiagramProps["colorMap"] = {
     TL: "none",
@@ -64,7 +68,7 @@ function createColorMap(
   if (faceColors) {
     // 填入頂層顏色
     for (const item of ["TL", "TC", "TR", "CL", "CR", "CC", "BL", "BC", "BR"]) {
-      colorMap[item as FaceletPosition] = faceColors.U;
+      colorMap[item as CubeFaceletPosition2D] = faceColors.U;
     }
 
     // 填入側面顏色
@@ -82,9 +86,9 @@ function createColorMap(
       "S-LC",
       "S-LB",
     ]) {
-      const cubePos = pattern?.[item as FaceletPosition];
+      const cubePos = pattern?.[item as CubeFaceletPosition2D];
       if (cubePos) {
-        colorMap[item as FaceletPosition] = faceColors[cubePos];
+        colorMap[item as CubeFaceletPosition2D] = faceColors[cubePos];
       }
     }
   }

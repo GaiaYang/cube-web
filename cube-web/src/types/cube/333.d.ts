@@ -1,10 +1,40 @@
 import { OLLCategory, PLLCategory, F2LCategory } from "@/enums/cube/333";
 
-/** 方塊方位 */
-export type CubeFace = "U" | "D" | "L" | "R" | "F" | "B";
+/** 方塊方位代號 */
+export type CubeFaceCode = "U" | "D" | "L" | "R" | "F" | "B";
 
-/** 方塊面塊位置編號 */
-export type FaceletPosition =
+/** 方塊立體圖位置 */
+export type CubeBlockPosition3D =
+  | "U-TL"
+  | "U-TC"
+  | "U-TR"
+  | "U-CL"
+  | "U-CR"
+  | "U-CC"
+  | "U-BL"
+  | "U-BC"
+  | "U-BR"
+  | "F-TL"
+  | "F-TC"
+  | "F-TR"
+  | "F-CL"
+  | "F-CR"
+  | "F-CC"
+  | "F-BL"
+  | "F-BC"
+  | "F-BR"
+  | "S-TL"
+  | "S-TC"
+  | "S-TR"
+  | "S-CL"
+  | "S-CR"
+  | "S-CC"
+  | "S-BL"
+  | "S-BC"
+  | "S-BR";
+
+/** 方塊平面展開圖位置 */
+export type CubeFaceletPosition2D =
   | "TL"
   | "TC"
   | "TR"
@@ -28,7 +58,7 @@ export type FaceletPosition =
   | "S-LB";
 
 /** 方塊面塊顏色 */
-export type FaceletColor =
+export type CubeFaceColor =
   | "red"
   | "orange"
   | "white"
@@ -104,7 +134,7 @@ export interface OLLDefinition {
   /** 設置公式 */
   setupAlgorithms: string;
   /** 圖案標記 */
-  pattern: FaceletPosition[];
+  pattern: CubeFaceletPosition2D[];
   /** 類別 */
   category: OLLCategory;
 }
@@ -144,7 +174,7 @@ export interface PLLDefinition {
    *
    * > 只需要指定`S-`開頭的面塊
    * */
-  pattern: Partial<Record<FaceletPosition, CubeFace>>;
+  pattern: Partial<Record<CubeFaceletPosition2D, CubeFaceCode>>;
   /** 類別 */
   category: PLLCategory;
 }
