@@ -336,7 +336,6 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
-
       "U-CR": "R",
       "U-BR": "D",
       "F-TR": "R",
@@ -351,6 +350,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-CR": "F",
+      "F-BR": "F",
+      "S-TC": "R",
+      "S-BL": "R",
     },
   },
   {
@@ -360,6 +363,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BC": "R",
+      "F-TC": "F",
+      "F-BR": "F",
+      "S-BL": "R",
     },
   },
   {
@@ -369,6 +376,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-CR": "F",
+      "F-BR": "D",
+      "S-TC": "R",
+      "S-BL": "F",
     },
   },
   {
@@ -378,6 +389,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BC": "R",
+      "F-TC": "F",
+      "F-BR": "R",
+      "S-BL": "D",
     },
   },
   {
@@ -387,6 +402,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BC": "R",
+      "F-TC": "F",
+      "F-BR": "D",
+      "S-BL": "F",
     },
   },
   {
@@ -396,6 +415,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-CR": "F",
+      "F-BR": "R",
+      "S-TC": "R",
+      "S-BL": "D",
     },
   },
   {
@@ -405,6 +428,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BR": "D",
+      "F-TR": "R",
+      "F-CR": "R",
+      "S-TL": "F",
+      "S-CL": "F",
     },
   },
   {
@@ -414,6 +442,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BR": "D",
+      "F-TR": "R",
+      "F-CR": "F",
+      "S-TL": "F",
+      "S-CL": "R",
     },
   },
   {
@@ -423,6 +456,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BR": "F",
+      "F-TR": "D",
+      "F-CR": "F",
+      "S-TL": "R",
+      "S-CL": "R",
     },
   },
   {
@@ -432,6 +470,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BR": "R",
+      "F-TR": "F",
+      "F-CR": "F",
+      "S-TL": "D",
+      "S-CL": "R",
     },
   },
   {
@@ -441,6 +484,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BR": "F",
+      "F-TR": "D",
+      "F-CR": "R",
+      "S-TL": "R",
+      "S-CL": "F",
     },
   },
   {
@@ -450,6 +498,11 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "U-BR": "R",
+      "F-TR": "F",
+      "F-CR": "R",
+      "S-TL": "D",
+      "S-CL": "F",
     },
   },
   {
@@ -459,6 +512,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "F-CR": "R",
+      "F-BR": "F",
+      "S-CL": "F",
+      "S-BL": "R",
     },
   },
   {
@@ -468,6 +525,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "F-CR": "F",
+      "F-BR": "D",
+      "S-CL": "R",
+      "S-BL": "F",
     },
   },
   {
@@ -477,6 +538,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "F-CR": "F",
+      "F-BR": "R",
+      "S-CL": "R",
+      "S-BL": "D",
     },
   },
   {
@@ -486,6 +551,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "F-CR": "R",
+      "F-BR": "D",
+      "S-CL": "F",
+      "S-BL": "F",
     },
   },
   {
@@ -495,6 +564,10 @@ export const definitions: F2LDefinition[] = [
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
+      "F-CR": "R",
+      "F-BR": "R",
+      "S-CL": "F",
+      "S-BL": "D",
     },
   },
 ];
