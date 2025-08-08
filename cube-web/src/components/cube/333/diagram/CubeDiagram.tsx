@@ -9,19 +9,12 @@ import { fillColors } from "@/themes/cube/colors";
 export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
   colorMap?: Partial<Record<CubeBlockPosition3D, CubeFaceColor>>;
-  /**
-   * 觀看角度
-   *
-   * @default "right"
-   * */
-  viewSide?: "left" | "right";
 }
 
 /** 立體方塊圖 */
 export default memo(function CubeDiagram({
   size,
   colorMap,
-  viewSide = "right",
   ...props
 }: CubeDiagramProps) {
   function _renderPath(item: PathItem) {
