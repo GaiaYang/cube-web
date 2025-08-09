@@ -4,23 +4,14 @@ import React from "react";
 
 import type { MenuOption } from "./types";
 import { options } from "./config";
+
 import MenuLink from "./MenuLink";
 
 export default function DrawerMenu() {
-  return <RecursiveMenu items={options} />;
+  return <ul className="menu w-full">{options.map(_renderNode)}</ul>;
 }
 
-function RecursiveMenu({ items }: { items: MenuOption[] }) {
-  return (
-    <ul className="menu w-full">
-      {items.map((item, index) => (
-        <MenuNode key={index} item={item} />
-      ))}
-    </ul>
-  );
-}
-
-function MenuNode({ item }: { item: MenuOption }) {
+function MenuNode(item: MenuOption) {
   // menu-title（純文字）
   if (item.asTitle && !item.submenu) {
     return <li className="menu-title">{item.title}</li>;
@@ -31,11 +22,7 @@ function MenuNode({ item }: { item: MenuOption }) {
     return (
       <li>
         <h2 className="menu-title">{item.title}</h2>
-        <ul>
-          {item.submenu.map((child, idx) => (
-            <MenuNode key={idx} item={child} />
-          ))}
-        </ul>
+        <ul>{item.submenu.map(_renderNode)}</ul>
       </li>
     );
   }
@@ -48,11 +35,7 @@ function MenuNode({ item }: { item: MenuOption }) {
           <summary>
             <MenuLink href={item.href}>{item.title}</MenuLink>
           </summary>
-          <ul>
-            {item.submenu.map((child, idx) => (
-              <MenuNode key={idx} item={child} />
-            ))}
-          </ul>
+          <ul>{item.submenu.map(_renderNode)}</ul>
         </details>
       </li>
     );
@@ -63,11 +46,7 @@ function MenuNode({ item }: { item: MenuOption }) {
     return (
       <li>
         <MenuLink href={item.href}>{item.title}</MenuLink>
-        <ul>
-          {item.submenu.map((child, idx) => (
-            <MenuNode key={idx} item={child} />
-          ))}
-        </ul>
+        <ul>{item.submenu.map(_renderNode)}</ul>
       </li>
     );
   }
@@ -78,4 +57,8 @@ function MenuNode({ item }: { item: MenuOption }) {
       <MenuLink href={item.href}>{item.title}</MenuLink>
     </li>
   );
+}
+
+function _renderNode(item: MenuOption, index: number) {
+  return <MenuNode {...item} key={index} />;
 }
