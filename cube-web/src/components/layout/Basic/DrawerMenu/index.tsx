@@ -1,79 +1,83 @@
 "use client";
 
 import React from "react";
-import { usePathname } from "next/navigation";
 
 import type { MenuOption } from "./types";
 import { options } from "./config";
-
-import LabelLink from "./LabelLink";
+import MenuLink from "./MenuLink";
 
 export default function DrawerMenu() {
-  const pathname = usePathname();
-  const openKeys = findOpenKeys(options, pathname);
+  // const pathname = usePathname();
 
-  function _renderItem({
-    key,
-    title,
-    label,
-    href,
-    onClick,
-    submenu,
-  }: MenuOption): React.ReactElement {
-    const active = pathname === href;
-
-    function _render() {
-      if (title) {
-        return <h2 className="menu-title">{title}</h2>;
-      }
-
-      if (Array.isArray(submenu)) {
-        const isOpen = openKeys.has(key);
-
-        return (
-          <details open={isOpen}>
-            <summary>{label}</summary>
-            <ul>{submenu.map(_renderItem)}</ul>
-          </details>
-        );
-      }
-
-      return (
-        <LabelLink
-          href={href}
-          label={label}
-          onClick={onClick}
-          active={active}
-        />
-      );
-    }
-
-    return <li key={key}>{_render()}</li>;
-  }
-
-  return <ul className="menu w-full">{options.map(_renderItem)}</ul>;
+  return <RecursiveMenu items={options} />;
 }
 
-/** 尋找要打開的項目`key` */
-function findOpenKeys(options: MenuOption[], pathname: string): Set<string> {
-  const openKeys = new Set<string>();
+function RecursiveMenu({ items }: { items: MenuOption[] }) {
+  return (
+    <ul className="menu w-full">
+      {items.map((item, index) => (
+        <MenuNode key={index} item={item} />
+      ))}
+    </ul>
+  );
+}
 
-  // 首頁直接不展開
-  if (pathname === "/") {
-    return openKeys;
+function MenuNode({ item }: { item: MenuOption }) {
+  // menu-title（純文字）
+  if (item.asTitle && !item.submenu) {
+    return <li className="menu-title">{item.title}</li>;
   }
 
-  function dfs(items: MenuOption[], parents: string[]) {
-    for (const item of items) {
-      if (item.href && pathname === item.href) {
-        parents.forEach((p) => openKeys.add(p));
-      }
-      if (item.submenu) {
-        dfs(item.submenu, [...parents, item.key]);
-      }
-    }
+  // menu-title + 子菜單
+  if (item.asTitle && item.submenu) {
+    return (
+      <li>
+        <h2 className="menu-title">{item.title}</h2>
+        <ul>
+          {item.submenu.map((child, idx) => (
+            <MenuNode key={idx} item={child} />
+          ))}
+        </ul>
+      </li>
+    );
   }
 
-  dfs(options, []);
-  return openKeys;
+  // 可折疊父層
+  if (item.collapsible && item.submenu) {
+    return (
+      <li>
+        <details open={false}>
+          <summary>
+            <MenuLink href={item.href}>{item.title}</MenuLink>
+          </summary>
+          <ul>
+            {item.submenu.map((child, idx) => (
+              <MenuNode key={idx} item={child} />
+            ))}
+          </ul>
+        </details>
+      </li>
+    );
+  }
+
+  // 一般有子菜單的父層（可點擊）
+  if (item.submenu) {
+    return (
+      <li>
+        <MenuLink href={item.href}>{item.title}</MenuLink>
+        <ul>
+          {item.submenu.map((child, idx) => (
+            <MenuNode key={idx} item={child} />
+          ))}
+        </ul>
+      </li>
+    );
+  }
+
+  // 單純連結或文字
+  return (
+    <li>
+      <MenuLink href={item.href}>{item.title}</MenuLink>
+    </li>
+  );
 }

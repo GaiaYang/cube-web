@@ -5,7 +5,6 @@ import { MoveRightIcon } from "lucide-react";
 import cn from "@/utils/cn";
 
 import BasicLayout from "@/components/layout/Basic";
-import CubeDiagram from "@/components/cube/333/diagram/CubeDiagram";
 
 export default function Home() {
   return (

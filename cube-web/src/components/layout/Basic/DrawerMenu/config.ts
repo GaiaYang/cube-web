@@ -2,65 +2,63 @@ import type { MenuOption } from "./types";
 
 export const options: MenuOption[] = [
   {
-    label: "教學",
+    title: "教學",
     submenu: [
-      { label: "總覽", href: "/tutorial", key: "/tutorial" },
-      { title: "三階教學", key: "tutorial/333title" },
+      { title: "總覽", href: "/tutorial" },
       {
-        label: "CFOP",
+        title: "三階教學",
         submenu: [
           {
-            label: "引導",
+            title: "CFOP",
             href: "/tutorial/333/cfop",
-            key: "/tutorial/333/cfop",
-          },
-          {
-            label: "Cross",
-            href: "/tutorial/333/cfop/cross",
-            key: "/tutorial/333/cfop/cross",
-          },
-          {
-            label: "F2L",
-            href: "/tutorial/333/cfop/f2l",
-            key: "/tutorial/333/cfop/f2l",
-          },
-          {
-            label: "兩段式OLL",
-            href: "/tutorial/333/cfop/oll/2look",
-            key: "/tutorial/333/cfop/oll/2look",
-          },
-          {
-            label: "OLL",
-            href: "/tutorial/333/cfop/oll",
-            key: "/tutorial/333/cfop/oll",
-          },
-          {
-            label: "兩段式PLL",
-            href: "/tutorial/333/cfop/pll/2look",
-            key: "/tutorial/333/cfop/pll/2look",
-          },
-          {
-            label: "PLL",
-            href: "/tutorial/333/cfop/pll",
-            key: "/tutorial/333/cfop/pll",
+            submenu: [
+              {
+                title: "Cross",
+                href: "/tutorial/333/cfop/cross",
+              },
+              {
+                title: "F2L",
+                href: "/tutorial/333/cfop/f2l",
+              },
+              {
+                title: "兩段式OLL",
+                href: "/tutorial/333/cfop/oll/2look",
+              },
+              {
+                title: "OLL",
+                href: "/tutorial/333/cfop/oll",
+              },
+              {
+                title: "兩段式PLL",
+                href: "/tutorial/333/cfop/pll/2look",
+              },
+              {
+                title: "PLL",
+                href: "/tutorial/333/cfop/pll",
+              },
+            ],
           },
         ],
-        key: "tutorial/333/cfop",
+        asTitle: true,
       },
     ],
-    key: "tutorial",
+    collapsible: true,
   },
   {
-    label: "公式表",
+    title: "公式表",
     submenu: [
-      { label: "公式總覽", href: "/algs", key: "/algs" },
-      // 三階公式表
-      { title: "三階公式表", key: "algs/333title" },
-      { label: "總覽", href: "/algs/333", key: "/algs/333" },
-      { label: "F2L", href: "/algs/333/f2l", key: "/algs/333/f2l" },
-      { label: "OLL", href: "/algs/333/oll", key: "/algs/333/oll" },
-      { label: "PLL", href: "/algs/333/pll", key: "/algs/333/pll" },
+      { title: "公式總覽", href: "/algs" },
+      {
+        title: "三階公式表",
+        asTitle: true,
+        submenu: [
+          { title: "總覽", href: "/algs/333" },
+          { title: "F2L", href: "/algs/333/f2l" },
+          { title: "OLL", href: "/algs/333/oll" },
+          { title: "PLL", href: "/algs/333/pll" },
+        ],
+      },
     ],
-    key: "algs",
+    collapsible: true,
   },
 ];
