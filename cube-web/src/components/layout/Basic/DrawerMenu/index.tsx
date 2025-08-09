@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 import type { MenuOption } from "./types";
 import { options } from "./config";
-import { openIdsAtom, pathnameAtom } from "./jotai";
+import { openIdsAtom, updateOpenIdsAtom, pathnameAtom } from "./jotai";
 
 import MenuLink, { type MenuLinkProps } from "./MenuLink";
 
@@ -25,42 +25,26 @@ interface MenuListProps {
 
 function MenuList({ items }: MenuListProps) {
   const pathname = usePathname();
-  const setOpenIds = useSetAtom(openIdsAtom);
+  const updateOpenIds = useSetAtom(updateOpenIdsAtom);
   const setPathname = useSetAtom(pathnameAtom);
 
   useEffect(() => {
     setPathname(pathname);
-    setOpenIds(new Set(findOpenPathIds(options, pathname)));
-  }, [pathname, setOpenIds, setPathname]);
+    updateOpenIds({ options, pathname });
+  }, [pathname, updateOpenIds, setPathname]);
 
   return <ul className="menu w-full">{items.map(_renderNode)}</ul>;
 }
 
-/** 找出當前路由所屬的菜單 id 路徑 */
-function findOpenPathIds(items: MenuOption[], currentPath: string): string[] {
-  for (const item of items) {
-    if (item.href === currentPath) {
-      return [item.id];
-    }
-    if (item.submenu) {
-      const childPath = findOpenPathIds(item.submenu, currentPath);
-      if (childPath.length) {
-        return [item.id, ...childPath];
-      }
-    }
-  }
-  return [];
-}
-
 function MenuNode({
+  id,
   title,
   href,
   submenu,
   collapsible,
   asTitle,
-  id,
 }: MenuOption) {
-  const setOpenIds = useSetAtom(openIdsAtom);
+  const updateOpenIds = useSetAtom(updateOpenIdsAtom);
   const isOpen = useAtomValue(
     useMemo(() => atom((get) => get(openIdsAtom).has(id)), [id]),
   );
@@ -70,9 +54,9 @@ function MenuNode({
 
   const handleLinkClick = useCallback(() => {
     if (href) {
-      setOpenIds(new Set(findOpenPathIds(options, href)));
+      updateOpenIds({ options, pathname: href });
     }
-  }, [setOpenIds, href]);
+  }, [updateOpenIds, href]);
 
   const menuLinkProps: MenuLinkProps = {
     href,
