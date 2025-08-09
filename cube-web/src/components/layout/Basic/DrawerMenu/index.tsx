@@ -10,6 +10,7 @@ import { options } from "./config";
 import { openIdsAtom, updateOpenIdsAtom, pathnameAtom } from "./jotai";
 
 import MenuLink, { type MenuLinkProps } from "./MenuLink";
+import { drawerId } from "../config";
 
 export default function DrawerMenu() {
   return (
@@ -61,6 +62,7 @@ function MenuNode({
     if (href) {
       updateOpenIds({ options, pathname: href });
     }
+    closeDrawer();
   }, [updateOpenIds, href]);
 
   const menuLinkProps: MenuLinkProps = {
@@ -118,4 +120,12 @@ function MenuNode({
 
 function _renderNode(item: MenuOption) {
   return <MenuNode {...item} key={item.id} />;
+}
+
+/** 點擊後關閉抽屜 */
+function closeDrawer() {
+  const drawer = document.getElementById(drawerId) as HTMLInputElement | null;
+  if (drawer) {
+    drawer.checked = false;
+  }
 }

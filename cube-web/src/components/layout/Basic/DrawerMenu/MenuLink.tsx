@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { drawerId } from "../config";
 import cn from "@/utils/cn";
 
 export interface MenuLinkProps
@@ -17,14 +16,9 @@ export default function MenuLink({
   className,
   children,
 }: MenuLinkProps) {
-  const _onClick: React.MouseEventHandler<HTMLElement> = (event) => {
-    closeDrawer();
-    onClick?.(event);
-  };
-
   const commonProps: React.HTMLAttributes<HTMLElement> = {
     className: cn({ "menu-active": isActive }, className),
-    onClick: _onClick,
+    onClick: onClick,
   };
 
   if (href) {
@@ -36,12 +30,4 @@ export default function MenuLink({
   }
 
   return <a {...commonProps}>{children}</a>;
-}
-
-/** 點擊後關閉抽屜 */
-function closeDrawer() {
-  const drawer = document.getElementById(drawerId) as HTMLInputElement | null;
-  if (drawer) {
-    drawer.checked = false;
-  }
 }
