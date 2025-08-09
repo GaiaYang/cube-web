@@ -5,26 +5,35 @@ import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
 
 import { usePathname } from "next/navigation";
 
-import type { MenuOption } from "./types";
-import { options } from "./config";
+import type { MenuOption } from "@/types/menu";
 import { openIdsAtom, updateOpenIdsAtom, pathnameAtom } from "./jotai";
 
 import MenuLink, { type MenuLinkProps } from "./MenuLink";
-import { drawerId } from "../config";
+import {
+  MenuContext,
+  useMenuContext,
+  type MenuContextType,
+} from "./MenuContext";
 
-export default function DrawerMenu() {
+export interface MenuTreeProps extends MenuContextType {
+  options: MenuOption[];
+}
+
+export default function MenuTree(props: MenuTreeProps) {
+  const { onLinkClick } = props;
+
+  const contextValue = useMemo(() => ({ onLinkClick }), [onLinkClick]);
+
   return (
-    <Provider>
-      <MenuList items={options} />
-    </Provider>
+    <MenuContext.Provider value={contextValue}>
+      <Provider>
+        <MenuList {...props} />
+      </Provider>
+    </MenuContext.Provider>
   );
 }
 
-interface MenuListProps {
-  items: MenuOption[];
-}
-
-function MenuList({ items }: MenuListProps) {
+function MenuList({ options }: MenuTreeProps) {
   const pathname = usePathname();
   const updateOpenIds = useSetAtom(updateOpenIdsAtom);
   const setPathname = useSetAtom(pathnameAtom);
@@ -34,13 +43,16 @@ function MenuList({ items }: MenuListProps) {
   }, [pathname, setPathname]);
 
   useEffect(() => {
-    updateOpenIds({ options: items, pathname });
-  }, [pathname, updateOpenIds, items]);
+    updateOpenIds({ options, pathname });
+  }, [pathname, updateOpenIds, options]);
 
-  return <ul className="menu w-full">{items.map(_renderNode)}</ul>;
+  return <ul className="menu w-full">{options.map(_renderNode)}</ul>;
 }
 
-interface MenuNodeProps extends MenuOption {}
+interface MenuNodeProps extends MenuOption {
+  /** 原本的菜單 */
+  array: MenuOption[];
+}
 
 function MenuNode({
   id,
@@ -49,7 +61,10 @@ function MenuNode({
   submenu,
   collapsible,
   asTitle,
+  // 從map原地拿的資料
+  array,
 }: MenuNodeProps) {
+  const { onLinkClick } = useMenuContext();
   const updateOpenIds = useSetAtom(updateOpenIdsAtom);
   const isOpen = useAtomValue(
     useMemo(() => atom((get) => get(openIdsAtom).has(id)), [id]),
@@ -60,10 +75,10 @@ function MenuNode({
 
   const handleLinkClick = useCallback(() => {
     if (href) {
-      updateOpenIds({ options, pathname: href });
+      updateOpenIds({ options: array, pathname: href });
     }
-    closeDrawer();
-  }, [updateOpenIds, href]);
+    onLinkClick?.();
+  }, [updateOpenIds, href, array, onLinkClick]);
 
   const menuLinkProps: MenuLinkProps = {
     href,
@@ -118,14 +133,6 @@ function MenuNode({
   );
 }
 
-function _renderNode(item: MenuOption) {
-  return <MenuNode {...item} key={item.id} />;
-}
-
-/** 點擊後關閉抽屜 */
-function closeDrawer() {
-  const drawer = document.getElementById(drawerId) as HTMLInputElement | null;
-  if (drawer) {
-    drawer.checked = false;
-  }
+function _renderNode(item: MenuOption, _: number, array: MenuOption[]) {
+  return <MenuNode {...item} key={item.id} array={array} />;
 }

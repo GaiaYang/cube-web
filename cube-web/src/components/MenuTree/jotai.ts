@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-import type { MenuOption } from "./types";
+import type { MenuOption } from "@/types/menu";
 
 /** 存放目前展開的id集合 */
 export const openIdsAtom = atom(new Set<string>());
