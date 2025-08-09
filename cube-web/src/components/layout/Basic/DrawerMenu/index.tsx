@@ -7,8 +7,6 @@ import { options } from "./config";
 import MenuLink from "./MenuLink";
 
 export default function DrawerMenu() {
-  // const pathname = usePathname();
-
   return <RecursiveMenu items={options} />;
 }
 
