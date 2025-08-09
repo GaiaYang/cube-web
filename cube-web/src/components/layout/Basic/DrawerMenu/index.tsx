@@ -30,11 +30,16 @@ function MenuList({ items }: MenuListProps) {
 
   useEffect(() => {
     setPathname(pathname);
-    updateOpenIds({ options, pathname });
-  }, [pathname, updateOpenIds, setPathname]);
+  }, [pathname, setPathname]);
+
+  useEffect(() => {
+    updateOpenIds({ options: items, pathname });
+  }, [pathname, updateOpenIds, items]);
 
   return <ul className="menu w-full">{items.map(_renderNode)}</ul>;
 }
+
+interface MenuNodeProps extends MenuOption {}
 
 function MenuNode({
   id,
@@ -43,7 +48,7 @@ function MenuNode({
   submenu,
   collapsible,
   asTitle,
-}: MenuOption) {
+}: MenuNodeProps) {
   const updateOpenIds = useSetAtom(updateOpenIdsAtom);
   const isOpen = useAtomValue(
     useMemo(() => atom((get) => get(openIdsAtom).has(id)), [id]),
