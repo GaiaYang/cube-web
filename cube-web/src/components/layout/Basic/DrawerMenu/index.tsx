@@ -1,14 +1,55 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
+
+import { usePathname } from "next/navigation";
 
 import type { MenuOption } from "./types";
 import { options } from "./config";
+import { openIdsAtom, pathnameAtom } from "./jotai";
 
-import MenuLink from "./MenuLink";
+import MenuLink, { type MenuLinkProps } from "./MenuLink";
 
 export default function DrawerMenu() {
-  return <ul className="menu w-full">{options.map(_renderNode)}</ul>;
+  return (
+    <Provider>
+      <MenuList items={options} />
+    </Provider>
+  );
+}
+
+interface MenuListProps {
+  items: MenuOption[];
+}
+
+function MenuList({ items }: MenuListProps) {
+  const pathname = usePathname();
+  const setOpenIds = useSetAtom(openIdsAtom);
+  const setPathname = useSetAtom(pathnameAtom);
+
+  useEffect(() => {
+    setPathname(pathname);
+    setOpenIds(new Set(findOpenPathIds(options, pathname)));
+  }, [pathname, setOpenIds, setPathname]);
+
+  return <ul className="menu w-full">{items.map(_renderNode)}</ul>;
+}
+
+/** 找出當前路由所屬的菜單 id 路徑 */
+function findOpenPathIds(items: MenuOption[], currentPath: string): string[] {
+  for (const item of items) {
+    if (item.href === currentPath) {
+      return [item.id];
+    }
+    if (item.submenu) {
+      const childPath = findOpenPathIds(item.submenu, currentPath);
+      if (childPath.length) {
+        return [item.id, ...childPath];
+      }
+    }
+  }
+  return [];
 }
 
 function MenuNode({
@@ -17,8 +58,28 @@ function MenuNode({
   submenu,
   collapsible,
   asTitle,
-  // id,
+  id,
 }: MenuOption) {
+  const setOpenIds = useSetAtom(openIdsAtom);
+  const isOpen = useAtomValue(
+    useMemo(() => atom((get) => get(openIdsAtom).has(id)), [id]),
+  );
+  const isActive = useAtomValue(
+    useMemo(() => atom((get) => get(pathnameAtom) === href), [href]),
+  );
+
+  const handleLinkClick = useCallback(() => {
+    if (href) {
+      setOpenIds(new Set(findOpenPathIds(options, href)));
+    }
+  }, [setOpenIds, href]);
+
+  const menuLinkProps: MenuLinkProps = {
+    href,
+    isActive,
+    onClick: handleLinkClick,
+  };
+
   // menu-title（純文字）
   if (asTitle && !submenu) {
     return <li className="menu-title">{title}</li>;
@@ -38,9 +99,9 @@ function MenuNode({
   if (collapsible && submenu) {
     return (
       <li>
-        <details open={false}>
+        <details open={isOpen}>
           <summary>
-            <MenuLink href={href}>{title}</MenuLink>
+            <MenuLink {...menuLinkProps}>{title}</MenuLink>
           </summary>
           <ul>{submenu.map(_renderNode)}</ul>
         </details>
@@ -52,7 +113,7 @@ function MenuNode({
   if (submenu) {
     return (
       <li>
-        <MenuLink href={href}>{title}</MenuLink>
+        <MenuLink {...menuLinkProps}>{title}</MenuLink>
         <ul>{submenu.map(_renderNode)}</ul>
       </li>
     );
@@ -61,7 +122,7 @@ function MenuNode({
   // 單純連結或文字
   return (
     <li>
-      <MenuLink href={href}>{title}</MenuLink>
+      <MenuLink {...menuLinkProps}>{title}</MenuLink>
     </li>
   );
 }

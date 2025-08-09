@@ -1,15 +1,30 @@
 import Link from "next/link";
 
 import { drawerId } from "../config";
+import cn from "@/utils/cn";
 
-export interface MenuLinkProps {
+export interface MenuLinkProps
+  extends Pick<React.HTMLAttributes<HTMLElement>, "onClick" | "className"> {
+  isActive?: boolean;
   href?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-export default function MenuLink({ href, children }: MenuLinkProps) {
+export default function MenuLink({
+  href,
+  onClick,
+  isActive,
+  className,
+  children,
+}: MenuLinkProps) {
+  const _onClick: React.MouseEventHandler<HTMLElement> = (event) => {
+    closeDrawer();
+    onClick?.(event);
+  };
+
   const commonProps: React.HTMLAttributes<HTMLElement> = {
-    onClick: closeDrawer,
+    className: cn({ "menu-active": isActive }, className),
+    onClick: _onClick,
   };
 
   if (href) {
