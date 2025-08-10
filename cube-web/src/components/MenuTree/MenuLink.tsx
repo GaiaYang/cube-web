@@ -2,9 +2,10 @@
 
 import { useMemo } from "react";
 import Link, { type LinkProps } from "next/link";
-import { usePathname } from "next/navigation";
+import { atom, useAtomValue } from "jotai";
 
 import cn from "@/utils/cn";
+import { pathnameAtom } from "./jotai";
 
 export interface MenuLinkProps
   extends LinkProps,
@@ -13,8 +14,9 @@ export interface MenuLinkProps
 }
 
 export default function MenuLink({ className, href, ...props }: MenuLinkProps) {
-  const pathname = usePathname();
-  const isActive = useMemo(() => href === pathname, [href, pathname]);
+  const isActive = useAtomValue(
+    useMemo(() => atom((get) => get(pathnameAtom) === href), [href]),
+  );
 
   return (
     <Link

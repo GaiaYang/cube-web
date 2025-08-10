@@ -3,11 +3,12 @@ import React from "react";
 import type { MenuOption } from "@/types/menu";
 
 import MenuLink from "./MenuLink";
+import MenuDetails from "./MenuDetails";
 
 export interface MenuNodeProps extends MenuOption {}
 
 export default function MenuNode({
-  // id,
+  id,
   title,
   href,
   submenu,
@@ -41,10 +42,10 @@ export default function MenuNode({
   if (collapsible && submenu) {
     return (
       <li>
-        <details open={false}>
+        <MenuDetails id={id}>
           <summary>{_renderLabel()}</summary>
           <ul>{submenu.map(_renderNode)}</ul>
-        </details>
+        </MenuDetails>
       </li>
     );
   }
@@ -63,6 +64,6 @@ export default function MenuNode({
   return <li>{_renderLabel()}</li>;
 }
 
-function _renderNode(item: MenuOption, _: number) {
+function _renderNode(item: MenuOption) {
   return <MenuNode {...item} key={item.id} />;
 }
