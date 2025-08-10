@@ -4,10 +4,7 @@ import type { MenuOption } from "@/types/menu";
 
 import MenuLink from "./MenuLink";
 
-export interface MenuNodeProps extends MenuOption {
-  /** 原本的菜單 */
-  array: MenuOption[];
-}
+export interface MenuNodeProps extends MenuOption {}
 
 export default function MenuNode({
   // id,
@@ -16,8 +13,6 @@ export default function MenuNode({
   submenu,
   collapsible,
   asTitle,
-  // 從map原地拿的資料
-  // array,
 }: MenuNodeProps) {
   function _renderLabel() {
     if (href) {
@@ -68,6 +63,6 @@ export default function MenuNode({
   return <li>{_renderLabel()}</li>;
 }
 
-function _renderNode(item: MenuOption, _: number, array: MenuOption[]) {
-  return <MenuNode {...item} key={item.id} array={array} />;
+function _renderNode(item: MenuOption, _: number) {
+  return <MenuNode {...item} key={item.id} />;
 }

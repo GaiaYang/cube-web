@@ -21,6 +21,6 @@ export default function MenuTree({
   );
 }
 
-function _renderNode(item: MenuOption, _: number, array: MenuOption[]) {
-  return <MenuNode {...item} key={item.id} array={array} />;
+function _renderNode(item: MenuOption, _: number) {
+  return <MenuNode {...item} key={item.id} />;
 }

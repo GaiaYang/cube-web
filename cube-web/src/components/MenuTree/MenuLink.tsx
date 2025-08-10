@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import Link, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,11 +12,15 @@ export interface MenuLinkProps
   children?: React.ReactNode;
 }
 
-export default function MenuLink({ className, ...props }: MenuLinkProps) {
+export default function MenuLink({ className, href, ...props }: MenuLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname === props.href;
+  const isActive = useMemo(() => href === pathname, [href, pathname]);
 
   return (
-    <Link {...props} className={cn({ "menu-active": isActive }, className)} />
+    <Link
+      {...props}
+      href={href}
+      className={cn({ "menu-active": isActive }, className)}
+    />
   );
 }
