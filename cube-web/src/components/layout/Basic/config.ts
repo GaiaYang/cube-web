@@ -64,3 +64,4 @@ export const options = assignIdsToMenuOptions([
 ]);
 
 export const drawerId = "drawer";
+export const drawerMenuId = "drawer-menu";

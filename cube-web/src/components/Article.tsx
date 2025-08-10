@@ -18,7 +18,7 @@ export default function Article({
       className={cn(
         "prose dark:prose-invert",
         "prose-sm md:prose-base lg:prose-lg xl:prose-xl 2xl:prose-2xl",
-        "w-full grow max-lg:mx-auto",
+        "w-full max-w-none grow",
         "px-6 py-12",
         className,
       )}

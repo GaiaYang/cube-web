@@ -7,6 +7,7 @@ import cn from "@/utils/cn";
 
 import DrawerMenu from "./DrawerMenu";
 import LogoButton from "./LogoButton";
+import DrawerToggle from "./DrawerToggle";
 
 export interface DrawerProps extends CommonProps {}
 
@@ -22,7 +23,7 @@ export default function Drawer({
         "bg-base-100 mx-auto max-w-[1920px]",
       )}
     >
-      <input id={drawerId} type="checkbox" className="drawer-toggle" />
+      <DrawerToggle />
       <div className="drawer-content flex min-h-screen flex-col">
         {children}
       </div>
