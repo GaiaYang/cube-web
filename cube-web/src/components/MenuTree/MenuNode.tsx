@@ -43,7 +43,7 @@ export default function MenuNode({
     return (
       <li>
         <MenuDetails id={id}>
-          <summary>{_renderLabel()}</summary>
+          <summary>{title}</summary>
           <ul>{submenu.map(_renderNode)}</ul>
         </MenuDetails>
       </li>
