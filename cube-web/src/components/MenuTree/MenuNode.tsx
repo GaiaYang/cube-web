@@ -15,14 +15,6 @@ export default function MenuNode({
   collapsible,
   asTitle,
 }: MenuNodeProps) {
-  function _renderLabel() {
-    if (href) {
-      return <MenuLink href={href}>{title}</MenuLink>;
-    }
-
-    return <a>{title}</a>;
-  }
-
   // menu-title（純文字）
   if (asTitle && !submenu) {
     return <li className="menu-title">{title}</li>;
@@ -48,6 +40,15 @@ export default function MenuNode({
         </MenuDetails>
       </li>
     );
+  }
+
+  /** 統一渲染文字 */
+  function _renderLabel() {
+    if (href) {
+      return <MenuLink href={href}>{title}</MenuLink>;
+    }
+
+    return <a>{title}</a>;
   }
 
   // 一般有子菜單的父層（可點擊）

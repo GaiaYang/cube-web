@@ -21,14 +21,14 @@ export default function DrawerToggle() {
     const menuEl = document.getElementById(drawerMenuId);
     if (!menuEl) return;
 
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    function handleClick(ev: PointerEvent) {
+      const target = ev.target as HTMLElement;
       if (target.closest("a[href]")) {
         if (ref.current) {
           ref.current.checked = false;
         }
       }
-    };
+    }
 
     menuEl.addEventListener("click", handleClick);
 

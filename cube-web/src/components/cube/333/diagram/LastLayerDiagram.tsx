@@ -1,5 +1,6 @@
 import React, { memo, type SVGProps } from "react";
 import { deepEqual } from "fast-equals";
+import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
 
@@ -17,6 +18,10 @@ export default memo(function LastLayerDiagram({
   colorMap,
   ...props
 }: LastLayerDiagramProps) {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+  });
+
   function _renderItem(item: RectItem) {
     return (
       <rect
@@ -33,8 +38,15 @@ export default memo(function LastLayerDiagram({
   }
 
   return (
-    <svg width={size} height={size} {...props} viewBox="0 0 56 56">
-      {rectangles.map(_renderItem)}
+    <svg
+      width={size}
+      height={size}
+      {...props}
+      ref={ref}
+      viewBox="0 0 56 56"
+      className={cn({ skeleton: !inView }, props.className)}
+    >
+      {inView ? rectangles.map(_renderItem) : null}
     </svg>
   );
 }, deepEqual);

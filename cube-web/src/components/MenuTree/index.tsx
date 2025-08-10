@@ -11,23 +11,21 @@ export interface MenuTreeProps extends React.HTMLAttributes<HTMLUListElement> {
   options: MenuOption[];
 }
 
-export default function MenuTree(props: MenuTreeProps) {
+export default function MenuTree({
+  options,
+  className,
+  ...props
+}: MenuTreeProps) {
   return (
     <Provider>
-      <MenuController options={props.options} />
-      <MenuCore {...props} />
+      <MenuController options={options} />
+      <ul {...props} className={cn("menu w-full", className)}>
+        {options.map(_renderNode)}
+      </ul>
     </Provider>
   );
 }
 
-function MenuCore({ options, className, ...props }: MenuTreeProps) {
-  return (
-    <ul {...props} className={cn("menu w-full", className)}>
-      {options.map(_renderNode)}
-    </ul>
-  );
-}
-
-function _renderNode(item: MenuOption, _: number) {
+function _renderNode(item: MenuOption) {
   return <MenuNode {...item} key={item.id} />;
 }

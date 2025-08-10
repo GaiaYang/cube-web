@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <ContentContainer className="grid gap-6 xl:gap-8">
+      <ContentContainer>
         <ContentSection
           title="PLL 公式列表"
           description="歸位最後一層的所有方塊，這個步驟完全依靠公式處理，共有 21 種情況。"

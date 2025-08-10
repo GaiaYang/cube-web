@@ -1,5 +1,6 @@
 import React, { memo, type SVGProps } from "react";
 import { deepEqual } from "fast-equals";
+import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
 
@@ -17,6 +18,10 @@ export default memo(function CubeDiagram({
   colorMap,
   ...props
 }: CubeDiagramProps) {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+  });
+
   function _renderPath(item: PathItem) {
     return (
       <path
@@ -41,8 +46,15 @@ export default memo(function CubeDiagram({
   }
 
   return (
-    <svg width={size} height={size} {...props} viewBox="0 0 56 56">
-      {groups.map(_renderGroup)}
+    <svg
+      width={size}
+      height={size}
+      {...props}
+      ref={ref}
+      viewBox="0 0 56 56"
+      className={cn({ skeleton: !inView }, props.className)}
+    >
+      {inView ? groups.map(_renderGroup) : null}
     </svg>
   );
 }, deepEqual);

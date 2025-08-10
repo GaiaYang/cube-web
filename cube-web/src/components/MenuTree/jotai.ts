@@ -15,18 +15,24 @@ export const updateOpenIdsAtom = atom(
 
 /** 尋找匹配的路徑 */
 function findMatchedPath(
-  options: MenuOption[],
+  options: MenuOption[] = [],
   pathname: string = "",
-  path: string[] = [],
+  paths: string[] = [],
 ): string[] {
+  if (!pathname || options.length === 0) {
+    return [];
+  }
+
   for (const option of options) {
-    const currentPath = [...path, option.id];
+    const currentPath = [...paths, option.id];
     if (option.href === pathname) {
       return currentPath;
     }
     if (option.submenu) {
       const foundPath = findMatchedPath(option.submenu, pathname, currentPath);
-      if (foundPath.length > 0) return foundPath;
+      if (foundPath.length > 0) {
+        return foundPath;
+      }
     }
   }
   return [];

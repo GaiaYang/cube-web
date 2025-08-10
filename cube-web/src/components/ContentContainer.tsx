@@ -14,7 +14,8 @@ export default function ContentContainer({
     <div
       {...props}
       className={cn(
-        "isolate",
+        "isolate flex flex-col",
+        "gap-x-8 gap-y-20",
         "px-6 lg:px-8",
         "pt-10 pb-24",
         // "py-24 sm:py-32",

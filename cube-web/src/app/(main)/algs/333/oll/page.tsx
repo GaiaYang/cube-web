@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <ContentContainer className="grid gap-6 xl:gap-8">
+      <ContentContainer>
         <ContentSection
           title="OLL 公式列表"
           description="將頂層方塊朝向正確方向，這個步驟完全依靠公式處理，共有 57 種情況。"
