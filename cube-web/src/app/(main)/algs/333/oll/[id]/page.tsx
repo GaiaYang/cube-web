@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -6,6 +6,7 @@ import {
   definitionMap,
   type OLLCaseId,
 } from "@/contents/cube/333/oll/definitions";
+import AlgorithmPanel from "@/components/AlgorithmPanel";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -34,6 +35,12 @@ export async function generateMetadata(
   };
 }
 
-export default function Page() {
-  return <main></main>;
+export default function Page({ params }: Props) {
+  const { id } = use(params);
+
+  return (
+    <main>
+      <AlgorithmPanel />
+    </main>
+  );
 }

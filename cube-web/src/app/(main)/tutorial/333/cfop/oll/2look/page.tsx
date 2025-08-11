@@ -122,6 +122,16 @@ export default function Page() {
             renderItem={_renderOCLLItem}
           />
         </div>
+        <h2>下一步</h2>
+        <p>現在你完成了頂面，接下來開始完成頂層的排列來復原方塊。</p>
+        <ul>
+          <li>
+            <Link href="/tutorial/333/cfop/pll">PLL</Link>
+          </li>
+          <li>
+            <Link href="/tutorial/333/cfop/pll/2look">兩段式PLL</Link>
+          </li>
+        </ul>
       </Article>
     </main>
   );

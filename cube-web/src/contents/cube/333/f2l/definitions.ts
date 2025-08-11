@@ -23,6 +23,7 @@ export const definitions: F2LDefinition[] = [
     id: "1",
     name: "1",
     setupAlgorithms: "F R' F' R",
+    algorithms: [],
     category: F2LCategory.FREE_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -37,6 +38,7 @@ export const definitions: F2LDefinition[] = [
     id: "2",
     name: "2",
     setupAlgorithms: "R' F R F'",
+    algorithms: [],
     category: F2LCategory.FREE_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -51,6 +53,7 @@ export const definitions: F2LDefinition[] = [
     id: "3",
     name: "3",
     setupAlgorithms: "F' U F",
+    algorithms: [],
     category: F2LCategory.FREE_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -64,6 +67,7 @@ export const definitions: F2LDefinition[] = [
     id: "4",
     name: "4",
     setupAlgorithms: "R U' R'",
+    algorithms: [],
     category: F2LCategory.FREE_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -77,6 +81,7 @@ export const definitions: F2LDefinition[] = [
     id: "5",
     name: "5",
     setupAlgorithms: "R U R' U2' R U' R' U",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -90,6 +95,7 @@ export const definitions: F2LDefinition[] = [
     id: "6",
     name: "6",
     setupAlgorithms: "F' U' F U2' F' U F U'",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -103,6 +109,7 @@ export const definitions: F2LDefinition[] = [
     id: "7",
     name: "7",
     setupAlgorithms: "R U R' U2' R U2' R' U",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -116,6 +123,7 @@ export const definitions: F2LDefinition[] = [
     id: "8",
     name: "8",
     setupAlgorithms: "r' U' R2 U' R2' U2' r",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -129,6 +137,7 @@ export const definitions: F2LDefinition[] = [
     id: "9",
     name: "9",
     setupAlgorithms: "F' U F U' R U R' U",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -142,6 +151,7 @@ export const definitions: F2LDefinition[] = [
     id: "10",
     name: "10",
     setupAlgorithms: "R U' R' U' R U' R' U",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -155,6 +165,7 @@ export const definitions: F2LDefinition[] = [
     id: "11",
     name: "11",
     setupAlgorithms: "F' U F U' R U2' R' U",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -169,6 +180,7 @@ export const definitions: F2LDefinition[] = [
     id: "12",
     name: "12",
     setupAlgorithms: "R U R' U2' R U R' U' R U R'",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -183,6 +195,7 @@ export const definitions: F2LDefinition[] = [
     id: "13",
     name: "13",
     setupAlgorithms: "r U2' R' U R U' R' U M",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -197,6 +210,7 @@ export const definitions: F2LDefinition[] = [
     id: "14",
     name: "14",
     setupAlgorithms: "R U' R' U' R U R' U",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -211,6 +225,7 @@ export const definitions: F2LDefinition[] = [
     id: "15",
     name: "15",
     setupAlgorithms: "R U R' U' R U R' U2' R U' R'",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -225,6 +240,7 @@ export const definitions: F2LDefinition[] = [
     id: "16",
     name: "16",
     setupAlgorithms: "F' U F U2' R U R'",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -239,6 +255,7 @@ export const definitions: F2LDefinition[] = [
     id: "17",
     name: "17",
     setupAlgorithms: "R U' R' U R U2' R'",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -253,6 +270,7 @@ export const definitions: F2LDefinition[] = [
     id: "18",
     name: "18",
     setupAlgorithms: "R U R' U' R U R' F R' F' R",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -267,6 +285,7 @@ export const definitions: F2LDefinition[] = [
     id: "19",
     name: "19",
     setupAlgorithms: "R U R' U' R U2' R' U'",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -280,6 +299,7 @@ export const definitions: F2LDefinition[] = [
     id: "20",
     name: "20",
     setupAlgorithms: "R U R' F R' F' R2' U R' U",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -293,6 +313,7 @@ export const definitions: F2LDefinition[] = [
     id: "21",
     name: "21",
     setupAlgorithms: "R U' R' U2' R U R'",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -306,6 +327,7 @@ export const definitions: F2LDefinition[] = [
     id: "22",
     name: "22",
     setupAlgorithms: "F' L' U2' L F",
+    algorithms: [],
     category: F2LCategory.DISCONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -319,6 +341,7 @@ export const definitions: F2LDefinition[] = [
     id: "23",
     name: "23",
     setupAlgorithms: "R U' R' U R U' R' U2' R U' R'",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -333,6 +356,7 @@ export const definitions: F2LDefinition[] = [
     id: "24",
     name: "24",
     setupAlgorithms: "R U R' F R U R' U' F'",
+    algorithms: [],
     category: F2LCategory.CONNECTED_PAIRS,
     pattern: {
       ...fixedPattern,
@@ -347,6 +371,7 @@ export const definitions: F2LDefinition[] = [
     id: "25",
     name: "25",
     setupAlgorithms: "F' R U R' U' R' F R",
+    algorithms: [],
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -360,6 +385,7 @@ export const definitions: F2LDefinition[] = [
     id: "26",
     name: "26",
     setupAlgorithms: "F' U' F U R U R' U'",
+    algorithms: [],
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -373,6 +399,7 @@ export const definitions: F2LDefinition[] = [
     id: "27",
     name: "27",
     setupAlgorithms: "R U R' U' R U R'",
+    algorithms: [],
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -386,6 +413,7 @@ export const definitions: F2LDefinition[] = [
     id: "28",
     name: "28",
     setupAlgorithms: "R' F R F' U R U' R'",
+    algorithms: [],
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -399,6 +427,7 @@ export const definitions: F2LDefinition[] = [
     id: "29",
     name: "29",
     setupAlgorithms: "F R' F' R F R' F' R",
+    algorithms: [],
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -412,6 +441,7 @@ export const definitions: F2LDefinition[] = [
     id: "30",
     name: "30",
     setupAlgorithms: "R U' R' U R U' R'",
+    algorithms: [],
     category: F2LCategory.CORNER_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -425,6 +455,7 @@ export const definitions: F2LDefinition[] = [
     id: "31",
     name: "31",
     setupAlgorithms: "R U R' F R' F' R U",
+    algorithms: [],
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -439,6 +470,7 @@ export const definitions: F2LDefinition[] = [
     id: "32",
     name: "32",
     setupAlgorithms: "R U' R' U R U' R' U R U' R'",
+    algorithms: [],
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -453,6 +485,7 @@ export const definitions: F2LDefinition[] = [
     id: "33",
     name: "33",
     setupAlgorithms: "R U R' U2' R U R' U",
+    algorithms: [],
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -467,6 +500,7 @@ export const definitions: F2LDefinition[] = [
     id: "34",
     name: "34",
     setupAlgorithms: "R U' R' U2' R U' R' U'",
+    algorithms: [],
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -481,6 +515,7 @@ export const definitions: F2LDefinition[] = [
     id: "35",
     name: "35",
     setupAlgorithms: "F' U F U' R U' R' U",
+    algorithms: [],
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -495,6 +530,7 @@ export const definitions: F2LDefinition[] = [
     id: "36",
     name: "36",
     setupAlgorithms: "R U' R' U2' F R' F' R U2'",
+    algorithms: [],
     category: F2LCategory.EDGE_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -509,6 +545,7 @@ export const definitions: F2LDefinition[] = [
     id: "37",
     name: "37",
     setupAlgorithms: "R U' R U2' F R2' F' U2' R2'",
+    algorithms: [],
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -522,6 +559,7 @@ export const definitions: F2LDefinition[] = [
     id: "38",
     name: "38",
     setupAlgorithms: "R U' R' U R U2' R' U R U' R'",
+    algorithms: [],
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -535,6 +573,7 @@ export const definitions: F2LDefinition[] = [
     id: "39",
     name: "39",
     setupAlgorithms: "R U' R' U' R U R' U2' R U' R'",
+    algorithms: [],
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -548,6 +587,7 @@ export const definitions: F2LDefinition[] = [
     id: "40",
     name: "40",
     setupAlgorithms: "R U R' F U R U' R' F' R U R'",
+    algorithms: [],
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,
@@ -561,6 +601,7 @@ export const definitions: F2LDefinition[] = [
     id: "41",
     name: "41",
     setupAlgorithms: "R F U R U' R' F' U' R'",
+    algorithms: [],
     category: F2LCategory.PIECES_IN_SLOT,
     pattern: {
       ...fixedPattern,

@@ -135,6 +135,8 @@ export interface OLLDefinition {
   setupAlgorithms: string;
   /** 圖案標記 */
   pattern: CubeFaceletPosition2D[];
+  /** 公式 */
+  algorithms: string[];
   /** 類別 */
   category: OLLCategory;
 }
@@ -175,6 +177,8 @@ export interface PLLDefinition {
    * > 只需要指定`S-`開頭的面塊
    * */
   pattern: Partial<Record<CubeFaceletPosition2D, CubeFaceCode>>;
+  /** 公式 */
+  algorithms: string[];
   /** 類別 */
   category: PLLCategory;
 }
@@ -237,6 +241,8 @@ export interface F2LDefinition {
    * - `U-`開頭表示上邊
    */
   pattern: Partial<Record<CubeBlockPosition3D, CubeFaceCode>>;
+  /** 公式 */
+  algorithms: string[];
   /** 類別 */
   category: F2LCategory;
 }

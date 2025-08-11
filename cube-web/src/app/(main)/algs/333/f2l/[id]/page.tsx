@@ -6,6 +6,7 @@ import {
   definitionMap,
   type F2LCaseId,
 } from "@/contents/cube/333/f2l/definitions";
+import AlgorithmPanel from "@/components/AlgorithmPanel";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -37,5 +38,9 @@ export async function generateMetadata(
 export default function Page({ params }: Props) {
   const { id } = use(params);
 
-  return <main>{id}</main>;
+  return (
+    <main>
+      <AlgorithmPanel />
+    </main>
+  );
 }

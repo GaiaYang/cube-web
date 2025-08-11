@@ -22,6 +22,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "R",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -42,6 +43,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "R",
       "S-RB": "B",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -62,6 +64,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "F",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -82,6 +85,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "F",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -102,6 +106,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "B",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -122,6 +127,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "F",
       "S-RB": "B",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -142,6 +148,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "R",
       "S-RB": "B",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -162,6 +169,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "B",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -182,6 +190,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
+    algorithms: [],
     category: PLLCategory.EPLL,
   },
   {
@@ -202,6 +211,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -222,6 +232,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -242,6 +253,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
+    algorithms: [],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -262,6 +274,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -282,6 +295,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -302,6 +316,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "F",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -322,6 +337,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "B",
     },
+    algorithms: [],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -342,6 +358,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "R",
     },
+    algorithms: [],
     category: PLLCategory.EPLL,
   },
   {
@@ -362,6 +379,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
+    algorithms: [],
     category: PLLCategory.EPLL,
   },
   {
@@ -382,6 +400,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -402,6 +421,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "R",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -422,6 +442,7 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "L",
     },
+    algorithms: [],
     category: PLLCategory.EPLL,
   },
 ];
