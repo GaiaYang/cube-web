@@ -38,9 +38,15 @@ export async function generateMetadata(
 export default function Page({ params }: Props) {
   const { id } = use(params);
 
+  const data = definitionMap.get(id as F2LCaseId);
+
+  if (!data) {
+    notFound();
+  }
+
   return (
     <main>
-      <AlgorithmPanel />
+      <AlgorithmPanel {...data} />
     </main>
   );
 }
