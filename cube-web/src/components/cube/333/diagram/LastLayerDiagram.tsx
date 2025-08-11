@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo, type SVGProps } from "react";
 import { deepEqual } from "fast-equals";
 import { useInView } from "react-intersection-observer";

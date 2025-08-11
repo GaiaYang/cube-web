@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "es-toolkit": "^1.39.8",
+    "es-toolkit": "^1.39.9",
     "fast-equals": "^5.2.2",
     "jotai": "^2.13.0",
     "lucide-react": "^0.539.0",

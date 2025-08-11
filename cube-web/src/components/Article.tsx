@@ -1,5 +1,6 @@
-import cn from "@/utils/cn";
 import React from "react";
+
+import cn from "@/utils/cn";
 
 export interface ArticleProps
   extends React.DetailedHTMLProps<
@@ -17,7 +18,7 @@ export default function Article({
       {...props}
       className={cn(
         "prose dark:prose-invert",
-        "prose-sm md:prose-base lg:prose-lg xl:prose-xl 2xl:prose-2xl",
+        "prose-sm md:prose-base",
         "w-full max-w-none grow",
         "px-6 py-12",
         className,
