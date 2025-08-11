@@ -1,17 +1,17 @@
 import React from "react";
 
-export interface AlgorithmCardProps {
+export interface AlgorithmCaseCardProps {
   name?: string;
   category?: string;
 }
 
-export default function AlgorithmCard({
+export default function AlgorithmCaseCard({
   name,
   category,
   children,
-}: React.PropsWithChildren<AlgorithmCardProps>) {
+}: React.PropsWithChildren<AlgorithmCaseCardProps>) {
   return (
-    <div className="card">
+    <div className="card card-sm">
       <div className="card-body items-center text-center">
         <figure className="aspect-square w-full">
           {children ?? <div aria-hidden className="skeleton h-full w-full" />}

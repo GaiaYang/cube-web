@@ -5,16 +5,15 @@ import { MoveRightIcon } from "lucide-react";
 
 import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
+import { OLLCaseId } from "@/types/cube/333";
 
 import Article from "@/components/Article";
 import LastLayerDiagram, {
   LastLayerDiagramProps,
 } from "@/components/cube/333/diagram/LastLayerDiagram";
-import OrientationLastLayerByCase, {
-  createOllColorMap,
-  type OrientationLastLayerByCaseProps,
-} from "@/components/cube/333/diagram/OrientationLastLayerByCase";
-import OverlayLink from "@/components/OverlayLink";
+import createOllColorMap from "@/utils/cube/333/createOllColorMap";
+
+import CubeAlgorithmDisplay from "@/components/cube/333/CubeAlgorithmDisplay";
 
 export const metadata: Metadata = {
   title: "兩段式OLL",
@@ -23,6 +22,8 @@ export const metadata: Metadata = {
 };
 
 const topColor = "yellow";
+/** 十字型OLL要獲得的數量 */
+const collFirstCount = 5;
 
 export default function Page() {
   return (
@@ -98,6 +99,26 @@ export default function Page() {
             },
           ]}
         />
+        <h3>錯誤情況</h3>
+        <p>如果頂層的邊塊翻上的數量不是偶數或者0那就表示方塊裝錯了。</p>
+        <div className="flex gap-2">
+          <LastLayerDiagram
+            colorMap={{
+              CC: topColor,
+              BC: topColor,
+            }}
+            className="m-4 size-24 md:size-28 lg:size-32"
+          />
+          <LastLayerDiagram
+            colorMap={{
+              CC: topColor,
+              CL: topColor,
+              CR: topColor,
+              BC: topColor,
+            }}
+            className="m-4 size-24 md:size-28 lg:size-32"
+          />
+        </div>
         <h2>第二次判斷</h2>
         <LastLayerDiagram
           colorMap={{
@@ -112,14 +133,14 @@ export default function Page() {
         <p>
           此階段必定十字，如果沒有十字又不符合上面三種情況，那一定是你的方塊裝錯。
         </p>
-        <p>以下情況請選擇順手或者習慣的公式，這裡直接照公式表列出前五項。</p>
+        <p>{`以下情況請選擇順手或者習慣的公式，這裡直接照公式表列出前 ${collFirstCount} 項。`}</p>
         <AlgorithmsTable
           algorithms={definitions
             .filter((item) => item.category === OLLCategory.OCLL)
             .map((item) => {
               return {
                 colorMap: createOllColorMap(item.pattern, topColor),
-                algorithm: item.algorithms.slice(0, 5),
+                algorithm: item.algorithms.slice(0, collFirstCount),
                 caseId: item.id,
               };
             })}
@@ -141,7 +162,7 @@ export default function Page() {
 
 interface AlgorithmTableRow {
   colorMap: LastLayerDiagramProps["colorMap"];
-  caseId: NonNullable<OrientationLastLayerByCaseProps["caseId"]>;
+  caseId: OLLCaseId;
   algorithm: string | string[];
   description?: string;
 }
@@ -177,46 +198,37 @@ function AlgorithmsTable({ algorithms }: AlgorithmsTableProps) {
 
 function _renderItem(item: AlgorithmTableRow, index: number) {
   return (
-    <tr key={index}>
+    <tr key={index} className="[&>td]:align-middle">
       <td>
         <LastLayerDiagram
           colorMap={item.colorMap}
-          className="size-24 md:size-28 lg:size-32"
+          className="m-4 size-24 md:size-28 lg:size-32"
         />
       </td>
-      <td className="w-full align-middle">
-        <div className="flex flex-col items-start gap-2">
-          {Array.isArray(item.algorithm) ? (
-            <>
-              {item.algorithm.map((alg) => (
-                <code key={alg}>{alg}</code>
-              ))}
-            </>
-          ) : (
-            <code>{item.algorithm}</code>
-          )}
+      <td className="w-full">
+        <div className="grid gap-4 py-4">
+          <div className="not-prose flex flex-col items-start gap-2">
+            {Array.isArray(item.algorithm) ? (
+              <>
+                {item.algorithm.map((alg) => (
+                  <CubeAlgorithmDisplay algorithm={alg} key={alg} />
+                ))}
+              </>
+            ) : (
+              <CubeAlgorithmDisplay algorithm={item.algorithm} />
+            )}
+          </div>
           {item.description}
         </div>
       </td>
-      <td>
-        <div className="not-prose">
-          <div className="card card-sm">
-            <div className="card-body items-center">
-              <figure>
-                <OrientationLastLayerByCase
-                  caseId={item.caseId}
-                  className="size-24 md:size-28 lg:size-32"
-                />
-              </figure>
-              <div className="card-title">{item.caseId}</div>
-            </div>
-            <OverlayLink
-              href={`/algs/333/oll/${item.caseId}`}
-              label={item.caseId}
-              target="_blank"
-            />
-          </div>
-        </div>
+      <td className="text-nowrap">
+        <Link
+          href={`/algs/333/oll/${item.caseId}`}
+          target="_blank"
+          className="btn"
+        >
+          原始公式
+        </Link>
       </td>
     </tr>
   );

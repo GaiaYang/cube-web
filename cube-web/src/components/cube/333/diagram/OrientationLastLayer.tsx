@@ -1,6 +1,9 @@
 import React from "react";
 
-import { CubeFaceColor, OLLDefinition } from "@/types/cube/333";
+import type { OLLDefinition } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
+
+import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 
@@ -20,43 +23,4 @@ export default function OrientationLastLayer({
   return (
     <LastLayer {...props} colorMap={createOllColorMap(pattern, topColor)} />
   );
-}
-
-export function createOllColorMap(
-  pattern?: OLLDefinition["pattern"],
-  color?: CubeFaceColor,
-) {
-  if (!Array.isArray(pattern)) {
-    return;
-  }
-
-  const result: LastLayerDiagramProps["colorMap"] = {
-    TL: "none",
-    TC: "none",
-    TR: "none",
-    CL: "none",
-    CR: "none",
-    CC: "none",
-    BL: "none",
-    BC: "none",
-    BR: "none",
-    "S-TL": "none",
-    "S-TC": "none",
-    "S-TR": "none",
-    "S-BL": "none",
-    "S-BC": "none",
-    "S-BR": "none",
-    "S-RT": "none",
-    "S-RC": "none",
-    "S-RB": "none",
-    "S-LT": "none",
-    "S-LC": "none",
-    "S-LB": "none",
-  };
-
-  for (const item of pattern) {
-    result[item] = color;
-  }
-
-  return result;
 }
