@@ -54,7 +54,7 @@ function _renderItem(item: Feature, index: number) {
 function _renderLink(item: Option<string>) {
   return (
     <li key={item.id}>
-      <Link href={item.value} className="link link-hover hover:link-primary">
+      <Link href={item.value} className="link link-hover">
         {item.label}
       </Link>
     </li>
@@ -95,8 +95,8 @@ const features: Feature[] = [
       stepMap["2lookOll"],
       stepMap["2lookPll"],
       stepMap.f2l,
-      stepMap.oll,
       stepMap.pll,
+      stepMap.oll,
     ],
   },
   {
@@ -108,8 +108,8 @@ const features: Feature[] = [
       stepMap.f2l,
       stepMap["2lookOll"],
       stepMap["2lookPll"],
-      stepMap.oll,
       stepMap.pll,
+      stepMap.oll,
     ],
   },
 ];

@@ -6,8 +6,9 @@ import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
 
-import type { CubeBlockPosition3D, CubeFaceColor } from "@/types/cube/333";
-import { fillColors } from "@/themes/cube/colors";
+import type { CubeBlockPosition3D } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
+import { getFillColor } from "@/themes/cube/colors";
 
 export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
@@ -33,7 +34,7 @@ export default memo(function CubeDiagram({
         className={cn(
           "stroke-1",
           "drak:stroke-slate-300 stroke-slate-400",
-          fillColors[colorMap?.[item.id] ?? "none"] ?? fillColors.none,
+          getFillColor(colorMap?.[item.id]),
         )}
       />
     );

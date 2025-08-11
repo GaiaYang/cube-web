@@ -1,4 +1,5 @@
 import { OLLCategory, PLLCategory, F2LCategory } from "@/enums/cube/333";
+import type { CommonDefinition } from "./common";
 
 /** 方塊方位代號 */
 export type CubeFaceCode = "U" | "D" | "L" | "R" | "F" | "B";
@@ -57,16 +58,7 @@ export type CubeFaceletPosition2D =
   | "S-LC"
   | "S-LB";
 
-/** 方塊面塊顏色 */
-export type CubeFaceColor =
-  | "red"
-  | "orange"
-  | "white"
-  | "yellow"
-  | "blue"
-  | "green"
-  | "none";
-
+/** OLL 案例 ID */
 export type OLLCaseId =
   | "1"
   | "2"
@@ -127,20 +119,15 @@ export type OLLCaseId =
   | "57";
 
 /** OLL定義 */
-export interface OLLDefinition {
+export interface OLLDefinition extends CommonDefinition {
   id: OLLCaseId;
-  /** 名稱 */
-  name: string;
-  /** 設置公式 */
-  setupAlgorithms: string;
   /** 圖案標記 */
   pattern: CubeFaceletPosition2D[];
-  /** 公式 */
-  algorithms: string[];
   /** 類別 */
   category: OLLCategory;
 }
 
+/** PLL 案例 ID */
 export type PLLCaseId =
   | "Aa"
   | "Ab"
@@ -165,24 +152,19 @@ export type PLLCaseId =
   | "Z";
 
 /** PLL定義 */
-export interface PLLDefinition {
+export interface PLLDefinition extends CommonDefinition {
   id: PLLCaseId;
-  /** 名稱 */
-  name: string;
-  /** 設置公式 */
-  setupAlgorithms: string;
   /**
    * 圖案標記
    *
    * > 只需要指定`S-`開頭的面塊
    * */
   pattern: Partial<Record<CubeFaceletPosition2D, CubeFaceCode>>;
-  /** 公式 */
-  algorithms: string[];
   /** 類別 */
   category: PLLCategory;
 }
 
+/** F2l 案例 ID */
 export type F2LCaseId =
   | "1"
   | "2"
@@ -227,12 +209,8 @@ export type F2LCaseId =
   | "41";
 
 /** F2L定義 */
-export interface F2LDefinition {
+export interface F2LDefinition extends CommonDefinition {
   id: F2LCaseId;
-  /** 名稱 */
-  name: string;
-  /** 設置公式 */
-  setupAlgorithms: string;
   /**
    * 圖案標記
    *
@@ -241,8 +219,6 @@ export interface F2LDefinition {
    * - `U-`開頭表示上邊
    */
   pattern: Partial<Record<CubeBlockPosition3D, CubeFaceCode>>;
-  /** 公式 */
-  algorithms: string[];
   /** 類別 */
   category: F2LCategory;
 }
