@@ -3,10 +3,7 @@ import { type Metadata } from "next";
 import Link from "next/link";
 import { MoveRightIcon } from "lucide-react";
 
-import {
-  definitions,
-  OLLDefinition,
-} from "@/contents/cube/333/oll/definitions";
+import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
 
 import Article from "@/components/Article";
@@ -14,17 +11,18 @@ import LastLayerDiagram, {
   LastLayerDiagramProps,
 } from "@/components/cube/333/diagram/LastLayerDiagram";
 import OrientationLastLayerByCase, {
+  createOllColorMap,
   type OrientationLastLayerByCaseProps,
 } from "@/components/cube/333/diagram/OrientationLastLayerByCase";
 import OverlayLink from "@/components/OverlayLink";
-import GridList, { GridListProps } from "@/components/list/GridList";
-import OLLAlgoithm from "@/components/gridItems/OLLAlgoithm";
 
 export const metadata: Metadata = {
   title: "兩段式OLL",
   description: "將OLL分成兩個階段復原，大幅簡化需要記憶的公式。",
   alternates: { canonical: "/tutorial/333/cfop/oll/2look" },
 };
+
+const topColor = "yellow";
 
 export default function Page() {
   return (
@@ -47,15 +45,15 @@ export default function Page() {
         <LastLayerDiagram
           className="size-24 md:size-28 lg:size-32"
           colorMap={{
-            TL: "yellow",
-            TC: "yellow",
-            TR: "yellow",
-            CL: "yellow",
-            CR: "yellow",
-            CC: "yellow",
-            BL: "yellow",
-            BC: "yellow",
-            BR: "yellow",
+            TL: topColor,
+            TC: topColor,
+            TR: topColor,
+            CL: topColor,
+            CR: topColor,
+            CC: topColor,
+            BL: topColor,
+            BC: topColor,
+            BR: topColor,
           }}
         />
         <p>
@@ -69,10 +67,10 @@ export default function Page() {
         <AlgorithmsTable
           algorithms={[
             {
-              pattern: {
-                CL: "yellow",
-                CC: "yellow",
-                CR: "yellow",
+              colorMap: {
+                CL: topColor,
+                CC: topColor,
+                CR: topColor,
               },
               algorithm: "F ( R U R' U' ) F'",
               caseId: "45",
@@ -80,20 +78,20 @@ export default function Page() {
                 "如果這裡形狀為Ｔ型，可以擺放跟原始公式一樣，有一半的機率直接完成頂面。",
             },
             {
-              pattern: {
-                CC: "yellow",
-                CR: "yellow",
-                BC: "yellow",
+              colorMap: {
+                CC: topColor,
+                CR: topColor,
+                BC: topColor,
               },
               algorithm: "f ( R U R' U' ) f'",
               caseId: "44",
               description: "從上面一層改為轉動兩層。",
             },
             {
-              pattern: {
-                CC: "yellow",
+              colorMap: {
+                CC: topColor,
               },
-              algorithm: ["F (R U R' U') F'", "f ( R U R' U' ) f'"],
+              algorithm: "F (R U R' U') F' f ( R U R' U' ) f'",
               description:
                 "這裡可以看成以上兩個情況照順序執行，這OLL屬於公式疊加。",
               caseId: "2",
@@ -103,25 +101,29 @@ export default function Page() {
         <h2>第二次判斷</h2>
         <LastLayerDiagram
           colorMap={{
-            TC: "yellow",
-            CL: "yellow",
-            CC: "yellow",
-            CR: "yellow",
-            BC: "yellow",
+            TC: topColor,
+            CL: topColor,
+            CC: topColor,
+            CR: topColor,
+            BC: topColor,
           }}
           size={128}
         />
         <p>
           此階段必定十字，如果沒有十字又不符合上面三種情況，那一定是你的方塊裝錯。
         </p>
-        <div className="not-prose">
-          <GridList
-            data={definitions.filter(
-              (item) => item.category === OLLCategory.OCLL,
-            )}
-            renderItem={_renderOCLLItem}
-          />
-        </div>
+        <p>以下情況請選擇順手或者習慣的公式，這裡直接照公式表列出前五項。</p>
+        <AlgorithmsTable
+          algorithms={definitions
+            .filter((item) => item.category === OLLCategory.OCLL)
+            .map((item) => {
+              return {
+                colorMap: createOllColorMap(item.pattern, topColor),
+                algorithm: item.algorithms.slice(0, 5),
+                caseId: item.id,
+              };
+            })}
+        />
         <h2>下一步</h2>
         <p>現在你完成了頂面，接下來開始完成頂層的排列來復原方塊。</p>
         <ul>
@@ -137,23 +139,8 @@ export default function Page() {
   );
 }
 
-const _renderOCLLItem: GridListProps<OLLDefinition>["renderItem"] = ({
-  item,
-}) => {
-  return (
-    <>
-      <OLLAlgoithm {...item} />
-      <OverlayLink
-        href={`/algs/333/oll/${item.id}`}
-        target="_blank"
-        label={item.name}
-      />
-    </>
-  );
-};
-
 interface AlgorithmTableRow {
-  pattern: LastLayerDiagramProps["colorMap"];
+  colorMap: LastLayerDiagramProps["colorMap"];
   caseId: NonNullable<OrientationLastLayerByCaseProps["caseId"]>;
   algorithm: string | string[];
   description?: string;
@@ -169,9 +156,9 @@ function AlgorithmsTable({ algorithms }: AlgorithmsTableProps) {
       <table className="min-w-(--container-2xl)">
         <thead>
           <tr>
-            <th>情況</th>
+            <th className="text-center">情況</th>
             <th>公式</th>
-            <th>原始OLL</th>
+            <th className="text-center">原始OLL</th>
           </tr>
         </thead>
         <tbody>{algorithms.map(_renderItem)}</tbody>
@@ -193,30 +180,42 @@ function _renderItem(item: AlgorithmTableRow, index: number) {
     <tr key={index}>
       <td>
         <LastLayerDiagram
-          colorMap={item.pattern}
+          colorMap={item.colorMap}
           className="size-24 md:size-28 lg:size-32"
         />
       </td>
-      <td className="align-middle">
-        <code>
-          {Array.isArray(item.algorithm)
-            ? item.algorithm.join(" ")
-            : item.algorithm}
-        </code>
-        <br />
-        {item.description}
+      <td className="w-full align-middle">
+        <div className="flex flex-col items-start gap-2">
+          {Array.isArray(item.algorithm) ? (
+            <>
+              {item.algorithm.map((alg) => (
+                <code key={alg}>{alg}</code>
+              ))}
+            </>
+          ) : (
+            <code>{item.algorithm}</code>
+          )}
+          {item.description}
+        </div>
       </td>
       <td>
-        <div className="relative w-fit">
-          <OrientationLastLayerByCase
-            caseId={item.caseId}
-            className="size-24 md:size-28 lg:size-32"
-          />
-          <OverlayLink
-            href={`/algs/333/oll/${item.caseId}`}
-            label={item.caseId}
-            target="_blank"
-          />
+        <div className="not-prose">
+          <div className="card card-sm">
+            <div className="card-body items-center">
+              <figure>
+                <OrientationLastLayerByCase
+                  caseId={item.caseId}
+                  className="size-24 md:size-28 lg:size-32"
+                />
+              </figure>
+              <div className="card-title">{item.caseId}</div>
+            </div>
+            <OverlayLink
+              href={`/algs/333/oll/${item.caseId}`}
+              label={item.caseId}
+              target="_blank"
+            />
+          </div>
         </div>
       </td>
     </tr>

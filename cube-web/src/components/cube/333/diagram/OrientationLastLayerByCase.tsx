@@ -9,6 +9,8 @@ import OrientationLastLayer, {
   type OrientationLastLayerProps,
 } from "./OrientationLastLayer";
 
+export { createOllColorMap } from "./OrientationLastLayer";
+
 export interface OrientationLastLayerByCaseProps
   extends Omit<OrientationLastLayerProps, "pattern"> {
   /** 該案例的`id` */

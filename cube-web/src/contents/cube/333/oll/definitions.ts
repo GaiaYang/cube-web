@@ -220,7 +220,7 @@ export const definitions: OLLDefinition[] = [
     name: "21",
     setupAlgorithms: "R U R' U R U' R' U R U2' R' y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "S-LT", "S-LB", "S-RT", "S-RB"],
-    algorithms: [],
+    algorithms: ["y R' U2 R U R' U' R U R' U R"],
     category: OLLCategory.OCLL,
   },
   {
@@ -228,7 +228,7 @@ export const definitions: OLLDefinition[] = [
     name: "22",
     setupAlgorithms: "R' U2' R2' U R2' U R2' U2' R'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "S-LT", "S-LB", "S-TR", "S-BR"],
-    algorithms: [],
+    algorithms: ["R U2 R2 U' R2 U' R2 U2 R"],
     category: OLLCategory.OCLL,
   },
   {
@@ -236,7 +236,7 @@ export const definitions: OLLDefinition[] = [
     name: "23",
     setupAlgorithms: "R U2' R D R' U2' R D' R2'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "TR", "S-BL", "S-BR"],
-    algorithms: [],
+    algorithms: ["R2 D R' U2 R D' R' U2 R'", "y2 R2 D' R U2 R' D R U2 R"],
     category: OLLCategory.OCLL,
   },
   {
@@ -244,7 +244,7 @@ export const definitions: OLLDefinition[] = [
     name: "24",
     setupAlgorithms: "F R' F' r U R U' r'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TR", "BR", "S-TL", "S-BL"],
-    algorithms: [],
+    algorithms: ["r U R' U' r' F R F'"],
     category: OLLCategory.OCLL,
   },
   {
@@ -252,7 +252,7 @@ export const definitions: OLLDefinition[] = [
     name: "25",
     setupAlgorithms: "R' F' r U R U' r' F y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "BR", "S-BL", "S-RT"],
-    algorithms: [],
+    algorithms: ["y F' r U R' U' r' F R"],
     category: OLLCategory.OCLL,
   },
   {
@@ -260,7 +260,7 @@ export const definitions: OLLDefinition[] = [
     name: "26",
     setupAlgorithms: "R U R' U R U2' R' y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "S-TR", "S-RB", "S-BL"],
-    algorithms: [],
+    algorithms: ["y2 L' U' L U' L' U2 L"],
     category: OLLCategory.OCLL,
   },
   {
@@ -268,7 +268,7 @@ export const definitions: OLLDefinition[] = [
     name: "27",
     setupAlgorithms: "R U2' R' U' R U' R'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "BL", "S-TL", "S-RT", "S-BR"],
-    algorithms: [],
+    algorithms: ["R U R' U R U2 R'"],
     category: OLLCategory.OCLL,
   },
   {

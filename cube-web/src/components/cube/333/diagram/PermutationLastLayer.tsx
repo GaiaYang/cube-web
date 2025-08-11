@@ -29,12 +29,12 @@ export default function PermutationLastLayer({
   return (
     <LastLayer
       {...props}
-      colorMap={createColorMap(pattern, topColor, frontColor)}
+      colorMap={createPllColorMap(pattern, topColor, frontColor)}
     />
   );
 }
 
-function createColorMap(
+export function createPllColorMap(
   pattern?: PLLDefinition["pattern"],
   topColor?: CubeFaceColor,
   frontColor?: CubeFaceColor,

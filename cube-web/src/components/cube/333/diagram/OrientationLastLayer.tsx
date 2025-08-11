@@ -17,10 +17,12 @@ export default function OrientationLastLayer({
   topColor = "yellow",
   ...props
 }: OrientationLastLayerProps) {
-  return <LastLayer {...props} colorMap={createColorMap(pattern, topColor)} />;
+  return (
+    <LastLayer {...props} colorMap={createOllColorMap(pattern, topColor)} />
+  );
 }
 
-function createColorMap(
+export function createOllColorMap(
   pattern?: OLLDefinition["pattern"],
   color?: CubeFaceColor,
 ) {
