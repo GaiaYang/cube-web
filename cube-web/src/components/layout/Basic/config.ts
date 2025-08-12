@@ -1,6 +1,6 @@
-import assignIdsToMenuOptions from "@/utils/assignIdsToMenuOptions";
+import createMenuOptions from "@/utils/createMenuOptions";
 
-export const options = assignIdsToMenuOptions([
+export const options = createMenuOptions([
   {
     title: "教學",
     submenu: [
