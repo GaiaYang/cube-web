@@ -35,7 +35,7 @@ export default function ContentSection({
       ) : null}
       {description ? (
         <p
-          className={cn("text-base-content/70 text-xl/8", {
+          className={cn("text-base-content/80 text-xl/8", {
             "mt-6": hasTitle || hasEyebrow,
           })}
         >

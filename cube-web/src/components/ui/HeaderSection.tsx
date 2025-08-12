@@ -38,7 +38,7 @@ export default function HeaderSection({
         {description ? (
           <p
             className={cn(
-              "text-base-content/70 font-medium text-pretty",
+              "text-base-content/80 font-medium text-pretty",
               "text-lg sm:text-xl/8",
               { "mt-8": hasTitle || hasEyebrow },
             )}

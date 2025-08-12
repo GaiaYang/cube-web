@@ -27,6 +27,7 @@ export default function RootLayout({
           noto_serif_tc.variable,
           noto_sans_mono.variable,
           "antialiased",
+          "selection:bg-primary selection:text-primary-content",
         )}
       >
         {children}

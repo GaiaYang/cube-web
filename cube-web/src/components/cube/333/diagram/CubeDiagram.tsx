@@ -55,6 +55,7 @@ export default memo(function CubeDiagram({
       {...props}
       ref={ref}
       viewBox="0 0 56 56"
+      aria-hidden
       className={cn({ skeleton: !inView }, props.className)}
     >
       {inView ? groups.map(_renderGroup) : null}

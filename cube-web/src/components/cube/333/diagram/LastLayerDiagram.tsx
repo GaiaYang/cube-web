@@ -47,6 +47,7 @@ export default memo(function LastLayerDiagram({
       {...props}
       ref={ref}
       viewBox="0 0 56 56"
+      aria-hidden
       className={cn({ skeleton: !inView }, props.className)}
     >
       {inView ? rectangles.map(_renderItem) : null}

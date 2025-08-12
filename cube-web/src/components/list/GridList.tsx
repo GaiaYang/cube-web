@@ -23,7 +23,7 @@ export default function GridList<ItemT extends object>({
 
     return (
       <li key={key} className="relative" title={title}>
-        {renderItem({ item, index })}
+        {renderItem?.({ item, index })}
       </li>
     );
   }
