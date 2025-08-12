@@ -20,7 +20,7 @@ export default function Article({
         "prose dark:prose-invert",
         "prose-sm md:prose-base",
         "w-full max-w-none grow",
-        "px-6 py-12",
+        "px-4 sm:px-6 lg:px-8",
         className,
       )}
     >

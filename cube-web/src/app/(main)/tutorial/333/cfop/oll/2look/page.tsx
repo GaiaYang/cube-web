@@ -6,7 +6,7 @@ import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
 import { OLLCaseId } from "@/types/cube/333";
 
-import Article from "@/components/Article";
+import Article from "@/components/ui/Article";
 import LastLayerDiagram, {
   LastLayerDiagramProps,
 } from "@/components/cube/333/diagram/LastLayerDiagram";
