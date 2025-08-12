@@ -44,9 +44,5 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return (
-    <main>
-      <AlgorithmPanel {...data} />
-    </main>
-  );
+  return <AlgorithmPanel {...data} />;
 }

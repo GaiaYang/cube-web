@@ -11,11 +11,9 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
-      <Article>
-        <h1>兩段式PLL</h1>
-        <p>將PLL分成兩個階段復原，大幅簡化需要記憶的公式。</p>
-      </Article>
-    </main>
+    <Article>
+      <h1>兩段式PLL</h1>
+      <p>將PLL分成兩個階段復原，大幅簡化需要記憶的公式。</p>
+    </Article>
   );
 }

@@ -12,7 +12,7 @@ export default function Home() {
       <main
         className={cn(
           "flex flex-1 flex-col justify-center",
-          "mx-auto max-w-2xl text-center",
+          "mx-auto min-h-[calc(100dvh-4rem)] max-w-2xl text-center",
           "px-6 lg:px-8",
         )}
       >

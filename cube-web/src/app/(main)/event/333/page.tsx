@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <main>三階主頁面</main>;
+  return <div>三階主頁面</div>;
 }

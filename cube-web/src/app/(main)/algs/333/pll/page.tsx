@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import { type Metadata } from "next";
 
-import ContentSection from "@/components/ContentSection";
-import ContentContainer from "@/components/ContentContainer";
+import ContentSection from "@/components/ui/ContentSection";
+import ContentContainer from "@/components/ui/ContentContainer";
 import FilterPanel from "./components/FilterPanel";
 import Algorithms from "./components/Algorithms";
 
@@ -15,22 +15,20 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
-      <ContentContainer>
-        <ContentSection
-          title="PLL 公式列表"
-          description="歸位最後一層的所有方塊，這個步驟完全依靠公式處理，共有 21 種情況。"
-          eyebrow="Permutation of the Last Layer"
-        />
-        <h2 className="sr-only">搜尋列</h2>
-        <Suspense>
-          <FilterPanel />
-        </Suspense>
-        <h2 className="sr-only">公式列表</h2>
-        <Suspense>
-          <Algorithms />
-        </Suspense>
-      </ContentContainer>
-    </main>
+    <ContentContainer>
+      <ContentSection
+        title="PLL 公式列表"
+        description="歸位最後一層的所有方塊，這個步驟完全依靠公式處理，共有 21 種情況。"
+        eyebrow="Permutation of the Last Layer"
+      />
+      <h2 className="sr-only">搜尋列</h2>
+      <Suspense>
+        <FilterPanel />
+      </Suspense>
+      <h2 className="sr-only">公式列表</h2>
+      <Suspense>
+        <Algorithms />
+      </Suspense>
+    </ContentContainer>
   );
 }

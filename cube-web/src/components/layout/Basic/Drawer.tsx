@@ -20,13 +20,11 @@ export default function Drawer({
       className={cn(
         "drawer",
         { "lg:drawer-open": autoExpandDrawer },
-        "bg-base-100 mx-auto max-w-[1920px]",
+        "bg-base-100 mx-auto min-h-dvh max-w-[1920px]",
       )}
     >
       <DrawerToggle />
-      <div className="drawer-content flex min-h-screen flex-col">
-        {children}
-      </div>
+      <div className="drawer-content">{children}</div>
       <div className={cn("drawer-side z-40", "scroll-pt-20 scroll-smooth")}>
         <label
           htmlFor={drawerId}

@@ -12,11 +12,9 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
-      <Article>
-        <h1>OLL</h1>
-        <p>OLL 是 CFOP 的第三個步驟，目標是將頂層方塊朝向正確方向。</p>
-      </Article>
-    </main>
+    <Article>
+      <h1>OLL</h1>
+      <p>OLL 是 CFOP 的第三個步驟，目標是將頂層方塊朝向正確方向。</p>
+    </Article>
   );
 }
