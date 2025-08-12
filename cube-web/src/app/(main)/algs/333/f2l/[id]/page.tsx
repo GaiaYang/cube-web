@@ -6,7 +6,7 @@ import {
   definitionMap,
   type F2LCaseId,
 } from "@/contents/cube/333/f2l/definitions";
-import AlgorithmPanel from "@/components/AlgorithmPanel";
+import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
 
 type Props = {
   params: Promise<{ id: string }>;

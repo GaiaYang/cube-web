@@ -6,7 +6,7 @@ import {
   definitionMap,
   type PLLCaseId,
 } from "@/contents/cube/333/pll/definitions";
-import AlgorithmPanel from "@/components/AlgorithmPanel";
+import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
 
 type Props = {
   params: Promise<{ id: string }>;

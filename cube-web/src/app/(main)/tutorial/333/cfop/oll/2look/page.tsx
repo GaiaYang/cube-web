@@ -12,37 +12,41 @@ import LastLayerDiagram, {
 } from "@/components/cube/333/diagram/LastLayerDiagram";
 import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
-import AlgorithmDisplay from "@/components/cube/333/AlgorithmDisplay";
+import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
 
 export const metadata: Metadata = {
   title: "兩段式OLL",
-  description: "將OLL分成兩個階段復原，大幅簡化需要記憶的公式。",
+  description: "將OLL分成兩個階段復原，大幅簡化公式量以及判斷。",
   alternates: { canonical: "/tutorial/333/cfop/oll/2look" },
 };
 
+/** 頂層顏色 */
 const topColor = "yellow";
 /** 十字型OLL要獲得的數量 */
 const collFirstCount = 5;
+/** 圖案尺寸 */
+const patternSize = 128;
 
 export default function Page() {
   return (
     <Article>
       <h1>兩段式OLL</h1>
-      <p>將OLL分成兩個階段復原，大幅簡化需要記憶的公式。</p>
+      <p>將OLL分成兩個階段復原，大幅簡化公式量以及判斷。</p>
       <h2>步驟說明</h2>
       <ol>
-        <li>一次將對應的邊塊翻上來讓頂面形成十字。</li>
+        <li>將對應的邊塊翻上來讓頂面形成十字。</li>
         <li>用十字型OLL公式完成頂面。</li>
       </ol>
       <p>
         這邊利用特定類型的OLL處理頂面情況，OLL有些是通過其他OLL疊加上來的，掌握該原理就能在這階段選擇自己喜歡的公式執行。
+        <br />
+        只需要學習10個公式，相較完整版OLL的57種案例，大幅度濃縮記憶份量跟判斷難度。
       </p>
       <blockquote>
         以下的公式都是現有OLL去執行，所以學會後要銜接到全OLL就不用重新記一次。
       </blockquote>
       <h2>運氣很好</h2>
       <LastLayerDiagram
-        className="size-24 md:size-28 lg:size-32"
         colorMap={{
           TL: topColor,
           TC: topColor,
@@ -54,6 +58,7 @@ export default function Page() {
           BC: topColor,
           BR: topColor,
         }}
+        size={patternSize}
       />
       <p>
         這不用解釋了吧，直接進入
@@ -62,7 +67,9 @@ export default function Page() {
         <Link href="/tutorial/333/cfop/pll/2look">兩段式PLL</Link>
       </p>
       <h2>第一次判斷</h2>
-      <p>這裡的判斷不需要管角塊，我們只需要專注在邊塊就好。</p>
+      <p>
+        這裡的判斷不需要管角塊，我們只需要專注在四個邊塊就好，目標是做出十字。
+      </p>
       <AlgorithmsTable
         algorithms={[
           {
@@ -98,14 +105,13 @@ export default function Page() {
         ]}
       />
       <h3>錯誤情況</h3>
-      <p>如果頂層的邊塊翻上的數量不是偶數或者0那就表示方塊裝錯了。</p>
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <LastLayerDiagram
           colorMap={{
             CC: topColor,
             BC: topColor,
           }}
-          className="m-4 size-24 md:size-28 lg:size-32"
+          size={patternSize}
         />
         <LastLayerDiagram
           colorMap={{
@@ -114,9 +120,13 @@ export default function Page() {
             CR: topColor,
             BC: topColor,
           }}
-          className="m-4 size-24 md:size-28 lg:size-32"
+          size={patternSize}
         />
       </div>
+      <p>
+        如果頂層的邊塊翻上的數量不是偶數或者0那就表示方塊裝錯了，
+        請自行將任一邊塊拆開反過來裝回去讓頂面出現以上三種任意情況。
+      </p>
       <h2>第二次判斷</h2>
       <LastLayerDiagram
         colorMap={{
@@ -126,12 +136,12 @@ export default function Page() {
           CR: topColor,
           BC: topColor,
         }}
-        size={128}
+        size={patternSize}
       />
       <p>
-        此階段必定十字，如果沒有十字又不符合上面三種情況，那一定是你的方塊裝錯。
+        這裡只需要專注角塊，依照案例執行公式即可，目標是將角塊全部翻到上面。
       </p>
-      <p>{`以下情況請選擇順手或者習慣的公式，這裡直接照公式表列出前 ${collFirstCount} 項。`}</p>
+      <blockquote>{`請選擇順手或者習慣的公式，這裡直接照公式表列出前${collFirstCount}項。`}</blockquote>
       <AlgorithmsTable
         algorithms={definitions
           .filter((item) => item.category === OLLCategory.OCLL)
@@ -143,6 +153,8 @@ export default function Page() {
             };
           })}
       />
+      <h3>錯誤情況</h3>
+      <p>如果沒有出現以上案例表示方塊裝錯，請將角塊掰成任一情況開始復原。</p>
       <h2>下一步</h2>
       <p>現在你完成了頂面，接下來開始完成頂層的排列來復原方塊。</p>
       <ul>
@@ -189,10 +201,7 @@ function _renderItem(item: AlgorithmTableRow, index: number) {
   return (
     <tr key={index}>
       <td>
-        <LastLayerDiagram
-          colorMap={item.colorMap}
-          className="m-4 size-24 md:size-28 lg:size-32"
-        />
+        <LastLayerDiagram colorMap={item.colorMap} size={patternSize} />
       </td>
       <td className="w-full">
         <div className="grid gap-4 py-4">

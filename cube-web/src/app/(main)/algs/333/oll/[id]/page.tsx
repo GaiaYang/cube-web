@@ -6,7 +6,7 @@ import {
   definitionMap,
   type OLLCaseId,
 } from "@/contents/cube/333/oll/definitions";
-import AlgorithmPanel from "@/components/AlgorithmPanel";
+import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
 
 type Props = {
   params: Promise<{ id: string }>;
