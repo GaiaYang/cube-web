@@ -4,12 +4,7 @@ import cn from "@/utils/cn";
 
 export default function Header({ children }: React.PropsWithChildren) {
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-30 w-full print:hidden",
-        "[transform:translate3d(0,0,0)] backdrop-blur transition-shadow duration-100",
-      )}
-    >
+    <header className={cn("sticky top-0 z-30 w-full print:hidden")}>
       {children}
     </header>
   );

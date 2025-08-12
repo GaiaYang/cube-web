@@ -6,13 +6,9 @@ import { labels } from "@/options/cube/333/pllCategory";
 import Diagram from "@/components/cube/333/diagram/PermutationLastLayer";
 import AlgorithmCaseCard from "@/components/AlgorithmCaseCard";
 
-export interface PLLAlgoithmProps extends PLLDefinition {}
+export interface PLLCaseProps extends PLLDefinition {}
 
-export default function PLLAlgoithm({
-  pattern,
-  name,
-  category,
-}: PLLAlgoithmProps) {
+export default function PLLCase({ pattern, name, category }: PLLCaseProps) {
   return (
     <AlgorithmCaseCard name={name} category={labels[category]}>
       <Diagram className="w-full" pattern={pattern} />

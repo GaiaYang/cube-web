@@ -4,18 +4,18 @@ import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
 import searchParamToEnum from "@/utils/searchParamToEnum";
-import type { PLLDefinition } from "@/types/cube/333";
-import { PLLCategory } from "@/enums/cube/333";
-import { definitions } from "@/contents/cube/333/pll/definitions";
+import type { F2LDefinition } from "@/types/cube/333";
+import { F2LCategory } from "@/enums/cube/333";
+import { definitions } from "@/contents/cube/333/f2l/definitions";
 
 import OverlayLink from "@/components/OverlayLink";
-import PLLAlgoithm from "@/components/gridItems/PLLAlgoithm";
+import F2LCase from "@/components/gridItems/F2LCase";
 import GridList, { type GridListProps } from "@/components/list/GridList";
 
-/** PLL公式列表 */
+/** F2L公式列表 */
 export default function Algorithms() {
   const searchParams = useSearchParams();
-  const category = searchParamToEnum(PLLCategory, searchParams.get("category"));
+  const category = searchParamToEnum(F2LCategory, searchParams.get("category"));
 
   const data = useMemo(() => {
     if (!category) {
@@ -34,11 +34,11 @@ export default function Algorithms() {
   );
 }
 
-const _renderItem: GridListProps<PLLDefinition>["renderItem"] = ({ item }) => {
+const _renderItem: GridListProps<F2LDefinition>["renderItem"] = ({ item }) => {
   return (
     <>
-      <PLLAlgoithm {...item} />
-      <OverlayLink href={`pll/${item.id}`} target="_blank" label={item.name} />
+      <F2LCase {...item} />
+      <OverlayLink href={`f2l/${item.id}`} target="_blank" label={item.name} />
     </>
   );
 };

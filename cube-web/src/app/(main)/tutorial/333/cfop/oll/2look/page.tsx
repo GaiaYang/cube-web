@@ -12,7 +12,7 @@ import LastLayerDiagram, {
 } from "@/components/cube/333/diagram/LastLayerDiagram";
 import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
-import CubeAlgorithmDisplay from "@/components/cube/333/CubeAlgorithmDisplay";
+import AlgorithmDisplay from "@/components/cube/333/AlgorithmDisplay";
 
 export const metadata: Metadata = {
   title: "兩段式OLL",
@@ -200,11 +200,11 @@ function _renderItem(item: AlgorithmTableRow, index: number) {
             {Array.isArray(item.algorithm) ? (
               <>
                 {item.algorithm.map((alg) => (
-                  <CubeAlgorithmDisplay algorithm={alg} key={alg} />
+                  <AlgorithmDisplay algorithm={alg} key={alg} />
                 ))}
               </>
             ) : (
-              <CubeAlgorithmDisplay algorithm={item.algorithm} />
+              <AlgorithmDisplay algorithm={item.algorithm} />
             )}
           </div>
           {item.description}

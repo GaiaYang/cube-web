@@ -4,18 +4,18 @@ import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
 import searchParamToEnum from "@/utils/searchParamToEnum";
-import type { F2LDefinition } from "@/types/cube/333";
-import { F2LCategory } from "@/enums/cube/333";
-import { definitions } from "@/contents/cube/333/f2l/definitions";
+import type { OLLDefinition } from "@/types/cube/333";
+import { OLLCategory } from "@/enums/cube/333";
+import { definitions } from "@/contents/cube/333/oll/definitions";
 
 import OverlayLink from "@/components/OverlayLink";
-import F2LAlgoithm from "@/components/gridItems/F2LAlgoithm";
+import OLLCase from "@/components/gridItems/OLLCase";
 import GridList, { type GridListProps } from "@/components/list/GridList";
 
-/** F2L公式列表 */
-export default function Algorithms() {
+/** OLL公式列表 */
+export default function Cases() {
   const searchParams = useSearchParams();
-  const category = searchParamToEnum(F2LCategory, searchParams.get("category"));
+  const category = searchParamToEnum(OLLCategory, searchParams.get("category"));
 
   const data = useMemo(() => {
     if (!category) {
@@ -34,11 +34,11 @@ export default function Algorithms() {
   );
 }
 
-const _renderItem: GridListProps<F2LDefinition>["renderItem"] = ({ item }) => {
+const _renderItem: GridListProps<OLLDefinition>["renderItem"] = ({ item }) => {
   return (
     <>
-      <F2LAlgoithm {...item} />
-      <OverlayLink href={`f2l/${item.id}`} target="_blank" label={item.name} />
+      <OLLCase {...item} />
+      <OverlayLink href={`oll/${item.id}`} target="_blank" label={item.name} />
     </>
   );
 };

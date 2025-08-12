@@ -11,7 +11,13 @@ export interface NavbarProps extends CommonProps {}
 
 export default function Navbar({ autoExpandDrawer }: NavbarProps) {
   return (
-    <nav className="navbar bg-base-100/90 shadow-xs">
+    <nav
+      className={cn(
+        "navbar backdrop-blur",
+        "bg-base-100/90 shadow-xs transition-shadow",
+        "[transform:translate3d(0,0,0)] duration-100",
+      )}
+    >
       <label
         htmlFor={drawerId}
         className={cn("btn btn-ghost btn-circle", {

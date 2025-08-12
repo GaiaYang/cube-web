@@ -4,18 +4,18 @@ import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
 import searchParamToEnum from "@/utils/searchParamToEnum";
-import type { OLLDefinition } from "@/types/cube/333";
-import { OLLCategory } from "@/enums/cube/333";
-import { definitions } from "@/contents/cube/333/oll/definitions";
+import type { PLLDefinition } from "@/types/cube/333";
+import { PLLCategory } from "@/enums/cube/333";
+import { definitions } from "@/contents/cube/333/pll/definitions";
 
 import OverlayLink from "@/components/OverlayLink";
-import OLLAlgoithm from "@/components/gridItems/OLLAlgoithm";
+import PLLCase from "@/components/gridItems/PLLCase";
 import GridList, { type GridListProps } from "@/components/list/GridList";
 
-/** OLL公式列表 */
-export default function Algorithms() {
+/** PLL公式列表 */
+export default function Cases() {
   const searchParams = useSearchParams();
-  const category = searchParamToEnum(OLLCategory, searchParams.get("category"));
+  const category = searchParamToEnum(PLLCategory, searchParams.get("category"));
 
   const data = useMemo(() => {
     if (!category) {
@@ -34,11 +34,11 @@ export default function Algorithms() {
   );
 }
 
-const _renderItem: GridListProps<OLLDefinition>["renderItem"] = ({ item }) => {
+const _renderItem: GridListProps<PLLDefinition>["renderItem"] = ({ item }) => {
   return (
     <>
-      <OLLAlgoithm {...item} />
-      <OverlayLink href={`oll/${item.id}`} target="_blank" label={item.name} />
+      <PLLCase {...item} />
+      <OverlayLink href={`pll/${item.id}`} target="_blank" label={item.name} />
     </>
   );
 };

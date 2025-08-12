@@ -236,7 +236,7 @@ export const definitions: OLLDefinition[] = [
     name: "23",
     setupAlgorithm: "R U2' R D R' U2' R D' R2'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "TR", "S-BL", "S-BR"],
-    algorithms: ["R2 D R' U2 R D' R' U2 R'", "y2 R2 D' R U2 R' D R U2 R"],
+    algorithms: ["y2 R2 D' R U2 R' D R U2 R", "R2 D R' U2 R D' R' U2 R'"],
     category: OLLCategory.OCLL,
   },
   {
@@ -244,7 +244,7 @@ export const definitions: OLLDefinition[] = [
     name: "24",
     setupAlgorithm: "F R' F' r U R U' r'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TR", "BR", "S-TL", "S-BL"],
-    algorithms: ["r U R' U' r' F R F'"],
+    algorithms: ["r U R' U' r' F R F'", "y2 l' U' L U R U' r' F"],
     category: OLLCategory.OCLL,
   },
   {
@@ -252,7 +252,7 @@ export const definitions: OLLDefinition[] = [
     name: "25",
     setupAlgorithm: "R' F' r U R U' r' F y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "BR", "S-BL", "S-RT"],
-    algorithms: ["y F' r U R' U' r' F R"],
+    algorithms: ["y F' r U R' U' r' F R", "F l' U' L U R U' r'"],
     category: OLLCategory.OCLL,
   },
   {
@@ -276,7 +276,7 @@ export const definitions: OLLDefinition[] = [
     name: "28",
     setupAlgorithm: "R U R' U' M' U R U' r'",
     pattern: ["CC", "TL", "TC", "TR", "CL", "BL", "BR", "S-RC", "S-BC"],
-    algorithms: ["r U R' U' r' R U R U' R'"],
+    algorithms: ["r U R' U' r' R U R U' R'", "y l' U' L U l L' U' L' U L"],
     category: OLLCategory.ALL_CORNERS_ORIENTED,
   },
   {

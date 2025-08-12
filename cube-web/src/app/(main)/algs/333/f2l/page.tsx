@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import ContentSection from "@/components/ui/ContentSection";
 import ContentContainer from "@/components/ui/ContentContainer";
 import FilterPanel from "./components/FilterPanel";
-import Algorithms from "./components/Algorithms";
+import Cases from "./components/Cases";
 
 export const metadata: Metadata = {
   title: "F2L 公式列表",
@@ -27,7 +27,7 @@ export default function Page() {
       </Suspense>
       <h2 className="sr-only">公式列表</h2>
       <Suspense>
-        <Algorithms />
+        <Cases />
       </Suspense>
     </ContentContainer>
   );

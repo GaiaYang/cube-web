@@ -34,7 +34,8 @@ export default function Drawer({
         <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-80">
           <div
             className={cn(
-              "navbar bg-base-100/90 shadow-xs backdrop-blur",
+              "navbar",
+              "bg-base-100/90 shadow-xs backdrop-blur",
               "sticky top-0 z-20",
             )}
           >

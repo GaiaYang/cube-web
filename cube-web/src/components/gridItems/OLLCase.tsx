@@ -6,13 +6,9 @@ import { labels } from "@/options/cube/333/ollCategory";
 import Diagram from "@/components/cube/333/diagram/OrientationLastLayer";
 import AlgorithmCaseCard from "@/components/AlgorithmCaseCard";
 
-export interface OLLAlgoithmProps extends OLLDefinition {}
+export interface OLLCaseProps extends OLLDefinition {}
 
-export default function OLLAlgoithm({
-  pattern,
-  name,
-  category,
-}: OLLAlgoithmProps) {
+export default function OLLCase({ pattern, name, category }: OLLCaseProps) {
   return (
     <AlgorithmCaseCard name={name} category={labels[category]}>
       <Diagram className="w-full" pattern={pattern} />
