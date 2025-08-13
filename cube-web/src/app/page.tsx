@@ -26,7 +26,7 @@ export default function Home() {
             "text-base-content mt-2 font-semibold tracking-tight",
           )}
         >
-          三階魔術方塊速解教學網站
+          魔術方塊教學網站
         </h1>
         <p className="text-base-content/70 mt-6 text-lg/8">
           針對已能還原三階魔術方塊的你，提供系統化的速解教學與公式查詢，從基礎觀念到進階技巧，全面提升還原效率與理解力。
