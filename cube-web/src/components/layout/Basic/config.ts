@@ -56,6 +56,15 @@ export const options = createMenuOptions([
           { title: "F2L", href: "/algs/333/f2l" },
           { title: "OLL", href: "/algs/333/oll" },
           { title: "PLL", href: "/algs/333/pll" },
+          {
+            title: "進階公式子集",
+            asTitle: true,
+            submenu: [
+              { title: "ZBLL", href: "/algs/333/zbll" },
+              { title: "ZBLS", href: "/algs/333/zbls" },
+              { title: "OLLCP", href: "/algs/333/ollcp" },
+            ],
+          },
         ],
       },
     ],
