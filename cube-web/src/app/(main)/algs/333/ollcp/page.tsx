@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "OLLCP 公式列表",
   description:
     "OLLCP（Orientation of the Last Layer and Corner Permutation）是 OLL 的進階公式，完成頂面的同時所有角塊歸位。",
-  alternates: { canonical: "/algs/333/pll" },
+  alternates: { canonical: "/algs/333/ollcp" },
 };
 
 export default function Page() {

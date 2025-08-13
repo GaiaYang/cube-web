@@ -27,13 +27,18 @@ export default function Page() {
         ].join("，")}
       </p>
       <h2>十字</h2>
-      <p>
-        這裡為兩段式OLL要先學的公式，十字的情況復原簡單且順手，也衍生出進階解法
+      <p>這裡為兩段式OLL要先學的公式，十字的情況復原簡單且順手。</p>
+      <blockquote>
+        衍生出進階公式子集
         <Link href="/algs/333/zbll" target="_blank">
           ZBLL
         </Link>
-      </p>
-      <h2>T字</h2>
+        ，不過只有極少數人使用，一般玩家沒必要學。
+      </blockquote>
+      <blockquote>
+        如果你是使用<Link href="/tutorial/333/zz">ZZ Method</Link>
+        則最後一層必定為十字。
+      </blockquote>
     </Article>
   );
 }

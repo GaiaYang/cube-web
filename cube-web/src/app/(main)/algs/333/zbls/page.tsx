@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "ZBLS 公式列表",
   description:
     "ZBLS（Zborowski-Bruchem Last Slot）是 F2L 的進階公式，完成最後一組 F2L 的時候必定上頂面為十字。",
-  alternates: { canonical: "/algs/333/pll" },
+  alternates: { canonical: "/algs/333/zbls" },
 };
 
 export default function Page() {

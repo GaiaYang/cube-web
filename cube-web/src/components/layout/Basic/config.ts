@@ -38,6 +38,11 @@ export const options = createMenuOptions([
               },
             ],
           },
+          {
+            title: "ZZ",
+            href: "/tutorial/333/zz",
+            submenu: [{ title: "EO Line", href: "/tutorial/333/zz/eo-line" }],
+          },
         ],
         asTitle: true,
       },
