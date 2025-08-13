@@ -4,15 +4,12 @@ import Link from "next/link";
 
 import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
-import { OLLCaseId } from "@/types/cube/333";
 
 import Article from "@/components/ui/Article";
-import LastLayerDiagram, {
-  LastLayerDiagramProps,
-} from "@/components/cube/333/diagram/LastLayerDiagram";
+import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
 import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
-import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
+import AlgorithmsTable from "./components/AlgorithmsTable";
 
 export const metadata: Metadata = {
   title: "兩段式OLL",
@@ -103,6 +100,7 @@ export default function Page() {
             caseId: "2",
           },
         ]}
+        getOriginalAlgorithmUrl={(item) => `/algs/333/oll/${item.caseId}`}
       />
       <h3>錯誤情況</h3>
       <div className="flex gap-4">
@@ -152,6 +150,7 @@ export default function Page() {
               caseId: item.id,
             };
           })}
+        getOriginalAlgorithmUrl={(item) => `/algs/333/oll/${item.caseId}`}
       />
       <h3>錯誤情況</h3>
       <p>如果沒有出現以上案例表示方塊裝錯，請將角塊掰成任一情況開始復原。</p>
@@ -166,68 +165,5 @@ export default function Page() {
         </li>
       </ul>
     </Article>
-  );
-}
-
-interface AlgorithmTableRow {
-  colorMap: LastLayerDiagramProps["colorMap"];
-  caseId: OLLCaseId;
-  algorithm: string | string[];
-  description?: string;
-}
-
-interface AlgorithmsTableProps {
-  algorithms: AlgorithmTableRow[];
-}
-
-function AlgorithmsTable({ algorithms }: AlgorithmsTableProps) {
-  return (
-    <div className="not-prose overflow-x-auto">
-      <table className="table min-w-(--container-2xl)">
-        <thead>
-          <tr>
-            <th className="text-center">情況</th>
-            <th>公式</th>
-            <th className="text-center">原始OLL</th>
-          </tr>
-        </thead>
-        <tbody>{algorithms.map(_renderItem)}</tbody>
-      </table>
-    </div>
-  );
-}
-
-function _renderItem(item: AlgorithmTableRow, index: number) {
-  return (
-    <tr key={index}>
-      <td>
-        <LastLayerDiagram colorMap={item.colorMap} size={patternSize} />
-      </td>
-      <td className="w-full">
-        <div className="grid gap-4 py-4">
-          <div className="not-prose flex flex-col items-start gap-2">
-            {Array.isArray(item.algorithm) ? (
-              <>
-                {item.algorithm.map((alg) => (
-                  <AlgorithmDisplay algorithm={alg} key={alg} />
-                ))}
-              </>
-            ) : (
-              <AlgorithmDisplay algorithm={item.algorithm} />
-            )}
-          </div>
-          {item.description}
-        </div>
-      </td>
-      <td className="text-nowrap">
-        <Link
-          href={`/algs/333/oll/${item.caseId}`}
-          target="_blank"
-          className="btn"
-        >
-          原始公式
-        </Link>
-      </td>
-    </tr>
   );
 }
