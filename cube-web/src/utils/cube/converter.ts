@@ -67,7 +67,7 @@ export interface MoveObject {
 /** 分隔符號 */
 const separator = " ";
 /** 逆時針符號 */
-const primeCode = "'";
+const primeSuffix = "'";
 
 /** 將公式拆解為字串陣列 */
 export function splitFromAlgorithm(input?: string | null): string[] {
@@ -85,7 +85,7 @@ export function parseAlgorithm(input: AlgorithmInput): string[] {
 }
 
 /** 旋轉代號陣列 */
-const rotationCodes: RotationCode[] = [
+const rotationCodes: BasicCode[] = [
   "x",
   "y",
   "z",
@@ -113,8 +113,9 @@ const rotationCodes: RotationCode[] = [
 ];
 
 // Regex 拆解: (前數字)? 代號 (')? (次數)?
-const movePattern =
-  /^(\d*)?(x|y|z|R|L|U|D|F|B|M|S|E|Rw|Lw|Uw|Dw|Fw|Bw|r|l|u|d|f|b)(\d*)('?)$/;
+const movePattern = new RegExp(
+  `^(\\d*)?(${rotationCodes.join("|")})(\\d*)(${primeSuffix}?){0,1}$`,
+);
 
 /** 解析轉動符號 */
 function parseMoveNotation(move: string): MoveObject | null {
@@ -125,7 +126,7 @@ function parseMoveNotation(move: string): MoveObject | null {
   return {
     layerCount: Number(layerCount) || null,
     code: code as RotationCode,
-    isPrime: prime === primeCode,
+    isPrime: prime === primeSuffix,
     turns: turns ? Number(turns) : 1,
   };
 }
@@ -133,9 +134,17 @@ function parseMoveNotation(move: string): MoveObject | null {
 /** 是否為合法轉動符號 */
 export function isMoveValid(move: string): boolean {
   const parsed = parseMoveNotation(move);
-  if (!parsed) return false;
-  if (parsed.layerCount !== null && parsed.layerCount < 1) return false;
-  return rotationCodes.includes(parsed.code);
+  if (!isPlainObject(parsed)) {
+    return false;
+  }
+
+  const { layerCount, code } = parsed;
+
+  if (layerCount !== null && layerCount < 1) {
+    return false;
+  }
+
+  return rotationCodes.includes(code as BasicCode);
 }
 
 /** 化簡成 0~3 次，保證非負 */
@@ -161,11 +170,11 @@ export function serializeMove(move: MoveObject) {
     case 2:
       suffix = "2";
       if (isPrime) {
-        suffix += primeCode;
+        suffix += primeSuffix;
       }
       break;
     case 3:
-      suffix = primeCode;
+      suffix = primeSuffix;
       break;
     default:
       break;
@@ -245,12 +254,12 @@ export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
       const { code, isPrime, ...rest } = parsed;
 
       // 取得鏡像代號
-      let mirroredCode = mirrorMap[code as BasicCode];
+      let mirroredCode = mirrorMap[code as BasicCode] as RotationCode;
       if (!mirroredCode) return null;
 
       let extraPrime = false;
-      if (mirroredCode.endsWith(primeCode)) {
-        mirroredCode = mirroredCode.slice(0, -1) as PrimeCode;
+      if (mirroredCode.endsWith(primeSuffix)) {
+        mirroredCode = mirroredCode.slice(0, -1) as RotationCode;
         extraPrime = true;
       }
 
