@@ -154,11 +154,7 @@ function normalizeTurns(turns: number, isPrime?: boolean) {
 }
 
 /** 建立轉動代號字串 */
-export function serializeMove(move: MoveObject) {
-  if (!isPlainObject(move)) {
-    return null;
-  }
-
+function serializeMove(move: MoveObject) {
   const { layerCount, code, turns, isPrime } = move;
 
   const finalTurns = normalizeTurns(turns, isPrime);
@@ -240,6 +236,25 @@ const mirrorMap: Record<BasicCode, PrimeCode> = {
   b: "b'",
 };
 
+function mirrorMove(move: MoveObject): MoveObject | null {
+  const { code, isPrime, ...rest } = move;
+  let mirroredCode = mirrorMap[code as BasicCode] as RotationCode;
+  if (!mirroredCode) return null;
+
+  let extraPrime = false;
+  if (mirroredCode.endsWith(primeSymbol)) {
+    mirroredCode = mirroredCode.slice(0, -1) as RotationCode;
+    extraPrime = true;
+  }
+
+  return {
+    ...rest,
+    code: mirroredCode,
+    isPrime: isPrime !== extraPrime,
+    turns: move.turns,
+  };
+}
+
 /**
  * 鏡像公式
  *
@@ -247,26 +262,25 @@ const mirrorMap: Record<BasicCode, PrimeCode> = {
  * */
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
+    .map(parseMoveString)
+    .map((m) => m && mirrorMove(m))
+    .map((m) => m && serializeMove(m))
+    .filter(isNotNil);
+}
+
+function mapAlgorithm<K extends RotationCode, V extends string>(
+  input: AlgorithmInput,
+  map: Record<K, V>,
+): Move[] {
+  return parseAlgorithm(input)
     .map((move) => {
       const parsed = parseMoveString(move);
-      if (!parsed) return null;
+      if (!parsed) return move as Move;
 
-      const { code, isPrime, ...rest } = parsed;
-
-      // 取得鏡像代號
-      let mirroredCode = mirrorMap[code as BasicCode] as RotationCode;
-      if (!mirroredCode) return null;
-
-      let extraPrime = false;
-      if (mirroredCode.endsWith(primeSymbol)) {
-        mirroredCode = mirroredCode.slice(0, -1) as RotationCode;
-        extraPrime = true;
-      }
-
+      const { code, ...rest } = parsed;
       return serializeMove({
         ...rest,
-        code: mirroredCode,
-        isPrime: isPrime !== extraPrime,
+        code: (map[code as K] ?? code) as RotationCode,
       });
     })
     .filter(isNotNil);
@@ -307,19 +321,7 @@ const rotateMap: Record<BasicCode, BasicCode> = {
  * 實際應用：假設有一條順手的公式，存在著鏡像形式的話，你可以考慮將他以左右鏡像的方式轉換後，再進行前後旋轉，則可以得到以同一手做的鏡像公式。
  * */
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
-  return parseAlgorithm(input)
-    .map((move) => {
-      const parsed = parseMoveString(move);
-      if (!parsed) return null;
-
-      const { code, ...rest } = parsed;
-
-      return serializeMove({
-        ...rest,
-        code: rotateMap[code as BasicCode] ?? code,
-      });
-    })
-    .filter(isNotNil);
+  return mapAlgorithm(input, rotateMap);
 }
 
 /** 小寫代號 → 帶 w 的大寫代號映射 */
@@ -333,21 +335,7 @@ const lowerToUpperMap: Record<LowerCode, UpperCode> = {
 };
 /** 轉換為標準公式：小寫代號 → 帶 w 的大寫代號 */
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
-  return parseAlgorithm(input)
-    .map((move) => {
-      const parsed = parseMoveString(move);
-      if (!parsed) {
-        return move as Move;
-      }
-
-      const { code, ...rest } = parsed;
-
-      return serializeMove({
-        ...rest,
-        code: lowerToUpperMap[code as LowerCode] ?? code,
-      });
-    })
-    .filter(isNotNil);
+  return mapAlgorithm(input, lowerToUpperMap);
 }
 
 /** 帶 w 的大寫代號 → 小寫代號映射 */
@@ -362,19 +350,5 @@ const upperToLowerMap: Record<UpperCode, LowerCode> = {
 
 /** 轉換為常見公式：帶 w 的大寫代號 → 小寫代號 */
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
-  return parseAlgorithm(input)
-    .map((move) => {
-      const parsed = parseMoveString(move);
-      if (!parsed) {
-        return move as Move;
-      }
-
-      const { code, ...rest } = parsed;
-
-      return serializeMove({
-        ...rest,
-        code: upperToLowerMap[code as UpperCode] ?? code,
-      });
-    })
-    .filter(isNotNil);
+  return mapAlgorithm(input, upperToLowerMap);
 }
