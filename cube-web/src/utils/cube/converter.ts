@@ -113,25 +113,35 @@ export function isValidMove(move: string): boolean {
   return rotationCodes.includes(parsed.code);
 }
 
+/** 判斷後綴 */
+function creatMoveSuffix(turns: number) {
+  if (turns === 2) return "2";
+  if (turns === 3) return "'";
+  return "";
+}
+
+/** 化簡成 0~3 次，保證非負 */
+function simplifyTurns(value: number, isPrime?: boolean) {
+  let newValue = value;
+  // 逆時針轉換成等價的順時針次數
+  if (isPrime) {
+    newValue = 4 - value;
+  }
+
+  return ((newValue % 4) + 4) % 4;
+}
+
 /** 標準化轉動 */
 export function normalizeMove(move: string): string | null {
   const parsed = parseMove(move);
   if (!parsed || !isValidMove(move)) return null;
 
-  let { layerCount, code, isPrime, turns } = parsed;
+  const { layerCount, code, isPrime, turns } = parsed;
+  const finalTurns = simplifyTurns(turns, isPrime);
 
-  // 逆時針轉換成等價的順時針次數
-  if (isPrime) turns = 4 - (turns % 4);
+  if (finalTurns === 0) return null;
 
-  // 化簡成 0~3 次
-  turns = ((turns % 4) + 4) % 4;
-  if (turns === 0) return null;
-
-  if (turns === 3) {
-    // 三次順時針等於一次逆時針
-    return `${layerCount ?? ""}${code}'`;
-  }
-  return `${layerCount ?? ""}${code}${turns === 2 ? 2 : ""}`;
+  return `${layerCount ?? ""}${code}${creatMoveSuffix(finalTurns)}`;
 }
 
 // 實際應用處理
@@ -185,37 +195,24 @@ export function mirrorAlgorithm(input: AlgorithmInput): MoveNotation[] {
     const parsed = parseMove(move);
     if (!parsed) continue;
 
-    const { layerCount, code, isPrime, turns } = parsed;
+    let { layerCount, code, isPrime, turns } = parsed;
 
-    /** 找到鏡像代號（可能帶 '） */
+    // 取得鏡像代號，並判斷是否自帶 '
     let mirroredCode = mirrorMap[code];
-    /** 額外反轉 */
     let extraPrime = false;
 
-    // 如果鏡像代號本身帶 '，移除它並反轉方向
     if (mirroredCode.endsWith("'")) {
       mirroredCode = mirroredCode.slice(0, -1) as RotationCode;
       extraPrime = true;
     }
 
-    // 計算方向（鏡像後如果 extraPrime = true 則反轉方向）
-    let finalTurns = turns;
-    if (isPrime !== extraPrime) {
-      finalTurns = 4 - (turns % 4);
-    }
+    // 計算鏡像後方向
+    // 如果原本方向與鏡像代號方向不同，則反轉
+    const finalTurns = simplifyTurns(turns, isPrime !== extraPrime);
 
-    // turns 化簡到 0~3
-    finalTurns = ((finalTurns % 4) + 4) % 4;
-    if (finalTurns === 0) continue;
-
-    // 生成結果
-    if (finalTurns === 3) {
-      output.push(`${layerCount ?? ""}${mirroredCode}'` as MoveNotation);
-    } else {
-      output.push(
-        `${layerCount ?? ""}${mirroredCode}${finalTurns === 2 ? 2 : ""}` as MoveNotation,
-      );
-    }
+    output.push(
+      `${layerCount ?? ""}${mirroredCode}${creatMoveSuffix(finalTurns)}` as MoveNotation,
+    );
   }
 
   return output;
