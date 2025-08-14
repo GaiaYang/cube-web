@@ -115,7 +115,7 @@ const movePattern =
   /^(\d*)?(x|y|z|R|L|U|D|F|B|M|S|E|Rw|Lw|Uw|Dw|Fw|Bw|r|l|u|d|f|b)(\d*)('?)$/;
 
 /** 解析轉動符號 */
-function parseMove(move: string): MoveObject | null {
+function parseMoveNotation(move: string): MoveObject | null {
   const match = move.match(movePattern);
   if (!match) return null;
 
@@ -129,33 +129,27 @@ function parseMove(move: string): MoveObject | null {
 }
 
 /** 是否為合法轉動符號 */
-export function isValidMove(move: string): boolean {
-  const parsed = parseMove(move);
+export function isMoveValid(move: string): boolean {
+  const parsed = parseMoveNotation(move);
   if (!parsed) return false;
   if (parsed.layerCount !== null && parsed.layerCount < 1) return false;
   return rotationCodes.includes(parsed.code);
 }
 
 /** 化簡成 0~3 次，保證非負 */
-function simplifyTurns(value: number, isPrime?: boolean) {
-  let newValue = value;
-  // 逆時針轉換成等價的順時針次數
-  if (isPrime) {
-    newValue = 4 - value;
-  }
-
-  return newValue % 4;
+function normalizeTurns(turns: number, isPrime?: boolean) {
+  return (isPrime ? 4 - turns : turns) % 4;
 }
 
 /** 建立轉動代號字串 */
-export function createMove(move: MoveObject) {
+export function serializeMove(move: MoveObject) {
   if (!isPlainObject(move)) {
     return null;
   }
 
   const { layerCount, code, turns, isPrime } = move;
 
-  const finalTurns = simplifyTurns(turns, isPrime);
+  const finalTurns = normalizeTurns(turns, isPrime);
 
   if (finalTurns === 0) return null;
 
@@ -175,16 +169,9 @@ export function createMove(move: MoveObject) {
 }
 
 /** 標準化轉動 */
-export function normalizeMove(move: string): string | null {
-  const parsed = parseMove(move);
-  if (!parsed || !isValidMove(move)) return null;
-
-  const { layerCount, code, isPrime, turns } = parsed;
-  const finalTurns = simplifyTurns(turns, isPrime);
-
-  if (finalTurns === 0) return null;
-
-  return createMove({ layerCount, code, isPrime, turns });
+export function standardizeMove(move: string): string | null {
+  const parsed = parseMoveNotation(move);
+  return parsed && isMoveValid(move) ? serializeMove(parsed) : null;
 }
 
 // 實際應用處理
@@ -197,17 +184,14 @@ export function reverseAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .reverse()
     .map((move) => {
-      const parsed = parseMove(move);
+      const parsed = parseMoveNotation(move);
       if (!parsed) return null;
 
-      const { layerCount, code, isPrime, turns } = parsed;
-      const currentPrime = !isPrime;
+      const { isPrime, ...rest } = parsed;
 
-      return createMove({
-        layerCount,
-        code,
-        isPrime: currentPrime,
-        turns,
+      return serializeMove({
+        ...rest,
+        isPrime: !isPrime,
       });
     })
     .filter(isNotNil);
@@ -249,10 +233,10 @@ const mirrorMap: Record<BasicCode, PrimeCode> = {
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMove(move);
+      const parsed = parseMoveNotation(move);
       if (!parsed) return null;
 
-      const { layerCount, code, isPrime, turns } = parsed;
+      const { code, isPrime, ...rest } = parsed;
 
       // 取得鏡像代號
       let mirroredCode = mirrorMap[code as BasicCode];
@@ -264,11 +248,10 @@ export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
         extraPrime = true;
       }
 
-      return createMove({
-        layerCount,
+      return serializeMove({
+        ...rest,
         code: mirroredCode,
         isPrime: isPrime !== extraPrime,
-        turns,
       });
     })
     .filter(isNotNil);
@@ -311,16 +294,14 @@ const rotateMap: Record<BasicCode, BasicCode> = {
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMove(move);
+      const parsed = parseMoveNotation(move);
       if (!parsed) return null;
 
-      const { layerCount, code, isPrime, turns } = parsed;
+      const { code, ...rest } = parsed;
 
-      return createMove({
-        layerCount,
+      return serializeMove({
+        ...rest,
         code: rotateMap[code as BasicCode] ?? code,
-        isPrime,
-        turns,
       });
     })
     .filter(isNotNil);
@@ -339,18 +320,16 @@ const lowerToUpperMap: Record<LowerCode, UpperCode> = {
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMove(move);
+      const parsed = parseMoveNotation(move);
       if (!parsed) {
         return move as Move;
       }
 
-      const { layerCount, code, isPrime, turns } = parsed;
+      const { code, ...rest } = parsed;
 
-      return createMove({
-        layerCount,
+      return serializeMove({
+        ...rest,
         code: lowerToUpperMap[code as LowerCode] ?? code,
-        isPrime,
-        turns,
       });
     })
     .filter(isNotNil);
@@ -370,18 +349,16 @@ const upperToLowerMap: Record<UpperCode, LowerCode> = {
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMove(move);
+      const parsed = parseMoveNotation(move);
       if (!parsed) {
         return move as Move;
       }
 
-      const { layerCount, code, isPrime, turns } = parsed;
+      const { code, ...rest } = parsed;
 
-      return createMove({
-        layerCount,
+      return serializeMove({
+        ...rest,
         code: upperToLowerMap[code as UpperCode] ?? code,
-        isPrime,
-        turns,
       });
     })
     .filter(isNotNil);

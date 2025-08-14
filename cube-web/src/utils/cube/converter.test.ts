@@ -1,6 +1,6 @@
 import {
-  isValidMove,
-  normalizeMove,
+  isMoveValid,
+  standardizeMove,
   mirrorAlgorithm,
   mergeToAlgorithm,
   reverseAlgorithm,
@@ -9,18 +9,18 @@ import {
   lowerAlgorithm,
 } from "./converter";
 
-test("isValidMove", () => {
-  expect(isValidMove("U")).toEqual(true);
-  expect(isValidMove("U2")).toEqual(true);
-  expect(isValidMove("3Rw2'")).toEqual(true);
-  expect(isValidMove("3Rw4'")).toEqual(true);
-  expect(isValidMove("Q")).toEqual(false);
+test("isMoveValid", () => {
+  expect(isMoveValid("U")).toEqual(true);
+  expect(isMoveValid("U2")).toEqual(true);
+  expect(isMoveValid("3Rw2'")).toEqual(true);
+  expect(isMoveValid("3Rw4'")).toEqual(true);
+  expect(isMoveValid("Q")).toEqual(false);
 });
 
-test("normalizeMove", () => {
-  expect(normalizeMove("U10")).toEqual("U2");
-  expect(normalizeMove("U-3")).toEqual(null);
-  expect(normalizeMove("3Rw15'")).toEqual("3Rw");
+test("standardizeMove", () => {
+  expect(standardizeMove("U10")).toEqual("U2");
+  expect(standardizeMove("U-3")).toEqual(null);
+  expect(standardizeMove("3Rw15'")).toEqual("3Rw");
 });
 
 test("mirrorAlgorithm", () => {
