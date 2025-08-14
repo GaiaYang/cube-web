@@ -10,7 +10,7 @@ export interface PLLCaseProps extends PLLDefinition {}
 
 export default function PLLCase({ pattern, name, category }: PLLCaseProps) {
   return (
-    <AlgorithmCaseCard name={name} category={labels[category]}>
+    <AlgorithmCaseCard name={name} tag={labels[category]}>
       <Diagram className="w-full" pattern={pattern} />
     </AlgorithmCaseCard>
   );

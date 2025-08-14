@@ -49,6 +49,6 @@ export enum F2LCategory {
   EDGE_IN_SLOT = "EDGE_IN_SLOT",
   /** 可自由移動的對組（Free Pairs） */
   FREE_PAIRS = "FREE_PAIRS",
-  /** 有其他塊卡在插槽中（Pieces in Slot） */
+  /** 對組在插槽中（Pieces in Slot） */
   PIECES_IN_SLOT = "PIECES_IN_SLOT",
 }

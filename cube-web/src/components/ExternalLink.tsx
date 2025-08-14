@@ -13,6 +13,7 @@ export interface ExternalLinkProps
   children?: React.ReactNode | undefined;
 }
 
+/** 外部連結 */
 export default function ExternalLink({
   children,
   className,

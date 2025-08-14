@@ -10,7 +10,7 @@ export interface F2LCaseProps extends F2LDefinition {}
 
 export default function F2LCase({ pattern, name, category }: F2LCaseProps) {
   return (
-    <AlgorithmCaseCard name={name} category={labels[category]}>
+    <AlgorithmCaseCard name={name} tag={labels[category]}>
       <Diagram pattern={pattern} />
     </AlgorithmCaseCard>
   );

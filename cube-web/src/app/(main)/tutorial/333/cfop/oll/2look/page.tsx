@@ -4,10 +4,10 @@ import Link from "next/link";
 
 import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
+import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
 import Article from "@/components/ui/Article";
 import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
-import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
 import AlgorithmsTable from "./components/AlgorithmsTable";
 

@@ -10,7 +10,7 @@ export interface OLLCaseProps extends OLLDefinition {}
 
 export default function OLLCase({ pattern, name, category }: OLLCaseProps) {
   return (
-    <AlgorithmCaseCard name={name} category={labels[category]}>
+    <AlgorithmCaseCard name={name} tag={labels[category]}>
       <Diagram className="w-full" pattern={pattern} />
     </AlgorithmCaseCard>
   );

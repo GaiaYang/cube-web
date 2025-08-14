@@ -21,20 +21,24 @@ export const options = createMenuOptions([
                 href: "/tutorial/333/cfop/f2l",
               },
               {
-                title: "兩段式OLL",
-                href: "/tutorial/333/cfop/oll/2look",
-              },
-              {
                 title: "OLL",
                 href: "/tutorial/333/cfop/oll",
-              },
-              {
-                title: "兩段式PLL",
-                href: "/tutorial/333/cfop/pll/2look",
+                submenu: [
+                  {
+                    title: "兩段式OLL",
+                    href: "/tutorial/333/cfop/oll/2look",
+                  },
+                ],
               },
               {
                 title: "PLL",
                 href: "/tutorial/333/cfop/pll",
+                submenu: [
+                  {
+                    title: "兩段式PLL",
+                    href: "/tutorial/333/cfop/pll/2look",
+                  },
+                ],
               },
             ],
           },

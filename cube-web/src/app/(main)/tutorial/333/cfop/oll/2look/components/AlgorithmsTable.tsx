@@ -1,11 +1,10 @@
-import Link from "next/link";
-
 import type { OLLCaseId } from "@/types/cube/333";
 
 import LastLayerDiagram, {
   type LastLayerDiagramProps,
 } from "@/components/cube/333/diagram/LastLayerDiagram";
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
+import ExternalLink from "@/components/ExternalLink";
 
 export interface AlgorithmTableRow {
   colorMap: LastLayerDiagramProps["colorMap"];
@@ -41,9 +40,9 @@ export default function AlgorithmsTable({
         </td>
         <td className="text-nowrap">
           {href ? (
-            <Link href={href} target="_blank" className="link link-primary">
+            <ExternalLink href={href} className="link link-primary">
               原始公式
-            </Link>
+            </ExternalLink>
           ) : (
             <span>無</span>
           )}
