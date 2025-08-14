@@ -138,7 +138,8 @@ export function isMoveValid(move: string): boolean {
 
 /** 化簡成 0~3 次，保證非負 */
 function normalizeTurns(turns: number, isPrime?: boolean) {
-  return (isPrime ? 4 - turns : turns) % 4;
+  const t = (isPrime ? 4 - turns : turns) % 4;
+  return (t + 4) % 4;
 }
 
 /** 建立轉動代號字串 */
@@ -150,19 +151,22 @@ export function serializeMove(move: MoveObject) {
   const { layerCount, code, turns, isPrime } = move;
 
   const finalTurns = normalizeTurns(turns, isPrime);
-
-  if (finalTurns === 0) return null;
-
   let suffix = "";
 
-  if (finalTurns === 2) {
-    suffix = "2";
-    if (isPrime) {
-      suffix += primeCode;
-    }
-  }
-  if (finalTurns === 3) {
-    suffix = primeCode;
+  switch (finalTurns) {
+    case 0:
+      return null;
+    case 2:
+      suffix = "2";
+      if (isPrime) {
+        suffix += primeCode;
+      }
+      break;
+    case 3:
+      suffix = primeCode;
+      break;
+    default:
+      break;
   }
 
   return `${layerCount || ""}${code}${suffix}` as Move;
