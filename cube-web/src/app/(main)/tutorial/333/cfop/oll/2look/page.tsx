@@ -92,6 +92,16 @@ export default function Page() {
           },
           {
             colorMap: {
+              TC: topColor,
+              CC: topColor,
+              CL: topColor,
+            },
+            algorithm: "F U R U' R' F'",
+            caseId: "43",
+            description: "如果不太會轉雙層可以改用這個。",
+          },
+          {
+            colorMap: {
               CC: topColor,
             },
             algorithm: "F (R U R' U') F' f ( R U R' U' ) f'",
