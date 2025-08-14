@@ -3,34 +3,11 @@ import modulo from "@/utils/modulo";
 
 /** 逆時針符號 */
 export type Prime = "'";
-
-/** 小寫邊層旋轉代號 */
 export type LowerCode = "r" | "l" | "u" | "d" | "f" | "b";
-export type LowerPrimeCode = `${LowerCode}${Prime}`;
-
-/** 大寫帶 w 的旋轉代號 */
 export type UpperCode = "Rw" | "Lw" | "Uw" | "Dw" | "Fw" | "Bw";
-export type UpperPrimeCode = `${UpperCode}${Prime}`;
-
-/** 中層旋轉代號 */
 export type MiddleCode = "M" | "S" | "E";
-export type MiddlePrimeCode = `${MiddleCode}${Prime}`;
-
-/** 軸旋轉代號 */
 export type AxisCode = "x" | "y" | "z";
-export type AxisPrimeCode = `${AxisCode}${Prime}`;
-
-/** 面旋轉代號 */
 export type SideCode = "R" | "L" | "U" | "D" | "F" | "B";
-export type SidePrimeCode = `${SideCode}${Prime}`;
-
-/** 所有逆時針旋轉代號 */
-export type PrimeCode =
-  | LowerPrimeCode
-  | UpperPrimeCode
-  | MiddlePrimeCode
-  | AxisPrimeCode
-  | SidePrimeCode;
 
 /** 所有基本旋轉代號 */
 export type BasicCode =
@@ -40,15 +17,18 @@ export type BasicCode =
   | AxisCode
   | SideCode;
 
-/** 所有旋轉代號（包含逆時針） */
+/** 所有逆時針旋轉代號（BasicCode + Prime） */
+export type PrimeCode = `${BasicCode}${Prime}`;
+
+/** 所有旋轉代號（含逆時針） */
 export type RotationCode = BasicCode | PrimeCode;
 
 /** 移動符號（單步操作） */
 export type Move =
   | RotationCode
-  | `${number | ""}${PrimeCode}`
-  | `${number | ""}${BasicCode}${number | ""}${Prime}`
-  | `${number | ""}${BasicCode}${number | ""}`;
+  | `${number | ""}${PrimeCode}` // 數字 + 逆時針
+  | `${number | ""}${BasicCode}${number | ""}${Prime}` // 數字 + 正向 + 次數 + 逆時針
+  | `${number | ""}${BasicCode}${number | ""}`; // 數字 + 正向 + 次數
 
 /** 公式輸入 */
 export type AlgorithmInput = string | Move[];
@@ -129,11 +109,18 @@ export function parseMoveString(move: string): MoveObject | null {
 /** 是否合法單步轉動字串 */
 export function isValidMoveString(move: string): boolean {
   const parsed = parseMoveString(move);
-  if (!parsed) return false;
+
+  if (!parsed) {
+    return false;
+  }
+
   const { layerCount, code } = parsed;
-  if (layerCount !== null && layerCount < 1) return false;
-  const basicCode = code.replace(primeSymbol, "") as BasicCode;
-  return allBasicCodes.includes(basicCode);
+
+  if (layerCount !== null && layerCount < 1) {
+    return false;
+  }
+
+  return allBasicCodes.includes(code.replace(primeSymbol, "") as BasicCode);
 }
 
 /** 化簡轉動次數成 0~3 */
@@ -146,6 +133,7 @@ function normalizeTurns(turns: number, isPrime?: boolean) {
 function serializeMove(move: MoveObject) {
   const { layerCount, code, turns, isPrime } = move;
   const finalTurns = normalizeTurns(turns, isPrime);
+
   let suffix = "";
   switch (finalTurns) {
     case 0:
@@ -158,6 +146,7 @@ function serializeMove(move: MoveObject) {
       suffix = primeSymbol;
       break;
   }
+
   return `${layerCount || ""}${code}${suffix}` as Move;
 }
 
@@ -167,7 +156,11 @@ export function standardizeMove(move: string): string | null {
   return parsed && isValidMoveString(move) ? serializeMove(parsed) : null;
 }
 
-/** 反轉公式 */
+/**
+ * 反轉公式
+ *
+ * 轉動步驟順序反轉，這個功能可以讓你將整條轉動步驟以相反的動作倒著做，讓你可以將順著做完的狀態，倒著恢復到還沒轉的原樣。
+ * */
 export function reverseAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .reverse()
@@ -213,19 +206,21 @@ function mirrorMove(move: MoveObject): MoveObject | null {
   const { code, isPrime, ...rest } = move;
   const baseCode = code.replace(primeSymbol, "") as BasicCode;
   const mirroredCode = MIRROR_MAP[baseCode];
+
   if (!mirroredCode) return null;
-  // 鏡像後一般加上 prime
-  const mirroredIsPrime = !isPrime || mirroredCode.endsWith(primeSymbol);
-  const finalCode = mirroredCode.replace(primeSymbol, "") as RotationCode;
+
   return {
     ...rest,
-    code: finalCode,
-    isPrime: mirroredIsPrime,
-    turns: move.turns,
+    code: mirroredCode.replace(primeSymbol, "") as RotationCode,
+    isPrime: !isPrime || mirroredCode.endsWith(primeSymbol),
   };
 }
 
-/** 鏡像公式 */
+/**
+ * 鏡像公式
+ *
+ * 轉動步驟左右鏡像，可以幫助你將在右手做的公式直接鏡射到左手的位置，讓同一條公式透過左右手的差異來解決鏡像的兩種狀態。
+ * */
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map(parseMoveString)
@@ -279,11 +274,17 @@ const rotateMap: Record<BasicCode, BasicCode> = {
   f: "b",
   b: "f",
 };
+
+/**
+ * 旋轉公式
+ *
+ * 轉動步驟前後旋轉，可以將你的輸入的步驟轉換成當你將方塊轉動 y2 後，仍然可以得到一樣結果的步驟。
+ * */
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, rotateMap);
 }
 
-/** 小寫 → 帶 w 大寫 */
+/** 小寫映射到大寫 */
 const lowerToUpperMap: Record<LowerCode, UpperCode> = {
   r: "Rw",
   l: "Lw",
@@ -292,11 +293,13 @@ const lowerToUpperMap: Record<LowerCode, UpperCode> = {
   f: "Fw",
   b: "Bw",
 };
+
+/** 小寫 → 帶 w 大寫 */
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, lowerToUpperMap);
 }
 
-/** 帶 w 大寫 → 小寫 */
+/** 大寫映射到小寫 */
 const upperToLowerMap: Record<UpperCode, LowerCode> = {
   Rw: "r",
   Lw: "l",
@@ -305,6 +308,13 @@ const upperToLowerMap: Record<UpperCode, LowerCode> = {
   Fw: "f",
   Bw: "b",
 };
+
+/** 帶 w 大寫 → 小寫 */
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, upperToLowerMap);
+}
+
+/** 檢查公式輸入是否全部合法 */
+export function isAlgorithmValid(input: AlgorithmInput): boolean {
+  return parseAlgorithm(input).every(isValidMoveString);
 }

@@ -7,6 +7,7 @@ import {
   rotateAlgorithm,
   upperAlgorithm,
   lowerAlgorithm,
+  isAlgorithmValid,
 } from "./converter";
 
 test("isValidMoveString", () => {
@@ -61,8 +62,10 @@ test("rotateAlgorithm", () => {
 
 test("upperAlgorithm", () => {
   expect(
-    mergeToAlgorithm(upperAlgorithm(["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"])),
-  ).toEqual("Rw Lw Uw Dw Fw Bw");
+    mergeToAlgorithm(
+      upperAlgorithm(["Rw", "Lw", "Uw", "Dw", "Fw", "Bw", "2r2'"]),
+    ),
+  ).toEqual("Rw Lw Uw Dw Fw Bw 2Rw2'");
   expect(
     mergeToAlgorithm(
       upperAlgorithm(["2Rw'", "Lw2'", "Uw2", "Dw'", "Fw", "Bw"]),
@@ -91,4 +94,10 @@ test("lowerAlgorithm", () => {
   expect(
     mergeToAlgorithm(lowerAlgorithm(["2r'", "l2'", "u2", "d'", "f", "b"])),
   ).toEqual("2r' l2' u2 d' f b");
+});
+
+test("isAlgorithmValid", () => {
+  expect(isAlgorithmValid("R U F L D B x y z E M S")).toEqual(true);
+  expect(isAlgorithmValid("R U B' U' R' U R B R'")).toEqual(true);
+  expect(isAlgorithmValid("q")).toEqual(false);
 });
