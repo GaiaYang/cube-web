@@ -1,4 +1,5 @@
 import { isNotNil } from "es-toolkit";
+
 import modulo from "@/utils/modulo";
 
 /** 逆時針符號 */
@@ -96,7 +97,11 @@ const movePattern = new RegExp(
 /** 解析單步轉動字串 */
 export function parseMoveString(move: string): MoveObject | null {
   const match = move.match(movePattern);
-  if (!match) return null;
+
+  if (!match) {
+    return null;
+  }
+
   const [, layerCount, code, turns, prime] = match;
   return {
     layerCount: layerCount ? Number(layerCount) : null,
@@ -166,8 +171,13 @@ export function reverseAlgorithm(input: AlgorithmInput): Move[] {
     .reverse()
     .map((move) => {
       const parsed = parseMoveString(move);
-      if (!parsed) return null;
+
+      if (!parsed) {
+        return null;
+      }
+
       const { isPrime, ...rest } = parsed;
+
       return serializeMove({ ...rest, isPrime: !isPrime });
     })
     .filter(isNotNil);
@@ -207,7 +217,9 @@ function mirrorMove(move: MoveObject): MoveObject | null {
   const baseCode = code.replace(primeSymbol, "") as BasicCode;
   const mirroredCode = MIRROR_MAP[baseCode];
 
-  if (!mirroredCode) return null;
+  if (!mirroredCode) {
+    return null;
+  }
 
   return {
     ...rest,
@@ -237,8 +249,13 @@ function mapAlgorithm<K extends string, V extends string>(
   return parseAlgorithm(input)
     .map((move) => {
       const parsed = parseMoveString(move);
-      if (!parsed) return move as Move;
+
+      if (!parsed) {
+        return move as Move;
+      }
+
       const { code, ...rest } = parsed;
+
       return serializeMove({
         ...rest,
         code: (map[code as K] ?? code) as RotationCode,
