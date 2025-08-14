@@ -18,17 +18,21 @@ export type RotationCode =
 export type MoveNotation =
   | RotationCode
   | `${number | ""}${RotationCode}'`
-  | `${number | ""}${RotationCode}${2 | 3}'`
-  | `${number | ""}${RotationCode}${2 | 3}`;
+  | `${number | ""}${RotationCode}${number | ""}'`
+  | `${number | ""}${RotationCode}${number | ""}`;
 
 /** 公式輸入 */
 export type AlgorithmInput = string | MoveNotation[];
 
 /** 解析轉動符號物件 */
 export interface MoveObject<T> {
+  /** 轉動層數 */
   layerCount: number | null;
+  /** 主要轉動符號 */
   code: T;
+  /** 是否逆時針轉動 */
   isPrime: boolean;
+  /** 轉動次數 */
   turns: number;
 }
 
@@ -83,7 +87,7 @@ const rotationCodes: RotationCode[] = [
 
 // Regex 拆解: (前數字)? 代號 (')? (次數)?
 const movePattern =
-  /^(\d*)?(x|y|z|R|L|U|D|F|B|M|S|E|Rw|Lw|Uw|Dw|Fw|Bw|r|l|u|d|f|b)('?)(\d*)$/;
+  /^(\d*)?(x|y|z|R|L|U|D|F|B|M|S|E|Rw|Lw|Uw|Dw|Fw|Bw|r|l|u|d|f|b)(\d*)('?)$/;
 
 /** 解析轉動符號 */
 function parseMoveNotation<T = RotationCode>(
@@ -92,7 +96,7 @@ function parseMoveNotation<T = RotationCode>(
   const match = move.match(movePattern);
   if (!match) return null;
 
-  const [, layerCount, code, prime, turns] = match;
+  const [, layerCount, code, turns, prime] = match;
   return {
     layerCount: layerCount ? Number(layerCount) : null,
     code: code as T,
@@ -109,13 +113,6 @@ export function isValidMove(move: string): boolean {
   return rotationCodes.includes(parsed.code);
 }
 
-/** 判斷後綴 */
-function creatMoveSuffix(turns: number) {
-  if (turns === 2) return "2";
-  if (turns === 3) return primeCode;
-  return "";
-}
-
 /** 化簡成 0~3 次，保證非負 */
 function simplifyTurns(value: number, isPrime?: boolean) {
   let newValue = value;
@@ -124,7 +121,7 @@ function simplifyTurns(value: number, isPrime?: boolean) {
     newValue = 4 - value;
   }
 
-  return ((newValue % 4) + 4) % 4;
+  return newValue % 4;
 }
 
 /** 建立轉動代號字串 */
@@ -133,8 +130,22 @@ export function createMoveNotation<T = RotationCode>(move: MoveObject<T>) {
     return null;
   }
 
-  const { layerCount, code, turns } = move;
-  return `${layerCount ?? ""}${code}${creatMoveSuffix(turns)}` as MoveNotation;
+  const { layerCount, code, turns, isPrime } = move;
+
+  const finalTurns = simplifyTurns(turns, isPrime);
+
+  if (finalTurns === 0) return null;
+
+  let suffix = "";
+
+  if (finalTurns === 2) {
+    suffix = "2";
+  }
+  if (finalTurns === 3) {
+    suffix = primeCode;
+  }
+
+  return `${layerCount ?? ""}${code}${suffix}` as MoveNotation;
 }
 
 /** 標準化轉動 */
@@ -147,7 +158,7 @@ export function normalizeMove(move: string): string | null {
 
   if (finalTurns === 0) return null;
 
-  return createMoveNotation({ layerCount, code, isPrime, turns: finalTurns });
+  return createMoveNotation({ layerCount, code, isPrime, turns });
 }
 
 // 實際應用處理
@@ -165,14 +176,12 @@ export function reverseAlgorithm(input: AlgorithmInput): MoveNotation[] {
 
       const { layerCount, code, isPrime, turns } = parsed;
       const currentPrime = !isPrime;
-      const finalTurns = simplifyTurns(turns, currentPrime);
-      if (finalTurns === 0) return null;
 
       return createMoveNotation({
         layerCount,
         code,
         isPrime: currentPrime,
-        turns: finalTurns,
+        turns,
       });
     })
     .filter(isNotNil);
@@ -217,7 +226,7 @@ export function mirrorAlgorithm(input: AlgorithmInput): MoveNotation[] {
       const parsed = parseMoveNotation(move);
       if (!parsed) return null;
 
-      let { layerCount, code, isPrime, turns } = parsed;
+      const { layerCount, code, isPrime, turns } = parsed;
 
       // 取得鏡像代號
       let mirroredCode = mirrorMap[code];
@@ -229,16 +238,14 @@ export function mirrorAlgorithm(input: AlgorithmInput): MoveNotation[] {
         extraPrime = true;
       }
 
-      const currentPrime = isPrime !== extraPrime;
       /** 計算鏡像後方向 */
-      const finalTurns = simplifyTurns(turns, currentPrime);
-      if (finalTurns === 0) return null;
+      const currentPrime = isPrime !== extraPrime;
 
       return createMoveNotation({
         layerCount,
         code: mirroredCode,
         isPrime: currentPrime,
-        turns: finalTurns,
+        turns,
       });
     })
     .filter(isNotNil);
@@ -285,48 +292,56 @@ export function rotateAlgorithm(input: AlgorithmInput): MoveNotation[] {
       if (!parsed) return null;
 
       const { layerCount, code, isPrime, turns } = parsed;
-
-      // 替換成旋轉後代號
+      /** 替換成旋轉後代號 */
       const rotatedCode = rotateMap[code] ?? code;
-
-      // 生成結果
-      const finalTurns = simplifyTurns(turns, isPrime);
-      if (finalTurns === 0) return null;
 
       return createMoveNotation({
         layerCount,
         code: rotatedCode,
         isPrime,
-        turns: finalTurns,
+        turns,
       });
     })
     .filter(isNotNil);
 }
 
+/** 小寫代號 → 帶 w 的大寫代號映射 */
+const lowerToUpperMap: Record<LowerRotationCode, UpperRotationCode> = {
+  r: "Rw",
+  l: "Lw",
+  u: "Uw",
+  d: "Dw",
+  f: "Fw",
+  b: "Bw",
+};
 /** 轉換為標準公式：小寫代號 → 帶 w 的大寫代號 */
-export function toStandardAlgorithm(input: AlgorithmInput): MoveNotation[] {
-  return parseAlgorithm(input).map(
-    (move) =>
-      move
-        .replace(/\br\b/g, "Rw")
-        .replace(/\bl\b/g, "Lw")
-        .replace(/\bu\b/g, "Uw")
-        .replace(/\bd\b/g, "Dw")
-        .replace(/\bf\b/g, "Fw")
-        .replace(/\bb\b/g, "Bw") as MoveNotation,
-  );
+export function upperAlgorithm(input: AlgorithmInput): MoveNotation[] {
+  return parseAlgorithm(input).map((move) => {
+    const parsed = parseMoveNotation(move);
+    if (!parsed) return move as MoveNotation;
+
+    const code = lowerToUpperMap[parsed.code] ?? parsed.code;
+    return `${parsed.layerCount ?? ""}${code}${parsed.isPrime ? "'" : ""}${parsed.turns > 1 ? parsed.turns : ""}` as MoveNotation;
+  });
 }
 
+/** 帶 w 的大寫代號 → 小寫代號映射 */
+const upperToLowerMap: Record<UpperRotationCode, LowerRotationCode> = {
+  Rw: "r",
+  Lw: "l",
+  Uw: "u",
+  Dw: "d",
+  Fw: "f",
+  Bw: "b",
+};
+
 /** 轉換為常見公式：帶 w 的大寫代號 → 小寫代號 */
-export function toCommonAlgorithm(input: AlgorithmInput): MoveNotation[] {
-  return parseAlgorithm(input).map(
-    (move) =>
-      move
-        .replace(/\bRw\b/g, "r")
-        .replace(/\bLw\b/g, "l")
-        .replace(/\bUw\b/g, "u")
-        .replace(/\bDw\b/g, "d")
-        .replace(/\bFw\b/g, "f")
-        .replace(/\bBw\b/g, "b") as MoveNotation,
-  );
+export function lowerAlgorithm(input: AlgorithmInput): MoveNotation[] {
+  return parseAlgorithm(input).map((move) => {
+    const parsed = parseMoveNotation(move);
+    if (!parsed) return move as MoveNotation;
+
+    const code = upperToLowerMap[parsed.code] ?? parsed.code;
+    return `${parsed.layerCount ?? ""}${code}${parsed.isPrime ? "'" : ""}${parsed.turns > 1 ? parsed.turns : ""}` as MoveNotation;
+  });
 }
