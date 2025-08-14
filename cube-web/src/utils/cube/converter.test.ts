@@ -1,5 +1,5 @@
 import {
-  isMoveValid,
+  isValidMoveString,
   standardizeMove,
   mirrorAlgorithm,
   mergeToAlgorithm,
@@ -9,12 +9,12 @@ import {
   lowerAlgorithm,
 } from "./converter";
 
-test("isMoveValid", () => {
-  expect(isMoveValid("U")).toEqual(true);
-  expect(isMoveValid("U2")).toEqual(true);
-  expect(isMoveValid("3Rw2'")).toEqual(true);
-  expect(isMoveValid("3Rw4'")).toEqual(true);
-  expect(isMoveValid("Q")).toEqual(false);
+test("isValidMoveString", () => {
+  expect(isValidMoveString("U")).toEqual(true);
+  expect(isValidMoveString("U2")).toEqual(true);
+  expect(isValidMoveString("3Rw2'")).toEqual(true);
+  expect(isValidMoveString("3Rw4'")).toEqual(true);
+  expect(isValidMoveString("Q")).toEqual(false);
 });
 
 test("standardizeMove", () => {

@@ -70,7 +70,7 @@ export interface MoveObject {
 /** 分隔符號 */
 const separator = " ";
 /** 逆時針符號後綴 */
-const primeSuffix = "'";
+const primeSymbol = "'";
 
 /** 將公式拆解為字串陣列 */
 export function splitFromAlgorithm(input?: string | null): string[] {
@@ -87,8 +87,8 @@ export function parseAlgorithm(input: AlgorithmInput): string[] {
   return typeof input === "string" ? splitFromAlgorithm(input) : input;
 }
 
-/** 旋轉代號陣列 */
-const rotationCodes: BasicCode[] = [
+/** 基本旋轉代號陣列 */
+const allBasicCodes: BasicCode[] = [
   "x",
   "y",
   "z",
@@ -117,37 +117,34 @@ const rotationCodes: BasicCode[] = [
 
 // Regex 拆解: (前數字)? 代號 (')? (次數)?
 const movePattern = new RegExp(
-  `^(\\d*)?(${rotationCodes.join("|")})(\\d*)(${primeSuffix}?){0,1}$`,
+  `^(\\d*)?(${allBasicCodes.join("|")})(\\d*)(${primeSymbol}?){0,1}$`,
 );
 
 /** 解析轉動符號 */
-function parseMoveNotation(move: string): MoveObject | null {
+function parseMoveString(move: string): MoveObject | null {
   const match = move.match(movePattern);
   if (!match) return null;
 
   const [, layerCount, code, turns, prime] = match;
   return {
-    layerCount: Number(layerCount) || null,
+    layerCount: layerCount ? Number(layerCount) : null,
     code: code as RotationCode,
-    isPrime: prime === primeSuffix,
+    isPrime: prime === primeSymbol,
     turns: turns ? Number(turns) : 1,
   };
 }
 
 /** 是否為合法轉動符號 */
-export function isMoveValid(move: string): boolean {
-  const parsed = parseMoveNotation(move);
-  if (!isPlainObject(parsed)) {
-    return false;
-  }
+export function isValidMoveString(move: string): boolean {
+  const parsed = parseMoveString(move);
+  if (!parsed) return false;
 
   const { layerCount, code } = parsed;
+  if (layerCount !== null && layerCount < 1) return false;
 
-  if (layerCount !== null && layerCount < 1) {
-    return false;
-  }
-
-  return rotationCodes.includes(code as BasicCode);
+  // 僅比對 BasicCode
+  const basicCode = code.replace(primeSymbol, "") as BasicCode;
+  return allBasicCodes.includes(basicCode);
 }
 
 /** 化簡成 0~3 次，保證非負 */
@@ -173,11 +170,11 @@ export function serializeMove(move: MoveObject) {
     case 2:
       suffix = "2";
       if (isPrime) {
-        suffix += primeSuffix;
+        suffix += primeSymbol;
       }
       break;
     case 3:
-      suffix = primeSuffix;
+      suffix = primeSymbol;
       break;
     default:
       break;
@@ -188,8 +185,8 @@ export function serializeMove(move: MoveObject) {
 
 /** 標準化轉動 */
 export function standardizeMove(move: string): string | null {
-  const parsed = parseMoveNotation(move);
-  return parsed && isMoveValid(move) ? serializeMove(parsed) : null;
+  const parsed = parseMoveString(move);
+  return parsed && isValidMoveString(move) ? serializeMove(parsed) : null;
 }
 
 // 實際應用處理
@@ -202,7 +199,7 @@ export function reverseAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .reverse()
     .map((move) => {
-      const parsed = parseMoveNotation(move);
+      const parsed = parseMoveString(move);
       if (!parsed) return null;
 
       const { isPrime, ...rest } = parsed;
@@ -251,7 +248,7 @@ const mirrorMap: Record<BasicCode, PrimeCode> = {
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMoveNotation(move);
+      const parsed = parseMoveString(move);
       if (!parsed) return null;
 
       const { code, isPrime, ...rest } = parsed;
@@ -261,7 +258,7 @@ export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
       if (!mirroredCode) return null;
 
       let extraPrime = false;
-      if (mirroredCode.endsWith(primeSuffix)) {
+      if (mirroredCode.endsWith(primeSymbol)) {
         mirroredCode = mirroredCode.slice(0, -1) as RotationCode;
         extraPrime = true;
       }
@@ -312,7 +309,7 @@ const rotateMap: Record<BasicCode, BasicCode> = {
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMoveNotation(move);
+      const parsed = parseMoveString(move);
       if (!parsed) return null;
 
       const { code, ...rest } = parsed;
@@ -338,7 +335,7 @@ const lowerToUpperMap: Record<LowerCode, UpperCode> = {
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMoveNotation(move);
+      const parsed = parseMoveString(move);
       if (!parsed) {
         return move as Move;
       }
@@ -367,7 +364,7 @@ const upperToLowerMap: Record<UpperCode, LowerCode> = {
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
   return parseAlgorithm(input)
     .map((move) => {
-      const parsed = parseMoveNotation(move);
+      const parsed = parseMoveString(move);
       if (!parsed) {
         return move as Move;
       }
