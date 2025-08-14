@@ -1,29 +1,18 @@
+import { isNotNil } from "es-toolkit";
+
+export type LowerRotationCode = "r" | "l" | "u" | "d" | "f" | "b";
+export type UpperRotationCode = "Rw" | "Lw" | "Uw" | "Dw" | "Fw" | "Bw";
+export type MiddleRotationCode = "M" | "S" | "E";
+export type AxisRotationCode = "x" | "y" | "z";
+export type SideRotationCode = "R" | "L" | "U" | "D" | "F" | "B";
+
 /** 轉動代號 */
 export type RotationCode =
-  | "x"
-  | "y"
-  | "z"
-  | "R"
-  | "L"
-  | "U"
-  | "D"
-  | "F"
-  | "B"
-  | "M"
-  | "S"
-  | "E"
-  | "Rw"
-  | "Lw"
-  | "Uw"
-  | "Dw"
-  | "Fw"
-  | "Bw"
-  | "r"
-  | "l"
-  | "u"
-  | "d"
-  | "f"
-  | "b";
+  | LowerRotationCode
+  | UpperRotationCode
+  | MiddleRotationCode
+  | AxisRotationCode
+  | SideRotationCode;
 
 /** 轉動符號 */
 export type MoveNotation =
@@ -43,11 +32,7 @@ const prime = "'";
 
 /** 將公式拆解為字串陣列 */
 export function splitFromAlgorithm(input?: string | null): string[] {
-  if (typeof input === "string") {
-    return input.split(separator);
-  }
-
-  return [];
+  return typeof input === "string" ? input.split(separator) : [];
 }
 
 /** 將公式合併為字串 */
@@ -60,6 +45,7 @@ export function parseAlgorithm(input: AlgorithmInput): string[] {
   return typeof input === "string" ? splitFromAlgorithm(input) : input;
 }
 
+/** 旋轉代號陣列 */
 const rotationCodes: RotationCode[] = [
   "x",
   "y",
@@ -151,11 +137,23 @@ export function normalizeMove(move: string): string | null {
  * 轉動步驟順序反轉，這個功能可以讓你將整條轉動步驟以相反的動作倒著做，讓你可以將順著做完的狀態，倒著恢復到還沒轉的原樣。
  * */
 export function reverseAlgorithm(input: AlgorithmInput): MoveNotation[] {
-  return [];
+  return parseAlgorithm(input)
+    .reverse()
+    .map((move) => {
+      const parsed = parseMove(move);
+      if (!parsed) return null;
+
+      const { layerCount, code, isPrime, turns } = parsed;
+      const finalTurns = simplifyTurns(turns, !isPrime);
+      if (finalTurns === 0) return null;
+
+      return `${layerCount ?? ""}${code}${creatMoveSuffix(finalTurns)}` as MoveNotation;
+    })
+    .filter(isNotNil);
 }
 
 /** 鏡像映射表（左右鏡像） */
-const mirrorMap: Record<RotationCode, string> = {
+const mirrorMap: Record<RotationCode, `${RotationCode}'`> = {
   x: "x'",
   y: "y'",
   z: "z'",
@@ -188,35 +186,59 @@ const mirrorMap: Record<RotationCode, string> = {
  * 轉動步驟左右鏡像，可以幫助你將在右手做的公式直接鏡射到左手的位置，讓同一條公式透過左右手的差異來解決鏡像的兩種狀態。
  * */
 export function mirrorAlgorithm(input: AlgorithmInput): MoveNotation[] {
-  const array = parseAlgorithm(input);
-  const output: MoveNotation[] = [];
+  return parseAlgorithm(input)
+    .map((move) => {
+      const parsed = parseMove(move);
+      if (!parsed) return null;
 
-  for (const move of array) {
-    const parsed = parseMove(move);
-    if (!parsed) continue;
+      let { layerCount, code, isPrime, turns } = parsed;
 
-    let { layerCount, code, isPrime, turns } = parsed;
+      // 取得鏡像代號
+      let mirroredCode = mirrorMap[code];
+      if (!mirroredCode) return null;
 
-    // 取得鏡像代號，並判斷是否自帶 '
-    let mirroredCode = mirrorMap[code];
-    let extraPrime = false;
+      let extraPrime = false;
+      if (mirroredCode.endsWith("'")) {
+        mirroredCode = mirroredCode.slice(0, -1) as `${RotationCode}'`;
+        extraPrime = true;
+      }
 
-    if (mirroredCode.endsWith("'")) {
-      mirroredCode = mirroredCode.slice(0, -1) as RotationCode;
-      extraPrime = true;
-    }
+      // 計算鏡像後方向
+      const finalTurns = simplifyTurns(turns, isPrime !== extraPrime);
+      if (finalTurns === 0) return null;
 
-    // 計算鏡像後方向
-    // 如果原本方向與鏡像代號方向不同，則反轉
-    const finalTurns = simplifyTurns(turns, isPrime !== extraPrime);
-
-    output.push(
-      `${layerCount ?? ""}${mirroredCode}${creatMoveSuffix(finalTurns)}` as MoveNotation,
-    );
-  }
-
-  return output;
+      return `${layerCount ?? ""}${mirroredCode}${creatMoveSuffix(finalTurns)}` as MoveNotation;
+    })
+    .filter(isNotNil);
 }
+
+/** 旋轉映射表 */
+const rotateMap: Record<RotationCode, RotationCode> = {
+  x: "x",
+  y: "y",
+  z: "z",
+  R: "L",
+  L: "R",
+  U: "U",
+  D: "D",
+  F: "B",
+  B: "F",
+  M: "M",
+  S: "S",
+  E: "E",
+  Rw: "Lw",
+  Lw: "Rw",
+  Uw: "Uw",
+  Dw: "Dw",
+  Fw: "Bw",
+  Bw: "Fw",
+  r: "l",
+  l: "r",
+  u: "u",
+  d: "d",
+  f: "b",
+  b: "f",
+};
 
 /**
  * 旋轉公式
@@ -225,21 +247,49 @@ export function mirrorAlgorithm(input: AlgorithmInput): MoveNotation[] {
  * 實際應用：假設有一條順手的公式，存在著鏡像形式的話，你可以考慮將他以左右鏡像的方式轉換後，再進行前後旋轉，則可以得到以同一手做的鏡像公式。
  * */
 export function rotateAlgorithm(input: AlgorithmInput): MoveNotation[] {
-  const array = parseAlgorithm(input);
+  return parseAlgorithm(input)
+    .map((move) => {
+      const parsed = parseMove(move);
+      if (!parsed) return null;
 
-  return [];
+      const { layerCount, code, isPrime, turns } = parsed;
+
+      // 替換成旋轉後代號
+      const rotatedCode = rotateMap[code] ?? code;
+
+      // 生成結果
+      const finalTurns = simplifyTurns(turns, isPrime);
+      if (finalTurns === 0) return null;
+
+      return `${layerCount ?? ""}${rotatedCode}${creatMoveSuffix(finalTurns)}` as MoveNotation;
+    })
+    .filter(isNotNil);
 }
 
-/** 轉換為標準公式 */
+/** 轉換為標準公式：小寫代號 → 帶 w 的大寫代號 */
 export function toStandardAlgorithm(input: AlgorithmInput): MoveNotation[] {
-  const array = parseAlgorithm(input);
-
-  return [];
+  return parseAlgorithm(input).map(
+    (move) =>
+      move
+        .replace(/\br\b/g, "Rw")
+        .replace(/\bl\b/g, "Lw")
+        .replace(/\bu\b/g, "Uw")
+        .replace(/\bd\b/g, "Dw")
+        .replace(/\bf\b/g, "Fw")
+        .replace(/\bb\b/g, "Bw") as MoveNotation,
+  );
 }
 
-/** 轉換為常見公式 */
+/** 轉換為常見公式：帶 w 的大寫代號 → 小寫代號 */
 export function toCommonAlgorithm(input: AlgorithmInput): MoveNotation[] {
-  const array = parseAlgorithm(input);
-
-  return [];
+  return parseAlgorithm(input).map(
+    (move) =>
+      move
+        .replace(/\bRw\b/g, "r")
+        .replace(/\bLw\b/g, "l")
+        .replace(/\bUw\b/g, "u")
+        .replace(/\bDw\b/g, "d")
+        .replace(/\bFw\b/g, "f")
+        .replace(/\bBw\b/g, "b") as MoveNotation,
+  );
 }

@@ -3,6 +3,10 @@ import {
   normalizeMove,
   mirrorAlgorithm,
   mergeToAlgorithm,
+  reverseAlgorithm,
+  rotateAlgorithm,
+  // upperAlgorithm,
+  // lowerAlgorithm,
 } from "./converter";
 
 test("isValidMove", () => {
@@ -30,3 +34,44 @@ test("mirrorAlgorithm", () => {
     "L' U' B U L U' L' B' L",
   );
 });
+
+test("reverseAlgorithm", () => {
+  expect(mergeToAlgorithm(reverseAlgorithm("R U F L D B x y z E M S"))).toEqual(
+    "S' M' E' z' y' x' B' D' L' F' U' R'",
+  );
+  expect(
+    mergeToAlgorithm(reverseAlgorithm("R' U' F' L' D' B' x' y' z' E' M' S'")),
+  ).toEqual("S M E z y x B D L F U R");
+});
+
+test("rotateAlgorithm", () => {
+  expect(
+    mergeToAlgorithm(rotateAlgorithm("R' U' F' L' D' B' x' y' z' E' M' S'")),
+  ).toEqual("L' U' B' R' D' F' x' y' z' E' M' S'");
+  expect(mergeToAlgorithm(rotateAlgorithm("R U F L D B x y z E M S"))).toEqual(
+    "L U B R D F x y z E M S",
+  );
+  expect(mergeToAlgorithm(rotateAlgorithm("L U B R D F x y z E M S"))).toEqual(
+    "R U F L D B x y z E M S",
+  );
+  expect(
+    mergeToAlgorithm(rotateAlgorithm("L' U' B' R' D' F' x' y' z' E' M' S'")),
+  ).toEqual("R' U' F' L' D' B' x' y' z' E' M' S'");
+});
+
+// test("upperAlgorithm", () => {
+//   expect(
+//     mergeToAlgorithm(upperAlgorithm(["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"])),
+//   ).toEqual("Rw Lw Uw Dw Fw Bw");
+//   expect(
+//     mergeToAlgorithm(
+//       upperAlgorithm(["2Rw'", "Lw2'", "Uw2", "Dw'", "Fw", "Bw"]),
+//     ),
+//   ).toEqual("2Rw' Lw2' Uw2 Dw' Fw Bw");
+//   expect(
+//     mergeToAlgorithm(upperAlgorithm(["r", "l", "u", "d", "f", "b"])),
+//   ).toEqual("Rw Lw Uw Dw Fw Bw");
+//   expect(
+//     mergeToAlgorithm(upperAlgorithm(["2r'", "l2'", "u2", "d'", "f", "b"])),
+//   ).toEqual("2Rw' Lw2' Uw2 Dw' Fw Bw");
+// });
