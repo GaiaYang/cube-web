@@ -2,25 +2,28 @@ import { isNotNil, isPlainObject } from "es-toolkit";
 
 import modulo from "@/utils/modulo";
 
+/** 逆時針符號 */
+export type Prime = "'";
+
 /** 小寫邊層旋轉代號 */
 export type LowerCode = "r" | "l" | "u" | "d" | "f" | "b";
-export type LowerPrimeCode = `${LowerCode}'`;
+export type LowerPrimeCode = `${LowerCode}${Prime}`;
 
 /** 大寫帶 w 的旋轉代號 */
 export type UpperCode = "Rw" | "Lw" | "Uw" | "Dw" | "Fw" | "Bw";
-export type UpperPrimeCode = `${UpperCode}'`;
+export type UpperPrimeCode = `${UpperCode}${Prime}`;
 
 /** 中層旋轉代號 */
 export type MiddleCode = "M" | "S" | "E";
-export type MiddlePrimeCode = `${MiddleCode}'`;
+export type MiddlePrimeCode = `${MiddleCode}${Prime}`;
 
 /** 軸旋轉代號 */
 export type AxisCode = "x" | "y" | "z";
-export type AxisPrimeCode = `${AxisCode}'`;
+export type AxisPrimeCode = `${AxisCode}${Prime}`;
 
 /** 面旋轉代號 */
 export type SideCode = "R" | "L" | "U" | "D" | "F" | "B";
-export type SidePrimeCode = `${SideCode}'`;
+export type SidePrimeCode = `${SideCode}${Prime}`;
 
 /** 所有逆時針旋轉代號 */
 export type PrimeCode =
@@ -44,9 +47,9 @@ export type RotationCode = BasicCode | PrimeCode;
 /** 移動符號（單步操作） */
 export type Move =
   | RotationCode
-  | `${number | ""}${RotationCode}'`
-  | `${number | ""}${RotationCode}${number | ""}'`
-  | `${number | ""}${RotationCode}${number | ""}`;
+  | `${number | ""}${PrimeCode}`
+  | `${number | ""}${BasicCode}${number | ""}${Prime}`
+  | `${number | ""}${BasicCode}${number | ""}`;
 
 /** 公式輸入 */
 export type AlgorithmInput = string | Move[];
@@ -66,7 +69,7 @@ export interface MoveObject {
 // 核心處理
 /** 分隔符號 */
 const separator = " ";
-/** 逆時針符號 */
+/** 逆時針符號後綴 */
 const primeSuffix = "'";
 
 /** 將公式拆解為字串陣列 */
