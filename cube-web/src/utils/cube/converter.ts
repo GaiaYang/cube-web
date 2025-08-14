@@ -36,9 +36,13 @@ export type AlgorithmInput = string | Move[];
 
 /** 解析後的單步轉動物件 */
 export interface MoveObject {
+  /** 轉動層數 */
   layerCount: number | null;
+  /** 轉動代號 */
   code: RotationCode;
+  /** 是否逆時鐘 */
   isPrime: boolean;
+  /** 轉動次數 */
   turns: number;
 }
 
@@ -95,8 +99,8 @@ const movePattern = new RegExp(
 );
 
 /** 解析單步轉動字串 */
-export function parseMoveString(move: string): MoveObject | null {
-  const match = move.match(movePattern);
+export function parseMoveString(input: string): MoveObject | null {
+  const match = input.match(movePattern);
 
   if (!match) {
     return null;
@@ -112,8 +116,8 @@ export function parseMoveString(move: string): MoveObject | null {
 }
 
 /** 是否合法單步轉動字串 */
-export function isValidMoveString(move: string): boolean {
-  const parsed = parseMoveString(move);
+export function isValidMoveString(input: string): boolean {
+  const parsed = parseMoveString(input);
 
   if (!parsed) {
     return false;
@@ -135,8 +139,8 @@ function normalizeTurns(turns: number, isPrime?: boolean) {
 }
 
 /** 建立轉動字串 */
-function serializeMove(move: MoveObject) {
-  const { layerCount, code, turns, isPrime } = move;
+function serializeMove(input: MoveObject) {
+  const { layerCount, code, turns, isPrime } = input;
   const finalTurns = normalizeTurns(turns, isPrime);
 
   let suffix = "";
@@ -156,9 +160,9 @@ function serializeMove(move: MoveObject) {
 }
 
 /** 標準化轉動字串 */
-export function standardizeMove(move: string): string | null {
-  const parsed = parseMoveString(move);
-  return parsed && isValidMoveString(move) ? serializeMove(parsed) : null;
+export function standardizeMove(input: string): string | null {
+  const parsed = parseMoveString(input);
+  return parsed && isValidMoveString(input) ? serializeMove(parsed) : null;
 }
 
 /**
@@ -212,8 +216,8 @@ const MIRROR_MAP: Record<BasicCode, BasicCode> = {
 };
 
 /** 鏡像單步轉動 */
-function mirrorMove(move: MoveObject): MoveObject | null {
-  const { code, isPrime, ...rest } = move;
+function mirrorMove(input: MoveObject): MoveObject | null {
+  const { code, isPrime, ...rest } = input;
   const baseCode = code.replace(primeSymbol, "") as BasicCode;
   const mirroredCode = MIRROR_MAP[baseCode];
 
