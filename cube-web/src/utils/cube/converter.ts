@@ -1,5 +1,7 @@
 import { isNotNil, isPlainObject } from "es-toolkit";
 
+import modulo from "@/utils/modulo";
+
 /** 小寫邊層旋轉代號 */
 export type LowerCode = "r" | "l" | "u" | "d" | "f" | "b";
 export type LowerPrimeCode = `${LowerCode}'`;
@@ -138,8 +140,8 @@ export function isMoveValid(move: string): boolean {
 
 /** 化簡成 0~3 次，保證非負 */
 function normalizeTurns(turns: number, isPrime?: boolean) {
-  const t = (isPrime ? 4 - turns : turns) % 4;
-  return (t + 4) % 4;
+  const cubeFaces = 4;
+  return modulo(isPrime ? cubeFaces - turns : turns, cubeFaces);
 }
 
 /** 建立轉動代號字串 */
