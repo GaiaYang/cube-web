@@ -40,33 +40,6 @@ export type AlgorithmInput = string | MoveNotation[];
 const separator = " ";
 /** 逆時針符號 */
 const prime = "'";
-/** 鏡像映射表（左右鏡像） */
-const mirrorMap: Record<RotationCode, string> = {
-  x: "x'",
-  y: "y'",
-  z: "z'",
-  R: "L'",
-  L: "R'",
-  U: "U'",
-  D: "D'",
-  F: "F'",
-  B: "B'",
-  M: "M'",
-  S: "S'",
-  E: "E'",
-  Rw: "Lw'",
-  Lw: "Rw'",
-  Uw: "Uw'",
-  Dw: "Dw'",
-  Fw: "Fw'",
-  Bw: "Bw'",
-  r: "l'",
-  l: "r'",
-  u: "u'",
-  d: "d'",
-  f: "f'",
-  b: "b'",
-};
 
 /** 將公式拆解為字串陣列 */
 export function splitFromAlgorithm(input?: string | null): string[] {
@@ -171,6 +144,34 @@ export function reverseAlgorithm(input: AlgorithmInput): MoveNotation[] {
   return [];
 }
 
+/** 鏡像映射表（左右鏡像） */
+const mirrorMap: Record<RotationCode, string> = {
+  x: "x'",
+  y: "y'",
+  z: "z'",
+  R: "L'",
+  L: "R'",
+  U: "U'",
+  D: "D'",
+  F: "F'",
+  B: "B'",
+  M: "M'",
+  S: "S'",
+  E: "E'",
+  Rw: "Lw'",
+  Lw: "Rw'",
+  Uw: "Uw'",
+  Dw: "Dw'",
+  Fw: "Fw'",
+  Bw: "Bw'",
+  r: "l'",
+  l: "r'",
+  u: "u'",
+  d: "d'",
+  f: "f'",
+  b: "b'",
+};
+
 /**
  * 鏡像公式
  *
@@ -180,7 +181,41 @@ export function mirrorAlgorithm(input: AlgorithmInput): MoveNotation[] {
   const array = parseAlgorithm(input);
   const output: MoveNotation[] = [];
 
-  for (const element of array) {
+  for (const move of array) {
+    const parsed = parseMove(move);
+    if (!parsed) continue;
+
+    const { layerCount, code, isPrime, turns } = parsed;
+
+    /** 找到鏡像代號（可能帶 '） */
+    let mirroredCode = mirrorMap[code];
+    /** 額外反轉 */
+    let extraPrime = false;
+
+    // 如果鏡像代號本身帶 '，移除它並反轉方向
+    if (mirroredCode.endsWith("'")) {
+      mirroredCode = mirroredCode.slice(0, -1) as RotationCode;
+      extraPrime = true;
+    }
+
+    // 計算方向（鏡像後如果 extraPrime = true 則反轉方向）
+    let finalTurns = turns;
+    if (isPrime !== extraPrime) {
+      finalTurns = 4 - (turns % 4);
+    }
+
+    // turns 化簡到 0~3
+    finalTurns = ((finalTurns % 4) + 4) % 4;
+    if (finalTurns === 0) continue;
+
+    // 生成結果
+    if (finalTurns === 3) {
+      output.push(`${layerCount ?? ""}${mirroredCode}'` as MoveNotation);
+    } else {
+      output.push(
+        `${layerCount ?? ""}${mirroredCode}${finalTurns === 2 ? 2 : ""}` as MoveNotation,
+      );
+    }
   }
 
   return output;
