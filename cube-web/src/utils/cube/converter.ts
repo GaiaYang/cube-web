@@ -47,7 +47,7 @@ export interface MoveObject {
   /** 是否逆時鐘 */
   isPrime: boolean;
   /** 轉動次數 */
-  turns: number;
+  turns?: number;
 }
 
 /** 分隔符號 */
@@ -74,7 +74,7 @@ const DOUBLE_LAYER_CODES: BasicCode[] = [
 ];
 
 /** 所有基本代號 */
-const BASIC_CODES: BasicCode[] = [
+export const BASIC_CODES: BasicCode[] = [
   "x",
   "y",
   "z",
@@ -117,7 +117,7 @@ export function parseAlgorithm(input: AlgorithmInput): string[] {
 }
 
 /** 簡化轉動次數 */
-function normalizeTurns(turns: number, isPrime?: boolean) {
+function normalizeTurns(turns: number = 0, isPrime?: boolean) {
   return modulo(isPrime ? CUBE_FACES - turns : turns, CUBE_FACES);
 }
 
@@ -210,7 +210,7 @@ export function normalizeMoveString(input: string): string | null {
 }
 
 /** 語意化反轉 prime */
-function flipPrimeIfNeeded(turns: number, isPrime: boolean) {
+function flipPrimeIfNeeded(turns: number = 0, isPrime: boolean) {
   return turns === 2 ? isPrime : !isPrime;
 }
 
