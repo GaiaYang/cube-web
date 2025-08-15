@@ -101,6 +101,21 @@ const BASIC_CODES: BasicCode[] = [
   "b",
 ];
 
+const DOUBLE_LAYER_CODES: BasicCode[] = [
+  "Rw",
+  "Lw",
+  "Uw",
+  "Dw",
+  "Fw",
+  "Bw",
+  "r",
+  "l",
+  "u",
+  "d",
+  "f",
+  "b",
+];
+
 /** Regex 拆解: (前數字)? 代號 (')? (次數)? */
 const MOVE_PATTERN = new RegExp(
   `^(\\d*)?(${BASIC_CODES.join("|")})(\\d*)(${PRIME}?){0,1}$`,
@@ -131,10 +146,9 @@ export function isValidMoveString(input: string): boolean {
   // 層數不能小於 1
   if (layerCount !== null && layerCount < 1) return false;
 
-  // x, y, z 必須單獨出現，不能帶層數
-  if (["x", "y", "z"].includes(baseCode)) {
-    // 不允許前置層數
-    return layerCount === null;
+  // 非雙層符號不允許前置層數
+  if (!DOUBLE_LAYER_CODES.includes(baseCode) && layerCount !== null) {
+    return false;
   }
 
   // 其他基本代號，只要存在 BASIC_CODES 即可

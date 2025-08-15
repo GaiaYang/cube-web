@@ -105,5 +105,7 @@ test("isAlgorithmValid", () => {
   expect(isAlgorithmValid("rw")).toBe(false);
   expect(isAlgorithmValid("2x")).toBe(false);
   expect(isAlgorithmValid("2x'")).toBe(false);
+  expect(isAlgorithmValid("2R")).toBe(false);
+  expect(isAlgorithmValid("R")).toBe(true);
   expect(isAlgorithmValid("x2'")).toBe(true);
 });

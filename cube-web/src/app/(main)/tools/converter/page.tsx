@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/ui/Article";
-import CubeRuleHover from "./components/CubeRuleHover";
+import ExternalLink from "@/components/ExternalLink";
 
 export const metadata: Metadata = {
   title: "公式轉換器",
@@ -47,8 +47,12 @@ export default function Page() {
           <code>{"'"}</code>
         </li>
       </ul>
+      <p>
+        如果還不看不懂代號的話，請先前往
+        <ExternalLink href="/tutorial/notation">代號說明</ExternalLink>
+      </p>
       <h3>代號結構</h3>
-      <CubeRuleHover />
+      <ExternalLink href="/tutorial/notation/structure">結構教學</ExternalLink>
       <h2>鏡像公式</h2>
       <p>可將右手公式直接套用到左手，解決鏡像的兩種情況。</p>
       <h2>反轉公式</h2>

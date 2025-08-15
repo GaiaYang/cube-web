@@ -6,6 +6,13 @@ export const options = createMenuOptions([
     submenu: [
       { title: "總覽", href: "/tutorial" },
       {
+        title: "轉動代號說明",
+        href: "/tutorial/notation",
+        submenu: [
+          { title: "轉動代號結構", href: "/tutorial/notation/structure" },
+        ],
+      },
+      {
         title: "三階教學",
         submenu: [
           {

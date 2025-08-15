@@ -27,7 +27,9 @@ export default function ExternalLink({
       className={cn(className)}
     >
       {children}
-      <ExternalLinkIcon size={16} className="inline-flex" />
+      <span className="inline-flex">
+        <ExternalLinkIcon size={16} />
+      </span>
     </Link>
   );
 }
