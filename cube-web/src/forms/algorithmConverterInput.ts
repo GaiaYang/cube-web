@@ -8,9 +8,10 @@ export const schema = z.object({
   algorithm: z
     .string()
     .min(1, "請輸入公式")
-    .refine((value) => isAlgorithmValid(value), {
-      error: "公式格式錯誤",
-    }),
+    .refine((value) => value.trim().length > 0, "公式不得為空白")
+    .regex(/^\S/, "公式開頭不得為空白")
+    .regex(/\S$/, "公式結尾不得為空白")
+    .refine((value) => isAlgorithmValid(value), "公式格式錯誤"),
 });
 /** 公式轉換器輸入類型 */
 export type Schema = z.infer<typeof schema>;
