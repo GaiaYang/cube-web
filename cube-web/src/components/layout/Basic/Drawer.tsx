@@ -34,7 +34,7 @@ export default function Drawer({
         <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-80">
           <div
             className={cn(
-              "navbar",
+              "navbar px-4",
               "bg-base-100/90 shadow-xs backdrop-blur",
               "sticky top-0 z-20",
             )}
@@ -51,7 +51,7 @@ export default function Drawer({
               <XIcon />
             </label>
           </div>
-          <nav aria-label="主選單導覽">
+          <nav aria-label="主選單導覽" className="mt-4">
             <DrawerMenu />
           </nav>
         </aside>
