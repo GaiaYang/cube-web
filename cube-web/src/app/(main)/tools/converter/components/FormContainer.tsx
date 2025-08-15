@@ -32,15 +32,15 @@ export default function FormContainer({ onConvert }: FormContainerProps) {
     resolver,
     defaultValues,
   });
-  const [algorithm, setAlgorithm] = useState<Move[]>([]);
+  const [algorithm, setAlgorithm] = useState("");
 
   const _onSubmit: SubmitHandler<Schema> = (data) => {
-    setAlgorithm(onConvert(data.algorithm));
+    setAlgorithm(mergeToAlgorithm(onConvert(data.algorithm)));
   };
 
   const _onReset: React.FormEventHandler<HTMLFormElement> = () => {
     reset();
-    setAlgorithm([]);
+    setAlgorithm("");
   };
 
   return (
@@ -72,10 +72,7 @@ export default function FormContainer({ onConvert }: FormContainerProps) {
           );
         }}
       />
-      <AlgorithmDisplay
-        algorithm={mergeToAlgorithm(algorithm)}
-        placeholder="等待公式轉換..."
-      />
+      <AlgorithmDisplay algorithm={algorithm} placeholder="等待公式轉換..." />
       <div className="flex w-full gap-2">
         <button
           type="reset"
