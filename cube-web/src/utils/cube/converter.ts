@@ -50,6 +50,8 @@ export interface MoveObject {
 const separatorSymbol = " ";
 /** 逆時鐘符號 */
 const primeSymbol = "'";
+/** 方塊面數 */
+const cubeFaces = 4;
 
 /** 將公式拆解為字串陣列 */
 export function splitFromAlgorithm(input?: string | null): string[] {
@@ -134,9 +136,13 @@ export function isValidMoveString(input: string): boolean {
   return allBasicCodes.includes(code.replace(primeSymbol, "") as BasicCode);
 }
 
-/** 化簡轉動次數成 0~3 */
+/**
+ * 簡化轉動次數
+ * @param turns 轉動次數
+ * @param isPrime 是否逆時針
+ * @returns 簡化後的轉動次數 0~3
+ * */
 function normalizeTurns(turns: number, isPrime?: boolean) {
-  const cubeFaces = 4;
   return modulo(isPrime ? cubeFaces - turns : turns, cubeFaces);
 }
 
@@ -167,7 +173,12 @@ export function standardizeMove(input: string): string | null {
   return parsed && isValidMoveString(input) ? serializeMove(parsed) : null;
 }
 
-/** 泛用的公式轉換器 */
+/**
+ * 泛用的公式轉換器
+ * @param input 輸入公式
+ * @param transformer 轉換器
+ * @param reverseOrder 是否反轉順序
+ * */
 function transformAlgorithm(
   input: AlgorithmInput,
   transformer: (move: MoveObject) => MoveObject | null,
