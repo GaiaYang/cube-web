@@ -14,7 +14,7 @@ export default function LogoButton({ className, ...props }: LogoButtonProps) {
       className={cn("btn btn-ghost text-xl", className)}
     >
       <span className="sr-only">前往首頁</span>
-      首頁
+      Voidling Cube
     </Link>
   );
 }

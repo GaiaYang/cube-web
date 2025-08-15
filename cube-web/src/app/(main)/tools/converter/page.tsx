@@ -27,25 +27,26 @@ export default function Page() {
       <h3>支援以下符號</h3>
       <ul className="[&>li>span]:flex [&>li>span]:gap-2">
         <li>
+          <span>基本符號</span>
+          <span>{["R", "L", "U", "D", "F", "B"].map(_renderCodeItem)}</span>
+        </li>
+        <li>
+          <span>轉體</span>
+          <span>{["x", "y", "z"].map(_renderCodeItem)}</span>
+        </li>
+        <li>
+          <span>中間層</span>
+          <span>{["M", "S", "E"].map(_renderCodeItem)}</span>
+        </li>
+        <li>
+          <span>大寫多層</span>
           <span>
-            基本符號{["R", "L", "U", "D", "F", "B"].map(_renderCodeItem)}
+            {["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"].map(_renderCodeItem)}
           </span>
         </li>
         <li>
-          <span>轉體{["x", "y", "z"].map(_renderCodeItem)}</span>
-        </li>
-        <li>
-          <span>中間層{["M", "S", "E"].map(_renderCodeItem)}</span>
-        </li>
-        <li>
-          <span>
-            大寫多層{["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"].map(_renderCodeItem)}
-          </span>
-        </li>
-        <li>
-          <span>
-            小寫多層{["r", "l", "u", "d", "f", "b"].map(_renderCodeItem)}
-          </span>
+          <span>小寫多層</span>
+          <span>{["r", "l", "u", "d", "f", "b"].map(_renderCodeItem)}</span>
         </li>
       </ul>
       <h3>可使用的詞綴</h3>

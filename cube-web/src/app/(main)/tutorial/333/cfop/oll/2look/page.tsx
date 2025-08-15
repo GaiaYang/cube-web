@@ -35,9 +35,7 @@ export default function Page() {
         <li>用十字型OLL公式完成頂面。</li>
       </ol>
       <p>
-        這邊利用特定類型的OLL處理頂面情況，OLL有些是通過其他OLL疊加上來的，掌握該原理就能在這階段選擇自己喜歡的公式執行。
-      </p>
-      <p>
+        這邊利用特定類型的OLL處理頂面情況，OLL有些是通過其他OLL疊加上來的，
         只需要學習10個公式，相較完整版OLL的57種案例，大幅度濃縮記憶份量跟判斷難度。
       </p>
       <blockquote>
@@ -90,16 +88,6 @@ export default function Page() {
             algorithm: "f ( R U R' U' ) f'",
             caseId: "44",
             description: "從上面一層改為轉動兩層。",
-          },
-          {
-            colorMap: {
-              TC: topColor,
-              CC: topColor,
-              CL: topColor,
-            },
-            algorithm: "F U R U' R' F'",
-            caseId: "43",
-            description: "如果不太會轉雙層可以改用這個。",
           },
           {
             colorMap: {
