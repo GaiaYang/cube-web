@@ -8,6 +8,8 @@ import {
   ReverseForm,
   RotateForm,
   MirrorRotateForm,
+  UpperForm,
+  LowerForm,
 } from "./components/ConverterForm";
 
 export const metadata: Metadata = {
@@ -73,6 +75,12 @@ export default function Page() {
       <h2>鏡像旋轉公式</h2>
       <p>若公式有鏡像形式，可先左右鏡像再前後旋轉，得到同手的鏡像公式。</p>
       <MirrorRotateForm />
+      <h2>轉換成雙層大寫公式</h2>
+      <p>將公式裡所有雙層符號替換成標準的大寫英文。</p>
+      <UpperForm />
+      <h2>轉換成雙層小寫公式</h2>
+      <p>將公式裡所有雙層符號替換成大家習慣的小寫英文。</p>
+      <LowerForm />
     </Article>
   );
 }

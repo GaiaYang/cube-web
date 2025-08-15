@@ -6,6 +6,8 @@ import {
   mirrorAlgorithm,
   reverseAlgorithm,
   rotateAlgorithm,
+  upperAlgorithm,
+  lowerAlgorithm,
 } from "@/utils/cube/converter";
 
 import FormContainer, { type FormContainerProps } from "./FormContainer";
@@ -32,4 +34,13 @@ export function MirrorRotateForm() {
   };
 
   return <FormContainer onConvert={onConvert} />;
+}
+
+/** 轉換成大寫公式 */
+export function UpperForm() {
+  return <FormContainer onConvert={upperAlgorithm} />;
+}
+/** 轉換成小寫公式 */
+export function LowerForm() {
+  return <FormContainer onConvert={lowerAlgorithm} />;
 }
