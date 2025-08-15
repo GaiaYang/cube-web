@@ -9,6 +9,7 @@ interface Rule {
   id: string;
   color: string;
   backgroundColor: string;
+  outline: string;
   label: string;
   char: string;
   description: string;
@@ -19,6 +20,7 @@ const rules: Rule[] = [
     id: "1",
     color: "text-red-500",
     backgroundColor: "bg-red-500",
+    outline: "outline-red-500",
     label: "轉動層數",
     char: "3",
     description: "指定要同時轉動的方塊層數，若未填寫，預設為單層轉動。",
@@ -27,6 +29,7 @@ const rules: Rule[] = [
     id: "2",
     color: "text-green-500",
     backgroundColor: "bg-green-500",
+    outline: "outline-green-500",
     label: "轉動符號",
     char: "Uw",
     description: "決定要轉動哪一個面或位置，必填，否則無法辨識轉動目標。",
@@ -35,6 +38,7 @@ const rules: Rule[] = [
     id: "3",
     color: "text-orange-500",
     backgroundColor: "bg-orange-500",
+    outline: "outline-orange-500",
     label: "轉動次數",
     char: "2",
     description: "數字表示要轉動幾次 90°，若未填寫，預設為一次。",
@@ -43,6 +47,7 @@ const rules: Rule[] = [
     id: "4",
     color: "text-blue-500",
     backgroundColor: "bg-blue-500",
+    outline: "outline-blue-500",
     label: "轉動方向",
     char: "'",
     description: "使用 ' 表示逆時針方向，若未標示則預設為順時針方向。",
@@ -94,6 +99,7 @@ export default memo(function CubeMoveStructure() {
   const [state, dispatch] = useReducer(reducer, initialValue);
   // 找出當前 hover 或鎖定的 rule
   const activeId = state.lockedId || state.hoverId;
+  const isLocked = Boolean(state.lockedId);
 
   const createCommonProps = useCallback((id: string) => {
     return {
@@ -122,15 +128,18 @@ export default memo(function CubeMoveStructure() {
           "text-6xl/tight md:text-7xl/tight lg:text-8xl/tight",
         )}
       >
-        {rules.map(({ id, color, backgroundColor, char }) => {
+        {rules.map(({ id, color, backgroundColor, outline, char }) => {
           const isActive = id === activeId;
           return (
             <span
               key={id}
               className={cn(
-                "cursor-pointer",
+                "cursor-pointer select-none",
                 "border-base-content/5 rounded border px-2",
                 isActive ? [backgroundColor, "text-white"] : color,
+                isActive && isLocked
+                  ? ["outline-2 outline-offset-2", outline]
+                  : null,
               )}
               {...createCommonProps(id)}
             >
@@ -141,32 +150,37 @@ export default memo(function CubeMoveStructure() {
       </div>
       {/* 下方卡片 */}
       <dl className={cn("not-prose", "grid grid-cols-1 gap-2 md:grid-cols-2")}>
-        {rules.map(({ id, color, backgroundColor, label, description }) => {
-          const isActive = id === activeId;
-          return (
-            <div
-              key={id}
-              className={cn(
-                "cursor-pointer",
-                "card card-sm bg-base-100 border-base-content/5 border",
-                { [backgroundColor]: isActive, "text-white": isActive },
-              )}
-              {...createCommonProps(id)}
-            >
-              <div className="card-body">
-                <dt className={cn("card-title", { [color]: !isActive })}>
-                  {label}
-                </dt>
-                <dd className="text-sm">{description}</dd>
+        {rules.map(
+          ({ id, color, backgroundColor, outline, label, description }) => {
+            const isActive = id === activeId;
+            return (
+              <div
+                key={id}
+                className={cn(
+                  "cursor-pointer select-none",
+                  "card card-sm bg-base-100 border-base-content/5 border",
+                  isActive ? [backgroundColor, "text-white"] : null,
+                  isActive && isLocked
+                    ? ["outline-2 outline-offset-2", outline]
+                    : null,
+                )}
+                {...createCommonProps(id)}
+              >
+                <div className="card-body">
+                  <dt className={cn("card-title", { [color]: !isActive })}>
+                    {label}
+                  </dt>
+                  <dd className="text-sm">{description}</dd>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          },
+        )}
       </dl>
       {/* 底部文字說明 */}
       <p>
         上述案例的意思是轉動{" "}
-        {rules.map(({ id, color, backgroundColor, char }, index) => {
+        {rules.map(({ id, color, backgroundColor, outline, char }, index) => {
           const isActive = id === activeId;
           let suffix = "";
           switch (index) {
@@ -186,11 +200,14 @@ export default memo(function CubeMoveStructure() {
           return (
             <span
               key={id}
-              className={cn("cursor-pointer", "badge font-mono", {
-                [color]: !isActive,
-                [backgroundColor]: isActive,
-                "text-white": isActive,
-              })}
+              className={cn(
+                "mx-1 cursor-pointer select-none",
+                "badge font-mono",
+                isActive ? [backgroundColor, "text-white"] : color,
+                isActive && isLocked
+                  ? ["outline outline-offset-1", outline]
+                  : null,
+              )}
               {...createCommonProps(id)}
             >
               {suffix}
