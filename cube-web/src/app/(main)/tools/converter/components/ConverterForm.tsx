@@ -8,7 +8,7 @@ import {
   rotateAlgorithm,
 } from "@/utils/cube/converter";
 
-import FormContainer from "./FormContainer";
+import FormContainer, { type FormContainerProps } from "./FormContainer";
 
 /** 鏡像公式 */
 export function MirrorForm() {
@@ -23,4 +23,13 @@ export function ReverseForm() {
 /** 旋轉公式 */
 export function RotateForm() {
   return <FormContainer onConvert={rotateAlgorithm} />;
+}
+
+/** 鏡像旋轉公式 */
+export function MirrorRotateForm() {
+  const onConvert: FormContainerProps["onConvert"] = (params) => {
+    return rotateAlgorithm(mirrorAlgorithm(params));
+  };
+
+  return <FormContainer onConvert={onConvert} />;
 }

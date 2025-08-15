@@ -1,19 +1,21 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
-import {
-  type Schema,
-  resolver,
-  defaultValues,
-} from "@/forms/algorithmConverterInput";
+import { CornerDownLeftIcon, RotateCcwIcon } from "lucide-react";
+
 import cn from "@/utils/cn";
 import {
   mergeToAlgorithm,
   type AlgorithmInput,
   type Move,
 } from "@/utils/cube/converter";
+import {
+  type Schema,
+  resolver,
+  defaultValues,
+} from "@/forms/algorithmConverterInput";
+
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
-import { CornerDownLeftIcon, RotateCcwIcon } from "lucide-react";
 
 export interface FormContainerProps {
   onConvert: (params: AlgorithmInput) => Move[];
@@ -36,10 +38,10 @@ export default function FormContainer({ onConvert }: FormContainerProps) {
     setAlgorithm(onConvert(data.algorithm));
   };
 
-  const _onReset = useCallback<React.FormEventHandler<HTMLFormElement>>(() => {
+  const _onReset: React.FormEventHandler<HTMLFormElement> = () => {
     reset();
     setAlgorithm([]);
-  }, [reset]);
+  };
 
   return (
     <form
@@ -80,12 +82,12 @@ export default function FormContainer({ onConvert }: FormContainerProps) {
           className="btn btn-outline btn-error"
           disabled={!isDirty}
         >
-          重設
           <RotateCcwIcon />
+          重設
         </button>
         <button type="submit" className="btn btn-primary" disabled={!isDirty}>
-          轉換
           <CornerDownLeftIcon />
+          轉換
         </button>
       </div>
     </form>

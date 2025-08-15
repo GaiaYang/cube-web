@@ -7,6 +7,7 @@ import {
   MirrorForm,
   ReverseForm,
   RotateForm,
+  MirrorRotateForm,
 } from "./components/ConverterForm";
 
 export const metadata: Metadata = {
@@ -69,6 +70,9 @@ export default function Page() {
       <h2>旋轉公式</h2>
       <p>可將步驟轉換成在方塊旋轉 y2 後仍能得到相同結果的公式。</p>
       <RotateForm />
+      <h2>鏡像旋轉公式</h2>
+      <p>若公式有鏡像形式，可先左右鏡像再前後旋轉，得到同手的鏡像公式。</p>
+      <MirrorRotateForm />
     </Article>
   );
 }
