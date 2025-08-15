@@ -79,7 +79,11 @@ export const options = createMenuOptions([
     ],
     collapsible: true,
   },
-  { title: "公式轉換工具", href: "/tools" },
+  {
+    title: "工具",
+    href: "/tools",
+    submenu: [{ title: "公式轉換", href: "/tools/converter" }],
+  },
 ]);
 
 export const drawerId = "drawer";
