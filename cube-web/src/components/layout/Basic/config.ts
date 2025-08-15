@@ -88,8 +88,8 @@ export const options = createMenuOptions([
   },
   {
     title: "工具",
-    href: "/tools",
     submenu: [{ title: "公式轉換", href: "/tools/converter" }],
+    collapsible: true,
   },
 ]);
 

@@ -3,17 +3,26 @@ import cn from "@/utils/cn";
 export interface AlgorithmDisplayProps {
   /** 轉動公式 */
   algorithm: string;
+  /** 預設顯示文字 */
+  placeholder?: string;
+  className?: string;
 }
 
-export default function AlgorithmDisplay({ algorithm }: AlgorithmDisplayProps) {
+export default function AlgorithmDisplay({
+  algorithm,
+  placeholder,
+  className,
+}: AlgorithmDisplayProps) {
   return (
     <code
       className={cn(
         "font-mono text-base",
-        "bg-base-200 rounded-selector border-base-300 border px-2",
+        "flex min-h-10 items-center",
+        "bg-base-200 border-base-300 rounded border px-2 py-1.5",
+        className,
       )}
     >
-      {algorithm}
+      {algorithm || placeholder || "\u00A0"}
     </code>
   );
 }

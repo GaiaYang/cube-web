@@ -3,6 +3,11 @@ import { type Metadata } from "next";
 
 import Article from "@/components/ui/Article";
 import ExternalLink from "@/components/ExternalLink";
+import {
+  MirrorForm,
+  ReverseForm,
+  RotateForm,
+} from "./components/ConverterForm";
 
 export const metadata: Metadata = {
   title: "公式轉換器",
@@ -52,13 +57,18 @@ export default function Page() {
         <ExternalLink href="/tutorial/notation">代號說明</ExternalLink>
       </p>
       <h3>代號結構</h3>
-      <ExternalLink href="/tutorial/notation/structure">結構教學</ExternalLink>
+      <ExternalLink href="/tutorial/notation/structure">
+        代號結構教學
+      </ExternalLink>
       <h2>鏡像公式</h2>
       <p>可將右手公式直接套用到左手，解決鏡像的兩種情況。</p>
+      <MirrorForm />
       <h2>反轉公式</h2>
       <p>可讓你倒著執行整條公式，將完成的狀態回到初始位置。</p>
+      <ReverseForm />
       <h2>旋轉公式</h2>
       <p>可將步驟轉換成在方塊旋轉 y2 後仍能得到相同結果的公式。</p>
+      <RotateForm />
     </Article>
   );
 }
