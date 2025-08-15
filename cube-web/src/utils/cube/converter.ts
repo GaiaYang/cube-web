@@ -41,13 +41,25 @@ export type AlgorithmInput = string | Move[];
 /** 解析後的單步轉動物件 */
 export interface MoveObject {
   /** 轉動幾層 */
-  layerCount: number | null;
+  layerCount: number;
   /** 轉動代號 */
   code: RotationCode;
   /** 是否逆時鐘 */
   isPrime: boolean;
   /** 轉動次數 */
-  turns?: number;
+  turns: number;
+}
+
+/** 解析後的單步轉動物件輸入 */
+export interface MoveInput {
+  /** 轉動幾層 */
+  layerCount?: number | null;
+  /** 轉動代號 */
+  code?: RotationCode | null;
+  /** 是否逆時鐘 */
+  isPrime?: boolean | null;
+  /** 轉動次數 */
+  turns?: number | null;
 }
 
 /** 分隔符號 */
@@ -117,19 +129,32 @@ export function parseAlgorithm(input: AlgorithmInput): string[] {
 }
 
 /** 簡化轉動次數 */
-function normalizeTurns(turns: number = 0, isPrime?: boolean) {
+function normalizeTurns(turns: number = 0, isPrime: boolean = false) {
   return modulo(isPrime ? CUBE_FACES - turns : turns, CUBE_FACES);
 }
 
+/** 正規化 MoveInput 預設值（code 必須存在） */
+function normalizeMoveInput(input: MoveInput): Required<MoveObject> | null {
+  if (!input.code) return null;
+  return {
+    layerCount: input.layerCount ?? 0,
+    code: input.code,
+    isPrime: input.isPrime ?? false,
+    turns: input.turns ?? 1,
+  };
+}
+
 /** 建立轉動字串 */
-function createMoveString(input: MoveObject): Move | null {
-  const { layerCount, code, turns, isPrime } = input;
+export function createMoveString(input: MoveInput): Move | null {
+  const normalized = normalizeMoveInput(input);
+  if (!normalized) return null;
+
+  const { layerCount, code, turns, isPrime } = normalized;
   const finalTurns = normalizeTurns(turns, isPrime);
+  if (finalTurns === 0) return null;
 
   let suffix = "";
   switch (finalTurns) {
-    case 0:
-      return null;
     case 2:
       suffix = "2";
       if (isPrime) suffix += PRIME;
@@ -139,7 +164,7 @@ function createMoveString(input: MoveObject): Move | null {
       break;
   }
 
-  return (String(layerCount || "") + code + suffix) as Move;
+  return `${layerCount || ""}${code}${suffix}` as Move;
 }
 
 /** 解析單步轉動字串 */
@@ -151,39 +176,35 @@ export function parseMoveString(input: string): MoveObject | null {
   let turnsStr = "";
   let prime = "";
 
-  // 1️⃣ 提取前置數字
+  // 提取前置數字
   let i = 0;
   while (i < input.length && /\d/.test(input[i])) {
     layerCountStr += input[i++];
   }
 
-  // 2️⃣ 提取代號（優先長代號）
+  // 代號（優先長代號）
   const sortedCodes = [...BASIC_CODES].sort((a, b) => b.length - a.length);
   const rest = input.slice(i);
   const matchedCode = sortedCodes.find((c) => rest.startsWith(c));
-  if (!matchedCode) {
-    return null;
-  }
+  if (!matchedCode) return null;
   code = matchedCode;
   i += matchedCode.length;
 
-  // 3️⃣ 後置數字與 prime
+  // 後置數字與 prime
   if (i < input.length) {
     const remaining = input.slice(i);
     const m = remaining.match(/^(\d*)(\')?$/);
-    if (!m) {
-      return null;
-    }
+    if (!m) return null;
     turnsStr = m[1];
     prime = m[2] || "";
   }
 
-  const layerCount = layerCountStr ? Number(layerCountStr) : null;
+  const layerCount = layerCountStr ? Number(layerCountStr) : 0;
   const turns = turnsStr ? Number(turnsStr) : 1;
-  const baseCode = code.replace(PRIME, "") as BasicCode;
+  const baseCode = code as BasicCode;
 
-  // 4️⃣ 規則檢查
-  if (layerCount !== null && !DOUBLE_LAYER_CODES.includes(baseCode)) {
+  // 規則檢查
+  if (layerCount > 0 && !DOUBLE_LAYER_CODES.includes(baseCode)) {
     return null;
   }
   if (!BASIC_CODES.includes(baseCode)) {
@@ -192,7 +213,7 @@ export function parseMoveString(input: string): MoveObject | null {
 
   return {
     layerCount,
-    code: code as RotationCode,
+    code: baseCode,
     isPrime: prime === PRIME,
     turns,
   };
@@ -210,7 +231,7 @@ export function normalizeMoveString(input: string): string | null {
 }
 
 /** 語意化反轉 prime */
-function flipPrimeIfNeeded(turns: number = 0, isPrime: boolean) {
+function flipPrimeIfNeeded(turns: number = 0, isPrime: boolean = false) {
   return turns === 2 ? isPrime : !isPrime;
 }
 
@@ -235,8 +256,10 @@ function transformAlgorithmSteps(
 }
 
 /** 反轉單步轉動 */
-function reverseMove(input: MoveObject): MoveObject {
-  const { isPrime, turns, ...rest } = input;
+function reverseMove(input: MoveInput): MoveObject | null {
+  const normalized = normalizeMoveInput(input);
+  if (!normalized) return null;
+  const { isPrime, turns, ...rest } = normalized;
   return { ...rest, isPrime: flipPrimeIfNeeded(turns, isPrime), turns };
 }
 
@@ -274,15 +297,17 @@ const MIRROR_MAP: Record<BasicCode, BasicCode> = {
 };
 
 /** 鏡像單步轉動 */
-function mirrorMove(input: MoveObject): MoveObject | null {
-  const { code, isPrime, turns, ...rest } = input;
-  const baseCode = code.replace(PRIME, "") as BasicCode;
+function mirrorMove(input: MoveInput): MoveObject | null {
+  const normalized = normalizeMoveInput(input);
+  if (!normalized) return null;
+  const { code, isPrime, turns, ...rest } = normalized;
+  const baseCode = code as BasicCode;
   const mirroredCode = MIRROR_MAP[baseCode];
   if (!mirroredCode) return null;
   return {
     ...rest,
-    code: mirroredCode.replace(PRIME, "") as RotationCode,
-    isPrime: flipPrimeIfNeeded(turns, isPrime) || mirroredCode.endsWith(PRIME),
+    code: mirroredCode,
+    isPrime: flipPrimeIfNeeded(turns, isPrime),
     turns,
   };
 }
@@ -360,10 +385,11 @@ function mapAlgorithm<K extends string, V extends string>(
     .map((move) => {
       const parsed = parseMoveString(move);
       if (!parsed) return move as Move;
-      return createMoveString({
+      const mapped = normalizeMoveInput({
         ...parsed,
         code: (map[parsed.code as K] ?? parsed.code) as RotationCode,
       });
+      return mapped ? createMoveString(mapped) : null;
     })
     .filter(isNotNil);
 }
