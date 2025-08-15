@@ -6,7 +6,7 @@ import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
 import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
-import Article from "@/components/ui/Article";
+import Article from "@/components/Article";
 import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
 
 import AlgorithmsTable from "./components/AlgorithmsTable";
@@ -36,7 +36,8 @@ export default function Page() {
       </ol>
       <p>
         這邊利用特定類型的OLL處理頂面情況，OLL有些是通過其他OLL疊加上來的，掌握該原理就能在這階段選擇自己喜歡的公式執行。
-        <br />
+      </p>
+      <p>
         只需要學習10個公式，相較完整版OLL的57種案例，大幅度濃縮記憶份量跟判斷難度。
       </p>
       <blockquote>

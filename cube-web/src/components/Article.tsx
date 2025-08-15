@@ -18,7 +18,7 @@ export default function Article({
       {...props}
       className={cn(
         "prose dark:prose-invert",
-        "prose-sm md:prose-base",
+        // "prose-sm md:prose-base",
         "w-full max-w-none grow",
         "px-4 sm:px-6 lg:px-8",
         className,

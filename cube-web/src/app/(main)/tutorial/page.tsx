@@ -1,8 +1,7 @@
 import React from "react";
 import { type Metadata } from "next";
 
-import ContentSection from "@/components/ui/ContentSection";
-import ContentContainer from "@/components/ui/ContentContainer";
+import Article from "@/components/Article";
 
 export const metadata: Metadata = {
   title: "教學總覽",
@@ -12,11 +11,9 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <ContentContainer>
-      <ContentSection
-        title="教學總覽"
-        description="本站教學項目一覽，主要以三階方塊為主"
-      />
-    </ContentContainer>
+    <Article>
+      <h1>教學總覽</h1>
+      <p>本站教學項目一覽，主要以三階方塊為主</p>
+    </Article>
   );
 }

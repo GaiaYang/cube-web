@@ -1,12 +1,12 @@
 import React from "react";
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
+import Article from "@/components/Article";
 
 export const metadata: Metadata = {
   title: "轉動代號說明",
   description: "解釋方塊公式中的英文跟數字代表什麼意思。",
-  alternates: { canonical: "/tutorial/notation/structure" },
+  alternates: { canonical: "/tutorial/notation" },
 };
 
 export default function Page() {

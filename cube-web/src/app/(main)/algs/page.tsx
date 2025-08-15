@@ -1,8 +1,7 @@
 import React from "react";
 import { type Metadata } from "next";
 
-import ContentSection from "@/components/ui/ContentSection";
-import ContentContainer from "@/components/ui/ContentContainer";
+import Article from "@/components/Article";
 
 export const metadata: Metadata = {
   title: "公式總覽",
@@ -12,11 +11,9 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <ContentContainer>
-      <ContentSection
-        title="公式總覽"
-        description="依照項目分類本站收入的所有公式總覽。"
-      />
-    </ContentContainer>
+    <Article>
+      <h1>公式總覽</h1>
+      <p>依照項目分類本站收入的所有公式總覽。</p>
+    </Article>
   );
 }

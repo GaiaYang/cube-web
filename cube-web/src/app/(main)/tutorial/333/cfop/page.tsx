@@ -4,26 +4,24 @@ import Link from "next/link";
 
 import type { Option } from "@/options/types";
 
-import ContentSection from "@/components/ui/ContentSection";
-import ContentContainer from "@/components/ui/ContentContainer";
+import Article from "@/components/Article";
 
 export const metadata: Metadata = {
   title: "CFOP",
   description:
-    "CFOP 是最多人使用速解方法，其變體解法跟資源十分充足，適合入門速解的方法。",
+    "CFOP是最多人使用速解方法，其變體解法跟資源十分充足，適合入門速解的方法。",
   alternates: { canonical: "/tutorial/333/cfop" },
 };
 
 export default function Page() {
   return (
-    <ContentContainer>
-      <ContentSection
-        title="CFOP"
-        description="CFOP 是最多人使用速解方法，其變體解法跟資源十分充足，適合入門速解的方法。"
-        eyebrow="弗雷德里奇法(Fridrich Method)"
-      />
-      <ol className="list">{features.map(_renderItem)}</ol>
-    </ContentContainer>
+    <Article>
+      <h1>CFOP</h1>
+      <p>
+        CFOP是最多人使用速解方法，其變體解法跟資源十分充足，適合入門速解的方法。
+      </p>
+      <ol className="list not-prose">{features.map(_renderItem)}</ol>
+    </Article>
   );
 }
 

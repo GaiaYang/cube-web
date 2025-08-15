@@ -3,8 +3,7 @@ import { type Metadata } from "next";
 
 import type { Option } from "@/options/types";
 
-import ContentSection from "@/components/ui/ContentSection";
-import ContentContainer from "@/components/ui/ContentContainer";
+import Article from "@/components/Article";
 import GridList, { type GridListProps } from "@/components/list/GridList";
 import F2LDiagram from "@/components/cube/333/diagram/FirstTwoLayersByCase";
 import OLLDiagram from "@/components/cube/333/diagram/OrientationLastLayerByCase";
@@ -26,13 +25,11 @@ const options: Option<string>[] = [
 
 export default function Page() {
   return (
-    <ContentContainer>
-      <ContentSection
-        title="三階公式總覽"
-        description="這裡是三階魔術方塊的所有公式總覽。"
-      />
-      <GridList data={options} renderItem={_renderItem} />
-    </ContentContainer>
+    <Article>
+      <h1>三階公式總覽</h1>
+      <p>這裡是三階魔術方塊的所有公式總覽。</p>
+      <GridList data={options} renderItem={_renderItem} className="not-prose" />
+    </Article>
   );
 }
 

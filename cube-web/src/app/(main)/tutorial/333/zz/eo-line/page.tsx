@@ -1,7 +1,7 @@
 import React from "react";
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
+import Article from "@/components/Article";
 
 export const metadata: Metadata = {
   title: "EO Line",

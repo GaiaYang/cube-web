@@ -1,7 +1,7 @@
 import React from "react";
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
+import Article from "@/components/Article";
 import ExternalLink from "@/components/ExternalLink";
 
 import CubeMoveStructure from "./components/CubeMoveStructure";

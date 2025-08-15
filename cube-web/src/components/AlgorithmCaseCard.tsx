@@ -12,7 +12,7 @@ export default function AlgorithmCaseCard({
   children,
 }: React.PropsWithChildren<AlgorithmCaseCardProps>) {
   return (
-    <div className="card bg-base-100 ring-base-content/5 ring">
+    <div className="card bg-base-100 border-base-content/5 border">
       <figure className="bg-base-200 aspect-square w-full p-4">
         {children ?? <div aria-hidden className="skeleton h-full w-full" />}
       </figure>

@@ -7,10 +7,7 @@ import SelectFilter from "@/components/searchParamsTools/SelectFilter";
 
 export default function FilterPanel() {
   return (
-    <section
-      aria-label="搜尋列"
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-    >
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <SelectFilter
         ariaLabel="選擇分類"
         placeholder="請選擇分類"
@@ -19,6 +16,6 @@ export default function FilterPanel() {
         options={ollOptions}
         enumMap={OLLCategory}
       />
-    </section>
+    </div>
   );
 }
