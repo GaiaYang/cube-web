@@ -1,13 +1,13 @@
 import {
-  isValidMoveString,
-  standardizeMove,
-  mirrorAlgorithm,
   mergeToAlgorithm,
+  normalizeMoveString,
+  isValidMoveString,
+  isAlgorithmValid,
   reverseAlgorithm,
+  mirrorAlgorithm,
   rotateAlgorithm,
   upperAlgorithm,
   lowerAlgorithm,
-  isAlgorithmValid,
 } from "./converter";
 
 test("isValidMoveString", () => {
@@ -25,19 +25,19 @@ test("isValidMoveString", () => {
   expect(isValidMoveString("2Rw'2")).toBe(false);
 });
 
-test("standardizeMove", () => {
-  expect(standardizeMove("R")).toBe("R");
-  expect(standardizeMove("R'")).toBe("R'");
-  expect(standardizeMove("R2")).toBe("R2");
-  expect(standardizeMove("R'2")).toBe(null);
-  expect(standardizeMove("Rw")).toBe("Rw");
-  expect(standardizeMove("Rw'")).toBe("Rw'");
-  expect(standardizeMove("Rw2")).toBe("Rw2");
-  expect(standardizeMove("2Rw2")).toBe("2Rw2");
-  expect(standardizeMove("2Rw2'")).toBe("2Rw2'");
-  expect(standardizeMove("2Rw'2")).toBe(null);
-  expect(standardizeMove("Rw'2")).toBe(null);
-  expect(standardizeMove("2Rw'2")).toBe(null);
+test("normalizeMoveString", () => {
+  expect(normalizeMoveString("R")).toBe("R");
+  expect(normalizeMoveString("R'")).toBe("R'");
+  expect(normalizeMoveString("R2")).toBe("R2");
+  expect(normalizeMoveString("R'2")).toBe(null);
+  expect(normalizeMoveString("Rw")).toBe("Rw");
+  expect(normalizeMoveString("Rw'")).toBe("Rw'");
+  expect(normalizeMoveString("Rw2")).toBe("Rw2");
+  expect(normalizeMoveString("2Rw2")).toBe("2Rw2");
+  expect(normalizeMoveString("2Rw2'")).toBe("2Rw2'");
+  expect(normalizeMoveString("2Rw'2")).toBe(null);
+  expect(normalizeMoveString("Rw'2")).toBe(null);
+  expect(normalizeMoveString("2Rw'2")).toBe(null);
 });
 
 test("mirrorAlgorithm", () => {
