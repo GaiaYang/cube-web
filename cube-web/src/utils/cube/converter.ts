@@ -125,10 +125,20 @@ export function isValidMoveString(input: string): boolean {
   const parsed = parseMoveString(input);
   if (!parsed) return false;
 
-  const { layerCount, code } = parsed;
+  const { layerCount, code, turns } = parsed;
+  const baseCode = code.replace(PRIME, "") as BasicCode;
+
+  // 層數不能小於 1
   if (layerCount !== null && layerCount < 1) return false;
 
-  return BASIC_CODES.includes(code.replace(PRIME, "") as BasicCode);
+  // x, y, z 必須單獨出現，不能帶層數
+  if (["x", "y", "z"].includes(baseCode)) {
+    // 不允許前置層數
+    return layerCount === null;
+  }
+
+  // 其他基本代號，只要存在 BASIC_CODES 即可
+  return BASIC_CODES.includes(baseCode);
 }
 
 /** 簡化轉動次數 */
