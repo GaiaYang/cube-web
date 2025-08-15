@@ -1,9 +1,16 @@
 "use client";
 
-import React, { memo, useCallback, useReducer } from "react";
+import React, { memo, useCallback, useMemo, useReducer } from "react";
 import { produce } from "immer";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 
 import cn from "@/utils/cn";
+import { normalizeMoveInput } from "@/utils/cube/converter";
+import {
+  defaultValues,
+  resolver,
+  type Schema,
+} from "@/forms/algorithmMoveInput";
 
 interface Rule {
   id: string;
@@ -11,7 +18,6 @@ interface Rule {
   backgroundColor: string;
   outline: string;
   label: string;
-  char: string;
   description: string;
 }
 
@@ -22,7 +28,6 @@ const rules: Rule[] = [
     backgroundColor: "bg-red-500",
     outline: "outline-red-500",
     label: "轉動層數",
-    char: "3",
     description: "指定要同時轉動的方塊層數，若未填寫，預設為單層轉動。",
   },
   {
@@ -31,7 +36,6 @@ const rules: Rule[] = [
     backgroundColor: "bg-green-500",
     outline: "outline-green-500",
     label: "轉動符號",
-    char: "Uw",
     description: "決定要轉動哪一個面或位置，必填，否則無法辨識轉動目標。",
   },
   {
@@ -40,7 +44,6 @@ const rules: Rule[] = [
     backgroundColor: "bg-orange-500",
     outline: "outline-orange-500",
     label: "轉動次數",
-    char: "2",
     description: "數字表示要轉動幾次 90°，若未填寫，預設為一次。",
   },
   {
@@ -49,7 +52,6 @@ const rules: Rule[] = [
     backgroundColor: "bg-blue-500",
     outline: "outline-blue-500",
     label: "轉動方向",
-    char: "'",
     description: "使用 ' 表示逆時針方向，若未標示則預設為順時針方向。",
   },
 ];
@@ -92,6 +94,29 @@ const reducer = produce((draft: HoverState, action: HoverAction) => {
 
 /** 方塊代號結構教學 */
 export default memo(function CubeMoveStructure() {
+  const form = useForm<Schema>({
+    defaultValues,
+    resolver,
+    values: {
+      layerCount: 3,
+      code: "Rw",
+      isPrime: true,
+      turns: 2,
+    },
+  });
+
+  return (
+    <FormProvider {...form}>
+      <Core />
+    </FormProvider>
+  );
+});
+
+function Core() {
+  const [layerCount, code, turns, isPrime] = useWatch<
+    Schema,
+    ["layerCount", "code", "turns", "isPrime"]
+  >({ name: ["layerCount", "code", "turns", "isPrime"] });
   const [state, dispatch] = useReducer(reducer, initialValue);
   // 找出當前 hover 或鎖定的 rule
   const activeId = state.lockedId || state.hoverId;
@@ -114,6 +139,15 @@ export default memo(function CubeMoveStructure() {
     >;
   }, []);
 
+  const displayCode = useMemo(() => {
+    const normalize = normalizeMoveInput({ layerCount, code, turns, isPrime });
+    if (normalize) {
+      return [layerCount!, code, turns, isPrime] as const;
+    }
+
+    return [null, null, null, null] as const;
+  }, [layerCount, code, turns, isPrime]);
+
   return (
     <div className="grid gap-4">
       {/* 上方符號列 */}
@@ -124,15 +158,42 @@ export default memo(function CubeMoveStructure() {
           "text-6xl/tight md:text-7xl/tight lg:text-8xl/tight",
         )}
       >
-        {rules.map(({ id, color, backgroundColor, outline, char }) => {
+        {rules.map(({ id, color, backgroundColor, outline }, index: number) => {
           const isActive = id === activeId;
           const isHover = id === state.hoverId;
+
+          const char = displayCode[index];
+          let suffix = "";
+
+          switch (index) {
+            case 0:
+              if (typeof char === "number" && char > 1) {
+                suffix = `${char}`;
+              }
+              break;
+            case 1:
+              if (typeof char === "string") {
+                suffix = char;
+              }
+              break;
+            case 2:
+              if (typeof char === "number" && char > 1) {
+                suffix = `${char}`;
+              }
+              break;
+            case 3:
+              if (typeof char === "boolean") {
+                suffix = char ? "'" : "";
+              }
+              break;
+          }
 
           return (
             <span
               key={id}
               className={cn(
                 "cursor-pointer select-none",
+                "transition-colors duration-200",
                 "border-base-content/5 rounded border px-2",
                 isActive || isHover ? [backgroundColor, "text-white"] : color,
                 isActive && isLocked
@@ -141,7 +202,7 @@ export default memo(function CubeMoveStructure() {
               )}
               {...createCommonProps(id)}
             >
-              {char}
+              {suffix || "\u00A0"}
             </span>
           );
         })}
@@ -158,6 +219,7 @@ export default memo(function CubeMoveStructure() {
                 key={id}
                 className={cn(
                   "cursor-pointer select-none",
+                  "transition-colors duration-200",
                   "card card-sm bg-base-100 border-base-content/5 border",
                   isActive || isHover ? [backgroundColor, "text-white"] : null,
                   isActive && isLocked
@@ -184,11 +246,18 @@ export default memo(function CubeMoveStructure() {
       {/* 底部文字說明 */}
       <p>
         上述案例的意思是轉動{" "}
-        {rules.map(({ id, color, backgroundColor, outline, char }, index) => {
+        {rules.map(({ id, color, backgroundColor, outline }, index) => {
+          const char = displayCode[index];
+
+          if (!char) {
+            return null;
+          }
+
           const isActive = id === activeId;
           const isHover = id === state.hoverId;
 
           let suffix = "";
+
           switch (index) {
             case 0:
               suffix = char + "層";
@@ -200,14 +269,16 @@ export default memo(function CubeMoveStructure() {
               suffix = char + "次";
               break;
             case 3:
-              suffix = char === "'" ? "逆時針" : "順時針";
+              suffix = char ? "逆時針" : "順時針";
               break;
           }
+
           return (
             <span
               key={id}
               className={cn(
                 "mx-1 cursor-pointer select-none",
+                "transition-colors duration-200",
                 "badge font-mono",
                 isActive || isHover ? [backgroundColor, "text-white"] : color,
                 isActive && isLocked
@@ -230,4 +301,4 @@ export default memo(function CubeMoveStructure() {
       </blockquote>
     </div>
   );
-});
+}
