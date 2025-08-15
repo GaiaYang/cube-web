@@ -5,18 +5,20 @@ export interface ContentSectionProps {
   title?: string | null;
   description?: string | null;
   eyebrow?: string | null;
+  className?: string;
 }
 
 export default function ContentSection({
   title,
   description,
   eyebrow,
+  className,
 }: ContentSectionProps) {
   const hasTitle = Boolean(title);
   const hasEyebrow = Boolean(eyebrow);
 
   return (
-    <div className="max-w-(--container-2xl)">
+    <div className={cn("max-w-(--container-2xl)", className)}>
       {eyebrow ? (
         <p className="text-primary text-base/7 font-semibold">{eyebrow}</p>
       ) : null}
