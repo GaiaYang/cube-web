@@ -22,6 +22,7 @@ export default function OverlayLink({
         "absolute inset-0",
         "rounded-box border border-transparent",
         "hover:bg-base-content/5 hover:border-base-content/5",
+        className,
       )}
     >
       <span className="sr-only">{label}</span>

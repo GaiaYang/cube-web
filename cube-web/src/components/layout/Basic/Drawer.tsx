@@ -9,7 +9,7 @@ import DrawerMenu from "./DrawerMenu";
 import LogoButton from "./LogoButton";
 import DrawerToggle from "./DrawerToggle";
 
-export interface DrawerProps extends CommonProps {}
+export type DrawerProps = CommonProps;
 
 export default function Drawer({
   autoExpandDrawer,

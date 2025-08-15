@@ -6,7 +6,7 @@ import { labels } from "@/options/cube/333/pllCategory";
 import Diagram from "@/components/cube/333/diagram/PermutationLastLayer";
 import AlgorithmCaseCard from "@/components/AlgorithmCaseCard";
 
-export interface PLLCaseProps extends PLLDefinition {}
+export type PLLCaseProps = PLLDefinition;
 
 export default function PLLCase({ pattern, name, category }: PLLCaseProps) {
   return (

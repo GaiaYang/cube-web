@@ -9,7 +9,7 @@ import type { Option } from "@/options/types";
 export default function enumToOptions<
   T extends Record<string, string | number>,
 >(enumObj: T, labelMap: Partial<Record<T[keyof T], string>>) {
-  const labels: Record<T[keyof T], string> = {} as any;
+  const labels = {} as unknown as Record<T[keyof T], string>;
   const options: Option<T[keyof T]>[] = [];
 
   for (const key of Object.keys(enumObj)) {

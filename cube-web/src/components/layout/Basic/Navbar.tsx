@@ -7,7 +7,7 @@ import cn from "@/utils/cn";
 
 import LogoButton from "./LogoButton";
 
-export interface NavbarProps extends CommonProps {}
+export type NavbarProps = CommonProps;
 
 export default function Navbar({ autoExpandDrawer }: NavbarProps) {
   return (

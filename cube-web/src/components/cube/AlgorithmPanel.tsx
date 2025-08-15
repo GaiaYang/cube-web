@@ -4,7 +4,7 @@ import type { CommonDefinition } from "@/types/cube/common";
 
 import AlgorithmDisplay from "./AlgorithmDisplay";
 
-export interface AlgorithmPanelProps extends CommonDefinition {}
+export type AlgorithmPanelProps = CommonDefinition;
 
 export default function AlgorithmPanel({
   id,

@@ -2,11 +2,10 @@ import React from "react";
 
 import cn from "@/utils/cn";
 
-export interface ArticleProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLElement>,
-    HTMLElement
-  > {}
+export type ArticleProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement>,
+  HTMLElement
+>;
 
 export default function Article({
   children,

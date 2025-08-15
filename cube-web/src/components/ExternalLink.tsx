@@ -6,9 +6,9 @@ import cn from "@/utils/cn";
 export interface ExternalLinkProps
   extends Omit<
       React.AnchorHTMLAttributes<HTMLAnchorElement>,
-      keyof LinkProps<any>
+      keyof LinkProps<unknown>
     >,
-    LinkProps<any>,
+    LinkProps<unknown>,
     React.RefAttributes<HTMLAnchorElement> {
   children?: React.ReactNode | undefined;
 }

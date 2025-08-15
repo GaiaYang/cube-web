@@ -3,8 +3,10 @@ import React from "react";
 
 import cn from "@/utils/cn";
 
-export interface LogoButtonProps
-  extends Omit<React.HTMLAttributes<HTMLAnchorElement>, "href"> {}
+export type LogoButtonProps = Omit<
+  React.HTMLAttributes<HTMLAnchorElement>,
+  "href"
+>;
 
 export default function LogoButton({ className, ...props }: LogoButtonProps) {
   return (

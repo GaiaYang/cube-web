@@ -5,7 +5,7 @@ import type { MenuOption } from "@/types/menu";
 import MenuLink from "./MenuLink";
 import MenuDetails from "./MenuDetails";
 
-export interface MenuNodeProps extends MenuOption {}
+export type MenuNodeProps = MenuOption;
 
 export default function MenuNode({
   id,
