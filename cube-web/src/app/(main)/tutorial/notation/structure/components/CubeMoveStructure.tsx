@@ -71,14 +71,10 @@ const initialValue: HoverState = { hoverId: "", lockedId: null };
 const reducer = produce((draft: HoverState, action: HoverAction) => {
   switch (action.type) {
     case "HOVER":
-      if (!draft.lockedId) {
-        draft.hoverId = action.id;
-      }
+      draft.hoverId = action.id;
       break;
     case "LEAVE":
-      if (!draft.lockedId) {
-        draft.hoverId = "";
-      }
+      draft.hoverId = "";
       break;
     case "TOGGLE_LOCK":
       if (draft.lockedId === action.id) {
@@ -130,13 +126,15 @@ export default memo(function CubeMoveStructure() {
       >
         {rules.map(({ id, color, backgroundColor, outline, char }) => {
           const isActive = id === activeId;
+          const isHover = id === state.hoverId;
+
           return (
             <span
               key={id}
               className={cn(
                 "cursor-pointer select-none",
                 "border-base-content/5 rounded border px-2",
-                isActive ? [backgroundColor, "text-white"] : color,
+                isActive || isHover ? [backgroundColor, "text-white"] : color,
                 isActive && isLocked
                   ? ["outline-2 outline-offset-2", outline]
                   : null,
@@ -153,13 +151,15 @@ export default memo(function CubeMoveStructure() {
         {rules.map(
           ({ id, color, backgroundColor, outline, label, description }) => {
             const isActive = id === activeId;
+            const isHover = id === state.hoverId;
+
             return (
               <div
                 key={id}
                 className={cn(
                   "cursor-pointer select-none",
                   "card card-sm bg-base-100 border-base-content/5 border",
-                  isActive ? [backgroundColor, "text-white"] : null,
+                  isActive || isHover ? [backgroundColor, "text-white"] : null,
                   isActive && isLocked
                     ? ["outline-2 outline-offset-2", outline]
                     : null,
@@ -167,7 +167,11 @@ export default memo(function CubeMoveStructure() {
                 {...createCommonProps(id)}
               >
                 <div className="card-body">
-                  <dt className={cn("card-title", { [color]: !isActive })}>
+                  <dt
+                    className={cn("card-title", {
+                      [color]: !(isActive || isHover),
+                    })}
+                  >
                     {label}
                   </dt>
                   <dd className="text-sm">{description}</dd>
@@ -182,6 +186,8 @@ export default memo(function CubeMoveStructure() {
         上述案例的意思是轉動{" "}
         {rules.map(({ id, color, backgroundColor, outline, char }, index) => {
           const isActive = id === activeId;
+          const isHover = id === state.hoverId;
+
           let suffix = "";
           switch (index) {
             case 0:
@@ -203,7 +209,7 @@ export default memo(function CubeMoveStructure() {
               className={cn(
                 "mx-1 cursor-pointer select-none",
                 "badge font-mono",
-                isActive ? [backgroundColor, "text-white"] : color,
+                isActive || isHover ? [backgroundColor, "text-white"] : color,
                 isActive && isLocked
                   ? ["outline outline-offset-1", outline]
                   : null,

@@ -44,7 +44,7 @@ export interface MoveObject {
   layerCount: number;
   /** 轉動代號 */
   code: RotationCode;
-  /** 是否逆時鐘 */
+  /** 是否逆時針 */
   isPrime: boolean;
   /** 轉動次數 */
   turns: number;
@@ -55,8 +55,8 @@ export interface MoveInput {
   /** 轉動幾層 */
   layerCount?: number | null;
   /** 轉動代號 */
-  code?: RotationCode | null;
-  /** 是否逆時鐘 */
+  code?: RotationCode | null | "";
+  /** 是否逆時針 */
   isPrime?: boolean | null;
   /** 轉動次數 */
   turns?: number | null;
@@ -64,7 +64,7 @@ export interface MoveInput {
 
 /** 分隔符號 */
 const SEPARATOR = " ";
-/** 逆時鐘符號 */
+/** 逆時針符號 */
 const PRIME = "'";
 /** 方塊面數 */
 const CUBE_FACES = 4;
@@ -83,6 +83,34 @@ const DOUBLE_LAYER_CODES: BasicCode[] = [
   "d",
   "f",
   "b",
+];
+
+/** 所有逆時針代號 */
+export const PRIME_CODES: PrimeCode[] = [
+  "x'",
+  "y'",
+  "z'",
+  "R'",
+  "L'",
+  "U'",
+  "D'",
+  "F'",
+  "B'",
+  "M'",
+  "S'",
+  "E'",
+  "Rw'",
+  "Lw'",
+  "Uw'",
+  "Dw'",
+  "Fw'",
+  "Bw'",
+  "r'",
+  "l'",
+  "u'",
+  "d'",
+  "f'",
+  "b'",
 ];
 
 /** 所有基本代號 */
@@ -134,7 +162,7 @@ function normalizeTurns(turns: number = 0, isPrime: boolean = false) {
 }
 
 /** 正規化 MoveInput 預設值（code 必須存在） */
-function normalizeMoveInput(input: MoveInput): Required<MoveObject> | null {
+export function normalizeMoveInput(input: MoveInput): MoveObject | null {
   if (!input.code) return null;
   return {
     layerCount: input.layerCount ?? 0,
