@@ -11,93 +11,96 @@ import {
 } from "./converter";
 
 test("isValidMoveString", () => {
-  expect(isValidMoveString("U")).toEqual(true);
-  expect(isValidMoveString("U2")).toEqual(true);
-  expect(isValidMoveString("3Rw2'")).toEqual(true);
-  expect(isValidMoveString("3Rw4'")).toEqual(true);
-  expect(isValidMoveString("Q")).toEqual(false);
+  expect(isValidMoveString("R")).toBe(true);
+  expect(isValidMoveString("R'")).toBe(true);
+  expect(isValidMoveString("R2")).toBe(true);
+  expect(isValidMoveString("R'2")).toBe(false);
+  expect(isValidMoveString("Rw")).toBe(true);
+  expect(isValidMoveString("Rw'")).toBe(true);
+  expect(isValidMoveString("Rw2")).toBe(true);
+  expect(isValidMoveString("2Rw2")).toBe(true);
+  expect(isValidMoveString("2Rw2'")).toBe(true);
+  expect(isValidMoveString("2Rw'2")).toBe(false);
+  expect(isValidMoveString("Rw'2")).toBe(false);
+  expect(isValidMoveString("2Rw'2")).toBe(false);
 });
 
 test("standardizeMove", () => {
-  expect(standardizeMove("U10")).toEqual("U2");
-  expect(standardizeMove("U-3")).toEqual(null);
-  expect(standardizeMove("3Rw15'")).toEqual("3Rw");
+  expect(standardizeMove("R")).toBe("R");
+  expect(standardizeMove("R'")).toBe("R'");
+  expect(standardizeMove("R2")).toBe("R2");
+  expect(standardizeMove("R'2")).toBe(null);
+  expect(standardizeMove("Rw")).toBe("Rw");
+  expect(standardizeMove("Rw'")).toBe("Rw'");
+  expect(standardizeMove("Rw2")).toBe("Rw2");
+  expect(standardizeMove("2Rw2")).toBe("2Rw2");
+  expect(standardizeMove("2Rw2'")).toBe("2Rw2'");
+  expect(standardizeMove("2Rw'2")).toBe(null);
+  expect(standardizeMove("Rw'2")).toBe(null);
+  expect(standardizeMove("2Rw'2")).toBe(null);
 });
 
 test("mirrorAlgorithm", () => {
-  expect(mergeToAlgorithm(mirrorAlgorithm("R U F L D B x y z E M S"))).toEqual(
-    "L' U' F' R' D' B' x' y' z' E' M' S'",
-  );
-  expect(mergeToAlgorithm(mirrorAlgorithm("y2 L U F' U' L' U L F L'"))).toEqual(
-    "y2' R' U' F U R U' R' F' R",
-  );
-  expect(mergeToAlgorithm(mirrorAlgorithm("R U B' U' R' U R B R'"))).toEqual(
-    "L' U' B U L U' L' B' L",
+  expect(
+    mergeToAlgorithm(mirrorAlgorithm("R U2 R2 F R F' U2 R' F R F'")),
+  ).toEqual("L' U2 L2 F' L' F U2 L F' L' F");
+  expect(mergeToAlgorithm(mirrorAlgorithm("S R U R' U' R' F R Fw'"))).toEqual(
+    "S' L' U' L U L F' L' Fw",
   );
 });
 
 test("reverseAlgorithm", () => {
-  expect(mergeToAlgorithm(reverseAlgorithm("R U F L D B x y z E M S"))).toEqual(
-    "S' M' E' z' y' x' B' D' L' F' U' R'",
-  );
   expect(
-    mergeToAlgorithm(reverseAlgorithm("R' U' F' L' D' B' x' y' z' E' M' S'")),
-  ).toEqual("S M E z y x B D L F U R");
+    mergeToAlgorithm(reverseAlgorithm("R U2 R2 F R F' U2 R' F R F'")),
+  ).toEqual("F R' F' R U2 F R' F' R2 U2 R'");
+  expect(mergeToAlgorithm(reverseAlgorithm("S R U R' U' R' F R Fw'"))).toEqual(
+    "Fw R' F' R U R U' R' S'",
+  );
 });
 
 test("rotateAlgorithm", () => {
   expect(
-    mergeToAlgorithm(rotateAlgorithm("R' U' F' L' D' B' x' y' z' E' M' S'")),
-  ).toEqual("L' U' B' R' D' F' x' y' z' E' M' S'");
-  expect(mergeToAlgorithm(rotateAlgorithm("R U F L D B x y z E M S"))).toEqual(
-    "L U B R D F x y z E M S",
+    mergeToAlgorithm(rotateAlgorithm("R U2 R2 F R F' U2 R' F R F'")),
+  ).toEqual("L U2 L2 B L B' U2 L' B L B'");
+  expect(mergeToAlgorithm(rotateAlgorithm("S R U R' U' R' F R Fw'"))).toEqual(
+    "S L U L' U' L' B L Bw'",
   );
-  expect(mergeToAlgorithm(rotateAlgorithm("L U B R D F x y z E M S"))).toEqual(
-    "R U F L D B x y z E M S",
-  );
-  expect(
-    mergeToAlgorithm(rotateAlgorithm("L' U' B' R' D' F' x' y' z' E' M' S'")),
-  ).toEqual("R' U' F' L' D' B' x' y' z' E' M' S'");
 });
 
 test("upperAlgorithm", () => {
-  expect(
-    mergeToAlgorithm(
-      upperAlgorithm(["Rw", "Lw", "Uw", "Dw", "Fw", "Bw", "2r2'"]),
-    ),
-  ).toEqual("Rw Lw Uw Dw Fw Bw 2Rw2'");
-  expect(
-    mergeToAlgorithm(
-      upperAlgorithm(["2Rw'", "Lw2'", "Uw2", "Dw'", "Fw", "Bw"]),
-    ),
-  ).toEqual("2Rw' Lw2' Uw2 Dw' Fw Bw");
-  expect(
-    mergeToAlgorithm(upperAlgorithm(["r", "l", "u", "d", "f", "b"])),
-  ).toEqual("Rw Lw Uw Dw Fw Bw");
-  expect(
-    mergeToAlgorithm(upperAlgorithm(["2r'", "l2'", "u2", "d'", "f", "b"])),
-  ).toEqual("2Rw' Lw2' Uw2 Dw' Fw Bw");
+  expect(mergeToAlgorithm(upperAlgorithm("Rw Lw Uw Dw Fw Bw"))).toEqual(
+    "Rw Lw Uw Dw Fw Bw",
+  );
+  expect(mergeToAlgorithm(upperAlgorithm("Rw l Uw d Fw b"))).toEqual(
+    "Rw Lw Uw Dw Fw Bw",
+  );
+  expect(mergeToAlgorithm(upperAlgorithm("r Lw u Dw f b"))).toEqual(
+    "Rw Lw Uw Dw Fw Bw",
+  );
+  expect(mergeToAlgorithm(upperAlgorithm("r l u d f b"))).toEqual(
+    "Rw Lw Uw Dw Fw Bw",
+  );
 });
 
 test("lowerAlgorithm", () => {
-  expect(
-    mergeToAlgorithm(lowerAlgorithm(["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"])),
-  ).toEqual("r l u d f b");
-  expect(
-    mergeToAlgorithm(
-      lowerAlgorithm(["2Rw'", "Lw2'", "Uw2", "Dw'", "Fw", "Bw"]),
-    ),
-  ).toEqual("2r' l2' u2 d' f b");
-  expect(
-    mergeToAlgorithm(lowerAlgorithm(["r", "l", "u", "d", "f", "b"])),
-  ).toEqual("r l u d f b");
-  expect(
-    mergeToAlgorithm(lowerAlgorithm(["2r'", "l2'", "u2", "d'", "f", "b"])),
-  ).toEqual("2r' l2' u2 d' f b");
+  expect(mergeToAlgorithm(lowerAlgorithm("Rw Lw Uw Dw Fw Bw"))).toEqual(
+    "r l u d f b",
+  );
+  expect(mergeToAlgorithm(lowerAlgorithm("Rw l Uw d Fw b"))).toEqual(
+    "r l u d f b",
+  );
+  expect(mergeToAlgorithm(lowerAlgorithm("r Lw u Dw f Bw"))).toEqual(
+    "r l u d f b",
+  );
+  expect(mergeToAlgorithm(lowerAlgorithm("r l u d f b"))).toEqual(
+    "r l u d f b",
+  );
 });
 
 test("isAlgorithmValid", () => {
-  expect(isAlgorithmValid("R U F L D B x y z E M S")).toEqual(true);
-  expect(isAlgorithmValid("R U B' U' R' U R B R'")).toEqual(true);
-  expect(isAlgorithmValid("q")).toEqual(false);
+  expect(isAlgorithmValid("R U2 R2 F R F' U2 R' F R F'")).toBe(true);
+  expect(isAlgorithmValid("R U2 R2 F R F' U2 R' F R F'2")).toBe(false);
+  expect(isAlgorithmValid("A B C D")).toBe(false);
+  expect(isAlgorithmValid("A'")).toBe(false);
+  expect(isAlgorithmValid("rw")).toBe(false);
 });

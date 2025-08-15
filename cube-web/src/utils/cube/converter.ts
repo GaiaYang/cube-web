@@ -46,18 +46,19 @@ export interface MoveObject {
   turns: number;
 }
 
-// 核心處理
-const separator = " ";
+/** 分隔符號 */
+const separatorSymbol = " ";
+/** 逆時鐘符號 */
 const primeSymbol = "'";
 
 /** 將公式拆解為字串陣列 */
 export function splitFromAlgorithm(input?: string | null): string[] {
-  return typeof input === "string" ? input.split(separator) : [];
+  return typeof input === "string" ? input.split(separatorSymbol) : [];
 }
 
 /** 將公式合併為字串 */
 export function mergeToAlgorithm(input: Move[]): string {
-  return input.join(separator);
+  return input.join(separatorSymbol);
 }
 
 /** 解析 AlgorithmInput 為字串陣列 */
@@ -107,6 +108,7 @@ export function parseMoveString(input: string): MoveObject | null {
   }
 
   const [, layerCount, code, turns, prime] = match;
+
   return {
     layerCount: layerCount ? Number(layerCount) : null,
     code: code as RotationCode,
@@ -156,7 +158,7 @@ function serializeMove(input: MoveObject) {
       break;
   }
 
-  return `${layerCount || ""}${code}${suffix}` as Move;
+  return (String(layerCount || "") + code + suffix) as Move;
 }
 
 /** 標準化轉動字串 */
@@ -165,26 +167,49 @@ export function standardizeMove(input: string): string | null {
   return parsed && isValidMoveString(input) ? serializeMove(parsed) : null;
 }
 
+/** 泛用的公式轉換器 */
+function transformAlgorithm(
+  input: AlgorithmInput,
+  transformer: (move: MoveObject) => MoveObject | null,
+  reverseOrder = false,
+): Move[] {
+  const moves = reverseOrder
+    ? [...parseAlgorithm(input)].reverse()
+    : parseAlgorithm(input);
+
+  return moves
+    .map((m) => {
+      const parsed = parseMoveString(m);
+
+      if (!parsed) {
+        return null;
+      }
+
+      const transformed = transformer(parsed);
+      return transformed && serializeMove(transformed);
+    })
+    .filter(isNotNil);
+}
+
+/** 反轉單步轉動 */
+function reverseMove(input: MoveObject): MoveObject {
+  const { isPrime, turns, ...rest } = input;
+
+  return {
+    ...rest,
+    // 180° 不改 prime，其餘步驟才反 prime
+    isPrime: turns === 2 ? isPrime : !isPrime,
+    turns,
+  };
+}
+
 /**
  * 反轉公式
  *
  * 轉動步驟順序反轉，這個功能可以讓你將整條轉動步驟以相反的動作倒著做，讓你可以將順著做完的狀態，倒著恢復到還沒轉的原樣。
  * */
 export function reverseAlgorithm(input: AlgorithmInput): Move[] {
-  return parseAlgorithm(input)
-    .reverse()
-    .map((move) => {
-      const parsed = parseMoveString(move);
-
-      if (!parsed) {
-        return null;
-      }
-
-      const { isPrime, ...rest } = parsed;
-
-      return serializeMove({ ...rest, isPrime: !isPrime });
-    })
-    .filter(isNotNil);
+  return transformAlgorithm(input, reverseMove, true);
 }
 
 /** 鏡像映射表（左右鏡像） */
@@ -217,7 +242,7 @@ const MIRROR_MAP: Record<BasicCode, BasicCode> = {
 
 /** 鏡像單步轉動 */
 function mirrorMove(input: MoveObject): MoveObject | null {
-  const { code, isPrime, ...rest } = input;
+  const { code, isPrime, turns, ...rest } = input;
   const baseCode = code.replace(primeSymbol, "") as BasicCode;
   const mirroredCode = MIRROR_MAP[baseCode];
 
@@ -225,10 +250,14 @@ function mirrorMove(input: MoveObject): MoveObject | null {
     return null;
   }
 
+  const mirroredIsPrime =
+    turns === 2 ? isPrime : !isPrime || mirroredCode.endsWith(primeSymbol);
+
   return {
     ...rest,
     code: mirroredCode.replace(primeSymbol, "") as RotationCode,
-    isPrime: !isPrime || mirroredCode.endsWith(primeSymbol),
+    isPrime: mirroredIsPrime,
+    turns,
   };
 }
 
@@ -238,11 +267,7 @@ function mirrorMove(input: MoveObject): MoveObject | null {
  * 轉動步驟左右鏡像，可以幫助你將在右手做的公式直接鏡射到左手的位置，讓同一條公式透過左右手的差異來解決鏡像的兩種狀態。
  * */
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
-  return parseAlgorithm(input)
-    .map(parseMoveString)
-    .map((m) => m && mirrorMove(m))
-    .map((m) => m && serializeMove(m))
-    .filter(isNotNil);
+  return transformAlgorithm(input, mirrorMove);
 }
 
 /** 通用公式映射 */
