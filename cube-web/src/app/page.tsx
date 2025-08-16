@@ -17,7 +17,7 @@ export default function Home() {
         )}
       >
         <h2 className="text-primary text-base/7 font-semibold">
-          專為想邁向進階的玩家設計的教學資源
+          專為想進階的玩家設計的教學資源
         </h2>
         <h1
           className={cn(
@@ -29,7 +29,7 @@ export default function Home() {
           魔術方塊教學網站
         </h1>
         <p className="text-base-content/70 mt-6 text-lg/8">
-          針對已能還原三階魔術方塊的你，提供系統化的速解教學與公式查詢，從基礎觀念到進階技巧，全面提升還原效率與理解力。
+          分享作者邁向速解進階的教學與心法，提供系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link

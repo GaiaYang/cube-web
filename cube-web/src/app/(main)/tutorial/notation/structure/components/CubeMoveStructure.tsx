@@ -160,7 +160,7 @@ function Core() {
       >
         {rules.map(({ id, color, backgroundColor, outline }, index: number) => {
           const isActive = id === activeId;
-          const isHover = id === state.hoverId;
+          const isHover = isActive || id === state.hoverId;
 
           const char = displayCode[index];
           let suffix = "";
@@ -195,7 +195,7 @@ function Core() {
                 "cursor-pointer select-none",
                 "transition-colors duration-200",
                 "border-base-content/5 rounded border px-2",
-                isActive || isHover ? [backgroundColor, "text-white"] : color,
+                isHover ? [backgroundColor, "text-white"] : color,
                 isActive && isLocked
                   ? ["outline-2 outline-offset-2", outline]
                   : null,
@@ -212,7 +212,7 @@ function Core() {
         {rules.map(
           ({ id, color, backgroundColor, outline, label, description }) => {
             const isActive = id === activeId;
-            const isHover = id === state.hoverId;
+            const isHover = isActive || id === state.hoverId;
 
             return (
               <div
@@ -221,7 +221,7 @@ function Core() {
                   "cursor-pointer select-none",
                   "transition-colors duration-200",
                   "card card-sm bg-base-100 border-base-content/5 border",
-                  isActive || isHover ? [backgroundColor, "text-white"] : null,
+                  isHover ? [backgroundColor, "text-white"] : null,
                   isActive && isLocked
                     ? ["outline-2 outline-offset-2", outline]
                     : null,
@@ -231,7 +231,7 @@ function Core() {
                 <div className="card-body">
                   <dt
                     className={cn("card-title", {
-                      [color]: !(isActive || isHover),
+                      [color]: !isHover,
                     })}
                   >
                     {label}
@@ -244,8 +244,7 @@ function Core() {
         )}
       </dl>
       {/* 底部文字說明 */}
-      <p>
-        上述案例的意思是轉動{" "}
+      <div className="flex justify-center">
         {rules.map(({ id, color, backgroundColor, outline }, index) => {
           const char = displayCode[index];
 
@@ -254,7 +253,7 @@ function Core() {
           }
 
           const isActive = id === activeId;
-          const isHover = id === state.hoverId;
+          const isHover = isActive || id === state.hoverId;
 
           let suffix = "";
 
@@ -279,8 +278,8 @@ function Core() {
               className={cn(
                 "mx-1 cursor-pointer select-none",
                 "transition-colors duration-200",
-                "badge font-mono",
-                isActive || isHover ? [backgroundColor, "text-white"] : color,
+                "badge badge-xl font-mono",
+                isHover ? [backgroundColor, "text-white"] : color,
                 isActive && isLocked
                   ? ["outline outline-offset-1", outline]
                   : null,
@@ -291,7 +290,7 @@ function Core() {
             </span>
           );
         })}
-      </p>
+      </div>
       <blockquote>
         提示：
         <br />

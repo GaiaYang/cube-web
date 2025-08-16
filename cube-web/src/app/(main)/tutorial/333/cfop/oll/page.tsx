@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "OLL",
   description:
-    "OLL（Orientation of the Last Layer）是CFOP的第三個步驟，目標是將頂層方塊朝向正確方向。",
+    "OLL（Orientation of the Last Layer）是CFOP的第三步，目標是將頂層方塊朝向正確方向。",
   alternates: { canonical: "/tutorial/333/cfop/oll" },
 };
 
@@ -15,29 +15,26 @@ export default function Page() {
   return (
     <Article>
       <h1>OLL</h1>
-      <p>OLL是CFOP的第三個步驟，目標是將頂層方塊朝向正確方向。</p>
       <p>
-        {[
-          "這部分有57條公式",
-          "也是整個CFOP中公式佔比最多的步驟",
-          "不過我們可以透過分類來記憶",
-          "因為作者本人是左右開弓",
-          "所以這裡會用到大量的鏡像公式",
-          "會挑選方便好做的公式直接鏡像到另一隻手。",
-        ].join("，")}
+        OLL（Orientation of the Last Layer）是CFOP的第三個步驟，
+        目標是將頂層方塊朝向正確方向。
+      </p>
+      <p>
+        OLL有57種公式，是CFOP中公式數量最多的步驟，不過我們可以透過分類來方便記憶。
+        <br />
+        由於作者偏好左右手操作，因此本頁會用到大量鏡像公式，並挑選易操作的公式直接鏡像到另一隻手。
       </p>
       <h2>十字</h2>
-      <p>這裡為兩段式OLL要先學的公式，十字的情況復原簡單且順手。</p>
+      <p>對於兩段式OLL，十字的情況是最先學習的公式，復原簡單且順手。</p>
       <blockquote>
         衍生出進階公式子集
         <Link href="/algs/333/zbll" target="_blank">
           ZBLL
         </Link>
         ，不過只有極少數人使用，一般玩家沒必要學。
-      </blockquote>
-      <blockquote>
-        如果你是使用<Link href="/tutorial/333/zz">ZZ Method</Link>
-        則最後一層必定為十字。
+        <br />
+        如果你使用<Link href="/tutorial/333/zz">ZZ Method</Link>
+        ，則最後一層必定形成十字。
       </blockquote>
     </Article>
   );

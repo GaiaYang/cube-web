@@ -12,8 +12,9 @@ import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
 import AlgorithmsTable from "./components/AlgorithmsTable";
 
 export const metadata: Metadata = {
-  title: "兩段式OLL",
-  description: "將OLL分成兩個階段復原，大幅簡化公式量以及判斷。",
+  title: "兩段式 OLL",
+  description:
+    "將 OLL 分為兩個階段復原，顯著減少公式數量與判斷難度，適合初學者入門。",
   alternates: { canonical: "/tutorial/333/cfop/oll/2look" },
 };
 
@@ -27,19 +28,23 @@ const patternSize = 128;
 export default function Page() {
   return (
     <Article>
-      <h1>兩段式OLL</h1>
-      <p>將OLL分成兩個階段復原，大幅簡化公式量以及判斷。</p>
+      <h1>兩段式 OLL</h1>
+      <p>
+        兩段式 OLL
+        將頂面復原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。
+      </p>
       <h2>步驟說明</h2>
       <ol>
-        <li>將對應的邊塊翻上來讓頂面形成十字。</li>
-        <li>用十字型OLL公式完成頂面。</li>
+        <li>先將對應的邊塊翻上來，使頂面形成十字（共 3 條公式）。</li>
+        <li>接著使用十字型 OLL 公式完成頂面復原（共 7 條公式）。</li>
       </ol>
       <p>
-        這邊利用特定類型的OLL處理頂面情況，OLL有些是通過其他OLL疊加上來的，
-        只需要學習10個公式，相較完整版OLL的57種案例，大幅度濃縮記憶份量跟判斷難度。
+        透過針對特定類型的 OLL 處理頂面情況，只需要學習約 10 條公式。
+        <br />
+        相比完整版 OLL 的 57 種案例，能大幅減輕記憶負擔與判斷難度。
       </p>
       <blockquote>
-        以下的公式都是現有OLL去執行，所以學會後要銜接到全OLL就不用重新記一次。
+        這些公式皆為現有 OLL 的應用，學會後若要銜接完整 PLL，不需重新記憶。
       </blockquote>
       <h2>運氣很好</h2>
       <LastLayerDiagram

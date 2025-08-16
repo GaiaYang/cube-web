@@ -1,5 +1,21 @@
 import React from "react";
+import { type Metadata } from "next";
+
+import Article from "@/components/Article";
+import DrawerMenuOverview from "@/components/DrawerMenuOverview";
+
+export const metadata: Metadata = {
+  title: "工具總覽",
+  description: "本站提供各項實用工具，例如鏡像公式、反轉公式等實用工具",
+  alternates: { canonical: "/tutorial" },
+};
 
 export default function Page() {
-  return <div>Page</div>;
+  return (
+    <Article>
+      <h1>工具總覽</h1>
+      <p>本站提供各項實用工具，例如鏡像公式、反轉公式等實用工具</p>
+      <DrawerMenuOverview />
+    </Article>
+  );
 }

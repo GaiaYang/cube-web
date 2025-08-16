@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | Voidling Cube",
   },
   description:
-    "針對已能還原三階魔術方塊的玩家，分享作者邁向速解進階的教學與心法，提供系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。",
+    "分享作者邁向速解進階的教學與心法，提供系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
 };

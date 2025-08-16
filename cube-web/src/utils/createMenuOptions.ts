@@ -16,7 +16,7 @@ export default function createMenuOptions(
 function callbackfn(item: MenuOptionRaw) {
   return {
     ...item,
-    id: nanoid(),
+    id: item.id || nanoid(),
     submenu: item.submenu ? createMenuOptions(item.submenu) : undefined,
   };
 }

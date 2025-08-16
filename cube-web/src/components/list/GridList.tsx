@@ -6,7 +6,7 @@ import getItemKey from "@/utils/list/getItemKey";
 
 export interface GridListProps<ItemT>
   extends ListProps<ItemT>,
-    React.OlHTMLAttributes<HTMLOListElement> {}
+    React.HTMLAttributes<HTMLOListElement> {}
 
 export default function GridList<ItemT extends object>({
   data,

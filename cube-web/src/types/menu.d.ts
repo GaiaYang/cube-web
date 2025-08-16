@@ -1,4 +1,5 @@
 export interface MenuOptionBase {
+  id?: string;
   /** 標籤標題 */
   title?: string;
   /** 連結網址 */

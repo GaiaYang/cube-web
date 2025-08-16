@@ -2,21 +2,26 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
+import ExternalLink from "@/components/ExternalLink";
 
 export const metadata: Metadata = {
-  title: "ZBLS公式列表",
+  title: "ZBLS 公式列表",
   description:
-    "ZBLS（Zborowski-Bruchem Last Slot）是 F2L 的進階公式，完成最後一組 F2L 的時候必定上頂面為十字。",
+    "ZBLS（Zborowski-Bruchem Last Slot）是 F2L 的公式子集，用於完成最後一組 F2L 時保證頂面形成十字，常與 ZBLL 搭配使用。",
   alternates: { canonical: "/algs/333/zbls" },
 };
 
 export default function Page() {
   return (
     <Article>
-      <h1>ZBLS公式列表</h1>
+      <h1>ZBLS 公式列表</h1>
       <p>
-        完成最後一組F2L的時候可以讓頂面必定為十字，通常會搭配ZBLL，共有305種情況。
+        ZBLS 是 F2L 的公式子集，用於完成最後一組 F2L 時，使頂面必定形成十字，共
+        305 種情況。
       </p>
+      <blockquote>
+        通常會搭配 <ExternalLink href="/algs/333/zbll">ZBLL</ExternalLink> 使用
+      </blockquote>
     </Article>
   );
 }

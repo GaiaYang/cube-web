@@ -9,7 +9,7 @@ import Article from "@/components/Article";
 export const metadata: Metadata = {
   title: "CFOP",
   description:
-    "CFOP是最多人使用速解方法，其變體解法跟資源十分充足，適合入門速解的方法。",
+    "CFOP 是最廣泛使用的三階魔術方塊速解方法，變體眾多、資源豐富，非常適合入門學習速解技巧。",
   alternates: { canonical: "/tutorial/333/cfop" },
 };
 
@@ -18,7 +18,8 @@ export default function Page() {
     <Article>
       <h1>CFOP</h1>
       <p>
-        CFOP是最多人使用速解方法，其變體解法跟資源十分充足，適合入門速解的方法。
+        CFOP 是目前最多人使用的三階魔術方塊速解方法，
+        其變體眾多、資源豐富，非常適合初學者入門速解。
       </p>
       <ol className="list not-prose">{features.map(_renderItem)}</ol>
     </Article>
@@ -80,12 +81,13 @@ const stepMap: Record<
 const features: Feature[] = [
   {
     title: "依照復原順序學習",
-    description: "如果你有天份的話直接照順序學吧。",
+    description: "如果你對方塊已經有基礎，可以直接按照順序學習CFOP各步驟。",
     options: [stepMap.cross, stepMap.f2l, stepMap.oll, stepMap.pll],
   },
   {
-    title: "短時間內加快速度",
-    description: "這裡把能大幅度減少秒數跟步數且易學的階段放在前面。",
+    title: "短時間內提升速度",
+    description:
+      "將能有效減少步數與時間且易學的階段放在前面，幫助你快速提升解法效率。",
     options: [
       stepMap.cross,
       stepMap["2lookOll"],
@@ -98,7 +100,7 @@ const features: Feature[] = [
   {
     title: "個人建議",
     description:
-      "「得F2L得天下」，個人建議一開始就把前兩層學好，你的復原大部分時間都在F2L。",
+      "「得 F2L 得天下」，建議一開始就把前兩層（F2L）練熟，因為復原過程的大部分時間都在F2L。",
     options: [
       stepMap.cross,
       stepMap.f2l,
