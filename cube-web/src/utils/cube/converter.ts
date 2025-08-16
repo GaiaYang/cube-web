@@ -122,79 +122,47 @@ export const SORTED_BASIC_CODES = [...BASIC_CODES].sort(
   (a, b) => b.length - a.length,
 );
 
-/** 鏡像映射表 */
-export const MIRROR_MAP: Record<BasicCode, BasicCode> = {
-  x: "x",
-  y: "y",
-  z: "z",
-  R: "L",
-  L: "R",
-  U: "U",
-  D: "D",
-  F: "F",
-  B: "B",
-  M: "M",
-  S: "S",
-  E: "E",
-  Rw: "Lw",
-  Lw: "Rw",
-  Uw: "Uw",
-  Dw: "Dw",
-  Fw: "Fw",
-  Bw: "Bw",
-  r: "l",
-  l: "r",
-  u: "u",
-  d: "d",
-  f: "f",
-  b: "b",
+/** 鏡像與旋轉映射表 */
+export const CODE_MAP: Record<
+  BasicCode,
+  { mirror: BasicCode; rotate: RotationCode }
+> = {
+  x: { mirror: "x", rotate: "x" },
+  y: { mirror: "y", rotate: "y" },
+  z: { mirror: "z", rotate: "z" },
+  R: { mirror: "L", rotate: "L" },
+  L: { mirror: "R", rotate: "R" },
+  U: { mirror: "U", rotate: "U" },
+  D: { mirror: "D", rotate: "D" },
+  F: { mirror: "F", rotate: "B" },
+  B: { mirror: "B", rotate: "F" },
+  M: { mirror: "M", rotate: "M" },
+  S: { mirror: "S", rotate: "S" },
+  E: { mirror: "E", rotate: "E" },
+  Rw: { mirror: "Lw", rotate: "Lw" },
+  Lw: { mirror: "Rw", rotate: "Rw" },
+  Uw: { mirror: "Uw", rotate: "Uw" },
+  Dw: { mirror: "Dw", rotate: "Dw" },
+  Fw: { mirror: "Fw", rotate: "Bw" },
+  Bw: { mirror: "Bw", rotate: "Fw" },
+  r: { mirror: "l", rotate: "l" },
+  l: { mirror: "r", rotate: "r" },
+  u: { mirror: "u", rotate: "u" },
+  d: { mirror: "d", rotate: "d" },
+  f: { mirror: "f", rotate: "b" },
+  b: { mirror: "b", rotate: "f" },
 };
 
-/** 旋轉映射表 */
-export const ROTATE_MAP: Record<BasicCode, RotationCode> = {
-  x: "x",
-  y: "y",
-  z: "z",
-  R: "L",
-  L: "R",
-  U: "U",
-  D: "D",
-  F: "B",
-  B: "F",
-  M: "M",
-  S: "S",
-  E: "E",
-  Rw: "Lw",
-  Lw: "Rw",
-  Uw: "Uw",
-  Dw: "Dw",
-  Fw: "Bw",
-  Bw: "Fw",
-  r: "l",
-  l: "r",
-  u: "u",
-  d: "d",
-  f: "b",
-  b: "f",
-};
-
-/** 小寫映射大寫 */
-export const LOWER_TO_UPPER_MAP: Record<LowerLayerCode, UpperLayerCode> = {
-  r: "Rw",
-  l: "Lw",
-  u: "Uw",
-  d: "Dw",
-  f: "Fw",
-  b: "Bw",
-};
-/** 大寫映射小寫 */
-export const UPPER_TO_LOWER_MAP: Record<UpperLayerCode, LowerLayerCode> = {
-  Rw: "r",
-  Lw: "l",
-  Uw: "u",
-  Dw: "d",
-  Fw: "f",
-  Bw: "b",
+/** 大小寫映射表 */
+export const CASE_MAP = {
+  toUpper: { r: "Rw", l: "Lw", u: "Uw", d: "Dw", f: "Fw", b: "Bw" } as Record<
+    LowerLayerCode,
+    UpperLayerCode
+  >,
+  toLower: { Rw: "r", Lw: "l", Uw: "u", Dw: "d", Fw: "f", Bw: "b" } as Record<
+    UpperLayerCode,
+    LowerLayerCode
+  >,
 };
 
 /* ---- 核心工具函式 ---- */
@@ -229,14 +197,26 @@ function isUpperLayerCode(code: BasicCode): code is UpperLayerCode {
 }
 
 /** 正規化 MoveInput 預設值 */
-function convertToMoveObject(input: MoveInput): MoveObject | null {
-  const code = input.code as BasicCode;
-  if (!code || !BASIC_CODES.includes(code)) return null;
+function convertToMoveObject(input?: MoveInput | null): MoveObject | null {
+  if (!input) return null;
+
+  const { layerCount, code, isPrime, turns } = input;
+
+  if (!code || !BASIC_CODES.includes(code as BasicCode)) return null;
+
+  // 轉動層數不得負數
+  if (
+    (typeof layerCount === "number" && layerCount < 0) ||
+    (typeof turns === "number" && turns < 0)
+  ) {
+    return null;
+  }
+
   return {
-    layerCount: input.layerCount ?? 0,
-    code,
-    isPrime: input.isPrime ?? false,
-    turns: input.turns ?? 1,
+    layerCount: layerCount ?? 0,
+    code: code as BasicCode,
+    isPrime: isPrime ?? false,
+    turns: turns ?? 1,
   };
 }
 
@@ -308,10 +288,6 @@ export function formatMoveString(input: MoveInput): Move | null {
   if (!normalized) return null;
 
   const { layerCount, code, turns, isPrime } = normalized;
-  // 轉動層數不得負數
-  if (layerCount < 0 || turns < 0) {
-    return null;
-  }
 
   const finalTurns = normalizeTurns(turns, isPrime);
   if (finalTurns === 0) return null;
@@ -379,7 +355,7 @@ export function reverseAlgorithm(input: AlgorithmInput): Move[] {
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
   return mapMoves(input, (m) => ({
     ...m,
-    code: MIRROR_MAP[m.code],
+    code: CODE_MAP[m.code].mirror,
     isPrime: !m.isPrime,
   }));
 }
@@ -388,7 +364,7 @@ export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
   return mapMoves(input, (m) => ({
     ...m,
-    code: (ROTATE_MAP[m.code] ?? m.code) as BasicCode,
+    code: CODE_MAP[m.code].rotate as BasicCode,
     isPrime: adjustPrimeForAxis(m.code, m.isPrime),
   }));
 }
@@ -397,7 +373,7 @@ export function rotateAlgorithm(input: AlgorithmInput): Move[] {
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
   return mapMoves(input, (m) => ({
     ...m,
-    code: isLowerLayerCode(m.code) ? LOWER_TO_UPPER_MAP[m.code] : m.code,
+    code: isLowerLayerCode(m.code) ? CASE_MAP.toUpper[m.code] : m.code,
   }));
 }
 
@@ -405,6 +381,6 @@ export function upperAlgorithm(input: AlgorithmInput): Move[] {
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
   return mapMoves(input, (m) => ({
     ...m,
-    code: isUpperLayerCode(m.code) ? UPPER_TO_LOWER_MAP[m.code] : m.code,
+    code: isUpperLayerCode(m.code) ? CASE_MAP.toLower[m.code] : m.code,
   }));
 }

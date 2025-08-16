@@ -22,10 +22,8 @@ import {
   MULTI_LAYER_CODES,
   BASIC_CODES,
   SORTED_BASIC_CODES,
-  MIRROR_MAP,
-  ROTATE_MAP,
-  LOWER_TO_UPPER_MAP,
-  UPPER_TO_LOWER_MAP,
+  CODE_MAP,
+  CASE_MAP,
 } from "./converter";
 
 describe("Cube Algorithm Utilities", () => {
@@ -271,79 +269,51 @@ describe("Cube Algorithm Utilities", () => {
       );
 
       // Test all MIRROR_MAP entries
-      expect(MIRROR_MAP).toEqual({
-        x: "x",
-        y: "y",
-        z: "z",
-        R: "L",
-        L: "R",
-        U: "U",
-        D: "D",
-        F: "F",
-        B: "B",
-        M: "M",
-        S: "S",
-        E: "E",
-        Rw: "Lw",
-        Lw: "Rw",
-        Uw: "Uw",
-        Dw: "Dw",
-        Fw: "Fw",
-        Bw: "Bw",
-        r: "l",
-        l: "r",
-        u: "u",
-        d: "d",
-        f: "f",
-        b: "b",
-      });
-
-      // Test all ROTATE_MAP entries
-      expect(ROTATE_MAP).toEqual({
-        x: "x",
-        y: "y",
-        z: "z",
-        R: "L",
-        L: "R",
-        U: "U",
-        D: "D",
-        F: "B",
-        B: "F",
-        M: "M",
-        S: "S",
-        E: "E",
-        Rw: "Lw",
-        Lw: "Rw",
-        Uw: "Uw",
-        Dw: "Dw",
-        Fw: "Bw",
-        Bw: "Fw",
-        r: "l",
-        l: "r",
-        u: "u",
-        d: "d",
-        f: "b",
-        b: "f",
+      expect(CODE_MAP).toEqual({
+        x: { mirror: "x", rotate: "x" },
+        y: { mirror: "y", rotate: "y" },
+        z: { mirror: "z", rotate: "z" },
+        R: { mirror: "L", rotate: "L" },
+        L: { mirror: "R", rotate: "R" },
+        U: { mirror: "U", rotate: "U" },
+        D: { mirror: "D", rotate: "D" },
+        F: { mirror: "F", rotate: "B" },
+        B: { mirror: "B", rotate: "F" },
+        M: { mirror: "M", rotate: "M" },
+        S: { mirror: "S", rotate: "S" },
+        E: { mirror: "E", rotate: "E" },
+        Rw: { mirror: "Lw", rotate: "Lw" },
+        Lw: { mirror: "Rw", rotate: "Rw" },
+        Uw: { mirror: "Uw", rotate: "Uw" },
+        Dw: { mirror: "Dw", rotate: "Dw" },
+        Fw: { mirror: "Fw", rotate: "Bw" },
+        Bw: { mirror: "Bw", rotate: "Fw" },
+        r: { mirror: "l", rotate: "l" },
+        l: { mirror: "r", rotate: "r" },
+        u: { mirror: "u", rotate: "u" },
+        d: { mirror: "d", rotate: "d" },
+        f: { mirror: "f", rotate: "b" },
+        b: { mirror: "b", rotate: "f" },
       });
 
       // Test all LOWER_TO_UPPER_MAP entries
-      expect(LOWER_TO_UPPER_MAP).toEqual({
-        r: "Rw",
-        l: "Lw",
-        u: "Uw",
-        d: "Dw",
-        f: "Fw",
-        b: "Bw",
-      });
-
-      // Test all UPPER_TO_LOWER_MAP entries
-      expect(UPPER_TO_LOWER_MAP).toEqual({
-        Rw: "r",
-        Lw: "l",
-        Uw: "u",
-        Dw: "d",
-        Fw: "f",
-        Bw: "b",
+      expect(CASE_MAP).toEqual({
+        toUpper: {
+          r: "Rw",
+          l: "Lw",
+          u: "Uw",
+          d: "Dw",
+          f: "Fw",
+          b: "Bw",
+        },
+        toLower: {
+          Rw: "r",
+          Lw: "l",
+          Uw: "u",
+          Dw: "d",
+          Fw: "f",
+          Bw: "b",
+        },
       });
     });
   });
