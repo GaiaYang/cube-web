@@ -1,4 +1,4 @@
-import type { Option } from "@/options/types";
+import type { Option } from "./types";
 
 /**
  * 根據 enum 與 label 對照表產生 labels 與 options

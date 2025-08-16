@@ -37,7 +37,7 @@ function _renderItem(item: Feature, index: number) {
       <div className="flex flex-col gap-2">
         <div className="text-base-content text-base/7">
           <h2 className="font-semibold">{item.title}</h2>
-          <p className="opacity-70">{item.description}</p>
+          <p className="text-base-content/70">{item.description}</p>
         </div>
         <div className="breadcrumbs text-base">
           <ol>{item.options.map(_renderLink)}</ol>
