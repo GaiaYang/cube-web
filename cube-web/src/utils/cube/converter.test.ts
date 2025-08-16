@@ -39,10 +39,12 @@ describe("Cube Algorithm Utilities", () => {
       expect(isValidMove("3Rw")).toBe(true);
       expect(isValidMove("X")).toBe(false);
       expect(isValidMove("")).toBe(false);
-      expect(isValidMove("2R")).toBe(false);
-      expect(isValidMove("R2'2")).toBe(false);
-      expect(isValidMove("Rw2''")).toBe(false);
-      expect(isValidMove("2Rw2'2")).toBe(false);
+      expect(isValidMove("2R")).toBe(false); // Non-multi-layer with layer count
+      expect(isValidMove("R2'2")).toBe(false); // Invalid suffix
+      expect(isValidMove("Rw2''")).toBe(false); // Multiple primes
+      expect(isValidMove("2Rw2'2")).toBe(false); // Invalid suffix
+      expect(isValidMove("2X")).toBe(false); // Invalid code with layer count
+      expect(isValidMove("R2''")).toBe(false); // Malformed suffix
     });
   });
 
@@ -63,6 +65,7 @@ describe("Cube Algorithm Utilities", () => {
         "U",
         "R'",
       ]);
+      expect(splitAlgorithmToMoves(["X" as Move, "Y" as Move])).toEqual([]);
     });
 
     test("should handle invalid inputs", () => {
@@ -81,6 +84,7 @@ describe("Cube Algorithm Utilities", () => {
 
     test("should handle invalid moves", () => {
       expect(mergeMovesToAlgorithm(["R", "X" as Move, "U"])).toBe("R U");
+      expect(mergeMovesToAlgorithm(["X" as Move, "Y" as Move])).toBe("");
     });
 
     test("should handle empty or invalid input", () => {
@@ -100,14 +104,24 @@ describe("Cube Algorithm Utilities", () => {
         "M",
       );
       expect(formatMoveString({ code: "x", turns: 5 })).toBe("x");
-      expect(formatMoveString({ code: "Rw", layerCount: 3, turns: -1 })).toBe(
-        "3Rw'",
+      expect(
+        formatMoveString({ code: "Rw", layerCount: 3, turns: -1 }),
+      ).toBeNull();
+      expect(
+        formatMoveString({ code: "S", turns: -5, isPrime: true }),
+      ).toBeNull();
+      expect(formatMoveString({ code: "R", turns: 8 })).toBeNull(); // 8 % 4 = 0, but turns=2 after normalization
+      expect(formatMoveString({ code: "r", layerCount: 0, turns: 1 })).toBe(
+        "r",
       );
     });
 
     test("should handle zero turns", () => {
       expect(formatMoveString({ code: "R", turns: 0 })).toBeNull();
       expect(formatMoveString({ code: "R", turns: 4 })).toBeNull();
+      expect(
+        formatMoveString({ code: "Rw", layerCount: 2, turns: 0 }),
+      ).toBeNull();
     });
 
     test("should handle invalid input", () => {
@@ -115,6 +129,7 @@ describe("Cube Algorithm Utilities", () => {
       expect(formatMoveString({ code: "" })).toBeNull();
       expect(formatMoveString({ code: null })).toBeNull();
       expect(formatMoveString({})).toBeNull();
+      expect(formatMoveString({ code: "R", layerCount: -1 })).toBeNull(); // Invalid layer count
     });
   });
 
@@ -124,8 +139,9 @@ describe("Cube Algorithm Utilities", () => {
       expect(standardizeMoveString("2Rw3")).toBe("2Rw'");
       expect(standardizeMoveString("r2")).toBe("r2");
       expect(standardizeMoveString("M3'")).toBe("M");
-      expect(standardizeMoveString("3Rw4")).toBeNull();
       expect(standardizeMoveString("x5")).toBe("x");
+      expect(standardizeMoveString("3Rw8")).toBeNull(); // Large turns normalized
+      expect(standardizeMoveString("S-1")).toBeNull(); // Negative turns
     });
 
     test("should handle invalid move strings", () => {
@@ -133,6 +149,8 @@ describe("Cube Algorithm Utilities", () => {
       expect(standardizeMoveString("")).toBeNull();
       expect(standardizeMoveString("2R")).toBeNull();
       expect(standardizeMoveString("Rw2'2")).toBeNull();
+      expect(standardizeMoveString("R2''")).toBeNull();
+      expect(standardizeMoveString("2X")).toBeNull();
     });
   });
 
@@ -147,6 +165,7 @@ describe("Cube Algorithm Utilities", () => {
       expect(isAlgorithmValid(null)).toBe(false);
       expect(isAlgorithmValid(undefined)).toBe(false);
       expect(isAlgorithmValid("M S2 3Rw'")).toBe(true);
+      expect(isAlgorithmValid(["X" as Move])).toBe(false);
     });
   });
 
@@ -155,10 +174,13 @@ describe("Cube Algorithm Utilities", () => {
       expect(reverseAlgorithm("R U R'")).toEqual(["R", "U'", "R'"]);
       expect(reverseAlgorithm(["R", "U", "R'"])).toEqual(["R", "U'", "R'"]);
       expect(reverseAlgorithm("M S2 3Rw'")).toEqual(["3Rw", "S2'", "M'"]);
+      expect(reverseAlgorithm("")).toEqual([]);
+      expect(reverseAlgorithm([])).toEqual([]);
     });
 
     test("should handle invalid moves", () => {
       expect(reverseAlgorithm("R X U")).toEqual(["U'", "R'"]);
+      expect(reverseAlgorithm(["X" as Move])).toEqual([]);
     });
   });
 
@@ -167,10 +189,12 @@ describe("Cube Algorithm Utilities", () => {
       expect(mirrorAlgorithm("R U L")).toEqual(["L'", "U'", "R'"]);
       expect(mirrorAlgorithm(["R", "U", "L"])).toEqual(["L'", "U'", "R'"]);
       expect(mirrorAlgorithm("r Lw M")).toEqual(["l'", "Rw'", "M'"]);
+      expect(mirrorAlgorithm("x y z")).toEqual(["x'", "y'", "z'"]);
     });
 
     test("should handle invalid moves", () => {
       expect(mirrorAlgorithm("R X L")).toEqual(["L'", "R'"]);
+      expect(mirrorAlgorithm(["X" as Move])).toEqual([]);
     });
   });
 
@@ -180,10 +204,12 @@ describe("Cube Algorithm Utilities", () => {
       expect(rotateAlgorithm(["R", "U", "F"])).toEqual(["L", "U", "B"]);
       expect(rotateAlgorithm("M S E")).toEqual(["M'", "S'", "E"]);
       expect(rotateAlgorithm("r Rw x")).toEqual(["l", "Lw", "x"]);
+      expect(rotateAlgorithm("S2'")).toEqual(["S2"]);
     });
 
     test("should handle invalid moves", () => {
       expect(rotateAlgorithm("R X F")).toEqual(["L", "B"]);
+      expect(rotateAlgorithm(["X" as Move])).toEqual([]);
     });
   });
 
@@ -198,6 +224,8 @@ describe("Cube Algorithm Utilities", () => {
       expect(upperAlgorithm("R M x")).toEqual(["R", "M", "x"]);
       expect(upperAlgorithm("M S E")).toEqual(["M", "S", "E"]);
       expect(upperAlgorithm("x y z")).toEqual(["x", "y", "z"]);
+      expect(upperAlgorithm("")).toEqual([]);
+      expect(upperAlgorithm([])).toEqual([]);
     });
   });
 
@@ -212,6 +240,8 @@ describe("Cube Algorithm Utilities", () => {
       expect(lowerAlgorithm("R M x")).toEqual(["R", "M", "x"]);
       expect(lowerAlgorithm("M S E")).toEqual(["M", "S", "E"]);
       expect(lowerAlgorithm("x y z")).toEqual(["x", "y", "z"]);
+      expect(lowerAlgorithm("")).toEqual([]);
+      expect(lowerAlgorithm([])).toEqual([]);
     });
   });
 

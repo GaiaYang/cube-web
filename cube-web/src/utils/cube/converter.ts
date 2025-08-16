@@ -308,6 +308,11 @@ export function formatMoveString(input: MoveInput): Move | null {
   if (!normalized) return null;
 
   const { layerCount, code, turns, isPrime } = normalized;
+  // 轉動層數不得負數
+  if (layerCount < 0 || turns < 0) {
+    return null;
+  }
+
   const finalTurns = normalizeTurns(turns, isPrime);
   if (finalTurns === 0) return null;
 
