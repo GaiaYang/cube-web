@@ -6,7 +6,6 @@ import type { MenuOption } from "@/types/menu";
 export type MenuNodeProps = MenuOption;
 
 export default function MenuNode({
-  id,
   title,
   href,
   submenu,

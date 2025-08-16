@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { BASIC_CODES, PRIME_CODES } from "@/utils/cube/converter";
+import { BASIC_CODES } from "@/utils/cube/converter";
 
 /** 公式單一步驟輸入 */
 export const schema = z.object({
   layerCount: z.number().int().nullable(),
-  code: z.union([z.enum([...BASIC_CODES, ...PRIME_CODES]), z.literal("")]),
+  code: z.union([z.enum(BASIC_CODES), z.literal("")]),
   isPrime: z.boolean(),
   turns: z.number().int(),
 });

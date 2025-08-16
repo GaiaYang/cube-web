@@ -5,7 +5,7 @@ import { CornerDownLeftIcon, RotateCcwIcon } from "lucide-react";
 
 import cn from "@/utils/cn";
 import {
-  mergeToAlgorithm,
+  mergeMovesToAlgorithm,
   type AlgorithmInput,
   type Move,
 } from "@/utils/cube/converter";
@@ -35,7 +35,7 @@ export default function FormContainer({ onConvert }: FormContainerProps) {
   const [algorithm, setAlgorithm] = useState("");
 
   const _onSubmit: SubmitHandler<Schema> = (data) => {
-    setAlgorithm(mergeToAlgorithm(onConvert(data.algorithm)));
+    setAlgorithm(mergeMovesToAlgorithm(onConvert(data.algorithm)));
   };
 
   const _onReset: React.FormEventHandler<HTMLFormElement> = () => {

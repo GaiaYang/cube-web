@@ -5,7 +5,7 @@ import { produce } from "immer";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 
 import cn from "@/utils/cn";
-import { normalizeMoveInput } from "@/utils/cube/converter";
+import { convertToMoveObject } from "@/utils/cube/converter";
 import {
   defaultValues,
   resolver,
@@ -140,7 +140,7 @@ function Core() {
   }, []);
 
   const displayCode = useMemo(() => {
-    const normalize = normalizeMoveInput({ layerCount, code, turns, isPrime });
+    const normalize = convertToMoveObject({ layerCount, code, turns, isPrime });
     if (normalize) {
       return [layerCount!, code, turns, isPrime] as const;
     }
