@@ -297,42 +297,40 @@ export function isAlgorithmValid(input: AlgorithmInput): boolean {
   return array.every(isValidMove);
 }
 
+//
+
 /** 泛用公式轉換器 */
 function transformAlgorithmSteps(
   input: AlgorithmInput,
   transformer: (move: MoveObject) => MoveObject | null,
   reverseOrder = false,
 ): Move[] {
-  const moves = reverseOrder
-    ? [...splitAlgorithmToMoves(input)].reverse()
-    : splitAlgorithmToMoves(input);
+  const moves = splitAlgorithmToMoves(input);
+  if (reverseOrder) moves.reverse();
 
-  return moves
-    .map((m) => {
-      const parsed = parseMove(m);
+  const result: Move[] = [];
+  for (const move of moves) {
+    const parsed = parseMove(move);
+    if (!parsed) continue;
 
-      if (!parsed) {
-        return null;
-      }
+    const transformed = transformer(parsed);
+    if (!transformed) continue;
 
-      const transformed = transformer(parsed);
+    const moveStr = formatMoveString(transformed);
+    if (moveStr) result.push(moveStr);
+  }
 
-      return transformed && formatMoveString(transformed);
-    })
-    .filter(isNotNil);
+  return result;
 }
 
 /** 反轉單步轉動 */
 function reverseMove(input: MoveInput): MoveObject | null {
   const normalized = convertToMoveObject(input);
   if (!normalized) return null;
-  const { isPrime, turns, ...rest } = normalized;
-  return { ...rest, isPrime: !isPrime, turns };
-}
-
-/** 反轉公式 */
-export function reverseAlgorithm(input: AlgorithmInput): Move[] {
-  return transformAlgorithmSteps(input, reverseMove, true);
+  return {
+    ...normalized,
+    isPrime: !normalized.isPrime,
+  };
 }
 
 /** 鏡像映射表 */
@@ -363,19 +361,23 @@ const MIRROR_MAP: Record<BasicCode, BasicCode> = {
   b: "b",
 };
 
+/** 反轉公式 */
+export function reverseAlgorithm(input: AlgorithmInput): Move[] {
+  return transformAlgorithmSteps(input, reverseMove, true);
+}
+
 /** 鏡像單步轉動 */
 function mirrorMove(input: MoveInput): MoveObject | null {
   const normalized = convertToMoveObject(input);
   if (!normalized) return null;
-  const { code, isPrime, turns, ...rest } = normalized;
-  const baseCode = code as BasicCode;
-  const mirroredCode = MIRROR_MAP[baseCode];
+
+  const mirroredCode = MIRROR_MAP[normalized.code];
   if (!mirroredCode) return null;
+
   return {
-    ...rest,
+    ...normalized,
     code: mirroredCode,
-    isPrime: !isPrime,
-    turns,
+    isPrime: !normalized.isPrime,
   };
 }
 
@@ -412,32 +414,63 @@ const ROTATE_MAP: Record<BasicCode, RotationCode> = {
   b: "f",
 };
 
-/** 旋轉公式(y2) */
+/** 旋轉公式 (y2) */
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
-  return splitAlgorithmToMoves(input)
-    .map((move) => {
-      const parsed = parseMove(move);
-      if (!parsed) return move as Move;
+  const result: Move[] = [];
 
-      let { code, isPrime } = parsed;
+  for (const move of splitAlgorithmToMoves(input)) {
+    const parsed = parseMove(move);
+    if (!parsed) {
+      result.push(move as Move);
+      continue;
+    }
 
-      // 代號映射
-      const mappedCode = ROTATE_MAP[code as BasicCode] ?? code;
+    let { code, isPrime } = parsed;
+    const mappedCode = ROTATE_MAP[code] ?? code;
 
-      // 特殊處理：M / S 要反向，E 不變
-      if (code === "M" || code === "S") {
-        isPrime = !isPrime;
-      }
+    // M / S 要反向，E 不變
+    if (code === "M" || code === "S") {
+      isPrime = !isPrime;
+    }
 
-      const mapped = convertToMoveObject({
-        ...parsed,
-        code: mappedCode as RotationCode,
-        isPrime,
-      });
+    const mapped = convertToMoveObject({
+      ...parsed,
+      code: mappedCode,
+      isPrime,
+    });
+    const moveStr = mapped ? formatMoveString(mapped) : null;
+    if (moveStr) {
+      result.push(moveStr);
+    }
+  }
 
-      return mapped ? formatMoveString(mapped) : null;
-    })
-    .filter(isNotNil);
+  return result;
+}
+
+/** 通用公式映射 */
+function mapAlgorithm<K extends string, V extends string>(
+  input: AlgorithmInput,
+  map: Record<K, V>,
+): Move[] {
+  const result: Move[] = [];
+
+  for (const move of splitAlgorithmToMoves(input)) {
+    const parsed = parseMove(move);
+    if (!parsed) {
+      result.push(move as Move);
+      continue;
+    }
+
+    const mappedCode = (map[parsed.code as K] ?? parsed.code) as RotationCode;
+    const mapped = convertToMoveObject({ ...parsed, code: mappedCode });
+    const moveStr = mapped ? formatMoveString(mapped) : null;
+
+    if (moveStr) {
+      result.push(moveStr);
+    }
+  }
+
+  return result;
 }
 
 /** 小寫映射大寫 */
@@ -450,7 +483,7 @@ const LOWER_TO_UPPER_MAP: Record<LowerLayerCode, UpperLayerCode> = {
   b: "Bw",
 };
 
-/** 小寫轉大寫 */
+/** 小寫轉大寫公式 */
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, LOWER_TO_UPPER_MAP);
 }
@@ -465,25 +498,7 @@ const UPPER_TO_LOWER_MAP: Record<UpperLayerCode, LowerLayerCode> = {
   Bw: "b",
 };
 
-/** 大寫轉小寫 */
+/** 大寫轉小寫公式 */
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, UPPER_TO_LOWER_MAP);
-}
-
-/** 通用公式映射 */
-function mapAlgorithm<K extends string, V extends string>(
-  input: AlgorithmInput,
-  map: Record<K, V>,
-): Move[] {
-  return splitAlgorithmToMoves(input)
-    .map((move) => {
-      const parsed = parseMove(move);
-      if (!parsed) return move as Move;
-      const mapped = convertToMoveObject({
-        ...parsed,
-        code: (map[parsed.code as K] ?? parsed.code) as RotationCode,
-      });
-      return mapped ? formatMoveString(mapped) : null;
-    })
-    .filter(isNotNil);
 }
