@@ -1,5 +1,3 @@
-import { isNotNil } from "es-toolkit";
-
 /* ---- 型別定義 ---- */
 
 /** 逆時針符號 */
@@ -218,13 +216,23 @@ function isMultiLayer(code: BasicCode): code is MultiLayerCode {
   return MULTI_LAYER_CODES.includes(code as MultiLayerCode);
 }
 
+/** 型別守衛: 是否為小寫多層代號 */
+function isLowerLayerCode(code: BasicCode): code is LowerLayerCode {
+  return LOWER_LAYER_CODES.includes(code as LowerLayerCode);
+}
+
+/** 型別守衛: 是否為大寫多層代號 */
+function isUpperLayerCode(code: BasicCode): code is UpperLayerCode {
+  return UPPER_LAYER_CODES.includes(code as UpperLayerCode);
+}
+
 /** 正規化 MoveInput 預設值 */
 export function convertToMoveObject(input: MoveInput): MoveObject | null {
-  const code = input.code;
-  if (!code || !BASIC_CODES.includes(code as BasicCode)) return null;
+  const code = input.code as BasicCode;
+  if (!code || !BASIC_CODES.includes(code)) return null;
   return {
     layerCount: input.layerCount ?? 0,
-    code: code as BasicCode,
+    code,
     isPrime: input.isPrime ?? false,
     turns: input.turns ?? 1,
   };
@@ -232,8 +240,8 @@ export function convertToMoveObject(input: MoveInput): MoveObject | null {
 
 /** 根據旋轉次數與逆時針生成後綴 */
 function getMoveSuffix(turns: number, isPrime: boolean): string {
-  if (turns === 2) return isPrime ? "2'" : "2";
-  if (turns === 3) return "'";
+  if (turns === 2) return `2${isPrime ? PRIME_SUFFIX : ""}`;
+  if (turns === 3) return PRIME_SUFFIX;
   return "";
 }
 
@@ -243,24 +251,29 @@ function getMoveSuffix(turns: number, isPrime: boolean): string {
 export function parseMove(input: string): MoveObject | null {
   if (!input || typeof input !== "string") return null;
 
-  let i = 0,
-    layerCountStr = "";
-  while (i < input.length && /\d/.test(input[i])) layerCountStr += input[i++];
+  // 1️⃣ 前置層數
+  const layerMatch = input.match(/^(\d*)/);
+  const layerCount = layerMatch && layerMatch[1] ? Number(layerMatch[1]) : 0;
+  const restAfterLayer = input.slice(layerMatch ? layerMatch[0].length : 0);
 
-  const rest = input.slice(i);
-  const matchedCode = SORTED_BASIC_CODES.find((c) => rest.startsWith(c));
+  // 2️⃣ 匹配旋轉代號（長度優先）
+  const matchedCode = SORTED_BASIC_CODES.find((code) =>
+    restAfterLayer.startsWith(code),
+  );
   if (!matchedCode) return null;
-  i += matchedCode.length;
 
-  const remaining = input.slice(i);
-  const m = remaining.match(/^(\d*)(\')?$/);
-  if (!m) return null;
+  const restAfterCode = restAfterLayer.slice(matchedCode.length);
 
-  const layerCount = layerCountStr ? Number(layerCountStr) : 0;
-  const turns = m[1] ? Number(m[1]) : 1;
-  const isPrime = m[2] === PRIME_SUFFIX;
+  // 3️⃣ 後置次數與逆時針符號
+  const tailMatch = restAfterCode.match(/^(\d*)(\')?$/);
+  if (!tailMatch) return null;
+
+  const turns = tailMatch[1] ? Number(tailMatch[1]) : 1;
+  const isPrime = tailMatch[2] === PRIME_SUFFIX;
+
   const baseCode = matchedCode as BasicCode;
 
+  // 4️⃣ 驗證多層規則
   if (layerCount > 0 && !isMultiLayer(baseCode)) return null;
   if (!BASIC_CODES.includes(baseCode)) return null;
 
@@ -278,17 +291,13 @@ export function splitAlgorithmToMoves(
 ): string[] {
   if (!input) return [];
   const moves = Array.isArray(input) ? input : input.split(SEPARATOR);
-  const result: string[] = [];
-  for (const move of moves) if (isValidMove(move)) result.push(move);
-  return result;
+  return moves.filter(isValidMove);
 }
 
 /** 將 Move 陣列合併成公式字串 */
 export function mergeMovesToAlgorithm(input?: Move[]): string {
   if (!Array.isArray(input)) return "";
-  const result: string[] = [];
-  for (const move of input) if (isValidMove(move)) result.push(move);
-  return result.join(SEPARATOR);
+  return input.filter(isValidMove).join(SEPARATOR);
 }
 
 /** 建立轉動字串 */
@@ -316,9 +325,9 @@ export function isAlgorithmValid(input: AlgorithmInput): boolean {
   const movesArray = Array.isArray(input) ? input : input.split(SEPARATOR);
   if (movesArray.length === 0) return false;
   const parsedMoves = splitAlgorithmToMoves(input);
-  // 如果過濾掉非法 move，長度不一致就代表有非法 move
-  if (parsedMoves.length !== movesArray.length) return false;
-  return parsedMoves.every(isValidMove);
+  return (
+    parsedMoves.length === movesArray.length && parsedMoves.every(isValidMove)
+  );
 }
 
 /* ---- 泛用公式轉換器 ---- */
@@ -329,14 +338,17 @@ function mapMoves(
   transformer: (move: MoveObject) => MoveObject | null,
   reverseOrder = false,
 ): Move[] {
-  let moves = splitAlgorithmToMoves(input);
-  if (reverseOrder) moves = [...moves].reverse();
+  const moves = reverseOrder
+    ? [...splitAlgorithmToMoves(input)].reverse()
+    : splitAlgorithmToMoves(input);
   const result: Move[] = [];
   for (const move of moves) {
     const parsed = parseMove(move);
     if (!parsed) continue;
+
     const transformed = transformer(parsed);
     if (!transformed) continue;
+
     const moveStr = formatMoveString(transformed);
     if (moveStr) result.push(moveStr);
   }
@@ -344,9 +356,9 @@ function mapMoves(
 }
 
 /** 調整 M / S 旋轉方向 */
+const REVERSE_AXES = new Set<BasicCode>(["M", "S"]);
 function adjustPrimeForAxis(code: BasicCode, isPrime: boolean): boolean {
-  if (code === "M" || code === "S") return !isPrime;
-  return isPrime;
+  return REVERSE_AXES.has(code) ? !isPrime : isPrime;
 }
 
 /* ---- 公式操作函式 ---- */
@@ -358,34 +370,34 @@ export function reverseAlgorithm(input: AlgorithmInput): Move[] {
 
 /** 鏡像公式 */
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
-  return mapMoves(input, (m) => {
-    const mirrored = MIRROR_MAP[m.code];
-    if (!mirrored) return null;
-    return { ...m, code: mirrored, isPrime: !m.isPrime };
-  });
+  return mapMoves(input, (m) => ({
+    ...m,
+    code: MIRROR_MAP[m.code],
+    isPrime: !m.isPrime,
+  }));
 }
 
 /** 旋轉公式 (y2) */
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
-  return mapMoves(input, (m) => {
-    const mapped = ROTATE_MAP[m.code] ?? m.code;
-    const isPrime = adjustPrimeForAxis(m.code, m.isPrime);
-    return { ...m, code: mapped as BasicCode, isPrime };
-  });
+  return mapMoves(input, (m) => ({
+    ...m,
+    code: (ROTATE_MAP[m.code] ?? m.code) as BasicCode,
+    isPrime: adjustPrimeForAxis(m.code, m.isPrime),
+  }));
 }
 
 /** 小寫轉大寫公式 */
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
-  return mapMoves(input, (m) => {
-    const mapped = LOWER_TO_UPPER_MAP[m.code as LowerLayerCode] ?? m.code;
-    return { ...m, code: mapped };
-  });
+  return mapMoves(input, (m) => ({
+    ...m,
+    code: isLowerLayerCode(m.code) ? LOWER_TO_UPPER_MAP[m.code] : m.code,
+  }));
 }
 
 /** 大寫轉小寫公式 */
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
-  return mapMoves(input, (m) => {
-    const mapped = UPPER_TO_LOWER_MAP[m.code as UpperLayerCode] ?? m.code;
-    return { ...m, code: mapped };
-  });
+  return mapMoves(input, (m) => ({
+    ...m,
+    code: isUpperLayerCode(m.code) ? UPPER_TO_LOWER_MAP[m.code] : m.code,
+  }));
 }
