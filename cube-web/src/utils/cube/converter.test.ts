@@ -1,163 +1,43 @@
 import {
   type Move,
-  modulo,
-  normalizeTurns,
-  isMultiLayer,
-  isLowerLayerCode,
-  isUpperLayerCode,
-  convertToMoveObject,
-  getMoveSuffix,
-  parseMove,
   isValidMove,
   splitAlgorithmToMoves,
   mergeMovesToAlgorithm,
   formatMoveString,
   standardizeMoveString,
   isAlgorithmValid,
-  mapMoves,
-  adjustPrimeForAxis,
   reverseAlgorithm,
   mirrorAlgorithm,
   rotateAlgorithm,
   upperAlgorithm,
   lowerAlgorithm,
-  BASIC_CODES,
-  MULTI_LAYER_CODES,
+  SEPARATOR,
+  PRIME_SUFFIX,
+  CUBE_FACES,
   LOWER_LAYER_CODES,
   UPPER_LAYER_CODES,
-  REVERSE_AXES,
+  MIDDLE_LAYER_CODES,
+  AXIS_CODES,
+  SINGLE_LAYER_CODES,
+  MULTI_LAYER_CODES,
+  BASIC_CODES,
+  SORTED_BASIC_CODES,
   MIRROR_MAP,
   ROTATE_MAP,
   LOWER_TO_UPPER_MAP,
   UPPER_TO_LOWER_MAP,
-  CUBE_FACES,
-  PRIME_SUFFIX,
-  SEPARATOR,
 } from "./converter";
 
 describe("Cube Algorithm Utilities", () => {
-  describe("modulo", () => {
-    test("should handle positive numbers", () => {
-      expect(modulo(7, 4)).toBe(3);
-    });
-
-    test("should handle negative numbers", () => {
-      expect(modulo(-7, 4)).toBe(1);
-    });
-
-    test("should handle zero divisor", () => {
-      expect(modulo(5, 0)).toBe(0);
-    });
-  });
-
-  describe("normalizeTurns", () => {
-    test("should normalize turns without prime", () => {
-      expect(normalizeTurns(5)).toBe(1);
-      expect(normalizeTurns(0)).toBe(0);
-      expect(normalizeTurns(4)).toBe(0);
-    });
-
-    test("should normalize turns with prime", () => {
-      expect(normalizeTurns(1, true)).toBe(3);
-      expect(normalizeTurns(2, true)).toBe(2);
-      expect(normalizeTurns(3, true)).toBe(1);
-    });
-  });
-
-  describe("isMultiLayer", () => {
-    test("should identify multi-layer codes", () => {
-      expect(isMultiLayer("r")).toBe(true);
-      expect(isMultiLayer("Rw")).toBe(true);
-      expect(isMultiLayer("R")).toBe(false);
-      expect(isMultiLayer("M")).toBe(false);
-    });
-  });
-
-  describe("isLowerLayerCode", () => {
-    test("should identify lower layer codes", () => {
-      expect(isLowerLayerCode("r")).toBe(true);
-      expect(isLowerLayerCode("Rw")).toBe(false);
-      expect(isLowerLayerCode("R")).toBe(false);
-    });
-  });
-
-  describe("isUpperLayerCode", () => {
-    test("should identify upper layer codes", () => {
-      expect(isUpperLayerCode("Rw")).toBe(true);
-      expect(isUpperLayerCode("r")).toBe(false);
-      expect(isUpperLayerCode("R")).toBe(false);
-    });
-  });
-
-  describe("convertToMoveObject", () => {
-    test("should convert valid MoveInput to MoveObject", () => {
-      expect(
-        convertToMoveObject({
-          code: "R",
-          layerCount: 1,
-          isPrime: true,
-          turns: 2,
-        }),
-      ).toEqual({
-        code: "R",
-        layerCount: 1,
-        isPrime: true,
-        turns: 2,
-      });
-    });
-
-    test("should handle missing or invalid code", () => {
-      expect(convertToMoveObject({ code: "X" })).toBeNull();
-      expect(convertToMoveObject({ code: "" })).toBeNull();
-      expect(convertToMoveObject({ code: null })).toBeNull();
-    });
-  });
-
-  describe("getMoveSuffix", () => {
-    test("should return correct suffix", () => {
-      expect(getMoveSuffix(1, false)).toBe("");
-      expect(getMoveSuffix(2, false)).toBe("2");
-      expect(getMoveSuffix(2, true)).toBe("2'");
-      expect(getMoveSuffix(3, false)).toBe("'");
-    });
-  });
-
-  describe("parseMove", () => {
-    test("should parse valid move strings", () => {
-      expect(parseMove("R")).toEqual({
-        layerCount: 0,
-        code: "R",
-        isPrime: false,
-        turns: 1,
-      });
-      expect(parseMove("2Rw'")).toEqual({
-        layerCount: 2,
-        code: "Rw",
-        isPrime: true,
-        turns: 1,
-      });
-      expect(parseMove("r2")).toEqual({
-        layerCount: 0,
-        code: "r",
-        isPrime: false,
-        turns: 2,
-      });
-    });
-
-    test("should handle invalid move strings", () => {
-      expect(parseMove("")).toBeNull();
-      expect(parseMove("X")).toBeNull();
-      expect(parseMove("2R")).toBeNull();
-      expect(parseMove("R2'2")).toBeNull();
-    });
-  });
-
   describe("isValidMove", () => {
     test("should validate move strings", () => {
       expect(isValidMove("R")).toBe(true);
       expect(isValidMove("2Rw'")).toBe(true);
+      expect(isValidMove("r2")).toBe(true);
       expect(isValidMove("X")).toBe(false);
       expect(isValidMove("")).toBe(false);
+      expect(isValidMove("2R")).toBe(false);
+      expect(isValidMove("R2'2")).toBe(false);
     });
   });
 
@@ -216,6 +96,8 @@ describe("Cube Algorithm Utilities", () => {
 
     test("should handle invalid input", () => {
       expect(formatMoveString({ code: "X" })).toBeNull();
+      expect(formatMoveString({ code: "" })).toBeNull();
+      expect(formatMoveString({ code: null })).toBeNull();
     });
   });
 
@@ -240,61 +122,62 @@ describe("Cube Algorithm Utilities", () => {
       expect(isAlgorithmValid("")).toBe(false);
       expect(isAlgorithmValid([])).toBe(false);
       expect(isAlgorithmValid(null)).toBe(false);
-    });
-  });
-
-  describe("mapMoves", () => {
-    test("should transform moves with transformer", () => {
-      const transformer = (m: any) => ({ ...m, isPrime: !m.isPrime });
-      expect(mapMoves("R U", transformer)).toEqual(["R'", "U'"]);
-    });
-
-    test("should handle reverse order", () => {
-      const transformer = (m: any) => m;
-      expect(mapMoves("R U", transformer, true)).toEqual(["U", "R"]);
-    });
-
-    test("should skip invalid moves", () => {
-      const transformer = (m: any) => m;
-      expect(mapMoves("R X U", transformer)).toEqual(["R", "U"]);
-    });
-  });
-
-  describe("adjustPrimeForAxis", () => {
-    test("should adjust prime for M/S axes", () => {
-      expect(adjustPrimeForAxis("M", true)).toBe(false);
-      expect(adjustPrimeForAxis("S", false)).toBe(true);
-      expect(adjustPrimeForAxis("R", true)).toBe(true);
+      expect(isAlgorithmValid(undefined)).toBe(false);
     });
   });
 
   describe("reverseAlgorithm", () => {
     test("should reverse algorithm", () => {
       expect(reverseAlgorithm("R U R'")).toEqual(["R", "U'", "R'"]);
+      expect(reverseAlgorithm(["R", "U", "R'"])).toEqual(["R", "U'", "R'"]);
+    });
+
+    test("should handle invalid moves", () => {
+      expect(reverseAlgorithm("R X U")).toEqual(["U'", "R'"]);
     });
   });
 
   describe("mirrorAlgorithm", () => {
     test("should mirror algorithm", () => {
       expect(mirrorAlgorithm("R U L")).toEqual(["L'", "U'", "R'"]);
+      expect(mirrorAlgorithm(["R", "U", "L"])).toEqual(["L'", "U'", "R'"]);
+    });
+
+    test("should handle invalid moves", () => {
+      expect(mirrorAlgorithm("R X L")).toEqual(["L'", "R'"]);
     });
   });
 
   describe("rotateAlgorithm", () => {
     test("should rotate algorithm", () => {
       expect(rotateAlgorithm("R U F")).toEqual(["L", "U", "B"]);
+      expect(rotateAlgorithm(["R", "U", "F"])).toEqual(["L", "U", "B"]);
+    });
+
+    test("should handle M/S axes", () => {
+      expect(rotateAlgorithm("M S")).toEqual(["M'", "S'"]);
     });
   });
 
   describe("upperAlgorithm", () => {
     test("should convert to upper case", () => {
       expect(upperAlgorithm("r u R")).toEqual(["Rw", "Uw", "R"]);
+      expect(upperAlgorithm(["r", "u", "R"])).toEqual(["Rw", "Uw", "R"]);
+    });
+
+    test("should handle non-lower layer codes", () => {
+      expect(upperAlgorithm("R M x")).toEqual(["R", "M", "x"]);
     });
   });
 
   describe("lowerAlgorithm", () => {
     test("should convert to lower case", () => {
       expect(lowerAlgorithm("Rw Uw R")).toEqual(["r", "u", "R"]);
+      expect(lowerAlgorithm(["Rw", "Uw", "R"])).toEqual(["r", "u", "R"]);
+    });
+
+    test("should handle non-upper layer codes", () => {
+      expect(lowerAlgorithm("R M x")).toEqual(["R", "M", "x"]);
     });
   });
 
@@ -305,11 +188,16 @@ describe("Cube Algorithm Utilities", () => {
       expect(CUBE_FACES).toBe(4);
       expect(LOWER_LAYER_CODES).toEqual(["r", "l", "u", "d", "f", "b"]);
       expect(UPPER_LAYER_CODES).toEqual(["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"]);
+      expect(MIDDLE_LAYER_CODES).toEqual(["M", "S", "E"]);
+      expect(AXIS_CODES).toEqual(["x", "y", "z"]);
+      expect(SINGLE_LAYER_CODES).toEqual(["R", "L", "U", "D", "F", "B"]);
       expect(MULTI_LAYER_CODES).toContain("r");
       expect(MULTI_LAYER_CODES).toContain("Rw");
       expect(BASIC_CODES).toContain("R");
       expect(BASIC_CODES).toContain("M");
-      expect(REVERSE_AXES.has("M")).toBe(true);
+      expect(SORTED_BASIC_CODES[0].length).toBeGreaterThanOrEqual(
+        SORTED_BASIC_CODES[SORTED_BASIC_CODES.length - 1].length,
+      );
       expect(MIRROR_MAP["R"]).toBe("L");
       expect(ROTATE_MAP["F"]).toBe("B");
       expect(LOWER_TO_UPPER_MAP["r"]).toBe("Rw");

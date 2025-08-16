@@ -118,10 +118,12 @@ export const BASIC_CODES: BasicCode[] = [
 ];
 
 /** 預先排序的代號陣列（長度降序，優先匹配長代號） */
-const SORTED_BASIC_CODES = [...BASIC_CODES].sort((a, b) => b.length - a.length);
+export const SORTED_BASIC_CODES = [...BASIC_CODES].sort(
+  (a, b) => b.length - a.length,
+);
 
 /** 鏡像映射表 */
-const MIRROR_MAP: Record<BasicCode, BasicCode> = {
+export const MIRROR_MAP: Record<BasicCode, BasicCode> = {
   x: "x",
   y: "y",
   z: "z",
@@ -149,7 +151,7 @@ const MIRROR_MAP: Record<BasicCode, BasicCode> = {
 };
 
 /** 旋轉映射表 */
-const ROTATE_MAP: Record<BasicCode, RotationCode> = {
+export const ROTATE_MAP: Record<BasicCode, RotationCode> = {
   x: "x",
   y: "y",
   z: "z",
@@ -177,7 +179,7 @@ const ROTATE_MAP: Record<BasicCode, RotationCode> = {
 };
 
 /** 小寫映射大寫 */
-const LOWER_TO_UPPER_MAP: Record<LowerLayerCode, UpperLayerCode> = {
+export const LOWER_TO_UPPER_MAP: Record<LowerLayerCode, UpperLayerCode> = {
   r: "Rw",
   l: "Lw",
   u: "Uw",
@@ -186,7 +188,7 @@ const LOWER_TO_UPPER_MAP: Record<LowerLayerCode, UpperLayerCode> = {
   b: "Bw",
 };
 /** 大寫映射小寫 */
-const UPPER_TO_LOWER_MAP: Record<UpperLayerCode, LowerLayerCode> = {
+export const UPPER_TO_LOWER_MAP: Record<UpperLayerCode, LowerLayerCode> = {
   Rw: "r",
   Lw: "l",
   Uw: "u",
@@ -216,18 +218,18 @@ function isMultiLayer(code: BasicCode): code is MultiLayerCode {
   return MULTI_LAYER_CODES.includes(code as MultiLayerCode);
 }
 
-/** 型別守衛: 是否為小寫多層代號 */
+/** 是否為小寫多層代號 */
 function isLowerLayerCode(code: BasicCode): code is LowerLayerCode {
   return LOWER_LAYER_CODES.includes(code as LowerLayerCode);
 }
 
-/** 型別守衛: 是否為大寫多層代號 */
+/** 是否為大寫多層代號 */
 function isUpperLayerCode(code: BasicCode): code is UpperLayerCode {
   return UPPER_LAYER_CODES.includes(code as UpperLayerCode);
 }
 
 /** 正規化 MoveInput 預設值 */
-export function convertToMoveObject(input: MoveInput): MoveObject | null {
+function convertToMoveObject(input: MoveInput): MoveObject | null {
   const code = input.code as BasicCode;
   if (!code || !BASIC_CODES.includes(code)) return null;
   return {
@@ -248,7 +250,7 @@ function getMoveSuffix(turns: number, isPrime: boolean): string {
 /* ---- 解析與標準化 ---- */
 
 /** 解析單步轉動字串 */
-export function parseMove(input: string): MoveObject | null {
+function parseMove(input: string): MoveObject | null {
   if (!input || typeof input !== "string") return null;
 
   // 1️⃣ 前置層數
@@ -320,7 +322,7 @@ export function standardizeMoveString(input: string): string | null {
 }
 
 /** 檢查公式是否合法 */
-export function isAlgorithmValid(input: AlgorithmInput): boolean {
+export function isAlgorithmValid(input?: AlgorithmInput | null): boolean {
   if (!input) return false;
   const movesArray = Array.isArray(input) ? input : input.split(SEPARATOR);
   if (movesArray.length === 0) return false;
@@ -332,7 +334,7 @@ export function isAlgorithmValid(input: AlgorithmInput): boolean {
 
 /* ---- 泛用公式轉換器 ---- */
 
-/** 泛用公式轉換器 */
+/** 泛用公式轉換器(功能核心) */
 function mapMoves(
   input: AlgorithmInput,
   transformer: (move: MoveObject) => MoveObject | null,
