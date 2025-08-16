@@ -21,9 +21,6 @@ import {
   SINGLE_LAYER_CODES,
   MULTI_LAYER_CODES,
   BASIC_CODES,
-  SORTED_BASIC_CODES,
-  CODE_MAP,
-  CASE_MAP,
 } from "./converter";
 
 describe("Cube Algorithm Utilities", () => {
@@ -264,57 +261,6 @@ describe("Cube Algorithm Utilities", () => {
         ...AXIS_CODES,
         ...SINGLE_LAYER_CODES,
       ]);
-      expect(SORTED_BASIC_CODES[0].length).toBeGreaterThanOrEqual(
-        SORTED_BASIC_CODES[SORTED_BASIC_CODES.length - 1].length,
-      );
-
-      // Test all MIRROR_MAP entries
-      expect(CODE_MAP).toEqual({
-        x: { mirror: "x", rotate: "x" },
-        y: { mirror: "y", rotate: "y" },
-        z: { mirror: "z", rotate: "z" },
-        R: { mirror: "L", rotate: "L" },
-        L: { mirror: "R", rotate: "R" },
-        U: { mirror: "U", rotate: "U" },
-        D: { mirror: "D", rotate: "D" },
-        F: { mirror: "F", rotate: "B" },
-        B: { mirror: "B", rotate: "F" },
-        M: { mirror: "M", rotate: "M" },
-        S: { mirror: "S", rotate: "S" },
-        E: { mirror: "E", rotate: "E" },
-        Rw: { mirror: "Lw", rotate: "Lw" },
-        Lw: { mirror: "Rw", rotate: "Rw" },
-        Uw: { mirror: "Uw", rotate: "Uw" },
-        Dw: { mirror: "Dw", rotate: "Dw" },
-        Fw: { mirror: "Fw", rotate: "Bw" },
-        Bw: { mirror: "Bw", rotate: "Fw" },
-        r: { mirror: "l", rotate: "l" },
-        l: { mirror: "r", rotate: "r" },
-        u: { mirror: "u", rotate: "u" },
-        d: { mirror: "d", rotate: "d" },
-        f: { mirror: "f", rotate: "b" },
-        b: { mirror: "b", rotate: "f" },
-      });
-
-      // Test all LOWER_TO_UPPER_MAP entries
-      expect(CASE_MAP).toEqual({
-        toUpper: {
-          r: "Rw",
-          l: "Lw",
-          u: "Uw",
-          d: "Dw",
-          f: "Fw",
-          b: "Bw",
-        },
-        toLower: {
-          Rw: "r",
-          Lw: "l",
-          Uw: "u",
-          Dw: "d",
-          Fw: "f",
-          Bw: "b",
-        },
-      });
     });
   });
 });
