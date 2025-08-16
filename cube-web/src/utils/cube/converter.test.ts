@@ -21,9 +21,118 @@ import {
   SINGLE_LAYER_CODES,
   MULTI_LAYER_CODES,
   BASIC_CODES,
+  convertToMoveObject,
 } from "./converter";
 
 describe("Cube Algorithm Utilities", () => {
+  describe("convertToMoveObject", () => {
+    test("should convert valid MoveInput to MoveObject", () => {
+      expect(convertToMoveObject({ code: "R", turns: 1 })).toEqual({
+        layerCount: 0,
+        code: "R",
+        isPrime: false,
+        turns: 1,
+      });
+      expect(
+        convertToMoveObject({
+          code: "Rw",
+          layerCount: 2,
+          isPrime: true,
+          turns: 3,
+        }),
+      ).toEqual({
+        layerCount: 2,
+        code: "Rw",
+        isPrime: true,
+        turns: 3,
+      });
+      expect(
+        convertToMoveObject({ code: "M", turns: 2, isPrime: false }),
+      ).toEqual({
+        layerCount: 0,
+        code: "M",
+        isPrime: false,
+        turns: 2,
+      });
+      expect(convertToMoveObject({ code: "x", isPrime: true })).toEqual({
+        layerCount: 0,
+        code: "x",
+        isPrime: true,
+        turns: 1,
+      });
+      expect(
+        convertToMoveObject({ code: "r", layerCount: 0, turns: 1 }),
+      ).toEqual({
+        layerCount: 0,
+        code: "r",
+        isPrime: false,
+        turns: 1,
+      });
+    });
+
+    test("should handle missing optional fields with defaults", () => {
+      expect(convertToMoveObject({ code: "R" })).toEqual({
+        layerCount: 0,
+        code: "R",
+        isPrime: false,
+        turns: 1,
+      });
+      expect(convertToMoveObject({ code: "Rw", layerCount: 2 })).toEqual({
+        layerCount: 2,
+        code: "Rw",
+        isPrime: false,
+        turns: 1,
+      });
+      expect(convertToMoveObject({ code: "M", isPrime: true })).toEqual({
+        layerCount: 0,
+        code: "M",
+        isPrime: true,
+        turns: 1,
+      });
+    });
+
+    test("should return null for invalid inputs", () => {
+      expect(convertToMoveObject({ code: "X" })).toBeNull();
+      expect(convertToMoveObject({ code: "" })).toBeNull();
+      expect(convertToMoveObject({ code: null })).toBeNull();
+      expect(convertToMoveObject({})).toBeNull();
+      expect(convertToMoveObject(null)).toBeNull();
+      expect(convertToMoveObject(undefined)).toBeNull();
+      expect(convertToMoveObject({ code: "R", layerCount: -1 })).toBeNull();
+      expect(convertToMoveObject({ code: "Rw", turns: -2 })).toBeNull();
+    });
+
+    test("should handle edge cases", () => {
+      expect(convertToMoveObject({ code: "R", turns: 0 })).toEqual({
+        layerCount: 0,
+        code: "R",
+        isPrime: false,
+        turns: 0,
+      });
+      expect(
+        convertToMoveObject({
+          code: "Rw",
+          layerCount: 0,
+          turns: 1,
+          isPrime: null,
+        }),
+      ).toEqual({
+        layerCount: 0,
+        code: "Rw",
+        isPrime: false,
+        turns: 1,
+      });
+      expect(
+        convertToMoveObject({ code: "M", layerCount: null, turns: null }),
+      ).toEqual({
+        layerCount: 0,
+        code: "M",
+        isPrime: false,
+        turns: 1,
+      });
+    });
+  });
+
   describe("isValidMove", () => {
     test("should validate move strings", () => {
       expect(isValidMove("R")).toBe(true);
@@ -105,7 +214,7 @@ describe("Cube Algorithm Utilities", () => {
       expect(
         formatMoveString({ code: "S", turns: -5, isPrime: true }),
       ).toBeNull();
-      expect(formatMoveString({ code: "R", turns: 8 })).toBeNull(); // 8 % 4 = 0, but turns=2 after normalization
+      expect(formatMoveString({ code: "R", turns: 8 })).toBeNull();
       expect(formatMoveString({ code: "r", layerCount: 0, turns: 1 })).toBe(
         "r",
       );
@@ -124,7 +233,7 @@ describe("Cube Algorithm Utilities", () => {
       expect(formatMoveString({ code: "" })).toBeNull();
       expect(formatMoveString({ code: null })).toBeNull();
       expect(formatMoveString({})).toBeNull();
-      expect(formatMoveString({ code: "R", layerCount: -1 })).toBeNull(); // Invalid layer count
+      expect(formatMoveString({ code: "R", layerCount: -1 })).toBeNull();
     });
   });
 
@@ -135,8 +244,8 @@ describe("Cube Algorithm Utilities", () => {
       expect(standardizeMoveString("r2")).toBe("r2");
       expect(standardizeMoveString("M3'")).toBe("M");
       expect(standardizeMoveString("x5")).toBe("x");
-      expect(standardizeMoveString("3Rw8")).toBeNull(); // Large turns normalized
-      expect(standardizeMoveString("S-1")).toBeNull(); // Negative turns
+      expect(standardizeMoveString("3Rw8")).toBeNull();
+      expect(standardizeMoveString("S-1")).toBeNull();
     });
 
     test("should handle invalid move strings", () => {
