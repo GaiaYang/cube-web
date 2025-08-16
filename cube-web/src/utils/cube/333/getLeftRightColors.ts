@@ -1,4 +1,4 @@
-import type { CubeFaceColor } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
 
 /** 六面顏色 */
 export type Face = Exclude<CubeFaceColor, "none">;

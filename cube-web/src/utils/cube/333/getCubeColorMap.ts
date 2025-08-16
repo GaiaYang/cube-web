@@ -1,4 +1,4 @@
-import type { CubeFaceColor } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
 import getOppositeColor from "./getOppositeColor";
 import getLeftRightColors from "./getLeftRightColors";
 
