@@ -1,5 +1,3 @@
-import { isNotNil } from "es-toolkit";
-
 /* ---- 型別定義 --- */
 
 /** 逆時針符號 */
@@ -127,6 +125,82 @@ export const BASIC_CODES: BasicCode[] = [
 /** 預先排序的代號陣列（長度降序，優先匹配長代號） */
 const SORTED_BASIC_CODES = [...BASIC_CODES].sort((a, b) => b.length - a.length);
 
+/** 鏡像映射表 */
+const MIRROR_MAP: Record<BasicCode, BasicCode> = {
+  x: "x",
+  y: "y",
+  z: "z",
+  R: "L",
+  L: "R",
+  U: "U",
+  D: "D",
+  F: "F",
+  B: "B",
+  M: "M",
+  S: "S",
+  E: "E",
+  Rw: "Lw",
+  Lw: "Rw",
+  Uw: "Uw",
+  Dw: "Dw",
+  Fw: "Fw",
+  Bw: "Bw",
+  r: "l",
+  l: "r",
+  u: "u",
+  d: "d",
+  f: "f",
+  b: "b",
+};
+
+/** 旋轉映射表 */
+const ROTATE_MAP: Record<BasicCode, RotationCode> = {
+  x: "x",
+  y: "y",
+  z: "z",
+  R: "L",
+  L: "R",
+  U: "U",
+  D: "D",
+  F: "B",
+  B: "F",
+  M: "M",
+  S: "S",
+  E: "E",
+  Rw: "Lw",
+  Lw: "Rw",
+  Uw: "Uw",
+  Dw: "Dw",
+  Fw: "Bw",
+  Bw: "Fw",
+  r: "l",
+  l: "r",
+  u: "u",
+  d: "d",
+  f: "b",
+  b: "f",
+};
+
+/** 小寫映射大寫 */
+const LOWER_TO_UPPER_MAP: Record<LowerLayerCode, UpperLayerCode> = {
+  r: "Rw",
+  l: "Lw",
+  u: "Uw",
+  d: "Dw",
+  f: "Fw",
+  b: "Bw",
+};
+
+/** 大寫映射小寫 */
+const UPPER_TO_LOWER_MAP: Record<UpperLayerCode, LowerLayerCode> = {
+  Rw: "r",
+  Lw: "l",
+  Uw: "u",
+  Dw: "d",
+  Fw: "f",
+  Bw: "b",
+};
+
 /* ---- 核心函式定義 --- */
 
 /** 解析單步轉動字串 */
@@ -248,8 +322,12 @@ export function convertToMoveObject(input: MoveInput): MoveObject | null {
 
 /** 根據旋轉次數與逆時針生成後綴 */
 function getMoveSuffix(turns: number, isPrime: boolean): string {
-  if (turns === 2) return isPrime ? "2'" : "2";
-  if (turns === 3) return "'";
+  if (turns === 2) {
+    return `2${isPrime ? PRIME_SUFFIX : ""}`;
+  }
+  if (turns === 3) {
+    return PRIME_SUFFIX;
+  }
   return "";
 }
 
@@ -333,34 +411,6 @@ function reverseMove(input: MoveInput): MoveObject | null {
   };
 }
 
-/** 鏡像映射表 */
-const MIRROR_MAP: Record<BasicCode, BasicCode> = {
-  x: "x",
-  y: "y",
-  z: "z",
-  R: "L",
-  L: "R",
-  U: "U",
-  D: "D",
-  F: "F",
-  B: "B",
-  M: "M",
-  S: "S",
-  E: "E",
-  Rw: "Lw",
-  Lw: "Rw",
-  Uw: "Uw",
-  Dw: "Dw",
-  Fw: "Fw",
-  Bw: "Bw",
-  r: "l",
-  l: "r",
-  u: "u",
-  d: "d",
-  f: "f",
-  b: "b",
-};
-
 /** 反轉公式 */
 export function reverseAlgorithm(input: AlgorithmInput): Move[] {
   return transformAlgorithmSteps(input, reverseMove, true);
@@ -385,34 +435,6 @@ function mirrorMove(input: MoveInput): MoveObject | null {
 export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
   return transformAlgorithmSteps(input, mirrorMove);
 }
-
-/** 旋轉映射表 */
-const ROTATE_MAP: Record<BasicCode, RotationCode> = {
-  x: "x",
-  y: "y",
-  z: "z",
-  R: "L",
-  L: "R",
-  U: "U",
-  D: "D",
-  F: "B",
-  B: "F",
-  M: "M",
-  S: "S",
-  E: "E",
-  Rw: "Lw",
-  Lw: "Rw",
-  Uw: "Uw",
-  Dw: "Dw",
-  Fw: "Bw",
-  Bw: "Fw",
-  r: "l",
-  l: "r",
-  u: "u",
-  d: "d",
-  f: "b",
-  b: "f",
-};
 
 /** 旋轉公式 (y2) */
 export function rotateAlgorithm(input: AlgorithmInput): Move[] {
@@ -473,30 +495,10 @@ function mapAlgorithm<K extends string, V extends string>(
   return result;
 }
 
-/** 小寫映射大寫 */
-const LOWER_TO_UPPER_MAP: Record<LowerLayerCode, UpperLayerCode> = {
-  r: "Rw",
-  l: "Lw",
-  u: "Uw",
-  d: "Dw",
-  f: "Fw",
-  b: "Bw",
-};
-
 /** 小寫轉大寫公式 */
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, LOWER_TO_UPPER_MAP);
 }
-
-/** 大寫映射小寫 */
-const UPPER_TO_LOWER_MAP: Record<UpperLayerCode, LowerLayerCode> = {
-  Rw: "r",
-  Lw: "l",
-  Uw: "u",
-  Dw: "d",
-  Fw: "f",
-  Bw: "b",
-};
 
 /** 大寫轉小寫公式 */
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
