@@ -172,7 +172,9 @@ function isUpperLayerCode(code: unknown): code is UpperLayerCode {
  * @param input 輸入物件
  * @returns 標準化後的 MoveObject 或 null
  */
-function convertToMoveObject(input?: MoveInput | null): MoveObject | null {
+export function convertToMoveObject(
+  input?: MoveInput | null,
+): MoveObject | null {
   if (!input?.code || !BASIC_CODES.includes(input.code as BasicCode)) {
     return null;
   }
