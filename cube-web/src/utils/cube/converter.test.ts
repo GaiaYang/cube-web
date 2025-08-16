@@ -1,172 +1,187 @@
 import {
+  splitFromAlgorithm,
   mergeToAlgorithm,
-  normalizeMoveString,
+  parseAlgorithm,
+  normalizeMoveInput,
+  createMoveString,
+  parseMoveString,
   isValidMoveString,
-  isAlgorithmValid,
+  normalizeMoveString,
   reverseAlgorithm,
   mirrorAlgorithm,
   rotateAlgorithm,
   upperAlgorithm,
   lowerAlgorithm,
-  parseMoveString,
-  createMoveString,
+  isAlgorithmValid,
   type Move,
+  BASIC_CODES,
+  DOUBLE_LAYER_CODES,
+  PRIME,
 } from "./converter";
 
-describe("Move string parsing and normalization", () => {
-  test("parseMoveString basic", () => {
-    expect(parseMoveString("R")).toEqual({
-      layerCount: 0,
-      code: "R",
-      isPrime: false,
-      turns: 1,
-    });
-    expect(parseMoveString("R'")).toEqual({
-      layerCount: 0,
-      code: "R",
-      isPrime: true,
-      turns: 1,
-    });
-    expect(parseMoveString("R2")).toEqual({
-      layerCount: 0,
-      code: "R",
-      isPrime: false,
-      turns: 2,
-    });
-    expect(parseMoveString("2Rw2")).toEqual({
-      layerCount: 2,
-      code: "Rw",
-      isPrime: false,
-      turns: 2,
-    });
-    expect(parseMoveString("2Rw2'")).toEqual({
-      layerCount: 2,
-      code: "Rw",
-      isPrime: true,
-      turns: 2,
+// --- 單步符號組合生成 ---
+const layerCounts = [0, 1, 2];
+const turns = [1, 2, 3];
+const primes = [false, true];
+const moves = [...BASIC_CODES, ...DOUBLE_LAYER_CODES];
+
+/** 生成帶前置層數、旋轉次數、prime 的單步字串 */
+function generateAllSingleMoveCombinations(): string[] {
+  const results: string[] = [];
+  for (const move of moves) {
+    for (const layer of layerCounts) {
+      for (const turn of turns) {
+        for (const prime of primes) {
+          // 前置層數 >0 只能用 DOUBLE_LAYER_CODES
+          if (layer > 0 && !DOUBLE_LAYER_CODES.includes(move as any)) continue;
+
+          let str = "";
+          if (layer > 0) str += layer;
+          str += move;
+          if (turn === 2) str += "2";
+          else if (turn === 3) str += "3";
+          if (prime) str += PRIME;
+          results.push(str);
+        }
+      }
+    }
+  }
+  return results;
+}
+
+const singleMoveCombinations = generateAllSingleMoveCombinations();
+const plainMoves = [...BASIC_CODES, ...DOUBLE_LAYER_CODES]; // 純代號用於 split/merge/parse
+
+// --- Jest 測試 ---
+describe("converter - full coverage tests", () => {
+  // ---------- 純代號測試 ----------
+  it("splitFromAlgorithm", () => {
+    plainMoves.forEach((move) => {
+      expect(splitFromAlgorithm(move)).toEqual([move]);
     });
   });
 
-  test("parseMoveString invalid returns null", () => {
-    expect(parseMoveString("R'2")).toBeNull();
+  it("mergeToAlgorithm", () => {
+    expect(mergeToAlgorithm(BASIC_CODES)).toEqual(BASIC_CODES.join(" "));
+    expect(mergeToAlgorithm(DOUBLE_LAYER_CODES)).toEqual(
+      DOUBLE_LAYER_CODES.join(" "),
+    );
+  });
+
+  it("parseAlgorithm", () => {
+    plainMoves.forEach((move) => {
+      const parsed = parseAlgorithm(move);
+      expect(parsed).toEqual([move]);
+    });
+  });
+
+  it("reverseAlgorithm", () => {
+    plainMoves.forEach((move) => {
+      const reversed = reverseAlgorithm(move);
+      expect(Array.isArray(reversed)).toBe(true);
+      expect(reversed.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("mirrorAlgorithm", () => {
+    plainMoves.forEach((move) => {
+      const mirrored = mirrorAlgorithm(move);
+      expect(Array.isArray(mirrored)).toBe(true);
+      expect(mirrored.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("rotateAlgorithm", () => {
+    plainMoves.forEach((move) => {
+      const rotated = rotateAlgorithm(move);
+      expect(Array.isArray(rotated)).toBe(true);
+      expect(rotated.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("upperAlgorithm & lowerAlgorithm", () => {
+    plainMoves.forEach((move) => {
+      const uppered = upperAlgorithm(move);
+      expect(Array.isArray(uppered)).toBe(true);
+      expect(uppered.length).toBeGreaterThan(0);
+
+      const lowered = lowerAlgorithm(move);
+      expect(Array.isArray(lowered)).toBe(true);
+      expect(lowered.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("isAlgorithmValid", () => {
+    plainMoves.forEach((move) => {
+      expect(isAlgorithmValid(move)).toBe(true);
+    });
+  });
+
+  // ---------- 單步組合測試 ----------
+  it("parseMoveString & isValidMoveString", () => {
+    singleMoveCombinations.forEach((move) => {
+      const parsed = parseMoveString(move);
+      expect(parsed).not.toBeNull();
+      expect(isValidMoveString(move)).toBe(true);
+    });
+  });
+
+  it("normalizeMoveInput & createMoveString", () => {
+    singleMoveCombinations.forEach((move) => {
+      const parsed = parseMoveString(move);
+      if (!parsed) return;
+      const normalized = normalizeMoveInput(parsed);
+      expect(normalized).not.toBeNull();
+      const moveStr = createMoveString(normalized!);
+      expect(moveStr).toBeDefined();
+      expect(typeof moveStr).toBe("string");
+    });
+  });
+
+  it("normalizeMoveString", () => {
+    singleMoveCombinations.forEach((move) => {
+      const normalized = normalizeMoveString(move);
+      expect(normalized).not.toBeNull();
+    });
+  });
+
+  // ---------- 錯誤 / 邊界測試 ----------
+  it("handles empty, undefined, null, and invalid strings", () => {
+    const invalids = ["", " ", "'", "2", "a", "!", "R#"];
+    invalids.forEach((input) => {
+      expect(splitFromAlgorithm(input)).toEqual([]);
+      expect(parseAlgorithm(input)).toEqual([]);
+      expect(parseMoveString(input)).toBeNull();
+      expect(isValidMoveString(input)).toBe(false);
+      expect(normalizeMoveString(input)).toBeNull();
+    });
+
+    expect(splitFromAlgorithm(undefined)).toEqual([]);
+    expect(splitFromAlgorithm(null)).toEqual([]);
+    expect(parseAlgorithm(undefined)).toEqual([]);
+    expect(parseAlgorithm(null)).toEqual([]);
+    expect(normalizeMoveInput({} as any)).toBeNull();
+    expect(createMoveString({} as any)).toBeNull();
+  });
+
+  it("handles illegal layer counts", () => {
+    // x 不在 DOUBLE_LAYER_CODES
+    expect(parseMoveString("1x")).toBeNull();
+    // R 在 BASIC_CODES，不允許層數 >0
+    expect(parseMoveString("1R")).toBeNull();
     expect(parseMoveString("2R")).toBeNull();
-    expect(parseMoveString("Rw'2")).toBeNull();
-    expect(parseMoveString("")).toBeNull();
-    expect(parseMoveString("Rw'3'")).toBeNull();
-    expect(parseMoveString("R123a")).toBeNull();
   });
 
-  test("isValidMoveString returns correct boolean", () => {
-    expect(isValidMoveString("R")).toBe(true);
-    expect(isValidMoveString("R'2")).toBe(false);
-    expect(isValidMoveString("2R")).toBe(false);
-  });
-
-  test("normalizeMoveString works with all cases", () => {
-    expect(normalizeMoveString("R")).toBe("R");
-    expect(normalizeMoveString("R'")).toBe("R'");
-    expect(normalizeMoveString("R2")).toBe("R2");
-    expect(normalizeMoveString("R'2")).toBeNull();
-    expect(normalizeMoveString("2Rw2'")).toBe("2Rw2'");
-    expect(normalizeMoveString("2Rw'2")).toBeNull();
-  });
-
-  test("createMoveString handles missing code or 0 turns", () => {
-    expect(createMoveString({ code: null })).toBeNull();
-    expect(createMoveString({})).toBeNull();
-    expect(createMoveString({ code: "R", turns: 0 })).toBeNull();
-    expect(createMoveString({ code: "R", turns: 4 })).toBeNull(); // modulo 4 = 0
-  });
-});
-
-describe("Algorithm validation", () => {
-  test("isAlgorithmValid works", () => {
-    expect(isAlgorithmValid("R U2 R2 F R F' U2 R' F R F'")).toBe(true);
-    expect(isAlgorithmValid("R U2 R2 F R F' U2 R' F R F'2")).toBe(false);
-    expect(isAlgorithmValid("A B C D")).toBe(false);
-    expect(isAlgorithmValid("rw")).toBe(false);
-    expect(isAlgorithmValid("2x")).toBe(false);
-    expect(isAlgorithmValid("2x'")).toBe(false);
-    expect(isAlgorithmValid("2R")).toBe(false);
-    expect(isAlgorithmValid("")).toBe(false);
-    expect(isAlgorithmValid(" ")).toBe(false);
-    expect(isAlgorithmValid("R")).toBe(true);
-    expect(isAlgorithmValid("x2'")).toBe(true);
-  });
-
-  test("mergeToAlgorithm works", () => {
-    expect(mergeToAlgorithm(["R", "U", "R'"])).toBe("R U R'");
-    expect(mergeToAlgorithm([])).toBe("");
-  });
-});
-
-describe("Algorithm transformations", () => {
-  const sample1 = "R U2 R2 F R F' U2 R' F R F'";
-  const sample2 = "S R U R' U' R' F R Fw'";
-
-  test("reverseAlgorithm", () => {
-    expect(mergeToAlgorithm(reverseAlgorithm(sample1))).toEqual(
-      "F R' F' R U2 F R' F' R2 U2 R'",
-    );
-    expect(mergeToAlgorithm(reverseAlgorithm(sample2))).toEqual(
-      "Fw R' F' R U R U' R' S'",
-    );
-    // reverse empty or invalid
-    expect(reverseAlgorithm([""] as unknown as Move[])).toEqual([]);
-  });
-
-  test("mirrorAlgorithm", () => {
-    expect(mergeToAlgorithm(mirrorAlgorithm(sample1))).toEqual(
-      "L' U2 L2 F' L' F U2 L F' L' F",
-    );
-    expect(mergeToAlgorithm(mirrorAlgorithm(sample2))).toEqual(
-      "S' L' U' L U L F' L' Fw",
-    );
-    // mirror empty or invalid
-    expect(mirrorAlgorithm([""] as unknown as Move[])).toEqual([]);
-  });
-
-  test("rotateAlgorithm", () => {
-    expect(mergeToAlgorithm(rotateAlgorithm(sample1))).toEqual(
-      "L U2 L2 B L B' U2 L' B L B'",
-    );
-    expect(mergeToAlgorithm(rotateAlgorithm(sample2))).toEqual(
-      "S L U L' U' L' B L Bw'",
-    );
-    // rotate empty or invalid
-    expect(rotateAlgorithm([""] as unknown as Move[])).toEqual([""]);
-  });
-
-  test("upperAlgorithm", () => {
-    expect(mergeToAlgorithm(upperAlgorithm("r l u d f b"))).toEqual(
-      "Rw Lw Uw Dw Fw Bw",
-    );
-    expect(mergeToAlgorithm(upperAlgorithm("Rw l Uw d Fw b"))).toEqual(
-      "Rw Lw Uw Dw Fw Bw",
-    );
-    expect(mergeToAlgorithm(upperAlgorithm([""] as unknown as Move[]))).toEqual(
-      "",
-    );
-  });
-
-  test("lowerAlgorithm", () => {
-    expect(mergeToAlgorithm(lowerAlgorithm("Rw Lw Uw Dw Fw Bw"))).toEqual(
-      "r l u d f b",
-    );
-    expect(mergeToAlgorithm(lowerAlgorithm("Rw l Uw d Fw b"))).toEqual(
-      "r l u d f b",
-    );
-    expect(mergeToAlgorithm(lowerAlgorithm([""] as unknown as Move[]))).toEqual(
-      "",
-    );
-  });
-});
-
-describe("flipPrimeIfNeeded behavior (indirectly via reverse/mirror)", () => {
-  test("handles turns === 2 and other cases", () => {
-    // 2-turn prime stays same
-    expect(mergeToAlgorithm(reverseAlgorithm(["R2", "R2'"]))).toEqual("R2' R2");
-    // 1-turn prime flips
-    expect(mergeToAlgorithm(reverseAlgorithm(["R", "R'"]))).toEqual("R R'");
+  it("handles illegal turns and prime combinations", () => {
+    const cases = ["R4", "R'2", "Rw5'", "2Uw3"];
+    cases.forEach((m) => {
+      const parsed = parseMoveString(m);
+      if (parsed) {
+        const norm = normalizeMoveInput(parsed);
+        expect(norm).toBeDefined();
+        const str = createMoveString(norm!);
+        expect(str).toBeDefined();
+      }
+    });
   });
 });

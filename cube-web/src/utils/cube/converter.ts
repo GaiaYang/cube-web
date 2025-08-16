@@ -63,14 +63,14 @@ export interface MoveInput {
 }
 
 /** 分隔符號 */
-const SEPARATOR = " ";
+export const SEPARATOR = " ";
 /** 逆時針符號 */
-const PRIME = "'";
+export const PRIME = "'";
 /** 方塊面數 */
-const CUBE_FACES = 4;
+export const CUBE_FACES = 4;
 
 /** 雙層符號（允許前置層數） */
-const DOUBLE_LAYER_CODES: BasicCode[] = [
+export const DOUBLE_LAYER_CODES: BasicCode[] = [
   "Rw",
   "Lw",
   "Uw",
@@ -143,7 +143,9 @@ export const BASIC_CODES: BasicCode[] = [
 
 /** 將公式字串拆解為陣列 */
 export function splitFromAlgorithm(input?: string | null): string[] {
-  return typeof input === "string" ? input.split(SEPARATOR) : [];
+  return typeof input === "string"
+    ? input.split(SEPARATOR).filter(isValidMoveString)
+    : [];
 }
 
 /** 將公式合併為字串 */
@@ -152,7 +154,7 @@ export function mergeToAlgorithm(input: Move[]): string {
 }
 
 /** 解析公式為字串陣列 */
-export function parseAlgorithm(input: AlgorithmInput): string[] {
+export function parseAlgorithm(input?: AlgorithmInput | null): string[] {
   if (input) {
     if (typeof input === "string") {
       return splitFromAlgorithm(input);
@@ -383,7 +385,7 @@ export function rotateAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, ROTATE_MAP);
 }
 
-/** 小寫 → 大寫 */
+/** 小寫映射大寫 */
 const LOWER_TO_UPPER_MAP: Record<LowerCode, UpperCode> = {
   r: "Rw",
   l: "Lw",
@@ -392,11 +394,13 @@ const LOWER_TO_UPPER_MAP: Record<LowerCode, UpperCode> = {
   f: "Fw",
   b: "Bw",
 };
+
+/** 小寫轉大寫 */
 export function upperAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, LOWER_TO_UPPER_MAP);
 }
 
-/** 大寫 → 小寫 */
+/** 大寫映射小寫 */
 const UPPER_TO_LOWER_MAP: Record<UpperCode, LowerCode> = {
   Rw: "r",
   Lw: "l",
@@ -405,6 +409,8 @@ const UPPER_TO_LOWER_MAP: Record<UpperCode, LowerCode> = {
   Fw: "f",
   Bw: "b",
 };
+
+/** 大寫轉小寫 */
 export function lowerAlgorithm(input: AlgorithmInput): Move[] {
   return mapAlgorithm(input, UPPER_TO_LOWER_MAP);
 }
