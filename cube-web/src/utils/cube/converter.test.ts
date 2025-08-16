@@ -34,10 +34,15 @@ describe("Cube Algorithm Utilities", () => {
       expect(isValidMove("R")).toBe(true);
       expect(isValidMove("2Rw'")).toBe(true);
       expect(isValidMove("r2")).toBe(true);
+      expect(isValidMove("M2")).toBe(true);
+      expect(isValidMove("x'")).toBe(true);
+      expect(isValidMove("3Rw")).toBe(true);
       expect(isValidMove("X")).toBe(false);
       expect(isValidMove("")).toBe(false);
       expect(isValidMove("2R")).toBe(false);
       expect(isValidMove("R2'2")).toBe(false);
+      expect(isValidMove("Rw2''")).toBe(false);
+      expect(isValidMove("2Rw2'2")).toBe(false);
     });
   });
 
@@ -49,30 +54,33 @@ describe("Cube Algorithm Utilities", () => {
         "R'",
         "U'",
       ]);
+      expect(splitAlgorithmToMoves("M S2 3Rw'")).toEqual(["M", "S2", "3Rw'"]);
     });
 
     test("should split Move array", () => {
-      expect(
-        splitAlgorithmToMoves(["R", "U", "X" as unknown as Move, "R'"]),
-      ).toEqual(["R", "U", "R'"]);
+      expect(splitAlgorithmToMoves(["R", "U", "X" as Move, "R'"])).toEqual([
+        "R",
+        "U",
+        "R'",
+      ]);
     });
 
     test("should handle invalid inputs", () => {
       expect(splitAlgorithmToMoves("")).toEqual([]);
       expect(splitAlgorithmToMoves(null)).toEqual([]);
       expect(splitAlgorithmToMoves(undefined)).toEqual([]);
+      expect(splitAlgorithmToMoves("R X U 2Y")).toEqual(["R", "U"]);
     });
   });
 
   describe("mergeMovesToAlgorithm", () => {
     test("should merge valid moves to algorithm string", () => {
       expect(mergeMovesToAlgorithm(["R", "U", "R'"])).toBe("R U R'");
+      expect(mergeMovesToAlgorithm(["M", "S2", "3Rw'"])).toBe("M S2 3Rw'");
     });
 
     test("should handle invalid moves", () => {
-      expect(mergeMovesToAlgorithm(["R", "X" as unknown as Move, "U"])).toBe(
-        "R U",
-      );
+      expect(mergeMovesToAlgorithm(["R", "X" as Move, "U"])).toBe("R U");
     });
 
     test("should handle empty or invalid input", () => {
@@ -88,16 +96,25 @@ describe("Cube Algorithm Utilities", () => {
         formatMoveString({ code: "Rw", layerCount: 2, isPrime: true }),
       ).toBe("2Rw'");
       expect(formatMoveString({ code: "r", turns: 2 })).toBe("r2");
+      expect(formatMoveString({ code: "M", turns: 3, isPrime: true })).toBe(
+        "M",
+      );
+      expect(formatMoveString({ code: "x", turns: 5 })).toBe("x");
+      expect(formatMoveString({ code: "Rw", layerCount: 3, turns: -1 })).toBe(
+        "3Rw'",
+      );
     });
 
     test("should handle zero turns", () => {
       expect(formatMoveString({ code: "R", turns: 0 })).toBeNull();
+      expect(formatMoveString({ code: "R", turns: 4 })).toBeNull();
     });
 
     test("should handle invalid input", () => {
       expect(formatMoveString({ code: "X" })).toBeNull();
       expect(formatMoveString({ code: "" })).toBeNull();
       expect(formatMoveString({ code: null })).toBeNull();
+      expect(formatMoveString({})).toBeNull();
     });
   });
 
@@ -106,11 +123,16 @@ describe("Cube Algorithm Utilities", () => {
       expect(standardizeMoveString("R")).toBe("R");
       expect(standardizeMoveString("2Rw3")).toBe("2Rw'");
       expect(standardizeMoveString("r2")).toBe("r2");
+      expect(standardizeMoveString("M3'")).toBe("M");
+      expect(standardizeMoveString("3Rw4")).toBeNull();
+      expect(standardizeMoveString("x5")).toBe("x");
     });
 
     test("should handle invalid move strings", () => {
       expect(standardizeMoveString("X")).toBeNull();
       expect(standardizeMoveString("")).toBeNull();
+      expect(standardizeMoveString("2R")).toBeNull();
+      expect(standardizeMoveString("Rw2'2")).toBeNull();
     });
   });
 
@@ -119,10 +141,12 @@ describe("Cube Algorithm Utilities", () => {
       expect(isAlgorithmValid("R U R' U'")).toBe(true);
       expect(isAlgorithmValid(["R", "U", "R'"])).toBe(true);
       expect(isAlgorithmValid("R X U")).toBe(false);
+      expect(isAlgorithmValid(["R", "X" as Move, "U"])).toBe(false);
       expect(isAlgorithmValid("")).toBe(false);
       expect(isAlgorithmValid([])).toBe(false);
       expect(isAlgorithmValid(null)).toBe(false);
       expect(isAlgorithmValid(undefined)).toBe(false);
+      expect(isAlgorithmValid("M S2 3Rw'")).toBe(true);
     });
   });
 
@@ -130,6 +154,7 @@ describe("Cube Algorithm Utilities", () => {
     test("should reverse algorithm", () => {
       expect(reverseAlgorithm("R U R'")).toEqual(["R", "U'", "R'"]);
       expect(reverseAlgorithm(["R", "U", "R'"])).toEqual(["R", "U'", "R'"]);
+      expect(reverseAlgorithm("M S2 3Rw'")).toEqual(["3Rw", "S2'", "M'"]);
     });
 
     test("should handle invalid moves", () => {
@@ -141,6 +166,7 @@ describe("Cube Algorithm Utilities", () => {
     test("should mirror algorithm", () => {
       expect(mirrorAlgorithm("R U L")).toEqual(["L'", "U'", "R'"]);
       expect(mirrorAlgorithm(["R", "U", "L"])).toEqual(["L'", "U'", "R'"]);
+      expect(mirrorAlgorithm("r Lw M")).toEqual(["l'", "Rw'", "M'"]);
     });
 
     test("should handle invalid moves", () => {
@@ -152,10 +178,12 @@ describe("Cube Algorithm Utilities", () => {
     test("should rotate algorithm", () => {
       expect(rotateAlgorithm("R U F")).toEqual(["L", "U", "B"]);
       expect(rotateAlgorithm(["R", "U", "F"])).toEqual(["L", "U", "B"]);
+      expect(rotateAlgorithm("M S E")).toEqual(["M'", "S'", "E"]);
+      expect(rotateAlgorithm("r Rw x")).toEqual(["l", "Lw", "x"]);
     });
 
-    test("should handle M/S axes", () => {
-      expect(rotateAlgorithm("M S")).toEqual(["M'", "S'"]);
+    test("should handle invalid moves", () => {
+      expect(rotateAlgorithm("R X F")).toEqual(["L", "B"]);
     });
   });
 
@@ -163,10 +191,13 @@ describe("Cube Algorithm Utilities", () => {
     test("should convert to upper case", () => {
       expect(upperAlgorithm("r u R")).toEqual(["Rw", "Uw", "R"]);
       expect(upperAlgorithm(["r", "u", "R"])).toEqual(["Rw", "Uw", "R"]);
+      expect(upperAlgorithm("r l f")).toEqual(["Rw", "Lw", "Fw"]);
     });
 
     test("should handle non-lower layer codes", () => {
       expect(upperAlgorithm("R M x")).toEqual(["R", "M", "x"]);
+      expect(upperAlgorithm("M S E")).toEqual(["M", "S", "E"]);
+      expect(upperAlgorithm("x y z")).toEqual(["x", "y", "z"]);
     });
   });
 
@@ -174,10 +205,13 @@ describe("Cube Algorithm Utilities", () => {
     test("should convert to lower case", () => {
       expect(lowerAlgorithm("Rw Uw R")).toEqual(["r", "u", "R"]);
       expect(lowerAlgorithm(["Rw", "Uw", "R"])).toEqual(["r", "u", "R"]);
+      expect(lowerAlgorithm("Rw Lw Fw")).toEqual(["r", "l", "f"]);
     });
 
     test("should handle non-upper layer codes", () => {
       expect(lowerAlgorithm("R M x")).toEqual(["R", "M", "x"]);
+      expect(lowerAlgorithm("M S E")).toEqual(["M", "S", "E"]);
+      expect(lowerAlgorithm("x y z")).toEqual(["x", "y", "z"]);
     });
   });
 
@@ -191,17 +225,96 @@ describe("Cube Algorithm Utilities", () => {
       expect(MIDDLE_LAYER_CODES).toEqual(["M", "S", "E"]);
       expect(AXIS_CODES).toEqual(["x", "y", "z"]);
       expect(SINGLE_LAYER_CODES).toEqual(["R", "L", "U", "D", "F", "B"]);
-      expect(MULTI_LAYER_CODES).toContain("r");
-      expect(MULTI_LAYER_CODES).toContain("Rw");
-      expect(BASIC_CODES).toContain("R");
-      expect(BASIC_CODES).toContain("M");
+      expect(MULTI_LAYER_CODES).toEqual([
+        ...LOWER_LAYER_CODES,
+        ...UPPER_LAYER_CODES,
+      ]);
+      expect(BASIC_CODES).toEqual([
+        ...LOWER_LAYER_CODES,
+        ...UPPER_LAYER_CODES,
+        ...MIDDLE_LAYER_CODES,
+        ...AXIS_CODES,
+        ...SINGLE_LAYER_CODES,
+      ]);
       expect(SORTED_BASIC_CODES[0].length).toBeGreaterThanOrEqual(
         SORTED_BASIC_CODES[SORTED_BASIC_CODES.length - 1].length,
       );
-      expect(MIRROR_MAP["R"]).toBe("L");
-      expect(ROTATE_MAP["F"]).toBe("B");
-      expect(LOWER_TO_UPPER_MAP["r"]).toBe("Rw");
-      expect(UPPER_TO_LOWER_MAP["Rw"]).toBe("r");
+
+      // Test all MIRROR_MAP entries
+      expect(MIRROR_MAP).toEqual({
+        x: "x",
+        y: "y",
+        z: "z",
+        R: "L",
+        L: "R",
+        U: "U",
+        D: "D",
+        F: "F",
+        B: "B",
+        M: "M",
+        S: "S",
+        E: "E",
+        Rw: "Lw",
+        Lw: "Rw",
+        Uw: "Uw",
+        Dw: "Dw",
+        Fw: "Fw",
+        Bw: "Bw",
+        r: "l",
+        l: "r",
+        u: "u",
+        d: "d",
+        f: "f",
+        b: "b",
+      });
+
+      // Test all ROTATE_MAP entries
+      expect(ROTATE_MAP).toEqual({
+        x: "x",
+        y: "y",
+        z: "z",
+        R: "L",
+        L: "R",
+        U: "U",
+        D: "D",
+        F: "B",
+        B: "F",
+        M: "M",
+        S: "S",
+        E: "E",
+        Rw: "Lw",
+        Lw: "Rw",
+        Uw: "Uw",
+        Dw: "Dw",
+        Fw: "Bw",
+        Bw: "Fw",
+        r: "l",
+        l: "r",
+        u: "u",
+        d: "d",
+        f: "b",
+        b: "f",
+      });
+
+      // Test all LOWER_TO_UPPER_MAP entries
+      expect(LOWER_TO_UPPER_MAP).toEqual({
+        r: "Rw",
+        l: "Lw",
+        u: "Uw",
+        d: "Dw",
+        f: "Fw",
+        b: "Bw",
+      });
+
+      // Test all UPPER_TO_LOWER_MAP entries
+      expect(UPPER_TO_LOWER_MAP).toEqual({
+        Rw: "r",
+        Lw: "l",
+        Uw: "u",
+        Dw: "d",
+        Fw: "f",
+        Bw: "b",
+      });
     });
   });
 });
