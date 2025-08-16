@@ -153,7 +153,17 @@ export function mergeToAlgorithm(input: Move[]): string {
 
 /** 解析公式為字串陣列 */
 export function parseAlgorithm(input: AlgorithmInput): string[] {
-  return typeof input === "string" ? splitFromAlgorithm(input) : input;
+  if (input) {
+    if (typeof input === "string") {
+      return splitFromAlgorithm(input);
+    }
+
+    if (Array.isArray(input)) {
+      return input;
+    }
+  }
+
+  return [];
 }
 
 /** 簡化轉動次數 */
@@ -197,7 +207,7 @@ export function createMoveString(input: MoveInput): Move | null {
 
 /** 解析單步轉動字串 */
 export function parseMoveString(input: string): MoveObject | null {
-  if (!input) return null;
+  if (typeof input !== "string" || !input) return null;
 
   let layerCountStr = "";
   let code = "";
@@ -258,11 +268,6 @@ export function normalizeMoveString(input: string): string | null {
   return parsed ? createMoveString(parsed) : null;
 }
 
-/** 語意化反轉 prime */
-function flipPrimeIfNeeded(turns: number = 0, isPrime: boolean = false) {
-  return turns === 2 ? isPrime : !isPrime;
-}
-
 /** 泛用公式轉換器 */
 function transformAlgorithmSteps(
   input: AlgorithmInput,
@@ -288,7 +293,7 @@ function reverseMove(input: MoveInput): MoveObject | null {
   const normalized = normalizeMoveInput(input);
   if (!normalized) return null;
   const { isPrime, turns, ...rest } = normalized;
-  return { ...rest, isPrime: flipPrimeIfNeeded(turns, isPrime), turns };
+  return { ...rest, isPrime: !isPrime, turns };
 }
 
 /** 反轉公式 */
@@ -335,7 +340,7 @@ function mirrorMove(input: MoveInput): MoveObject | null {
   return {
     ...rest,
     code: mirroredCode,
-    isPrime: flipPrimeIfNeeded(turns, isPrime),
+    isPrime: !isPrime,
     turns,
   };
 }
@@ -346,7 +351,7 @@ export function mirrorAlgorithm(input: AlgorithmInput): Move[] {
 }
 
 /** 旋轉映射表 */
-const ROTATE_MAP: Record<BasicCode, BasicCode> = {
+const ROTATE_MAP: Record<BasicCode, RotationCode> = {
   x: "x",
   y: "y",
   z: "z",
@@ -356,8 +361,8 @@ const ROTATE_MAP: Record<BasicCode, BasicCode> = {
   D: "D",
   F: "B",
   B: "F",
-  M: "M",
-  S: "S",
+  M: "M'",
+  S: "S'",
   E: "E",
   Rw: "Lw",
   Lw: "Rw",
