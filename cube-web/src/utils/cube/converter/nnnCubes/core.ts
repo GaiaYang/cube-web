@@ -1,38 +1,42 @@
-import { isNotNil } from "es-toolkit";
 import type { CubeNotationParser, MoveToken } from "./types";
+import { faceMoves, rotations, wideMoves } from "./constants";
 
 /** 分隔符號 */
 const SEPARATE = " ";
 
+const BASIC_MOVES = [...faceMoves, ...wideMoves, ...rotations];
+
 /** 創建方塊解析 */
 export function createCubeNotationParser(parser: CubeNotationParser) {
+  /** 所有移動代號 */
+  const moves = Array.isArray(parser.extraMoves)
+    ? [...BASIC_MOVES, ...parser.extraMoves]
+    : BASIC_MOVES;
+  /** 動態生成正規表達式 */
+  const REGEX = new RegExp(`^(\\d*)(${moves.join("|")})(\\d*)(')?$`);
+
+  function parseMove(moveStr?: string | null) {
+    if (!moveStr) return null;
+
+    const match = moveStr.match(REGEX);
+    if (!match) return null;
+    const [, layerStr, base, turnStr, primeMark] = match;
+
+    return parser.parseMove([layerStr, base, turnStr, primeMark]);
+  }
+
   return {
-    isValidMove: (moveStr?: string | null) => isValidMove(parser, moveStr),
-    parseMove: parser.parseMove,
-    parseAlgorithm: (alg?: string) => parseAlgorithm(parser, alg),
-    stringifyAlgorithm,
+    /** 解析代號字串為 MoveToken */
+    parseMove,
+    /** 代號字串是否合法 */
+    isValidMove(moveStr?: string | null) {
+      return parseMove(moveStr) !== null;
+    },
+    /** 將公式字串解析成 MoveToken[] */
+    parseAlgorithm() {},
+    /** 將 MoveToken[] 組合回字串公式 */
+    stringifyAlgorithm() {},
   };
-}
-
-/** 將公式字串解析成 MoveToken[] */
-export function parseAlgorithm(
-  parser: CubeNotationParser,
-  alg?: string,
-): MoveToken[] {
-  return [];
-}
-
-/** 將 MoveToken[] 組合回字串公式 */
-export function stringifyAlgorithm(tokens: MoveToken[]): string {
-  return "";
-}
-
-/** 檢查單一符號是否合法 */
-export function isValidMove(
-  parser: CubeNotationParser,
-  moveStr?: string | null,
-): boolean {
-  return parser.parseMove(moveStr) !== null;
 }
 
 /**

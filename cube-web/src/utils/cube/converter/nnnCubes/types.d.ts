@@ -33,7 +33,8 @@ export interface MoveToken {
 
 /** 方塊實作介面 */
 export interface CubeNotationParser {
-  parseMove(moveStr?: string | null): MoveToken | null;
+  extraMoves?: string[];
+  parseMove(arr: [string, string, string, string]): MoveToken | null;
 }
 
 /** 方塊核心處理介面 */
