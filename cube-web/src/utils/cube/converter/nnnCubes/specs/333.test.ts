@@ -47,7 +47,7 @@ describe("333 轉動符號檢查", () => {
         .fill(null)
         .map((_, i) => i)) {
         for (const move of allMoves.map((item) => `${item}${element}`)) {
-          expect(isValidMove(move)).toBe(element > 1);
+          expect(isValidMove(move)).toBe(element >= 1 && element <= 3);
         }
       }
     });

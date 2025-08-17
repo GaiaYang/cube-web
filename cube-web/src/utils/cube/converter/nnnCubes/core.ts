@@ -19,7 +19,23 @@ export function createCubeNotationParser(parser: CubeNotationParser) {
     if (!match) return null;
     const [, layerStr, base, turnStr, primeMark] = match;
 
-    return parser.parseMove([layerStr, base, turnStr, primeMark]);
+    // layers
+    let layers: number | null = null;
+    if (layerStr) {
+      const parsed = parseInt(layerStr, 10);
+      if (Number.isNaN(parsed) || parsed < 1) return null;
+      layers = parsed;
+    }
+
+    // turns
+    let turns = 1;
+    if (turnStr) {
+      const parsed = parseInt(turnStr, 10);
+      if (Number.isNaN(parsed) || parsed < 1 || parsed > 3) return null;
+      turns = parsed;
+    }
+
+    return parser.parseMove([layers, base, turns, primeMark === "'"]);
   }
 
   function isValidMove(moveStr?: string | null) {

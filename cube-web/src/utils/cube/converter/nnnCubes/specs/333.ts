@@ -47,25 +47,11 @@ export const allMoves = [
 export const { isValidMove, parseMove, parseAlgorithm, stringifyAlgorithm } =
   createCubeNotationParser({
     extraMoves: [...wideAliasMoves, ...middleBlockAliasMoves],
-    parseMove([layerStr, base, turnStr, primeMark]) {
-      let layers = null;
-      let turns = 1;
-
+    parseMove([layers, base, turns, prime]) {
       // 三階不支援前數字
-      if (layerStr !== "") {
+      if (layers !== null) {
         return null;
       }
-
-      if (turnStr) {
-        turns = parseInt(turnStr, 10);
-        if (Number.isNaN(turns) || turns < 2) {
-          return null;
-        }
-      }
-
-      layers = wideMoves.includes(base as WideMove) ? 2 : 1;
-
-      const prime = primeMark === PRIME_MARK;
 
       return {
         base,

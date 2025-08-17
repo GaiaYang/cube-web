@@ -34,7 +34,14 @@ export interface MoveToken {
 /** 方塊實作介面 */
 export interface CubeNotationParser {
   extraMoves?: string[];
-  parseMove(arr: [string, string, string, string]): MoveToken | null;
+  parseMove(
+    arr: [
+      MoveToken["layers"],
+      MoveToken["base"],
+      MoveToken["turns"],
+      MoveToken["prime"],
+    ],
+  ): MoveToken | null;
 }
 
 /** 方塊核心處理介面 */
