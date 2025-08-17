@@ -48,11 +48,11 @@ export const { isValidMove, parseMove, parseAlgorithm, stringifyAlgorithm } =
   createCubeNotationParser({
     extraMoves: [...wideAliasMoves, ...middleBlockAliasMoves],
     parseMove([layerStr, base, turnStr, primeMark]) {
-      let layers = 1;
+      let layers = null;
       let turns = 1;
 
       // 三階不支援前數字
-      if (layerStr) {
+      if (layerStr !== "") {
         return null;
       }
 

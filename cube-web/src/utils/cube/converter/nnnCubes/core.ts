@@ -1,8 +1,5 @@
 import type { CubeNotationParser, MoveToken } from "./types";
-import { faceMoves, rotations, wideMoves } from "./constants";
-
-/** 分隔符號 */
-const SEPARATE = " ";
+import { faceMoves, rotations, SEPARATE, wideMoves } from "./constants";
 
 const BASIC_MOVES = [...faceMoves, ...wideMoves, ...rotations];
 

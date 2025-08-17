@@ -6,6 +6,8 @@ export const faceMoves: FaceMove[] = ["R", "L", "U", "D", "F", "B"];
 export const wideMoves: WideMove[] = ["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"];
 /** 轉體符號 */
 export const rotations: Rotation[] = ["x", "y", "z"];
+/** 分隔符號 */
+export const SEPARATE = " ";
 /** 逆時鐘符號 */
 export const PRIME_MARK = "'";
 /** 轉幾次回到原點 */

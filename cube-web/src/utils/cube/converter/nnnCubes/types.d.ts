@@ -14,9 +14,9 @@ export interface MoveToken {
   /**
    * 一次轉動幾層
    *
-   * @default 1
+   * @default null
    * */
-  layers: number;
+  layers: number | null;
   /**
    * 次數 (1 = 90°, 2 = 180°)
    *
