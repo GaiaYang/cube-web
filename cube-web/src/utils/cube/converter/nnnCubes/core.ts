@@ -25,17 +25,65 @@ export function createCubeNotationParser(parser: CubeNotationParser) {
     return parser.parseMove([layerStr, base, turnStr, primeMark]);
   }
 
+  function isValidMove(moveStr?: string | null) {
+    return parseMove(moveStr) !== null;
+  }
+
+  function isValidMoveToken(token: unknown): token is MoveToken {
+    if (!token || typeof token !== "object") return false;
+
+    const { base, layers, turns, prime } = token as MoveToken;
+
+    // base 必須是已知代號
+    if (typeof base !== "string" || !moves.includes(base)) return false;
+
+    // layers 預設為 1，必須 >= 1 的正整數
+    if (typeof layers !== "number" || !Number.isInteger(layers) || layers < 1) {
+      return false;
+    }
+
+    // turns 預設為 1，必須是 1 ~ 3 的整數 (90°, 180°, 270°)
+    if (
+      typeof turns !== "number" ||
+      !Number.isInteger(turns) ||
+      turns < 1 ||
+      turns > 3
+    ) {
+      return false;
+    }
+
+    // prime 必須是 boolean
+    if (typeof prime !== "boolean") return false;
+
+    return true;
+  }
+
   return {
     /** 解析代號字串為 MoveToken */
     parseMove,
     /** 代號字串是否合法 */
-    isValidMove(moveStr?: string | null) {
-      return parseMove(moveStr) !== null;
-    },
+    isValidMove,
     /** 將公式字串解析成 MoveToken[] */
-    parseAlgorithm() {},
+    parseAlgorithm(input?: string | null) {
+      if (!input || typeof input !== "string") return [];
+
+      const output = input.trim().split(SEPARATE).map(parseMove);
+
+      return output.every(Boolean) ? output : [];
+    },
     /** 將 MoveToken[] 組合回字串公式 */
-    stringifyAlgorithm() {},
+    stringifyAlgorithm(input?: MoveToken[] | string[] | null) {
+      if (!Array.isArray(input)) return "";
+
+      return (
+        input.every((item) => {
+          if (typeof item === "string") return isValidMove(item);
+          return isValidMoveToken(item);
+        })
+          ? input
+          : []
+      ).join(SEPARATE);
+    },
   };
 }
 
