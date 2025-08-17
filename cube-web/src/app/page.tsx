@@ -26,7 +26,7 @@ export default function Home() {
             "text-base-content mt-2 font-semibold tracking-tight",
           )}
         >
-          魔術方塊教學網站
+          虛空魔方 | 魔術方塊教學網站
         </h1>
         <p className="text-base-content/70 mt-6 text-lg/8">
           分享作者邁向速解進階的教學與心法，提供系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。

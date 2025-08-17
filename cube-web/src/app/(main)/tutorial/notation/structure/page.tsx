@@ -4,8 +4,6 @@ import { type Metadata } from "next";
 import Article from "@/components/Article";
 import ExternalLink from "@/components/ExternalLink";
 
-import CubeMoveStructure from "./components/CubeMoveStructure";
-
 export const metadata: Metadata = {
   title: "轉動代號結構",
   description:
@@ -34,7 +32,6 @@ export default function Page() {
         ，本頁專注於結構解析。
       </p>
       <h2 className="sr-only">教學組件</h2>
-      <CubeMoveStructure />
     </Article>
   );
 }
