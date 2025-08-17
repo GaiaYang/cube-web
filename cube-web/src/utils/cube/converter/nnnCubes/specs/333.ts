@@ -20,33 +20,41 @@ export const allMoves = [
 ];
 
 /** 官方正階符號解析正則 */
-const REGEX = /^(\d*)([rRlLuUdDfFbEMSxyz])(\d*)(')?$/;
+const REGEX = new RegExp(`^(\\d*)(${allMoves.join("|")})(\\d*)(')?$`);
 
 export const { isValidMove, parseMove, parseAlgorithm, stringifyAlgorithm } =
   createCubeNotationParser({
-    parseMove(moveStr: string) {
+    parseMove(moveStr) {
       if (!moveStr) return null;
 
       const match = moveStr.match(REGEX);
       if (!match) return null;
 
       const [, layerStr, base, turnStr, primeMark] = match;
+      let layers = 1;
+      let turns = 1;
 
       // 三階不支援前數字
-      if (layerStr) return null;
+      if (layerStr) {
+        return null;
+      }
 
-      // 解析 turns，預設為 1，若無效或 < 2 則返回 null
-      const turns = turnStr ? parseInt(turnStr, 10) : 1;
-      if (Number.isNaN(turns) || turns < 2) return null;
+      if (turnStr) {
+        turns = parseInt(turnStr, 10);
+        if (Number.isNaN(turns) || turns < 2) {
+          return null;
+        }
+      }
 
-      // 設定 layers 根據 base
-      const layers = allWideMoves.includes(base as AllWideMove) ? 2 : 1;
+      layers = allWideMoves.includes(base as AllWideMove) ? 2 : 1;
+
+      const prime = primeMark === PRIME_MARK;
 
       return {
         base,
         layers,
         turns,
-        prime: primeMark === PRIME_MARK,
+        prime,
       };
     },
   });
