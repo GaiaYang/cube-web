@@ -17,30 +17,23 @@ function escapeRegex(str: string) {
 /** 驗證並正規化 MoveToken，如果不合法就回傳 null */
 function validateAndNormalizeToken(
   /** 要驗證的 MoveToken */
-  token: MoveToken,
+  token: MoveToken | null | undefined,
   /** 所有移動代號 */
   moves: string[],
 ): MoveToken | null {
-  const { base, sliceCount, turnCount, isPrime } = token;
+  if (!token) return null;
 
-  // base 必須是已知代號
-  if (typeof base !== "string" || !moves.includes(base)) return null;
+  const { code, sliceCount, turnCount, isPrime } = token;
+
+  // code 必須是已知代號
+  if (!moves.includes(code)) return null;
 
   // sliceCount 可以是 null 或 >= 1 的整數
-  if (
-    !(sliceCount === null || (Number.isInteger(sliceCount) && sliceCount >= 1))
-  ) {
+  if (sliceCount !== null && (!Number.isInteger(sliceCount) || sliceCount < 1))
     return null;
-  }
 
   // turnCount 必須是正整數
-  if (
-    typeof turnCount !== "number" ||
-    !Number.isInteger(turnCount) ||
-    turnCount < 1
-  ) {
-    return null;
-  }
+  if (!Number.isInteger(turnCount) || turnCount < 1) return null;
 
   /** 將 turnCount 轉換成 0 ~ 3 */
   const normalizedTurns = turnCount % MOVE_CYCLE_COUNT;
@@ -49,7 +42,7 @@ function validateAndNormalizeToken(
   // prime 必須是 boolean
   if (typeof isPrime !== "boolean") return null;
 
-  return { base, sliceCount, turnCount: normalizedTurns, isPrime };
+  return { code, sliceCount, turnCount: normalizedTurns, isPrime };
 }
 
 /** 將 MoveToken 轉成標準化代號字串 */
@@ -58,7 +51,7 @@ export function formatMoveToken(token: MoveToken): string {
     token.sliceCount && token.sliceCount > 1 ? String(token.sliceCount) : "";
   const turnStr = token.turnCount > 1 ? String(token.turnCount) : "";
   const primeStr = token.isPrime ? PRIME_MARK : "";
-  return `${sliceStr}${token.base}${turnStr}${primeStr}`;
+  return `${sliceStr}${token.code}${turnStr}${primeStr}`;
 }
 
 /** 建立方塊轉動解析 */
@@ -83,9 +76,9 @@ export function createCubeProfile(parser: CubeProfile) {
     const match = moveStr.match(REGEX);
     if (!match) return null;
 
-    const [, sliceCountStr, base, turnStr, primeMark] = match;
+    const [, sliceCountStr, code, turnStr, primeMark] = match;
     const token: MoveToken = {
-      base,
+      code,
       sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : null,
       turnCount: turnStr ? parseInt(turnStr, 10) : 1,
       isPrime: primeMark === "'",
@@ -104,11 +97,13 @@ export function createCubeProfile(parser: CubeProfile) {
 
   /** 檢查字串是否為合法單步驟 */
   function isValidMoveString(moveStr?: string | null) {
-    return parseMove(moveStr) !== null;
+    return validateAndNormalizeToken(parseMove(moveStr), moves) !== null;
   }
 
   /** 檢查 MoveToken 物件是否合法 */
-  function isValidMoveToken(token: MoveToken): token is MoveToken {
+  function isValidMoveToken(
+    token: MoveToken | null | undefined,
+  ): token is MoveToken {
     if (!isPlainObject(token)) return false;
 
     const normalized = validateAndNormalizeToken(token, moves);

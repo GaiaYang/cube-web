@@ -15,7 +15,7 @@ describe("333 轉動符號檢查", () => {
   describe("isValidWideMove", () => {
     // test("獨立檢查", () => {
     //   expect(parseMove("r1")).toEqual({
-    //     base: "r",
+    //     code: "r",
     //     isPrime: false,
     //     sliceCount: null,
     //     turnCount: 1,
@@ -37,13 +37,13 @@ describe("333 轉動符號檢查", () => {
       const array: MoveToken[] = [
         {
           sliceCount: null,
-          base: "R",
+          code: "R",
           turnCount: 1,
           isPrime: false,
         },
         {
           sliceCount: null,
-          base: "r",
+          code: "r",
           turnCount: 1,
           isPrime: true,
         },
@@ -57,19 +57,19 @@ describe("333 轉動符號檢查", () => {
       const array2: MoveToken[] = [
         {
           sliceCount: 1,
-          base: "R",
+          code: "R",
           turnCount: 1,
           isPrime: false,
         },
         {
           sliceCount: null,
-          base: "R",
+          code: "R",
           turnCount: -1,
           isPrime: false,
         },
         {
           sliceCount: null,
-          base: "x",
+          code: "x",
           turnCount: 0,
           isPrime: false,
         },
@@ -185,7 +185,7 @@ describe("333 轉動符號檢查", () => {
     test("檢查一般符號是否合法", () => {
       for (const move of allMoves) {
         expect(parseMove(move)).toEqual({
-          base: move,
+          code: move,
           isPrime: false,
           sliceCount: null,
           turnCount: 1,
@@ -197,7 +197,7 @@ describe("333 轉動符號檢查", () => {
         .map((item) => `${item}'`)
         .forEach((item, index) => {
           expect(parseMove(item)).toEqual({
-            base: allMoves[index],
+            code: allMoves[index],
             isPrime: true,
             sliceCount: null,
             turnCount: 1,
@@ -224,7 +224,7 @@ describe("333 轉動符號檢查", () => {
             expect(parseMove(item)).toEqual(
               element % 4 !== 0
                 ? {
-                    base: allMoves[index],
+                    code: allMoves[index],
                     isPrime: false,
                     sliceCount: null,
                     turnCount: element,

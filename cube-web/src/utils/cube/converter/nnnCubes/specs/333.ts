@@ -64,14 +64,14 @@ export const {
 } = createCubeProfile({
   layers: 3,
   extraMoves: [...wideMoveAliasess, ...middleLayerMoves],
-  parseMove({ sliceCount, base, turnCount, isPrime }) {
+  parseMove({ sliceCount, code, turnCount, isPrime }) {
     // 三階不支援前數字
     if (sliceCount !== null) {
       return null;
     }
 
     return {
-      base,
+      code,
       sliceCount,
       turnCount,
       isPrime,

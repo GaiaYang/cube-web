@@ -10,7 +10,7 @@ export type PrimeMark = "'";
 /** 單一步驟的轉動 */
 export interface MoveToken {
   /** 基礎面 (F, B, R, L, U, D) 或旋轉 (x,y,z) */
-  base: string;
+  code: string;
   /**
    * 一次轉動幾層
    *
