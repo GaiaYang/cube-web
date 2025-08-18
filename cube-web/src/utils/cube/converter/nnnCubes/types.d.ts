@@ -48,9 +48,13 @@ export interface CubeProfile {
   mirrorAlgorithm(params: MoveToken[]): MoveToken[];
   /** 反轉公式 */
   reverseAlgorithm(params: MoveToken[]): MoveToken[];
+  /** 旋轉公式(y2) */
+  rotateAlgorithm(params: MoveToken[]): MoveToken[];
 }
 // 轉換公式
 /** 鏡像方向 */
 export type MirrorDirection = "horizontal" | "vertical";
 /** 鏡像公式對照表 */
 export type MirrorMap<E extends string = BasicMove> = Record<E, E>;
+/** 旋轉公式對照表 */
+export type RotateMap<E extends string = BasicMove> = Record<E, E>;

@@ -9,7 +9,7 @@ import {
   PRIME_MARK,
   MIN_LATERS,
 } from "./constants";
-import { mirrorAlgorithm, reverseAlgorithm } from "./convert";
+import { mirrorAlgorithm, reverseAlgorithm, rotateAlgorithm } from "./convert";
 
 /** escape regex special chars */
 function escapeRegex(str: string) {
@@ -169,6 +169,9 @@ export function createCubeProfile(parser: CubeProfile) {
     },
     reverseAlgorithm(input: MoveToken[]) {
       return parser.reverseAlgorithm(reverseAlgorithm(input));
+    },
+    rotateAlgorithm(input: MoveToken[]) {
+      return parser.rotateAlgorithm(rotateAlgorithm(input));
     },
   };
 }

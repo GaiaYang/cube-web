@@ -1,4 +1,4 @@
-import type { BasicMove, MirrorMap, MoveToken } from "./types";
+import type { BasicMove, MirrorMap, RotateMap, MoveToken } from "./types";
 
 /** 基本鏡像映射 */
 const BASIC_MIRROR_MAP: MirrorMap = {
@@ -20,7 +20,7 @@ const BASIC_MIRROR_MAP: MirrorMap = {
 };
 
 /** 鏡像代號字串 */
-export function mirrorHorizontalMoveString(params: MoveToken) {
+export function mirrorMoveString(params: MoveToken) {
   return {
     ...params,
     code: BASIC_MIRROR_MAP[params.code as BasicMove] || params.code,
@@ -30,7 +30,7 @@ export function mirrorHorizontalMoveString(params: MoveToken) {
 
 /** 鏡像公式 */
 export function mirrorAlgorithm(params: MoveToken[]) {
-  return params.map(mirrorHorizontalMoveString);
+  return params.map(mirrorMoveString);
 }
 
 /** 反轉公式 */
@@ -42,4 +42,48 @@ export function reverseAlgorithm(params: MoveToken[]) {
       ...value,
       isPrime: !value.isPrime,
     }));
+}
+
+/** 旋轉基本映射 */
+const BASIC_ROTATE_MAP: RotateMap = {
+  R: "L",
+  L: "R",
+  U: "U",
+  D: "D",
+  F: "B",
+  B: "F",
+  Rw: "Lw",
+  Lw: "Rw",
+  Uw: "Uw",
+  Dw: "Dw",
+  Fw: "Bw",
+  Bw: "Fw",
+  x: "x",
+  y: "y",
+  z: "z",
+};
+
+/** 旋轉代號字串 */
+function rotateMoveString(params: MoveToken) {
+  const mapped = BASIC_ROTATE_MAP[params.code as BasicMove];
+  if (!mapped) return params;
+
+  // x z 軸要反向
+  if (params.code === "x" || params.code === "z") {
+    return {
+      ...params,
+      code: mapped,
+      isPrime: !params.isPrime,
+    };
+  }
+
+  return {
+    ...params,
+    code: mapped,
+  };
+}
+
+/** 旋轉公式 */
+export function rotateAlgorithm(params: MoveToken[]) {
+  return params.map(rotateMoveString);
 }

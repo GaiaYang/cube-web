@@ -3,4 +3,8 @@ export interface Convert {
   mirrorAlgorithm: (algorithm: string) => string;
   /** 反轉公式 */
   reverseAlgorithm: (algorithm: string) => string;
+  /** 旋轉公式 */
+  rotateAlgorithm: (algorithm: string) => string;
+  /** 鏡像旋轉公式 */
+  mirrorRotateAlgorithm: (algorithm: string) => string;
 }

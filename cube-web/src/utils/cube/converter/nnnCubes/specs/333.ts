@@ -1,4 +1,4 @@
-import type { WideMove, MirrorMap } from "../types";
+import type { WideMove, MirrorMap, RotateMap } from "../types";
 
 import { faceMoves, wideMoves, rotations } from "../constants";
 import { createCubeProfile } from "../core";
@@ -65,6 +65,19 @@ const MIRROR_MAP: MirrorMap<MiddleBlockAliasMove | WideMoveAliases> = {
   S: "S",
 };
 
+/** 旋轉映射表 */
+const ROTATE_MAP: RotateMap<MiddleBlockAliasMove | WideMoveAliases> = {
+  r: "l",
+  l: "r",
+  u: "u",
+  d: "d",
+  f: "b",
+  b: "f",
+  E: "E",
+  M: "M",
+  S: "S",
+};
+
 export const {
   parseMove,
   formatMove,
@@ -77,6 +90,7 @@ export const {
   // 轉換實作
   mirrorAlgorithm,
   reverseAlgorithm,
+  rotateAlgorithm,
 } = createCubeProfile({
   layers: 3,
   extraMoves: [...wideMoveAliasess, ...middleLayerMoves],
@@ -92,13 +106,36 @@ export const {
   },
   mirrorAlgorithm(params) {
     return params.map((item) => {
-      const mirroredCode =
-        MIRROR_MAP[item.code as keyof typeof MIRROR_MAP] ?? item.code;
+      const mappedCode = MIRROR_MAP[item.code as keyof typeof MIRROR_MAP];
+
+      if (!mappedCode) return item;
+
       return {
         ...item,
-        code: mirroredCode,
+        code: mappedCode,
       };
     });
   },
   reverseAlgorithm: (params) => params,
+  rotateAlgorithm(params) {
+    return params.map((item) => {
+      const mappedCode = ROTATE_MAP[item.code as keyof typeof ROTATE_MAP];
+
+      if (!mappedCode) return item;
+
+      // M S 要反向
+      if (item.code === "M" || item.code === "S") {
+        return {
+          ...item,
+          code: mappedCode,
+          isPrime: !item.isPrime,
+        };
+      }
+
+      return {
+        ...item,
+        code: mappedCode,
+      };
+    });
+  },
 });

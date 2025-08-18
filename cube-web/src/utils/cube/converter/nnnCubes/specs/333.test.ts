@@ -11,6 +11,7 @@ import {
   // formatMove,
   mirrorAlgorithm,
   reverseAlgorithm,
+  rotateAlgorithm,
 } from "./333";
 
 describe("333 轉動符號檢查", () => {
@@ -354,6 +355,23 @@ describe("333轉換公式實作", () => {
           reverseAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
         ),
       ).toEqual("S' M' E' z' y' x' B' D' L' F' U' R'");
+    });
+  });
+
+  describe("旋轉公式", () => {
+    test("合法測試", () => {
+      expect(
+        stringifyAlgorithm(
+          rotateAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
+        ),
+      ).toEqual("L U B R D F x' y z' E M' S'");
+      expect(
+        stringifyAlgorithm(
+          rotateAlgorithm(
+            parseAlgorithm("R' U' F' L' D' B' x' y' z' E' M' S'"),
+          ),
+        ),
+      ).toEqual("L' U' B' R' D' F' x y' z E' M S");
     });
   });
 });

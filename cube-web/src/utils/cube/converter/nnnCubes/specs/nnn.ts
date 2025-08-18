@@ -12,8 +12,10 @@ export const {
   // 轉換實作
   mirrorAlgorithm,
   reverseAlgorithm,
+  rotateAlgorithm,
 } = createCubeProfile({
   parseMove: (result) => result,
   mirrorAlgorithm: (result) => result,
   reverseAlgorithm: (result) => result,
+  rotateAlgorithm: (params) => params,
 });

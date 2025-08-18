@@ -43,8 +43,10 @@ export default function InPlaceForm({ cubeLayer }: CommonFormProps) {
           result = _convert.reverseAlgorithm(algorithm);
           break;
         case "rotate":
+          result = _convert.rotateAlgorithm(algorithm);
           break;
         case "mirrorRotate":
+          result = _convert.mirrorRotateAlgorithm(algorithm);
           break;
         case "upper":
           break;
@@ -96,12 +98,12 @@ const options: Option<ConvertOption>[] = [
   },
   {
     id: "rotate",
-    label: "旋轉y2",
+    label: "旋轉",
     value: "rotate",
   },
   {
     id: "mirrorRotate",
-    label: "鏡像旋轉y2",
+    label: "鏡像旋轉",
     value: "mirrorRotate",
   },
   {
