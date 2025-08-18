@@ -1,26 +1,55 @@
 import type { MoveToken } from "../types";
 import {
+  allMoves,
   isValidMoveString,
   isValidMoveToken,
   isValidWideMove,
   parseMove,
   parseAlgorithm,
   stringifyAlgorithm,
-  formatMoveToken,
-  formatMove,
-  allMoves,
+  // formatMoveToken,
+  // formatMove,
+  mirrorHorizontalAlgorithm,
 } from "./333";
 
 describe("333 轉動符號檢查", () => {
+  describe("stringifyAlgorithm", () => {
+    test("組合成公式", () => {
+      expect(stringifyAlgorithm()).toBe("");
+      expect(stringifyAlgorithm(null)).toBe("");
+      expect(stringifyAlgorithm(undefined)).toBe("");
+      expect(stringifyAlgorithm([])).toBe("");
+      expect(stringifyAlgorithm([""])).toBe("");
+      expect(stringifyAlgorithm(["R", "2r"])).toBe("");
+      expect(stringifyAlgorithm(["R", "r2", "Lw"])).toBe("R r2 Lw");
+    });
+  });
+  describe("parseAlgorithm", () => {
+    test("拆解成陣列", () => {
+      expect(parseAlgorithm("R r r' r2 r2' r3 r3' Lw")).toEqual([
+        { sliceCount: null, code: "R", turnCount: 1, isPrime: false },
+        { sliceCount: null, code: "r", turnCount: 1, isPrime: false },
+        { sliceCount: null, code: "r", turnCount: 1, isPrime: true },
+        { sliceCount: null, code: "r", turnCount: 2, isPrime: false },
+        { sliceCount: null, code: "r", turnCount: 2, isPrime: true },
+        { sliceCount: null, code: "r", turnCount: 3, isPrime: false },
+        { sliceCount: null, code: "r", turnCount: 3, isPrime: true },
+        { sliceCount: null, code: "Lw", turnCount: 1, isPrime: false },
+      ]);
+      expect(parseAlgorithm("r4")).toEqual([]);
+      expect(parseAlgorithm("r8")).toEqual([]);
+      expect(parseAlgorithm("r4")).toEqual([]);
+      expect(parseAlgorithm("r8'")).toEqual([]);
+      expect(parseAlgorithm("r6")).toEqual([
+        { sliceCount: null, code: "r", turnCount: 2, isPrime: false },
+      ]);
+      expect(parseAlgorithm("r6'")).toEqual([
+        { sliceCount: null, code: "r", turnCount: 2, isPrime: true },
+      ]);
+      expect(parseAlgorithm("R 1r2 Lw")).toEqual([]);
+    });
+  });
   describe("isValidWideMove", () => {
-    // test("獨立檢查", () => {
-    //   expect(parseMove("r1")).toEqual({
-    //     code: "r",
-    //     isPrime: false,
-    //     sliceCount: null,
-    //     turnCount: 1,
-    //   });
-    // });
     test("檢查多層轉動是否合法", () => {
       expect(isValidWideMove(null)).toBe(true);
     });
@@ -264,6 +293,56 @@ describe("333 轉動符號檢查", () => {
           expect(parseMove(move)).toBeNull();
         }
       }
+    });
+  });
+});
+
+describe("333轉換公式實作", () => {
+  describe("水平轉換公式", () => {
+    test("錯誤測試", () => {
+      const algs = [
+        "R4 U4 F4 L4 D4 B4 x4 y4 z4 E4 M4 S4",
+        "2R 2U 2F 2L 2D 2B 2x 2y 2z 2E 2M 2S",
+      ];
+      for (const alg of algs) {
+        expect(
+          stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg))),
+        ).toBe("");
+      }
+    });
+    test("合法測試", () => {
+      const alg = "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw r u f l d b";
+      const alg2 =
+        "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' r' u' f' l' d' b'";
+      const alg3 =
+        "R2' U2' F2' L2' D2' B2' x2' y2' z2' E2' M2' S2' Rw2' Uw2' Fw2' Lw2' Dw2' Bw2' r2' u2' f2' l2' d2' b2'";
+      const alg4 =
+        "R2 U2 F2 L2 D2 B2 x2 y2 z2 E2 M2 S2 Rw2 Uw2 Fw2 Lw2 Dw2 Bw2 r2 u2 f2 l2 d2 b2";
+      const alg5 =
+        "R5 U5 F5 L5 D5 B5 x5 y5 z5 E5 M5 S5 Rw5 Uw5 Fw5 Lw5 Dw5 Bw5 r5 u5 f5 l5 d5 b5";
+      expect(
+        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg))),
+      ).toBe(
+        "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
+      );
+      expect(
+        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg2))),
+      ).toBe("L U F R D B x y z E M S Lw Uw Fw Rw Dw Bw l u f r d b");
+      expect(
+        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg3))),
+      ).toBe(
+        "L2 U2 F2 R2 D2 B2 x2 y2 z2 E2 M2 S2 Lw2 Uw2 Fw2 Rw2 Dw2 Bw2 l2 u2 f2 r2 d2 b2",
+      );
+      expect(
+        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg4))),
+      ).toBe(
+        "L2' U2' F2' R2' D2' B2' x2' y2' z2' E2' M2' S2' Lw2' Uw2' Fw2' Rw2' Dw2' Bw2' l2' u2' f2' r2' d2' b2'",
+      );
+      expect(
+        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg5))),
+      ).toBe(
+        "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
+      );
     });
   });
 });

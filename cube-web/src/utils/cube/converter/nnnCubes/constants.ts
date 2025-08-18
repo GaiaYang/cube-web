@@ -1,4 +1,4 @@
-import type { FaceMove, WideMove, Rotation } from "./types";
+import type { FaceMove, WideMove, Rotation, BasicMove } from "./types";
 
 /** 基本符號 */
 export const faceMoves: FaceMove[] = ["R", "L", "U", "D", "F", "B"];
@@ -7,7 +7,11 @@ export const wideMoves: WideMove[] = ["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"];
 /** 轉體符號 */
 export const rotations: Rotation[] = ["x", "y", "z"];
 /** 官方基本轉動代號 */
-export const basicMoves = [...faceMoves, ...wideMoves, ...rotations];
+export const basicMoves: BasicMove[] = [
+  ...faceMoves,
+  ...wideMoves,
+  ...rotations,
+];
 /** 分隔符號 */
 export const SEPARATE = " ";
 /** 逆時鐘符號 */

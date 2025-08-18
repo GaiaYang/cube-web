@@ -8,6 +8,7 @@ import {
   MOVE_CYCLE_COUNT,
   PRIME_MARK,
 } from "./constants";
+import { mirrorHorizontalAlgorithm } from "./convert";
 
 /** escape regex special chars */
 function escapeRegex(str: string) {
@@ -118,26 +119,44 @@ export function createCubeProfile(parser: CubeProfile) {
     /** 轉動層數是否合法，高階限定 */
     isValidWideMove,
     /** 將公式字串解析成 MoveToken[] */
-    parseAlgorithm(input?: string | null) {
+    parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input || typeof input !== "string") return [];
-      const output = input.trim().split(SEPARATE).map(parseMove);
-      return output.every(Boolean) ? (output as MoveToken[]) : [];
+      const output: MoveToken[] = [];
+      const splits = input.trim().split(SEPARATE);
+      for (const item of splits) {
+        const value = parseMove(item);
+        if (!value) {
+          return [];
+        }
+        output.push(value);
+      }
+      return output;
     },
     /** 將 MoveToken[] 或 string[] 組合回標準化字串公式 */
-    stringifyAlgorithm(input?: MoveToken[] | string[] | null) {
+    stringifyAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      return input
-        .map((item) => {
-          if (typeof item === "string") return formatMove(item);
-          return isValidMoveToken(item)
-            ? formatMoveToken(item as MoveToken)
-            : null;
-        })
-        .filter(Boolean)
-        .join(SEPARATE);
+      const output: string[] = [];
+      for (const item of input) {
+        let value = null;
+        if (typeof item === "string") {
+          value = formatMove(item);
+        } else {
+          if (isValidMoveToken(item)) {
+            value = formatMoveToken(item);
+          }
+        }
+        if (!value) {
+          return "";
+        }
+        output.push(value);
+      }
+      return output.join(SEPARATE);
     },
     formatMoveToken,
     // 以下是轉換公式實作
+    mirrorHorizontalAlgorithm(input: MoveToken[]) {
+      return parser.mirrorHorizontalAlgorithm(mirrorHorizontalAlgorithm(input));
+    },
   };
 }
 

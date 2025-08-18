@@ -4,6 +4,8 @@ export type FaceMove = "F" | "B" | "R" | "L" | "U" | "D";
 export type WideMove = "Fw" | "Bw" | "Rw" | "Lw" | "Uw" | "Dw";
 /** 轉體符號(旋轉整顆方塊) */
 export type Rotation = "x" | "y" | "z";
+/** 所有標準轉動代號 */
+export type BasicMove = FaceMove | WideMove | Rotation;
 /** 逆時鐘符號 */
 export type PrimeMark = "'";
 
@@ -41,4 +43,12 @@ export interface CubeProfile {
   extraMoves?: string[];
   /** 將字串解析成 MoveToken */
   parseMove(moveToekn: MoveToken): MoveToken | null;
+  // 以下是轉換公式實作
+  mirrorHorizontalAlgorithm(params: MoveToken[]): MoveToken[];
 }
+// 轉換公式
+/** 鏡像公式對照表 */
+export type MirrorMap<E extends string = BasicMove> = Record<
+  "horizontal" | "vertical",
+  Record<E, E>
+>;

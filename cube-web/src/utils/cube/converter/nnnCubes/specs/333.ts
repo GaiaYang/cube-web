@@ -1,4 +1,4 @@
-import type { WideMove } from "../types";
+import type { WideMove, MirrorMap } from "../types";
 
 import { faceMoves, wideMoves, rotations } from "../constants";
 import { createCubeProfile } from "../core";
@@ -52,6 +52,32 @@ export const allMoves = [
   ...middleLayerMoves,
 ];
 
+/** 鏡像映射表 */
+const MIRROR_MAP: MirrorMap<MiddleBlockAliasMove | WideMoveAliases> = {
+  horizontal: {
+    r: "l",
+    l: "r",
+    u: "u",
+    d: "d",
+    f: "f",
+    b: "b",
+    E: "E",
+    M: "M",
+    S: "S",
+  },
+  vertical: {
+    r: "r",
+    l: "l",
+    u: "d",
+    d: "u",
+    f: "f",
+    b: "b",
+    E: "E",
+    M: "M",
+    S: "S",
+  },
+};
+
 export const {
   parseMove,
   formatMove,
@@ -61,6 +87,8 @@ export const {
   parseAlgorithm,
   stringifyAlgorithm,
   formatMoveToken,
+  // 轉換實作
+  mirrorHorizontalAlgorithm,
 } = createCubeProfile({
   layers: 3,
   extraMoves: [...wideMoveAliasess, ...middleLayerMoves],
@@ -73,5 +101,12 @@ export const {
       turnCount,
       isPrime,
     };
+  },
+  mirrorHorizontalAlgorithm(params) {
+    return params.map((item) => ({
+      ...item,
+      code: MIRROR_MAP.horizontal[item.code as WideMoveAliases],
+      isPrime: !item.isPrime,
+    }));
   },
 });
