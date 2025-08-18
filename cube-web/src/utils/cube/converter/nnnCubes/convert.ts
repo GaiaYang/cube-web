@@ -39,15 +39,34 @@ const BASIC_MIRROR_MAP: MirrorMap = {
 };
 
 /** 水平轉換代號字串 */
-export function mirrorHorizontalMoveString(params: MoveToken) {
+export function mirrorHorizontalMoveString(
+  params: MoveToken,
+  direction: keyof MirrorMap,
+) {
   return {
     ...params,
-    code: BASIC_MIRROR_MAP.horizontal[params.code as BasicMove] || params.code,
+    code: BASIC_MIRROR_MAP[direction][params.code as BasicMove] || params.code,
     isPrime: !params.isPrime,
   };
 }
 
 /** 水平轉換公式 */
 export function mirrorHorizontalAlgorithm(params: MoveToken[]) {
-  return params.map(mirrorHorizontalMoveString);
+  return params.map((value) => mirrorHorizontalMoveString(value, "horizontal"));
+}
+
+/** 垂直轉換公式 */
+export function mirrorVerticalAlgorithm(params: MoveToken[]) {
+  return params.map((value) => mirrorHorizontalMoveString(value, "vertical"));
+}
+
+/** 反轉公式 */
+export function reverseAlgorithm(params: MoveToken[]) {
+  return params
+    .slice()
+    .reverse()
+    .map((value) => ({
+      ...value,
+      isPrime: !value.isPrime,
+    }));
 }

@@ -1,17 +1,22 @@
 import {
-  mirrorHorizontalAlgorithm,
   parseAlgorithm,
   stringifyAlgorithm,
+  mirrorHorizontalAlgorithm as convertMirrorHorizontalAlgorithm,
+  reverseAlgorithm as convertReverseAlgorithm,
 } from "@/utils/cube/converter/nnnCubes/specs/333";
 
 import type { Convert } from "./types";
 
 export function mirrorAlgorithm(algorithm: string) {
   return stringifyAlgorithm(
-    mirrorHorizontalAlgorithm(parseAlgorithm(algorithm)),
+    convertMirrorHorizontalAlgorithm(parseAlgorithm(algorithm)),
   );
 }
 
-const output: Convert = { mirrorAlgorithm };
+export function reverseAlgorithm(algorithm: string) {
+  return stringifyAlgorithm(convertReverseAlgorithm(parseAlgorithm(algorithm)));
+}
+
+const output: Convert = { mirrorAlgorithm, reverseAlgorithm };
 
 export default output;

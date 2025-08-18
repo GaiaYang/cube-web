@@ -89,6 +89,8 @@ export const {
   formatMoveToken,
   // 轉換實作
   mirrorHorizontalAlgorithm,
+  mirrorVerticalAlgorithm,
+  reverseAlgorithm,
 } = createCubeProfile({
   layers: 3,
   extraMoves: [...wideMoveAliasess, ...middleLayerMoves],
@@ -114,4 +116,16 @@ export const {
       };
     });
   },
+  mirrorVerticalAlgorithm(params) {
+    return params.map((item) => {
+      const mirroredCode =
+        MIRROR_MAP.vertical[item.code as keyof typeof MIRROR_MAP.vertical] ??
+        item.code;
+      return {
+        ...item,
+        code: mirroredCode,
+      };
+    });
+  },
+  reverseAlgorithm: (params) => params,
 });

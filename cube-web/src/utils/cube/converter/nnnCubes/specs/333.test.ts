@@ -10,6 +10,8 @@ import {
   // formatMoveToken,
   // formatMove,
   mirrorHorizontalAlgorithm,
+  // mirrorVerticalAlgorithm,
+  reverseAlgorithm,
 } from "./333";
 
 describe("333 轉動符號檢查", () => {
@@ -343,6 +345,24 @@ describe("333轉換公式實作", () => {
       ).toBe(
         "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
       );
+    });
+  });
+
+  describe("反轉公式", () => {
+    test("錯誤測試", () => {
+      expect(
+        stringifyAlgorithm(
+          reverseAlgorithm(parseAlgorithm("R U F L D B x y z E M S q")),
+        ),
+      ).toEqual("");
+    });
+    test("合法測試", () => {
+      expect(reverseAlgorithm([])).toEqual([]);
+      expect(
+        stringifyAlgorithm(
+          reverseAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
+        ),
+      ).toEqual("S' M' E' z' y' x' B' D' L' F' U' R'");
     });
   });
 });

@@ -40,6 +40,7 @@ export default function InPlaceForm({ cubeLayer }: CommonFormProps) {
           result = _convert.mirrorAlgorithm(algorithm);
           break;
         case "reverse":
+          result = _convert.reverseAlgorithm(algorithm);
           break;
         case "rotate":
           break;

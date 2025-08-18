@@ -9,7 +9,11 @@ import {
   PRIME_MARK,
   MIN_LATERS,
 } from "./constants";
-import { mirrorHorizontalAlgorithm } from "./convert";
+import {
+  mirrorHorizontalAlgorithm,
+  mirrorVerticalAlgorithm,
+  reverseAlgorithm,
+} from "./convert";
 
 /** escape regex special chars */
 function escapeRegex(str: string) {
@@ -166,6 +170,12 @@ export function createCubeProfile(parser: CubeProfile) {
      */
     mirrorHorizontalAlgorithm(input: MoveToken[]) {
       return parser.mirrorHorizontalAlgorithm(mirrorHorizontalAlgorithm(input));
+    },
+    mirrorVerticalAlgorithm(input: MoveToken[]) {
+      return parser.mirrorVerticalAlgorithm(mirrorVerticalAlgorithm(input));
+    },
+    reverseAlgorithm(input: MoveToken[]) {
+      return parser.reverseAlgorithm(reverseAlgorithm(input));
     },
   };
 }

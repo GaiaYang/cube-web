@@ -54,6 +54,11 @@ export default function StandForm({ cubeLayer }: CommonFormProps) {
         <>
           <h2>反轉公式</h2>
           <p>可讓你倒著執行整條公式，將完成的狀態回到初始位置。</p>
+          <Provider>
+            <CoreFormContainer onConvert={_convert.reverseAlgorithm}>
+              {_renderForm()}
+            </CoreFormContainer>
+          </Provider>
         </>
       ) : null}
       {enabled.rotate ? (

@@ -44,11 +44,18 @@ export interface CubeProfile {
   /** 將字串解析成 MoveToken */
   parseMove(moveToekn: MoveToken): MoveToken | null;
   // 以下是轉換公式實作
+  /** 水平鏡像公式 */
   mirrorHorizontalAlgorithm(params: MoveToken[]): MoveToken[];
+  /** 垂直鏡像公式 */
+  mirrorVerticalAlgorithm(params: MoveToken[]): MoveToken[];
+  /** 反轉公式 */
+  reverseAlgorithm(params: MoveToken[]): MoveToken[];
 }
 // 轉換公式
+/** 鏡像方向 */
+export type MirrorDirection = "horizontal" | "vertical";
 /** 鏡像公式對照表 */
 export type MirrorMap<E extends string = BasicMove> = Record<
-  "horizontal" | "vertical",
+  MirrorDirection,
   Record<E, E>
 >;
