@@ -2,7 +2,7 @@ import cn from "@/utils/cn";
 
 export interface AlgorithmDisplayProps {
   /** 轉動公式 */
-  algorithm: string;
+  algorithm?: string;
   /** 預設顯示文字 */
   placeholder?: string;
   className?: string;

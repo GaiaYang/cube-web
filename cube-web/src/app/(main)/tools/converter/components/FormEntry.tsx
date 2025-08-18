@@ -1,25 +1,22 @@
 import React from "react";
+import dynamic from "next/dynamic";
+import { useAtomValue } from "jotai";
 
-export default function FormEntry() {
-  return (
-    <div>
-      <h2>鏡像公式</h2>
-      <p>可將右手公式直接套用到左手，解決鏡像的兩種情況。</p>
+import type { CommonFormProps } from "./types";
+import { formTypeAtom } from "./jotai";
 
-      <h2>反轉公式</h2>
-      <p>可讓你倒著執行整條公式，將完成的狀態回到初始位置。</p>
+const StandForm = dynamic(() => import("./StandForm"));
+const InPlaceForm = dynamic(() => import("./InPlaceForm"));
 
-      <h2>旋轉公式</h2>
-      <p>可將步驟轉換成在方塊旋轉 y2 後仍能得到相同結果的公式。</p>
+export default function FormEntry(props: CommonFormProps) {
+  const formType = useAtomValue(formTypeAtom);
 
-      <h2>鏡像旋轉公式</h2>
-      <p>若公式有鏡像形式，可先左右鏡像再前後旋轉，得到同手的鏡像公式。</p>
-
-      <h2>轉換成雙層大寫公式</h2>
-      <p>將公式裡所有雙層符號替換成標準的大寫英文。</p>
-
-      <h2>轉換成雙層小寫公式</h2>
-      <p>將公式裡所有雙層符號替換成大家習慣的小寫英文。</p>
-    </div>
-  );
+  switch (formType) {
+    case "stand":
+      return <StandForm {...props} />;
+    case "in-place":
+      return <InPlaceForm {...props} />;
+    default:
+      return null;
+  }
 }
