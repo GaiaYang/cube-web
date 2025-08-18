@@ -5,8 +5,8 @@ import { type Schema } from "./form";
 import cn from "@/utils/cn";
 
 export default function AlgorithmInput({
-  cubeLayer,
-}: Pick<CommonFormProps, "cubeLayer">) {
+  cubeOrder,
+}: Pick<CommonFormProps, "cubeOrder">) {
   return (
     <Controller
       control={undefined as unknown as Control<Schema>}
@@ -19,14 +19,14 @@ export default function AlgorithmInput({
             <input
               {...field}
               type="text"
-              className={cn("input focus:input-primary", {
+              className={cn("input focus:input-primary w-full", {
                 "input-error": isError,
               })}
               placeholder="R U R' U'"
             />
             <p className={cn("label", { "text-error": isError })}>
               {error?.message ??
-                (cubeLayer === "nnn" ? "允許官方符號" : "允許官方跟非官方符號")}
+                (cubeOrder === "nnn" ? "允許官方符號" : "允許官方跟非官方符號")}
             </p>
           </fieldset>
         );

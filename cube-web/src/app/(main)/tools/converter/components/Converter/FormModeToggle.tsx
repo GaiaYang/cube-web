@@ -1,10 +1,10 @@
 import { useAtom } from "jotai";
 import React from "react";
 
-import { formTypeAtom } from "./jotai";
+import { formLayoutAtom } from "./jotai";
 
 export default function FormModeToggle() {
-  const [formType, setFormType] = useAtom(formTypeAtom);
+  const [formType, setFormType] = useAtom(formLayoutAtom);
 
   return (
     <label className="label">

@@ -1,4 +1,4 @@
-import type { WideMove, MirrorMap, RotateMap } from "../types";
+import type { WideMove, MirrorMap, RotateMap, MoveToken } from "../types";
 
 import { faceMoves, wideMoves, rotations } from "../constants";
 import { createCubeProfile } from "../core";
@@ -78,6 +78,26 @@ const ROTATE_MAP: RotateMap<MiddleBlockAliasMove | WideMoveAliases> = {
   S: "S",
 };
 
+/** 轉大寫映射表 */
+const UPPER_MAP: Record<WideMoveAliases, WideMove> = {
+  r: "Rw",
+  l: "Lw",
+  u: "Uw",
+  d: "Dw",
+  b: "Bw",
+  f: "Fw",
+};
+
+/** 轉小寫映射表 */
+const LOWER_MAP: Record<WideMove, WideMoveAliases> = {
+  Rw: "r",
+  Lw: "l",
+  Uw: "u",
+  Dw: "d",
+  Bw: "b",
+  Fw: "f",
+};
+
 export const {
   parseMove,
   formatMove,
@@ -139,3 +159,27 @@ export const {
     });
   },
 });
+
+/** 雙層轉換成大寫公式 */
+export function upperAlgorithm(params: MoveToken[]) {
+  return params.map((item) => {
+    const mappedCode = UPPER_MAP[item.code as keyof typeof UPPER_MAP];
+    if (!mappedCode) return item;
+    return {
+      ...item,
+      code: mappedCode,
+    };
+  });
+}
+
+/** 雙層轉換成小寫公式 */
+export function lowerAlgorithm(params: MoveToken[]) {
+  return params.map((item) => {
+    const mappedCode = LOWER_MAP[item.code as keyof typeof LOWER_MAP];
+    if (!mappedCode) return item;
+    return {
+      ...item,
+      code: mappedCode,
+    };
+  });
+}

@@ -1,29 +1,25 @@
 import React from "react";
+import { useAtom } from "jotai";
 
 import cn from "@/utils/cn";
 
-import { TabProps } from "./types";
-import { useAtom } from "jotai";
+import { TabItem } from "./types";
 import { tabIndexAtom } from "./jotai";
-
-const tabs: TabProps[] = [
-  { key: "convert", title: "一般轉換器" },
-  { key: "convert-333", title: "三階專屬轉換器" },
-];
+import { tabs } from "./config";
 
 export default function Tabs() {
   const [tabIndex, setTabIndex] = useAtom(tabIndexAtom);
 
-  function _renderTab({ key, title }: TabProps, index: number) {
+  function _renderTab({ id, label }: TabItem, index: number) {
     return (
       <button
         type="button"
         role="tab"
-        key={key}
+        key={id}
         onClick={() => setTabIndex(index)}
         className={cn("tab", { "tab-active": tabIndex === index })}
       >
-        {title}
+        {label}
       </button>
     );
   }

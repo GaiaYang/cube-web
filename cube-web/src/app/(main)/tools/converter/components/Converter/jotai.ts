@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FormType } from "./types";
+import { FormLayout } from "./types";
 
 export const tabIndexAtom = atom(0);
 
@@ -10,7 +10,7 @@ export const tabIndexAtom = atom(0);
  *
  * @default "stand"
  * */
-export const formTypeAtom = atom<FormType>("stand");
+export const formLayoutAtom = atom<FormLayout>("stand");
 
 export const enabledAtom = atom({
   /** 鏡像 */

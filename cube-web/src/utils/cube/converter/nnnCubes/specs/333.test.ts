@@ -12,6 +12,8 @@ import {
   mirrorAlgorithm,
   reverseAlgorithm,
   rotateAlgorithm,
+  upperAlgorithm,
+  lowerAlgorithm,
 } from "./333";
 
 describe("333 轉動符號檢查", () => {
@@ -339,7 +341,6 @@ describe("333轉換公式實作", () => {
       );
     });
   });
-
   describe("反轉公式", () => {
     test("錯誤測試", () => {
       expect(
@@ -357,7 +358,6 @@ describe("333轉換公式實作", () => {
       ).toEqual("S' M' E' z' y' x' B' D' L' F' U' R'");
     });
   });
-
   describe("旋轉公式", () => {
     test("合法測試", () => {
       expect(
@@ -372,6 +372,40 @@ describe("333轉換公式實作", () => {
           ),
         ),
       ).toEqual("L' U' B' R' D' F' x y' z E' M S");
+    });
+  });
+
+  const upperMixLowerAlg =
+    "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw r u f l d b";
+  const upperMixLowerPrimeAlg =
+    "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' r' u' f' l' d' b'";
+
+  describe("轉大寫", () => {
+    test("合法測試", () => {
+      expect(
+        stringifyAlgorithm(upperAlgorithm(parseAlgorithm(upperMixLowerAlg))),
+      ).toBe("R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw Rw Uw Fw Lw Dw Bw");
+      expect(
+        stringifyAlgorithm(
+          upperAlgorithm(parseAlgorithm(upperMixLowerPrimeAlg)),
+        ),
+      ).toBe(
+        "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' Rw' Uw' Fw' Lw' Dw' Bw'",
+      );
+    });
+  });
+  describe("轉小寫", () => {
+    test("合法測試", () => {
+      expect(
+        stringifyAlgorithm(lowerAlgorithm(parseAlgorithm(upperMixLowerAlg))),
+      ).toBe("R U F L D B x y z E M S r u f l d b r u f l d b");
+      expect(
+        stringifyAlgorithm(
+          lowerAlgorithm(parseAlgorithm(upperMixLowerPrimeAlg)),
+        ),
+      ).toBe(
+        "R' U' F' L' D' B' x' y' z' E' M' S' r' u' f' l' d' b' r' u' f' l' d' b'",
+      );
     });
   });
 });
