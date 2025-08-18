@@ -7,6 +7,7 @@ import {
   SEPARATE,
   MOVE_CYCLE_COUNT,
   PRIME_MARK,
+  MIN_LATERS,
 } from "./constants";
 import { mirrorHorizontalAlgorithm } from "./convert";
 
@@ -102,9 +103,10 @@ export function createCubeProfile(parser: CubeProfile) {
 
   /** 轉動層數是否合法，高階限定 */
   function isValidWideMove(sliceCount: number | null) {
-    if (parser.layers < 4) return sliceCount === null;
+    const layers = parser.layers ?? MIN_LATERS;
+    if (layers < 4) return sliceCount === null;
     if (sliceCount === null) return false;
-    return isValidOuterMove(parser.layers, sliceCount);
+    return isValidOuterMove(layers, sliceCount);
   }
 
   return {
@@ -154,6 +156,14 @@ export function createCubeProfile(parser: CubeProfile) {
     },
     formatMoveToken,
     // 以下是轉換公式實作
+    /**
+     * 鏡像處理的通用邏輯：
+     * - `code` 會依映射表轉換
+     * - `isPrime` 必定反轉一次（鏡像等於反向旋轉）
+     *
+     * 注意：擴展層 (ex: 333.ts) 只需處理非官方符號的 `code` 映射，
+     * 不要再次反轉 `isPrime`，否則會出現方向錯誤。
+     */
     mirrorHorizontalAlgorithm(input: MoveToken[]) {
       return parser.mirrorHorizontalAlgorithm(mirrorHorizontalAlgorithm(input));
     },
@@ -168,7 +178,7 @@ export function createCubeProfile(parser: CubeProfile) {
  * */
 export function isValidOuterMove(N: number, n?: number | null): boolean {
   if (!Number.isInteger(N) || N <= 1) return false;
-  const slices = n ?? 2;
+  const slices = n ?? MIN_LATERS;
   if (!Number.isInteger(slices) || slices <= 1 || slices >= N) return false;
   return true;
 }

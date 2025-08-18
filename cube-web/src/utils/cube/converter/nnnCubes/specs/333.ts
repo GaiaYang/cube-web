@@ -103,10 +103,15 @@ export const {
     };
   },
   mirrorHorizontalAlgorithm(params) {
-    return params.map((item) => ({
-      ...item,
-      code: MIRROR_MAP.horizontal[item.code as WideMoveAliases],
-      isPrime: !item.isPrime,
-    }));
+    return params.map((item) => {
+      const mirroredCode =
+        MIRROR_MAP.horizontal[
+          item.code as keyof typeof MIRROR_MAP.horizontal
+        ] ?? item.code;
+      return {
+        ...item,
+        code: mirroredCode,
+      };
+    });
   },
 });

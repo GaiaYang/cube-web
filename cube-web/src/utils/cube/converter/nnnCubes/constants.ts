@@ -18,3 +18,5 @@ export const SEPARATE = " ";
 export const PRIME_MARK = "'";
 /** 轉幾次回到原點 */
 export const MOVE_CYCLE_COUNT = 4;
+/** 方塊最少層數 */
+export const MIN_LATERS = 2;
