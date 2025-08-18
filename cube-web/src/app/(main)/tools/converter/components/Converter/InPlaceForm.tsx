@@ -15,7 +15,7 @@ export default function InPlaceForm({ cubeOrder }: CommonFormProps) {
   const form = useForm<Schema>({ resolver, defaultValues });
   const _convertMap = useConvertMap(cubeOrder);
 
-  const enabledOptions = useMemo(() => {
+  const enabledConversions = useMemo(() => {
     const enabled = produce(conversionFlags, (draft) => {
       if (cubeOrder === "333") {
         draft.lower = true;
@@ -25,14 +25,16 @@ export default function InPlaceForm({ cubeOrder }: CommonFormProps) {
     return conversionProfiles.filter(({ id }) => enabled[id]);
   }, [cubeOrder]);
 
+  function _reset() {
+    form.reset();
+  }
+
   function _submit(key: ConversionType) {
     return form.handleSubmit(({ algorithm }) => {
       let result = "";
-
-      const conver = _convertMap[key];
-
-      if (conver) {
-        result = conver(algorithm);
+      const convert = _convertMap[key];
+      if (convert) {
+        result = convert(algorithm);
       }
 
       if (result) {
@@ -45,10 +47,13 @@ export default function InPlaceForm({ cubeOrder }: CommonFormProps) {
 
   return (
     <FormProvider {...form}>
-      <form className="not-prose mt-5 grid gap-3">
+      <form onReset={_reset} className="not-prose mt-5 grid gap-3">
         <AlgorithmInput cubeOrder={cubeOrder} />
         <div className="join join-vertical md:join-horizontal">
-          {enabledOptions.map(({ subtitle, id }) => (
+          <button type="reset" className="btn join-item btn-error">
+            重設
+          </button>
+          {enabledConversions.map(({ subtitle, id }) => (
             <button
               key={id}
               type="button"

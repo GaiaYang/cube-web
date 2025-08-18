@@ -20,7 +20,7 @@ import AlgorithmInput from "./AlgorithmInput";
 export default function StandForm({ cubeOrder }: CommonFormProps) {
   const _convertMap = useConvertMap(cubeOrder);
 
-  const enabledOptions = useMemo(() => {
+  const enabledConversions = useMemo(() => {
     const enabled = produce(conversionFlags, (draft) => {
       if (cubeOrder === "333") {
         draft.lower = true;
@@ -30,27 +30,19 @@ export default function StandForm({ cubeOrder }: CommonFormProps) {
     return conversionProfiles.filter(({ id }) => enabled[id]);
   }, [cubeOrder]);
 
-  function _renderForm(key?: ConversionType) {
-    return (
-      <Fragment key={key}>
-        <AlgorithmInput cubeOrder={cubeOrder} />
-        <AlgorithmResult />
-        <ToolButtons />
-      </Fragment>
-    );
-  }
-
   function _renderContent(item: ConversionProfile) {
-    const _currentConver = _convertMap[item.id];
+    const _convert = _convertMap[item.id];
 
     return (
       <Fragment key={item.id}>
         <h2>{item.title}</h2>
         <p>{item.description}</p>
-        {_currentConver ? (
+        {_convert ? (
           <Provider>
-            <CoreFormContainer onConvert={_currentConver}>
-              {_renderForm(item.id)}
+            <CoreFormContainer onConvert={_convert}>
+              <AlgorithmInput cubeOrder={cubeOrder} />
+              <AlgorithmResult />
+              <ToolButtons />
             </CoreFormContainer>
           </Provider>
         ) : null}
@@ -58,7 +50,7 @@ export default function StandForm({ cubeOrder }: CommonFormProps) {
     );
   }
 
-  return <div>{enabledOptions.map(_renderContent)}</div>;
+  return <div>{enabledConversions.map(_renderContent)}</div>;
 }
 
 const algorithmStringAtom = atom("");
@@ -86,6 +78,7 @@ function CoreFormContainer({
 
   const _reset: React.FormEventHandler<HTMLFormElement> = () => {
     form.reset();
+    setAlgorithmString("");
   };
 
   return (
