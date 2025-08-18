@@ -9,8 +9,7 @@ import {
   stringifyAlgorithm,
   // formatMoveToken,
   // formatMove,
-  mirrorHorizontalAlgorithm,
-  // mirrorVerticalAlgorithm,
+  mirrorAlgorithm,
   reverseAlgorithm,
 } from "./333";
 
@@ -307,9 +306,9 @@ describe("333轉換公式實作", () => {
         "2R 2U 2F 2L 2D 2B 2x 2y 2z 2E 2M 2S",
       ];
       for (const alg of algs) {
-        expect(
-          stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg))),
-        ).toBe("");
+        expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg)))).toBe(
+          "",
+        );
       }
     });
     test("合法測試", () => {
@@ -322,27 +321,19 @@ describe("333轉換公式實作", () => {
         "R2 U2 F2 L2 D2 B2 x2 y2 z2 E2 M2 S2 Rw2 Uw2 Fw2 Lw2 Dw2 Bw2 r2 u2 f2 l2 d2 b2";
       const alg5 =
         "R5 U5 F5 L5 D5 B5 x5 y5 z5 E5 M5 S5 Rw5 Uw5 Fw5 Lw5 Dw5 Bw5 r5 u5 f5 l5 d5 b5";
-      expect(
-        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg))),
-      ).toBe(
+      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg)))).toBe(
         "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
       );
-      expect(
-        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg2))),
-      ).toBe("L U F R D B x y z E M S Lw Uw Fw Rw Dw Bw l u f r d b");
-      expect(
-        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg3))),
-      ).toBe(
+      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg2)))).toBe(
+        "L U F R D B x y z E M S Lw Uw Fw Rw Dw Bw l u f r d b",
+      );
+      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg3)))).toBe(
         "L2 U2 F2 R2 D2 B2 x2 y2 z2 E2 M2 S2 Lw2 Uw2 Fw2 Rw2 Dw2 Bw2 l2 u2 f2 r2 d2 b2",
       );
-      expect(
-        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg4))),
-      ).toBe(
+      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg4)))).toBe(
         "L2' U2' F2' R2' D2' B2' x2' y2' z2' E2' M2' S2' Lw2' Uw2' Fw2' Rw2' Dw2' Bw2' l2' u2' f2' r2' d2' b2'",
       );
-      expect(
-        stringifyAlgorithm(mirrorHorizontalAlgorithm(parseAlgorithm(alg5))),
-      ).toBe(
+      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg5)))).toBe(
         "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
       );
     });

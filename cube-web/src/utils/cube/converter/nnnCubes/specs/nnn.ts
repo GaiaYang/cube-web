@@ -1,4 +1,3 @@
-import { result } from "es-toolkit/compat";
 import { createCubeProfile } from "../core";
 
 export const {
@@ -11,12 +10,10 @@ export const {
   stringifyAlgorithm,
   formatMoveToken,
   // 轉換實作
-  mirrorHorizontalAlgorithm,
-  mirrorVerticalAlgorithm,
+  mirrorAlgorithm,
   reverseAlgorithm,
 } = createCubeProfile({
   parseMove: (result) => result,
-  mirrorHorizontalAlgorithm: (result) => result,
-  mirrorVerticalAlgorithm: (result) => result,
+  mirrorAlgorithm: (result) => result,
   reverseAlgorithm: (result) => result,
 });

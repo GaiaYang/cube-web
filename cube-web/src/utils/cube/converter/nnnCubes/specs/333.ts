@@ -54,28 +54,15 @@ export const allMoves = [
 
 /** 鏡像映射表 */
 const MIRROR_MAP: MirrorMap<MiddleBlockAliasMove | WideMoveAliases> = {
-  horizontal: {
-    r: "l",
-    l: "r",
-    u: "u",
-    d: "d",
-    f: "f",
-    b: "b",
-    E: "E",
-    M: "M",
-    S: "S",
-  },
-  vertical: {
-    r: "r",
-    l: "l",
-    u: "d",
-    d: "u",
-    f: "f",
-    b: "b",
-    E: "E",
-    M: "M",
-    S: "S",
-  },
+  r: "l",
+  l: "r",
+  u: "u",
+  d: "d",
+  f: "f",
+  b: "b",
+  E: "E",
+  M: "M",
+  S: "S",
 };
 
 export const {
@@ -88,8 +75,7 @@ export const {
   stringifyAlgorithm,
   formatMoveToken,
   // 轉換實作
-  mirrorHorizontalAlgorithm,
-  mirrorVerticalAlgorithm,
+  mirrorAlgorithm,
   reverseAlgorithm,
 } = createCubeProfile({
   layers: 3,
@@ -104,23 +90,10 @@ export const {
       isPrime,
     };
   },
-  mirrorHorizontalAlgorithm(params) {
+  mirrorAlgorithm(params) {
     return params.map((item) => {
       const mirroredCode =
-        MIRROR_MAP.horizontal[
-          item.code as keyof typeof MIRROR_MAP.horizontal
-        ] ?? item.code;
-      return {
-        ...item,
-        code: mirroredCode,
-      };
-    });
-  },
-  mirrorVerticalAlgorithm(params) {
-    return params.map((item) => {
-      const mirroredCode =
-        MIRROR_MAP.vertical[item.code as keyof typeof MIRROR_MAP.vertical] ??
-        item.code;
+        MIRROR_MAP[item.code as keyof typeof MIRROR_MAP] ?? item.code;
       return {
         ...item,
         code: mirroredCode,

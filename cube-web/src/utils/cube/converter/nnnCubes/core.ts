@@ -9,11 +9,7 @@ import {
   PRIME_MARK,
   MIN_LATERS,
 } from "./constants";
-import {
-  mirrorHorizontalAlgorithm,
-  mirrorVerticalAlgorithm,
-  reverseAlgorithm,
-} from "./convert";
+import { mirrorAlgorithm, reverseAlgorithm } from "./convert";
 
 /** escape regex special chars */
 function escapeRegex(str: string) {
@@ -168,11 +164,8 @@ export function createCubeProfile(parser: CubeProfile) {
      * 注意：擴展層 (ex: 333.ts) 只需處理非官方符號的 `code` 映射，
      * 不要再次反轉 `isPrime`，否則會出現方向錯誤。
      */
-    mirrorHorizontalAlgorithm(input: MoveToken[]) {
-      return parser.mirrorHorizontalAlgorithm(mirrorHorizontalAlgorithm(input));
-    },
-    mirrorVerticalAlgorithm(input: MoveToken[]) {
-      return parser.mirrorVerticalAlgorithm(mirrorVerticalAlgorithm(input));
+    mirrorAlgorithm(input: MoveToken[]) {
+      return parser.mirrorAlgorithm(mirrorAlgorithm(input));
     },
     reverseAlgorithm(input: MoveToken[]) {
       return parser.reverseAlgorithm(reverseAlgorithm(input));
