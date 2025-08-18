@@ -3,6 +3,7 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import Link from "next/link";
+import UnderConstruction from "@/components/notices/UnderConstruction";
 
 export const metadata: Metadata = {
   title: "OLL",
@@ -36,6 +37,7 @@ export default function Page() {
         如果你使用<Link href="/tutorial/333/zz">ZZ Method</Link>
         ，則最後一層必定形成十字。
       </blockquote>
+      <UnderConstruction />
     </Article>
   );
 }

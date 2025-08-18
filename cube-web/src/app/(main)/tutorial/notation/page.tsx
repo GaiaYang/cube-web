@@ -2,6 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
+import UnderConstruction from "@/components/notices/UnderConstruction";
 
 export const metadata: Metadata = {
   title: "轉動代號說明",
@@ -17,6 +18,7 @@ export default function Page() {
       <p>
         這裡將詳細說明魔術方塊公式中的字母與數字代表的轉動方式，幫助你快速掌握每個公式的操作方法。
       </p>
+      <UnderConstruction />
     </Article>
   );
 }

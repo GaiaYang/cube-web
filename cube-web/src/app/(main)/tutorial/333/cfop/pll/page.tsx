@@ -2,6 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
+import UnderConstruction from "@/components/notices/UnderConstruction";
 
 export const metadata: Metadata = {
   title: "PLL",
@@ -26,6 +27,7 @@ export default function Page() {
         由於作者偏好左右手操作，因此本頁會用到大量鏡像公式，
         並挑選易操作的公式直接鏡像到另一隻手。
       </p>
+      <UnderConstruction />
     </Article>
   );
 }

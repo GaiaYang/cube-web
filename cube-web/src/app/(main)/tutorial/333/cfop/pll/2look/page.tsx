@@ -2,6 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
+import UnderConstruction from "@/components/notices/UnderConstruction";
 
 export const metadata: Metadata = {
   title: "兩段式 PLL",
@@ -33,6 +34,7 @@ export default function Page() {
       <blockquote>
         這些公式皆為現有 PLL 的應用，學會後若要銜接完整 PLL，不需重新記憶。
       </blockquote>
+      <UnderConstruction />
     </Article>
   );
 }

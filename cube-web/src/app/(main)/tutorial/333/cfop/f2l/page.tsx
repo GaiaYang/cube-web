@@ -4,6 +4,7 @@ import { CircleAlertIcon } from "lucide-react";
 
 import Article from "@/components/Article";
 import ExternalLink from "@/components/ExternalLink";
+import UnderConstruction from "@/components/notices/UnderConstruction";
 
 export const metadata: Metadata = {
   title: "F2L",
@@ -31,6 +32,7 @@ export default function Page() {
           ，本教學會適當的教部分簡單直覺實用的四項入槽。
         </span>
       </blockquote>
+      <UnderConstruction />
     </Article>
   );
 }
