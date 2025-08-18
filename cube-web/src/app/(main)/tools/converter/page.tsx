@@ -68,7 +68,7 @@ export default function Page() {
               官方格式公式轉換器
             </label>
             <div className="tab-content">
-              <Form />
+              <Form cubeLayer="nnn" />
             </div>
             <label className="tab">
               <input type="radio" name="tab-converter" />
@@ -89,7 +89,7 @@ export default function Page() {
                 </li>
               </ul>
               <p>該區塊的轉換器額外支援三階非官方符號及特殊功能轉換</p>
-              <Form enabledForms={{ upperForm: true, lowerForm: true }} />
+              <Form cubeLayer="333" />
             </div>
           </div>
         </Provider>

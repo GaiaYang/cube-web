@@ -9,5 +9,10 @@ export type EnabledOption = Record<
 >;
 
 export interface CommonFormProps {
-  enabledForms?: Partial<EnabledOption>;
+  /**
+   * 方塊類型
+   *
+   * @default "nnn"
+   *  */
+  cubeLayer?: "nnn" | "333";
 }

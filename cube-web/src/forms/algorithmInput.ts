@@ -8,6 +8,8 @@ export const schema = z.object({
 
 export type Schema = z.infer<typeof schema>;
 
-export const defaultValues: DefaultValues<Schema> = {};
+export const defaultValues: DefaultValues<Schema> = {
+  algorithm: "",
+};
 
 export const resolver = zodResolver(schema);

@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { useAtomValue } from "jotai";
-import { isPlainObject, omitBy } from "es-toolkit";
+import { produce } from "immer";
 
 import { CommonFormProps } from "./types";
 import { inPlaceAtom } from "./jotai";
@@ -10,28 +10,36 @@ import { inPlaceAtom } from "./jotai";
 import FormContainer from "./FormContainer";
 import InPlaceFormContainer from "./InPlaceFormContainer";
 
-export default function Form({ enabledForms }: CommonFormProps) {
+const initialEnabled = {
+  /** 鏡像 */
+  mirrorForm: true,
+  /** 反轉 */
+  reverseForm: true,
+  /** 旋轉 */
+  rotateForm: true,
+  /** 鏡像旋轉 */
+  mirrorRotateForm: true,
+  /** 轉大寫 */
+  upperForm: false,
+  /** 轉小寫 */
+  lowerForm: false,
+};
+
+export default function Form({ cubeLayer }: CommonFormProps) {
   const inPlace = useAtomValue(inPlaceAtom);
-  const enabled = {
-    /** 鏡像 */
-    mirrorForm: true,
-    /** 反轉 */
-    reverseForm: true,
-    /** 旋轉 */
-    rotateForm: true,
-    /** 鏡像旋轉 */
-    mirrorRotateForm: true,
-    /** 轉大寫 */
-    upperForm: false,
-    /** 轉小寫 */
-    lowerForm: false,
-    ...(isPlainObject(enabledForms)
-      ? omitBy(enabledForms, (value) => typeof value !== "boolean")
-      : null),
-  };
+  const enabled = useMemo(() => {
+    return produce(initialEnabled, (draft) => {
+      if (cubeLayer === "333") {
+        draft.upperForm = true;
+        draft.lowerForm = true;
+      }
+    });
+  }, [cubeLayer]);
 
   if (inPlace) {
-    return <InPlaceFormContainer enabledForms={enabled} />;
+    return (
+      <InPlaceFormContainer cubeLayer={cubeLayer} enabledForms={enabled} />
+    );
   }
 
   return (
@@ -81,6 +89,8 @@ export default function Form({ enabledForms }: CommonFormProps) {
     </FormContainer>
   );
 }
+
+function BasicForm() {}
 
 function MirrorForm() {
   return <></>;
