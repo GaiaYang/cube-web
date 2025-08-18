@@ -44,20 +44,25 @@ export const allMoves = [
   ...middleBlockAliasMoves,
 ];
 
-export const { isValidMove, parseMove, parseAlgorithm, stringifyAlgorithm } =
-  createCubeNotationParser({
-    extraMoves: [...wideAliasMoves, ...middleBlockAliasMoves],
-    parseMove([layers, base, turns, prime]) {
-      // 三階不支援前數字
-      if (layers !== null) {
-        return null;
-      }
+export const {
+  isValidMove,
+  isValidMoveToken,
+  parseMove,
+  parseAlgorithm,
+  stringifyAlgorithm,
+} = createCubeNotationParser({
+  extraMoves: [...wideAliasMoves, ...middleBlockAliasMoves],
+  parseMove({ layers, base, turns, prime }) {
+    // 三階不支援前數字
+    if (layers !== null) {
+      return null;
+    }
 
-      return {
-        base,
-        layers,
-        turns,
-        prime,
-      };
-    },
-  });
+    return {
+      base,
+      layers,
+      turns,
+      prime,
+    };
+  },
+});

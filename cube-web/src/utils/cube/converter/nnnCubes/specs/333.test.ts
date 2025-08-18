@@ -1,6 +1,54 @@
-import { isValidMove, allMoves } from "./333";
+import type { MoveToken } from "../types";
+import { isValidMove, isValidMoveToken, allMoves } from "./333";
 
 describe("333 轉動符號檢查", () => {
+  describe("isValidMoveToken", () => {
+    test("檢查代號物件是否合法", () => {
+      const array: MoveToken[] = [
+        {
+          layers: null,
+          base: "R",
+          turns: 1,
+          prime: false,
+        },
+        {
+          layers: null,
+          base: "r",
+          turns: 1,
+          prime: true,
+        },
+      ];
+      for (const element of array) {
+        expect(isValidMoveToken(element)).toBe(true);
+      }
+    });
+    test("檢查代號物件是否違法", () => {
+      const array = [null, undefined, {}];
+      const array2: MoveToken[] = [
+        {
+          layers: 1,
+          base: "R",
+          turns: 1,
+          prime: false,
+        },
+        {
+          layers: null,
+          base: "R",
+          turns: -1,
+          prime: false,
+        },
+        {
+          layers: null,
+          base: "x",
+          turns: 0,
+          prime: false,
+        },
+      ];
+      for (const element of [...array, ...array2]) {
+        expect(isValidMoveToken(element as MoveToken)).toBe(false);
+      }
+    });
+  });
   describe("isValidMove", () => {
     test("檢查單一符號是否違法", () => {
       const array = [

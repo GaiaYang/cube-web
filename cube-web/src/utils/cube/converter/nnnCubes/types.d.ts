@@ -33,15 +33,10 @@ export interface MoveToken {
 
 /** 方塊實作介面 */
 export interface CubeNotationParser {
+  /** 要拓展的移動代號 */
   extraMoves?: string[];
-  parseMove(
-    arr: [
-      MoveToken["layers"],
-      MoveToken["base"],
-      MoveToken["turns"],
-      MoveToken["prime"],
-    ],
-  ): MoveToken | null;
+  /** 將字串解析成 MoveToken */
+  parseMove(moveToekn: MoveToken): MoveToken | null;
 }
 
 /** 方塊核心處理介面 */

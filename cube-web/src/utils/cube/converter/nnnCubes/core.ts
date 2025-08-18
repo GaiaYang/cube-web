@@ -1,17 +1,60 @@
-import type { CubeNotationParser, MoveToken } from "./types";
-import { faceMoves, rotations, SEPARATE, wideMoves } from "./constants";
+import { basicMoves, SEPARATE, MOVE_CYCLE_COUNT } from "./constants";
+import type { MoveToken, CubeNotationParser } from "./types";
 
-const BASIC_MOVES = [...faceMoves, ...wideMoves, ...rotations];
+/** escape regex special chars */
+function escapeRegex(str: string) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
-/** 創建方塊解析 */
+/** 驗證並正規化 MoveToken，如果不合法就回傳 null */
+function normalizeMoveToken(
+  moves: string[],
+  token: MoveToken,
+): MoveToken | null {
+  const { base, layers, turns, prime } = token;
+
+  // base 必須是已知代號
+  if (typeof base !== "string" || !moves.includes(base)) return null;
+
+  // layers 可以是 null 或 >= 1 的整數
+  if (!(layers === null || (Number.isInteger(layers) && layers >= 1))) {
+    return null;
+  }
+
+  // turns 必須是 1 ~ 3 (因為 4 會回到原點)
+  if (typeof turns !== "number" || !Number.isInteger(turns) || turns < 1) {
+    return null;
+  }
+
+  const normalizedTurns = turns % MOVE_CYCLE_COUNT;
+  if (normalizedTurns === 0) return null;
+
+  // prime 必須是 boolean
+  if (typeof prime !== "boolean") return null;
+
+  return { base, layers, turns: normalizedTurns, prime };
+}
+
+/** 把 MoveToken 轉回字串 */
+function stringifyMoveToken(token: MoveToken): string {
+  const layerStr = token.layers ? String(token.layers) : "";
+  const turnStr = token.turns > 1 ? String(token.turns) : "";
+  const primeStr = token.prime ? "'" : "";
+  return `${layerStr}${token.base}${turnStr}${primeStr}`;
+}
+
 export function createCubeNotationParser(parser: CubeNotationParser) {
   /** 所有移動代號 */
   const moves = Array.isArray(parser.extraMoves)
-    ? [...BASIC_MOVES, ...parser.extraMoves]
-    : BASIC_MOVES;
-  /** 動態生成正規表達式 */
-  const REGEX = new RegExp(`^(\\d*)(${moves.join("|")})(\\d*)(')?$`);
+    ? [...basicMoves, ...parser.extraMoves]
+    : basicMoves;
 
+  /** 動態生成正規表達式 */
+  const REGEX = new RegExp(
+    `^(\\d*)(${moves.map(escapeRegex).join("|")})(\\d*)(')?$`,
+  );
+
+  /** 解析單一步驟 */
   function parseMove(moveStr?: string | null) {
     if (!moveStr) return null;
 
@@ -19,56 +62,31 @@ export function createCubeNotationParser(parser: CubeNotationParser) {
     if (!match) return null;
     const [, layerStr, base, turnStr, primeMark] = match;
 
-    // layers
-    let layers: number | null = null;
-    if (layerStr) {
-      const parsed = parseInt(layerStr, 10);
-      if (Number.isNaN(parsed) || parsed < 1) return null;
-      layers = parsed;
-    }
+    const token: MoveToken = {
+      base,
+      layers: layerStr ? parseInt(layerStr, 10) : null,
+      turns: turnStr ? parseInt(turnStr, 10) : 1,
+      prime: primeMark === "'",
+    };
 
-    // turns
-    let turns = 1;
-    if (turnStr) {
-      const parsed = parseInt(turnStr, 10);
-      if (Number.isNaN(parsed) || parsed < 1 || parsed > 3) return null;
-      turns = parsed;
-    }
-
-    return parser.parseMove([layers, base, turns, primeMark === "'"]);
+    const normalized = normalizeMoveToken(moves, token);
+    return normalized ? parser.parseMove(normalized) : null;
   }
 
+  /** 檢查字串是否為合法單步驟 */
   function isValidMove(moveStr?: string | null) {
     return parseMove(moveStr) !== null;
   }
 
-  function isValidMoveToken(token: unknown): token is MoveToken {
+  /** 檢查 MoveToken 物件是否合法 (需同時通過 parser 規則) */
+  function isValidMoveToken(token: MoveToken): token is MoveToken {
     if (!token || typeof token !== "object") return false;
 
-    const { base, layers, turns, prime } = token as MoveToken;
+    const normalized = normalizeMoveToken(moves, token as MoveToken);
+    if (!normalized) return false;
 
-    // base 必須是已知代號
-    if (typeof base !== "string" || !moves.includes(base)) return false;
-
-    // layers 預設為 1，必須 >= 1 的正整數
-    if (typeof layers !== "number" || !Number.isInteger(layers) || layers < 1) {
-      return false;
-    }
-
-    // turns 預設為 1，必須是 1 ~ 3 的整數 (90°, 180°, 270°)
-    if (
-      typeof turns !== "number" ||
-      !Number.isInteger(turns) ||
-      turns < 1 ||
-      turns > 3
-    ) {
-      return false;
-    }
-
-    // prime 必須是 boolean
-    if (typeof prime !== "boolean") return false;
-
-    return true;
+    // 交給 parser 驗證，例如三階 layers !== null 會被擋掉
+    return parser.parseMove(normalized) !== null;
   }
 
   return {
@@ -82,21 +100,24 @@ export function createCubeNotationParser(parser: CubeNotationParser) {
 
       const output = input.trim().split(SEPARATE).map(parseMove);
 
-      return output.every(Boolean) ? output : [];
+      // 如果任何一步不合法，直接回 []
+      return output.every(Boolean) ? (output as MoveToken[]) : [];
     },
-    /** 將 MoveToken[] 組合回字串公式 */
+    /** 將 MoveToken[] 或 string[] 組合回字串公式 */
     stringifyAlgorithm(input?: MoveToken[] | string[] | null) {
       if (!Array.isArray(input)) return "";
 
-      return (
-        input.every((item) => {
-          if (typeof item === "string") return isValidMove(item);
-          return isValidMoveToken(item);
+      return input
+        .map((item) => {
+          if (typeof item === "string") return isValidMove(item) ? item : null;
+          return isValidMoveToken(item)
+            ? stringifyMoveToken(item as MoveToken)
+            : null;
         })
-          ? input
-          : []
-      ).join(SEPARATE);
+        .filter(Boolean)
+        .join(SEPARATE);
     },
+    isValidMoveToken,
   };
 }
 
