@@ -1,14 +1,22 @@
+import type { WideMove } from "../types";
+
 import { faceMoves, wideMoves, rotations } from "../constants";
-import { createCubeNotationParser } from "../core";
-import { WideMove } from "../types";
+import { createCubeProfile } from "../core";
 
 /**
  * 非官方「多層轉動」的別名（常用於速記法）
  * 例如：`r` 代表 `Rw`，`u` 代表 `Uw`
  */
-export type WideAliasMove = "r" | "l" | "u" | "d" | "f" | "b";
+export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";
 /** 非官方「多層轉動」的別名集合 */
-export const wideAliasMoves: WideAliasMove[] = ["r", "l", "u", "d", "f", "b"];
+export const wideMoveAliasess: WideMoveAliases[] = [
+  "r",
+  "l",
+  "u",
+  "d",
+  "f",
+  "b",
+];
 
 /**
  * 非官方「中層轉動」的代號（非 WCA 標準）
@@ -18,15 +26,15 @@ export const wideAliasMoves: WideAliasMove[] = ["r", "l", "u", "d", "f", "b"];
  */
 export type MiddleBlockAliasMove = "E" | "M" | "S";
 /** 非官方「中層轉動」代號集合 */
-export const middleBlockAliasMoves: MiddleBlockAliasMove[] = ["E", "M", "S"];
+export const middleLayerMoves: MiddleBlockAliasMove[] = ["E", "M", "S"];
 
 /**
  * 所有「多層轉動」代號（包含標準 Wide 及其別名）
  * 例如：`Rw`、`r`、`Uw`、`u`
  */
-export type AllWideMove = WideAliasMove | WideMove;
+export type AllWideMove = WideMoveAliases | WideMove;
 /** 所有「多層轉動」代號集合 */
-export const allWideMoves: AllWideMove[] = [...wideMoves, ...wideAliasMoves];
+export const allWideMoves: AllWideMove[] = [...wideMoves, ...wideMoveAliasess];
 
 /**
  * 三階魔術方塊的所有合法轉動代號（完整集合）
@@ -37,24 +45,26 @@ export const allWideMoves: AllWideMove[] = [...wideMoves, ...wideAliasMoves];
  * - 中層轉動（非官方 Alias）
  */
 export const allMoves = [
-  ...wideAliasMoves,
+  ...wideMoveAliasess,
   ...wideMoves,
   ...faceMoves,
   ...rotations,
-  ...middleBlockAliasMoves,
+  ...middleLayerMoves,
 ];
 
 export const {
-  isValidMove,
+  parseMove,
+  formatMove,
+  isValidMoveString,
   isValidMoveToken,
   isValidWideMove,
-  parseMove,
   parseAlgorithm,
   stringifyAlgorithm,
-} = createCubeNotationParser({
-  level: 3,
-  extraMoves: [...wideAliasMoves, ...middleBlockAliasMoves],
-  parseMove({ sliceCount, base, turnCount, prime }) {
+  formatMoveToken,
+} = createCubeProfile({
+  layers: 3,
+  extraMoves: [...wideMoveAliasess, ...middleLayerMoves],
+  parseMove({ sliceCount, base, turnCount, isPrime }) {
     // 三階不支援前數字
     if (sliceCount !== null) {
       return null;
@@ -64,7 +74,7 @@ export const {
       base,
       sliceCount,
       turnCount,
-      prime,
+      isPrime,
     };
   },
 });

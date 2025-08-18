@@ -1,13 +1,26 @@
 import type { MoveToken } from "../types";
 import {
-  isValidMove,
+  isValidMoveString,
   isValidMoveToken,
   isValidWideMove,
+  parseMove,
+  parseAlgorithm,
+  stringifyAlgorithm,
+  formatMoveToken,
+  formatMove,
   allMoves,
 } from "./333";
 
 describe("333 轉動符號檢查", () => {
   describe("isValidWideMove", () => {
+    // test("獨立檢查", () => {
+    //   expect(parseMove("r1")).toEqual({
+    //     base: "r",
+    //     isPrime: false,
+    //     sliceCount: null,
+    //     turnCount: 1,
+    //   });
+    // });
     test("檢查多層轉動是否合法", () => {
       expect(isValidWideMove(null)).toBe(true);
     });
@@ -26,13 +39,13 @@ describe("333 轉動符號檢查", () => {
           sliceCount: null,
           base: "R",
           turnCount: 1,
-          prime: false,
+          isPrime: false,
         },
         {
           sliceCount: null,
           base: "r",
           turnCount: 1,
-          prime: true,
+          isPrime: true,
         },
       ];
       for (const element of array) {
@@ -46,19 +59,19 @@ describe("333 轉動符號檢查", () => {
           sliceCount: 1,
           base: "R",
           turnCount: 1,
-          prime: false,
+          isPrime: false,
         },
         {
           sliceCount: null,
           base: "R",
           turnCount: -1,
-          prime: false,
+          isPrime: false,
         },
         {
           sliceCount: null,
           base: "x",
           turnCount: 0,
-          prime: false,
+          isPrime: false,
         },
       ];
       for (const element of [...array, ...array2]) {
@@ -66,7 +79,7 @@ describe("333 轉動符號檢查", () => {
       }
     });
   });
-  describe("isValidMove", () => {
+  describe("isValidMoveString", () => {
     test("檢查單一符號是否違法", () => {
       const array = [
         null,
@@ -84,27 +97,27 @@ describe("333 轉動符號檢查", () => {
         "1R",
       ];
       for (const element of array) {
-        expect(isValidMove(element)).toBe(false);
+        expect(isValidMoveString(element)).toBe(false);
       }
     });
     test("檢查一般符號是否合法", () => {
       for (const move of allMoves) {
-        expect(isValidMove(move)).toBe(true);
+        expect(isValidMoveString(move)).toBe(true);
       }
     });
     test("檢查逆時鐘符號是否合法", () => {
       for (const move of allMoves.map((item) => `${item}'`)) {
-        expect(isValidMove(move)).toBe(true);
+        expect(isValidMoveString(move)).toBe(true);
       }
     });
     test("檢查多層是否違法", () => {
       for (const move of allMoves.map((item, index) => `${index}${item}'`)) {
-        expect(isValidMove(move)).toBe(false);
+        expect(isValidMoveString(move)).toBe(false);
       }
     });
     test("檢查負號多層是否違法", () => {
       for (const move of allMoves.map((item, index) => `${-index}${item}'`)) {
-        expect(isValidMove(move)).toBe(false);
+        expect(isValidMoveString(move)).toBe(false);
       }
     });
     test("旋轉次數符號是否合法", () => {
@@ -112,7 +125,7 @@ describe("333 轉動符號檢查", () => {
         .fill(null)
         .map((_, i) => i)) {
         for (const move of allMoves.map((item) => `${item}${element}`)) {
-          expect(isValidMove(move)).toBe(element >= 1 && element <= 3);
+          expect(isValidMoveString(move)).toBe(element >= 1 && element <= 3);
         }
       }
     });
@@ -121,7 +134,7 @@ describe("333 轉動符號檢查", () => {
         .fill(null)
         .map((_, i) => i)) {
         for (const move of allMoves.map((item) => `${item}${-element}`)) {
-          expect(isValidMove(move)).toBe(false);
+          expect(isValidMoveString(move)).toBe(false);
         }
       }
     });
@@ -132,7 +145,7 @@ describe("333 轉動符號檢查", () => {
         for (const move of allMoves.map(
           (item, index) => `${index}${item}${element}`,
         )) {
-          expect(isValidMove(move)).toBe(false);
+          expect(isValidMoveString(move)).toBe(false);
         }
       }
     });
@@ -143,7 +156,112 @@ describe("333 轉動符號檢查", () => {
         for (const move of allMoves.map(
           (item, index) => `${-index}${item}${-element}`,
         )) {
-          expect(isValidMove(move)).toBe(false);
+          expect(isValidMoveString(move)).toBe(false);
+        }
+      }
+    });
+  });
+  describe("parseMove", () => {
+    test("檢查單一符號是否違法", () => {
+      const array = [
+        null,
+        "",
+        " ",
+        "q",
+        "X",
+        "'",
+        "1",
+        "2",
+        "3",
+        "4",
+        "2'",
+        "2R",
+        "1R",
+      ];
+      for (const element of array) {
+        expect(parseMove(element)).toBeNull();
+      }
+    });
+    test("檢查一般符號是否合法", () => {
+      for (const move of allMoves) {
+        expect(parseMove(move)).toEqual({
+          base: move,
+          isPrime: false,
+          sliceCount: null,
+          turnCount: 1,
+        });
+      }
+    });
+    test("檢查逆時鐘符號是否合法", () => {
+      allMoves
+        .map((item) => `${item}'`)
+        .forEach((item, index) => {
+          expect(parseMove(item)).toEqual({
+            base: allMoves[index],
+            isPrime: true,
+            sliceCount: null,
+            turnCount: 1,
+          });
+        });
+    });
+    test("檢查多層是否違法", () => {
+      for (const move of allMoves.map((item, index) => `${index}${item}'`)) {
+        expect(parseMove(move)).toBeNull();
+      }
+    });
+    test("檢查負號多層是否違法", () => {
+      for (const move of allMoves.map((item, index) => `${-index}${item}'`)) {
+        expect(parseMove(move)).toBeNull();
+      }
+    });
+    test("旋轉次數符號是否合法", () => {
+      for (const element of Array(5)
+        .fill(null)
+        .map((_, i) => i)) {
+        allMoves
+          .map((item) => `${item}${element}`)
+          .forEach((item, index) => {
+            expect(parseMove(item)).toEqual(
+              element % 4 !== 0
+                ? {
+                    base: allMoves[index],
+                    isPrime: false,
+                    sliceCount: null,
+                    turnCount: element,
+                  }
+                : null,
+            );
+          });
+      }
+    });
+    test("負旋轉次數符號是否違法", () => {
+      for (const element of Array(5)
+        .fill(null)
+        .map((_, i) => i)) {
+        for (const move of allMoves.map((item) => `${item}${-element}`)) {
+          expect(parseMove(move)).toBeNull();
+        }
+      }
+    });
+    test("多層旋轉次數符號是否違法", () => {
+      for (const element of Array(5)
+        .fill(null)
+        .map((_, i) => i)) {
+        for (const move of allMoves.map(
+          (item, index) => `${index}${item}${element}`,
+        )) {
+          expect(parseMove(move)).toBeNull();
+        }
+      }
+    });
+    test("負旋轉次數符號是否違法", () => {
+      for (const element of Array(5)
+        .fill(null)
+        .map((_, i) => i)) {
+        for (const move of allMoves.map(
+          (item, index) => `${-index}${item}${-element}`,
+        )) {
+          expect(parseMove(move)).toBeNull();
         }
       }
     });

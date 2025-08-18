@@ -30,20 +30,15 @@ export interface MoveToken {
    *
    * @default false
    * */
-  prime: boolean;
+  isPrime: boolean;
 }
 
 /** 方塊實作介面 */
-export interface CubeNotationParser {
+export interface CubeProfile {
   /** 方塊階數 */
-  level: number;
+  layers: number;
   /** 要拓展的移動代號 */
   extraMoves?: string[];
   /** 將字串解析成 MoveToken */
   parseMove(moveToekn: MoveToken): MoveToken | null;
-}
-
-/** 方塊核心處理介面 */
-export interface CubeNotationCore {
-  parseMove(spec: CubeSpec, moveStr?: string | null): MoveToken | null;
 }
