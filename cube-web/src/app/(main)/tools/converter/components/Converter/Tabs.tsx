@@ -4,11 +4,11 @@ import { useAtom } from "jotai";
 import cn from "@/utils/cn";
 
 import { TabItem } from "./types";
-import { tabIndexAtom } from "./jotai";
+import { conversionTabIndexAtom } from "./jotai";
 import { tabs } from "./config";
 
 export default function Tabs() {
-  const [tabIndex, setTabIndex] = useAtom(tabIndexAtom);
+  const [tabIndex, setTabIndex] = useAtom(conversionTabIndexAtom);
 
   function _renderTab({ id, label }: TabItem, index: number) {
     return (

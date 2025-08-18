@@ -1,29 +1,19 @@
-import React, { useMemo } from "react";
+import React, { memo } from "react";
 
 import { FormProvider, useForm } from "react-hook-form";
-import { produce } from "immer";
 
 import type { CommonFormProps, ConversionType } from "./types";
 
 import { type Schema, resolver, defaultValues } from "./form";
-import { conversionFlags, conversionProfiles } from "./config";
 import useConvertMap from "./hooks/useConvertMap";
+import useConversionFlags from "./hooks/useConversionFlags";
 
 import AlgorithmInput from "./AlgorithmInput";
 
-export default function InPlaceForm({ cubeOrder }: CommonFormProps) {
+export default memo(function InPlaceForm({ cubeOrder }: CommonFormProps) {
   const form = useForm<Schema>({ resolver, defaultValues });
-  const _convertMap = useConvertMap(cubeOrder);
-
-  const enabledConversions = useMemo(() => {
-    const enabled = produce(conversionFlags, (draft) => {
-      if (cubeOrder === "333") {
-        draft.lower = true;
-        draft.upper = true;
-      }
-    });
-    return conversionProfiles.filter(({ id }) => enabled[id]);
-  }, [cubeOrder]);
+  const convertMap = useConvertMap(cubeOrder);
+  const conversions = useConversionFlags({ cubeOrder });
 
   function _reset() {
     form.reset();
@@ -32,7 +22,7 @@ export default function InPlaceForm({ cubeOrder }: CommonFormProps) {
   function _submit(key: ConversionType) {
     return form.handleSubmit(({ algorithm }) => {
       let result = "";
-      const convert = _convertMap[key];
+      const convert = convertMap[key];
       if (convert) {
         result = convert(algorithm);
       }
@@ -53,7 +43,7 @@ export default function InPlaceForm({ cubeOrder }: CommonFormProps) {
           <button type="reset" className="btn join-item btn-error">
             重設
           </button>
-          {enabledConversions.map(({ subtitle, id }) => (
+          {conversions.map(({ subtitle, id }) => (
             <button
               key={id}
               type="button"
@@ -67,4 +57,4 @@ export default function InPlaceForm({ cubeOrder }: CommonFormProps) {
       </form>
     </FormProvider>
   );
-}
+});

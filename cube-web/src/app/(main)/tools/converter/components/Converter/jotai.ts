@@ -1,7 +1,9 @@
 import { atom } from "jotai";
-import { FormLayout } from "./types";
 
-export const tabIndexAtom = atom(0);
+import type { FormLayout } from "./types";
+
+/** 選項卡索引 */
+export const conversionTabIndexAtom = atom(0);
 
 /**
  * 表單形式
@@ -10,19 +12,4 @@ export const tabIndexAtom = atom(0);
  *
  * @default "stand"
  * */
-export const formLayoutAtom = atom<FormLayout>("stand");
-
-export const enabledAtom = atom({
-  /** 鏡像 */
-  mirrorForm: true,
-  /** 反轉 */
-  reverseForm: true,
-  /** 旋轉 */
-  rotateForm: true,
-  /** 鏡像旋轉 */
-  mirrorRotateForm: true,
-  /** 轉大寫 */
-  upperForm: true,
-  /** 轉小寫 */
-  lowerForm: true,
-});
+export const conversionFormLayoutAtom = atom<FormLayout>("stand");

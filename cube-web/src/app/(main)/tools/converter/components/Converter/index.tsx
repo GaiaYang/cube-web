@@ -3,7 +3,7 @@
 import React from "react";
 import { Provider, useAtomValue } from "jotai";
 
-import { tabIndexAtom } from "./jotai";
+import { conversionTabIndexAtom } from "./jotai";
 
 import FormModeToggle from "./FormModeToggle";
 import FormEntry from "./FormEntry";
@@ -24,7 +24,7 @@ export default function Converter() {
 }
 
 function SwitchContent() {
-  const tabIndex = useAtomValue(tabIndexAtom);
+  const tabIndex = useAtomValue(conversionTabIndexAtom);
 
   switch (tabIndex) {
     case 0:

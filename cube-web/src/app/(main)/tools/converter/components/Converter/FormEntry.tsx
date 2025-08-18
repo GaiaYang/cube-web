@@ -3,13 +3,13 @@ import dynamic from "next/dynamic";
 import { useAtomValue } from "jotai";
 
 import type { CommonFormProps } from "./types";
-import { formLayoutAtom } from "./jotai";
+import { conversionFormLayoutAtom } from "./jotai";
 
 const StandForm = dynamic(() => import("./StandForm"));
 const InPlaceForm = dynamic(() => import("./InPlaceForm"));
 
 export default function FormEntry(props: CommonFormProps) {
-  const formType = useAtomValue(formLayoutAtom);
+  const formType = useAtomValue(conversionFormLayoutAtom);
 
   switch (formType) {
     case "stand":
