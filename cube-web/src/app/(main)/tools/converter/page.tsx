@@ -3,9 +3,6 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import ExternalLink from "@/components/ExternalLink";
-import Form from "./components/Form";
-import { Provider } from "jotai";
-import FormModeToggle from "./components/FormModeToggle";
 // import {
 //   MirrorForm,
 //   ReverseForm,
@@ -14,6 +11,7 @@ import FormModeToggle from "./components/FormModeToggle";
 //   UpperForm,
 //   LowerForm,
 // } from "./components/ConverterForm";
+import Converter from "./components/Converter";
 
 export const metadata: Metadata = {
   title: "公式轉換器",
@@ -58,42 +56,8 @@ export default function Page() {
           代號結構教學
         </ExternalLink>
       </p>
-      <section>
-        <h2>公式轉換器</h2>
-        <Provider>
-          <FormModeToggle />
-          <div className="tabs tabs-lift mt-5">
-            <label className="tab">
-              <input type="radio" name="tab-converter" defaultChecked />
-              官方格式公式轉換器
-            </label>
-            <div className="tab-content">
-              <Form cubeLayer="nnn" />
-            </div>
-            <label className="tab">
-              <input type="radio" name="tab-converter" />
-              三階公式轉換器
-            </label>
-            <div className="tab-content">
-              <h3>三階專用轉動符號</h3>
-              <ul className="[&>li>span]:flex [&>li>span]:gap-2">
-                <li>
-                  <span>中間層</span>
-                  <span>{["M", "S", "E"].map(_renderCodeItem)}</span>
-                </li>
-                <li>
-                  <span>非標準多層</span>
-                  <span>
-                    {["r", "l", "u", "d", "f", "b"].map(_renderCodeItem)}
-                  </span>
-                </li>
-              </ul>
-              <p>該區塊的轉換器額外支援三階非官方符號及特殊功能轉換</p>
-              <Form cubeLayer="333" />
-            </div>
-          </div>
-        </Provider>
-      </section>
+      <h2>轉換工具</h2>
+      <Converter />
     </Article>
   );
 }

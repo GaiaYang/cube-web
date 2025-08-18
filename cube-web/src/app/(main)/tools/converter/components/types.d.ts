@@ -16,3 +16,10 @@ export interface CommonFormProps {
    *  */
   cubeLayer?: "nnn" | "333";
 }
+
+export type FormType = "stand" | "in-place";
+
+export interface TabProps {
+  key: string;
+  title: string;
+}
