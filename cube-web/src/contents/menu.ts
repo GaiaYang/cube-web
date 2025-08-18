@@ -10,13 +10,6 @@ export const drawerMenu = createMenuOptions([
         id: "/tutorial/notation",
         title: "轉動代號說明",
         href: "/tutorial/notation",
-        submenu: [
-          {
-            id: "/tutorial/notation/structure",
-            title: "轉動代號結構",
-            href: "/tutorial/notation/structure",
-          },
-        ],
       },
       {
         id: "/tutorial/333",

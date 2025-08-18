@@ -50,11 +50,8 @@ export default function Page() {
         </li>
       </ul>
       <p>
-        如果還不看不懂代號的話，請先前往
-        <ExternalLink href="/tutorial/notation">代號說明</ExternalLink>、
-        <ExternalLink href="/tutorial/notation/structure">
-          代號結構教學
-        </ExternalLink>
+        如果還不看不懂代號的話，請先前往{" "}
+        <ExternalLink href="/tutorial/notation">代號說明</ExternalLink>
       </p>
       <h2>轉換工具</h2>
       <Converter />
