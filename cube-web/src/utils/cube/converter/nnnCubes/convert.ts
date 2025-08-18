@@ -19,32 +19,7 @@ const BASIC_MIRROR_MAP: MirrorMap = {
   z: "z",
 };
 
-/** 鏡像代號字串 */
-export function mirrorMoveString(params: MoveToken) {
-  return {
-    ...params,
-    code: BASIC_MIRROR_MAP[params.code as BasicMove] || params.code,
-    isPrime: !params.isPrime,
-  };
-}
-
-/** 鏡像公式 */
-export function mirrorAlgorithm(params: MoveToken[]) {
-  return params.map(mirrorMoveString);
-}
-
-/** 反轉公式 */
-export function reverseAlgorithm(params: MoveToken[]) {
-  return params
-    .slice()
-    .reverse()
-    .map((value) => ({
-      ...value,
-      isPrime: !value.isPrime,
-    }));
-}
-
-/** 旋轉基本映射 */
+/** 基本旋轉映射 */
 const BASIC_ROTATE_MAP: RotateMap = {
   R: "L",
   L: "R",
@@ -63,27 +38,39 @@ const BASIC_ROTATE_MAP: RotateMap = {
   z: "z",
 };
 
-/** 旋轉代號字串 */
-function rotateMoveString(params: MoveToken) {
-  const mapped = BASIC_ROTATE_MAP[params.code as BasicMove];
-  if (!mapped) return params;
-
-  // x z 軸要反向
-  if (params.code === "x" || params.code === "z") {
-    return {
-      ...params,
-      code: mapped,
-      isPrime: !params.isPrime,
-    };
-  }
-
+/** 鏡像單步驟 */
+function mirrorMoveString(params: MoveToken) {
   return {
     ...params,
-    code: mapped,
+    code: BASIC_MIRROR_MAP[params.code as BasicMove] || params.code,
+    isPrime: !params.isPrime, // 鏡像必定反轉
   };
+}
+
+/** 鏡像公式 */
+export function mirrorAlgorithm(params: MoveToken[]) {
+  return params.map(mirrorMoveString);
+}
+
+/** 反轉公式（逆序 + 反向旋轉） */
+export function reverseAlgorithm(params: MoveToken[]) {
+  return params
+    .slice()
+    .reverse()
+    .map((item) => ({ ...item, isPrime: !item.isPrime }));
 }
 
 /** 旋轉公式 */
 export function rotateAlgorithm(params: MoveToken[]) {
-  return params.map(rotateMoveString);
+  return params.map((item) => {
+    const mapped = BASIC_ROTATE_MAP[item.code as BasicMove];
+    if (!mapped) return item;
+
+    // x、z 軸旋轉需反轉 isPrime
+    if (item.code === "x" || item.code === "z") {
+      return { ...item, code: mapped, isPrime: !item.isPrime };
+    }
+
+    return { ...item, code: mapped };
+  });
 }
