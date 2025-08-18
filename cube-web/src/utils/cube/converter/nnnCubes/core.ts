@@ -1,3 +1,5 @@
+import { isPlainObject } from "es-toolkit";
+
 import { basicMoves, SEPARATE, MOVE_CYCLE_COUNT } from "./constants";
 import type { MoveToken, CubeNotationParser } from "./types";
 
@@ -11,38 +13,45 @@ function normalizeMoveToken(
   moves: string[],
   token: MoveToken,
 ): MoveToken | null {
-  const { base, layers, turns, prime } = token;
+  const { base, sliceCount, turnCount, prime } = token;
 
   // base 必須是已知代號
   if (typeof base !== "string" || !moves.includes(base)) return null;
 
-  // layers 可以是 null 或 >= 1 的整數
-  if (!(layers === null || (Number.isInteger(layers) && layers >= 1))) {
+  // sliceCount 可以是 null 或 >= 1 的整數
+  if (
+    !(sliceCount === null || (Number.isInteger(sliceCount) && sliceCount >= 1))
+  ) {
     return null;
   }
 
-  // turns 必須是 1 ~ 3 (因為 4 會回到原點)
-  if (typeof turns !== "number" || !Number.isInteger(turns) || turns < 1) {
+  // turnCount 必須是 1 ~ 3 (因為 4 會回到原點)
+  if (
+    typeof turnCount !== "number" ||
+    !Number.isInteger(turnCount) ||
+    turnCount < 1
+  ) {
     return null;
   }
 
-  const normalizedTurns = turns % MOVE_CYCLE_COUNT;
+  const normalizedTurns = turnCount % MOVE_CYCLE_COUNT;
   if (normalizedTurns === 0) return null;
 
   // prime 必須是 boolean
   if (typeof prime !== "boolean") return null;
 
-  return { base, layers, turns: normalizedTurns, prime };
+  return { base, sliceCount, turnCount: normalizedTurns, prime };
 }
 
 /** 把 MoveToken 轉回字串 */
 function stringifyMoveToken(token: MoveToken): string {
-  const layerStr = token.layers ? String(token.layers) : "";
-  const turnStr = token.turns > 1 ? String(token.turns) : "";
+  const sliceCounttr = token.sliceCount ? String(token.sliceCount) : "";
+  const turnStr = token.turnCount > 1 ? String(token.turnCount) : "";
   const primeStr = token.prime ? "'" : "";
-  return `${layerStr}${token.base}${turnStr}${primeStr}`;
+  return `${sliceCounttr}${token.base}${turnStr}${primeStr}`;
 }
 
+/** 建立方塊轉動解析 */
 export function createCubeNotationParser(parser: CubeNotationParser) {
   /** 所有移動代號 */
   const moves = Array.isArray(parser.extraMoves)
@@ -60,12 +69,12 @@ export function createCubeNotationParser(parser: CubeNotationParser) {
 
     const match = moveStr.match(REGEX);
     if (!match) return null;
-    const [, layerStr, base, turnStr, primeMark] = match;
+    const [, sliceCounttr, base, turnStr, primeMark] = match;
 
     const token: MoveToken = {
       base,
-      layers: layerStr ? parseInt(layerStr, 10) : null,
-      turns: turnStr ? parseInt(turnStr, 10) : 1,
+      sliceCount: sliceCounttr ? parseInt(sliceCounttr, 10) : null,
+      turnCount: turnStr ? parseInt(turnStr, 10) : 1,
       prime: primeMark === "'",
     };
 
@@ -80,13 +89,27 @@ export function createCubeNotationParser(parser: CubeNotationParser) {
 
   /** 檢查 MoveToken 物件是否合法 (需同時通過 parser 規則) */
   function isValidMoveToken(token: MoveToken): token is MoveToken {
-    if (!token || typeof token !== "object") return false;
+    if (!isPlainObject(token)) return false;
 
-    const normalized = normalizeMoveToken(moves, token as MoveToken);
+    const normalized = normalizeMoveToken(moves, token);
     if (!normalized) return false;
 
-    // 交給 parser 驗證，例如三階 layers !== null 會被擋掉
+    // 交給 parser 驗證
     return parser.parseMove(normalized) !== null;
+  }
+
+  /** 轉動層數是否合法，高階限定 */
+  function isValidWideMove(sliceCount: number | null) {
+    // 四階開始才能支援多層數字
+    if (parser.level < 4) {
+      return sliceCount === null;
+    }
+
+    if (sliceCount === null) {
+      return false;
+    }
+
+    return isValidOuterMove(parser.level, sliceCount);
   }
 
   return {
@@ -117,7 +140,10 @@ export function createCubeNotationParser(parser: CubeNotationParser) {
         .filter(Boolean)
         .join(SEPARATE);
     },
+    /** 檢查 MoveToken 物件是否合法 (需同時通過 parser 規則) */
     isValidMoveToken,
+    /** 轉動層數是否合法，高階限定 */
+    isValidWideMove,
   };
 }
 

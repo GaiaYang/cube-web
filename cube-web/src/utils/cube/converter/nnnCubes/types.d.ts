@@ -16,13 +16,15 @@ export interface MoveToken {
    *
    * @default null
    * */
-  layers: number | null;
+  sliceCount: number | null;
   /**
-   * 次數 (1 = 90°, 2 = 180°)
+   * 次數
+   *
+   * 透過 `parseMove` 回傳則會被簡化成 1 ~ 3
    *
    * @default 1
    * */
-  turns: number;
+  turnCount: number;
   /**
    * 是否為反向 `'`
    *
@@ -33,6 +35,8 @@ export interface MoveToken {
 
 /** 方塊實作介面 */
 export interface CubeNotationParser {
+  /** 方塊階數 */
+  level: number;
   /** 要拓展的移動代號 */
   extraMoves?: string[];
   /** 將字串解析成 MoveToken */

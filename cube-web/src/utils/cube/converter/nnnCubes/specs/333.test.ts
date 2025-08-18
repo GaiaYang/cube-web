@@ -1,20 +1,37 @@
 import type { MoveToken } from "../types";
-import { isValidMove, isValidMoveToken, allMoves } from "./333";
+import {
+  isValidMove,
+  isValidMoveToken,
+  isValidWideMove,
+  allMoves,
+} from "./333";
 
 describe("333 轉動符號檢查", () => {
+  describe("isValidWideMove", () => {
+    test("檢查多層轉動是否合法", () => {
+      expect(isValidWideMove(null)).toBe(true);
+    });
+    test("檢查多層轉動是否違法", () => {
+      for (const element of Array(8)
+        .fill(null)
+        .map((_, i) => i)) {
+        expect(isValidWideMove(element)).toBe(false);
+      }
+    });
+  });
   describe("isValidMoveToken", () => {
     test("檢查代號物件是否合法", () => {
       const array: MoveToken[] = [
         {
-          layers: null,
+          sliceCount: null,
           base: "R",
-          turns: 1,
+          turnCount: 1,
           prime: false,
         },
         {
-          layers: null,
+          sliceCount: null,
           base: "r",
-          turns: 1,
+          turnCount: 1,
           prime: true,
         },
       ];
@@ -26,21 +43,21 @@ describe("333 轉動符號檢查", () => {
       const array = [null, undefined, {}];
       const array2: MoveToken[] = [
         {
-          layers: 1,
+          sliceCount: 1,
           base: "R",
-          turns: 1,
+          turnCount: 1,
           prime: false,
         },
         {
-          layers: null,
+          sliceCount: null,
           base: "R",
-          turns: -1,
+          turnCount: -1,
           prime: false,
         },
         {
-          layers: null,
+          sliceCount: null,
           base: "x",
-          turns: 0,
+          turnCount: 0,
           prime: false,
         },
       ];

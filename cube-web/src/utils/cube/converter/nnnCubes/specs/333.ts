@@ -1,4 +1,4 @@
-import { faceMoves, wideMoves, PRIME_MARK, rotations } from "../constants";
+import { faceMoves, wideMoves, rotations } from "../constants";
 import { createCubeNotationParser } from "../core";
 import { WideMove } from "../types";
 
@@ -47,21 +47,23 @@ export const allMoves = [
 export const {
   isValidMove,
   isValidMoveToken,
+  isValidWideMove,
   parseMove,
   parseAlgorithm,
   stringifyAlgorithm,
 } = createCubeNotationParser({
+  level: 3,
   extraMoves: [...wideAliasMoves, ...middleBlockAliasMoves],
-  parseMove({ layers, base, turns, prime }) {
+  parseMove({ sliceCount, base, turnCount, prime }) {
     // 三階不支援前數字
-    if (layers !== null) {
+    if (sliceCount !== null) {
       return null;
     }
 
     return {
       base,
-      layers,
-      turns,
+      sliceCount,
+      turnCount,
       prime,
     };
   },
