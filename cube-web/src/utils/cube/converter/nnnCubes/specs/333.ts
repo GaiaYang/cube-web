@@ -1,15 +1,11 @@
 import type { WideMove, MirrorMap, RotateMap, MoveToken } from "../types";
-
 import { faceMoves, wideMoves, rotations } from "../constants";
 import { createCubeProfile } from "../core";
 
-/**
- * 非官方「多層轉動」的別名（常用於速記法）
- * 例如：`r` 代表 `Rw`，`u` 代表 `Uw`
- */
+/** 非官方「多層轉動」別名 */
 export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";
-/** 非官方「多層轉動」的別名集合 */
-export const wideMoveAliasess: WideMoveAliases[] = [
+/** 非官方「多層轉動」別名集合 */
+export const wideMoveAliases: WideMoveAliases[] = [
   "r",
   "l",
   "u",
@@ -18,34 +14,18 @@ export const wideMoveAliasess: WideMoveAliases[] = [
   "b",
 ];
 
-/**
- * 非官方「中層轉動」的代號（非 WCA 標準）
- * E = Equator（橫向中層）
- * M = Middle（前後中層）
- * S = Standing（上下中層）
- */
+/** 非官方「中層轉動」代號 */
 export type MiddleBlockAliasMove = "E" | "M" | "S";
-/** 非官方「中層轉動」代號集合 */
+/** 非官方中層轉動集合 */
 export const middleLayerMoves: MiddleBlockAliasMove[] = ["E", "M", "S"];
 
-/**
- * 所有「多層轉動」代號（包含標準 Wide 及其別名）
- * 例如：`Rw`、`r`、`Uw`、`u`
- */
+/** 所有多層轉動代號（包含標準 Wide 與別名） */
 export type AllWideMove = WideMoveAliases | WideMove;
-/** 所有「多層轉動」代號集合 */
-export const allWideMoves: AllWideMove[] = [...wideMoves, ...wideMoveAliasess];
+export const allWideMoves: AllWideMove[] = [...wideMoves, ...wideMoveAliases];
 
-/**
- * 三階魔術方塊的所有合法轉動代號（完整集合）
- * 包含：
- * - 多層轉動（標準 Wide 與別名）
- * - 單層轉動（Face Moves）
- * - 整體旋轉（Rotations）
- * - 中層轉動（非官方 Alias）
- */
+/** 三階魔術方塊所有合法轉動代號 */
 export const allMoves = [
-  ...wideMoveAliasess,
+  ...wideMoveAliases,
   ...wideMoves,
   ...faceMoves,
   ...rotations,
@@ -78,7 +58,7 @@ const ROTATE_MAP: RotateMap<MiddleBlockAliasMove | WideMoveAliases> = {
   S: "S",
 };
 
-/** 轉大寫映射表 */
+/** 雙層大小寫映射 */
 const UPPER_MAP: Record<WideMoveAliases, WideMove> = {
   r: "Rw",
   l: "Lw",
@@ -87,8 +67,6 @@ const UPPER_MAP: Record<WideMoveAliases, WideMove> = {
   b: "Bw",
   f: "Fw",
 };
-
-/** 轉小寫映射表 */
 const LOWER_MAP: Record<WideMove, WideMoveAliases> = {
   Rw: "r",
   Lw: "l",
@@ -97,6 +75,22 @@ const LOWER_MAP: Record<WideMove, WideMoveAliases> = {
   Bw: "b",
   Fw: "f",
 };
+
+/** 共用映射函式，支援 optional 反向 isPrime */
+function mapAlgorithm(
+  params: MoveToken[],
+  map: Record<string, string>,
+  reversePrimeFor: string[] = [],
+): MoveToken[] {
+  return params.map((item) => {
+    const mapped = map[item.code];
+    if (!mapped) return item;
+    if (reversePrimeFor.includes(item.code)) {
+      return { ...item, code: mapped, isPrime: !item.isPrime };
+    }
+    return { ...item, code: mapped };
+  });
+}
 
 export const {
   parseMove,
@@ -107,79 +101,33 @@ export const {
   parseAlgorithm,
   stringifyAlgorithm,
   formatMoveToken,
-  // 轉換實作
   mirrorAlgorithm,
   reverseAlgorithm,
   rotateAlgorithm,
 } = createCubeProfile({
   layers: 3,
-  extraMoves: [...wideMoveAliasess, ...middleLayerMoves],
+  extraMoves: [...wideMoveAliases, ...middleLayerMoves],
   parseMove({ sliceCount, code, turnCount, isPrime }) {
     // 三階不支援前數字
     if (sliceCount !== null) return null;
-    return {
-      code,
-      sliceCount,
-      turnCount,
-      isPrime,
-    };
+    return { code, sliceCount, turnCount, isPrime };
   },
   mirrorAlgorithm(params) {
-    return params.map((item) => {
-      const mappedCode = MIRROR_MAP[item.code as keyof typeof MIRROR_MAP];
-
-      if (!mappedCode) return item;
-
-      return {
-        ...item,
-        code: mappedCode,
-      };
-    });
+    // 所有 code 替換，不需反轉 isPrime
+    return mapAlgorithm(params, MIRROR_MAP);
   },
-  reverseAlgorithm: (params) => params,
+  reverseAlgorithm: (params) => params, // 三階不需要反轉
   rotateAlgorithm(params) {
-    return params.map((item) => {
-      const mappedCode = ROTATE_MAP[item.code as keyof typeof ROTATE_MAP];
-
-      if (!mappedCode) return item;
-
-      // M S 要反向
-      if (item.code === "M" || item.code === "S") {
-        return {
-          ...item,
-          code: mappedCode,
-          isPrime: !item.isPrime,
-        };
-      }
-
-      return {
-        ...item,
-        code: mappedCode,
-      };
-    });
+    // M/S 需要反轉 isPrime
+    return mapAlgorithm(params, ROTATE_MAP, ["M", "S"]);
   },
 });
 
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]) {
-  return params.map((item) => {
-    const mappedCode = UPPER_MAP[item.code as keyof typeof UPPER_MAP];
-    if (!mappedCode) return item;
-    return {
-      ...item,
-      code: mappedCode,
-    };
-  });
+  return mapAlgorithm(params, UPPER_MAP);
 }
-
 /** 雙層轉換成小寫公式 */
 export function lowerAlgorithm(params: MoveToken[]) {
-  return params.map((item) => {
-    const mappedCode = LOWER_MAP[item.code as keyof typeof LOWER_MAP];
-    if (!mappedCode) return item;
-    return {
-      ...item,
-      code: mappedCode,
-    };
-  });
+  return mapAlgorithm(params, LOWER_MAP);
 }
