@@ -38,18 +38,13 @@ const BASIC_ROTATE_MAP: RotateMap = {
   z: "z",
 };
 
-/** 鏡像單步驟 */
-function mirrorMoveString(params: MoveToken) {
-  return {
-    ...params,
-    code: BASIC_MIRROR_MAP[params.code as BasicMove] || params.code,
-    isPrime: !params.isPrime, // 鏡像必定反轉
-  };
-}
-
 /** 鏡像公式 */
 export function mirrorAlgorithm(params: MoveToken[]) {
-  return params.map(mirrorMoveString);
+  return params.map((item) => ({
+    ...item,
+    code: BASIC_MIRROR_MAP[item.code as BasicMove] || item.code,
+    isPrime: !item.isPrime, // 鏡像必定反轉
+  }));
 }
 
 /** 反轉公式（逆序 + 反向旋轉） */
