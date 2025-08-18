@@ -14,37 +14,6 @@ function escapeRegex(str: string) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/** 驗證並正規化 MoveToken，如果不合法就回傳 null */
-function validateAndNormalizeToken(
-  /** 要驗證的 MoveToken */
-  token: MoveToken | null | undefined,
-  /** 所有移動代號 */
-  moves: string[],
-): MoveToken | null {
-  if (!token) return null;
-
-  const { code, sliceCount, turnCount, isPrime } = token;
-
-  // code 必須是已知代號
-  if (!moves.includes(code)) return null;
-
-  // sliceCount 可以是 null 或 >= 1 的整數
-  if (sliceCount !== null && (!Number.isInteger(sliceCount) || sliceCount < 1))
-    return null;
-
-  // turnCount 必須是正整數
-  if (!Number.isInteger(turnCount) || turnCount < 1) return null;
-
-  /** 將 turnCount 轉換成 0 ~ 3 */
-  const normalizedTurns = turnCount % MOVE_CYCLE_COUNT;
-  if (normalizedTurns === 0) return null;
-
-  // prime 必須是 boolean
-  if (typeof isPrime !== "boolean") return null;
-
-  return { code, sliceCount, turnCount: normalizedTurns, isPrime };
-}
-
 /** 將 MoveToken 轉成標準化代號字串 */
 export function formatMoveToken(token: MoveToken): string {
   const sliceStr =
@@ -61,7 +30,6 @@ export function createCubeProfile(parser: CubeProfile) {
     ...basicMoves,
     ...(Array.isArray(parser.extraMoves) ? parser.extraMoves : []),
   ];
-
   /** 動態生成正規表達式，先長後短避免誤匹配 */
   const movesPattern = moves
     .sort((a, b) => b.length - a.length)
@@ -69,13 +37,36 @@ export function createCubeProfile(parser: CubeProfile) {
     .join("|");
   const REGEX = new RegExp(`^(\\d*)(${movesPattern})(\\d*)(')?$`);
 
+  /** 驗證並正規化 MoveToken，如果不合法就回傳 null */
+  function _validateAndNormalizeToken(
+    /** 要驗證的 MoveToken */
+    token: MoveToken | null | undefined,
+  ): MoveToken | null {
+    if (!isPlainObject(token)) return null;
+    const { code, sliceCount, turnCount, isPrime } = token;
+    // code 必須是已知代號
+    if (!moves.includes(code)) return null;
+    // sliceCount 可以是 null 或 >= 1 的整數
+    if (
+      sliceCount !== null &&
+      (!Number.isInteger(sliceCount) || sliceCount < 1)
+    )
+      return null;
+    // turnCount 必須是正整數
+    if (!Number.isInteger(turnCount) || turnCount < 1) return null;
+    /** 將 turnCount 轉換成 0 ~ 3 */
+    const normalizedTurns = turnCount % MOVE_CYCLE_COUNT;
+    if (normalizedTurns === 0) return null;
+    // prime 必須是 boolean
+    if (typeof isPrime !== "boolean") return null;
+    return { code, sliceCount, turnCount: normalizedTurns, isPrime };
+  }
+
   /** 解析單一步驟字串為 MoveToken */
   function parseMove(moveStr?: string | null): MoveToken | null {
     if (!moveStr) return null;
-
     const match = moveStr.match(REGEX);
     if (!match) return null;
-
     const [, sliceCountStr, code, turnStr, primeMark] = match;
     const token: MoveToken = {
       code,
@@ -83,8 +74,7 @@ export function createCubeProfile(parser: CubeProfile) {
       turnCount: turnStr ? parseInt(turnStr, 10) : 1,
       isPrime: primeMark === "'",
     };
-
-    const normalized = validateAndNormalizeToken(token, moves);
+    const normalized = _validateAndNormalizeToken(token);
     return normalized ? parser.parseMove(normalized) : null;
   }
 
@@ -97,18 +87,15 @@ export function createCubeProfile(parser: CubeProfile) {
 
   /** 檢查字串是否為合法單步驟 */
   function isValidMoveString(moveStr?: string | null) {
-    return validateAndNormalizeToken(parseMove(moveStr), moves) !== null;
+    return parseMove(moveStr) !== null;
   }
 
   /** 檢查 MoveToken 物件是否合法 */
   function isValidMoveToken(
     token: MoveToken | null | undefined,
   ): token is MoveToken {
-    if (!isPlainObject(token)) return false;
-
-    const normalized = validateAndNormalizeToken(token, moves);
+    const normalized = _validateAndNormalizeToken(token);
     if (!normalized) return false;
-
     return parser.parseMove(normalized) !== null;
   }
 
@@ -154,7 +141,12 @@ export function createCubeProfile(parser: CubeProfile) {
   };
 }
 
-/** 檢查魔術方塊外層移動的有效性 */
+/**
+ * 檢查魔術方塊外層移動的有效性
+ *
+ * @param N 方塊總層數
+ * @param n 轉動層數
+ * */
 export function isValidOuterMove(N: number, n?: number | null): boolean {
   if (!Number.isInteger(N) || N <= 1) return false;
   const slices = n ?? 2;

@@ -66,10 +66,7 @@ export const {
   extraMoves: [...wideMoveAliasess, ...middleLayerMoves],
   parseMove({ sliceCount, code, turnCount, isPrime }) {
     // 三階不支援前數字
-    if (sliceCount !== null) {
-      return null;
-    }
-
+    if (sliceCount !== null) return null;
     return {
       code,
       sliceCount,
