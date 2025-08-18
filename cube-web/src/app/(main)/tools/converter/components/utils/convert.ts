@@ -4,12 +4,14 @@ import {
   stringifyAlgorithm,
 } from "@/utils/cube/converter/nnnCubes/specs/nnn";
 
+import type { Convert } from "./types";
+
 export function mirrorAlgorithm(algorithm: string) {
   return stringifyAlgorithm(
     mirrorHorizontalAlgorithm(parseAlgorithm(algorithm)),
   );
 }
 
-const output = { mirrorAlgorithm };
+const output: Convert = { mirrorAlgorithm };
 
 export default output;

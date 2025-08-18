@@ -1,25 +1,31 @@
-import React from "react";
-import {
-  Control,
-  Controller,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import React, { useMemo } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { EraserIcon, SendIcon } from "lucide-react";
 import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
+import { produce } from "immer";
 
 import type { CommonFormProps } from "./types";
 
-import cn from "@/utils/cn";
-import { type Schema, resolver, defaultValues } from "@/forms/algorithmInput";
-import convert from "./utils/convert";
-import convert333 from "./utils/convert333";
+import { type Schema, resolver, defaultValues } from "./form";
+import { enabledEvent } from "./config";
+import useConvert from "./hooks/useConvert";
 
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
+import AlgorithmInput from "./AlgorithmInput";
 
 export default function StandForm({ cubeLayer }: CommonFormProps) {
-  const _convert = cubeLayer === "nnn" ? convert : convert333;
+  const _convert = useConvert(cubeLayer);
+
+  const enabled = useMemo(
+    () =>
+      produce(enabledEvent, (draft) => {
+        if (cubeLayer === "333") {
+          draft.lower = true;
+          draft.upper = true;
+        }
+      }),
+    [cubeLayer],
+  );
 
   function _renderForm() {
     return (
@@ -33,27 +39,47 @@ export default function StandForm({ cubeLayer }: CommonFormProps) {
 
   return (
     <div>
-      <h2>鏡像公式</h2>
-      <p>可將右手公式直接套用到左手，解決鏡像的兩種情況。</p>
-      <Provider>
-        <CoreFormContainer onConvert={_convert.mirrorAlgorithm}>
-          {_renderForm()}
-        </CoreFormContainer>
-      </Provider>
-      <h2>反轉公式</h2>
-      <p>可讓你倒著執行整條公式，將完成的狀態回到初始位置。</p>
-
-      <h2>旋轉公式</h2>
-      <p>可將步驟轉換成在方塊旋轉 y2 後仍能得到相同結果的公式。</p>
-
-      <h2>鏡像旋轉公式</h2>
-      <p>若公式有鏡像形式，可先左右鏡像再前後旋轉，得到同手的鏡像公式。</p>
-
-      <h2>轉換成雙層大寫公式</h2>
-      <p>將公式裡所有雙層符號替換成標準的大寫英文。</p>
-
-      <h2>轉換成雙層小寫公式</h2>
-      <p>將公式裡所有雙層符號替換成大家習慣的小寫英文。</p>
+      {enabled.mirror ? (
+        <>
+          <h2>鏡像公式</h2>
+          <p>可將右手公式直接套用到左手，解決鏡像的兩種情況。</p>
+          <Provider>
+            <CoreFormContainer onConvert={_convert.mirrorAlgorithm}>
+              {_renderForm()}
+            </CoreFormContainer>
+          </Provider>
+        </>
+      ) : null}
+      {enabled.reverse ? (
+        <>
+          <h2>反轉公式</h2>
+          <p>可讓你倒著執行整條公式，將完成的狀態回到初始位置。</p>
+        </>
+      ) : null}
+      {enabled.rotate ? (
+        <>
+          <h2>旋轉公式</h2>
+          <p>可將步驟轉換成在方塊旋轉 y2 後仍能得到相同結果的公式。</p>
+        </>
+      ) : null}
+      {enabled.mirrorRotate ? (
+        <>
+          <h2>鏡像旋轉公式</h2>
+          <p>若公式有鏡像形式，可先左右鏡像再前後旋轉，得到同手的鏡像公式。</p>
+        </>
+      ) : null}
+      {enabled.upper ? (
+        <>
+          <h2>轉換成雙層大寫公式</h2>
+          <p>將公式裡所有雙層符號替換成標準的大寫英文。</p>
+        </>
+      ) : null}
+      {enabled.lower ? (
+        <>
+          <h2>轉換成雙層小寫公式</h2>
+          <p>將公式裡所有雙層符號替換成大家習慣的小寫英文。</p>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -95,35 +121,6 @@ function CoreFormContainer({
         {children}
       </form>
     </FormProvider>
-  );
-}
-
-function AlgorithmInput({ cubeLayer }: Pick<CommonFormProps, "cubeLayer">) {
-  return (
-    <Controller
-      control={undefined as unknown as Control<Schema>}
-      name="algorithm"
-      render={({ field, fieldState: { error } }) => {
-        const isError = Boolean(error);
-
-        return (
-          <fieldset className="fieldset">
-            <input
-              {...field}
-              type="text"
-              className={cn("input focus:input-primary", {
-                "input-error": isError,
-              })}
-              placeholder="R U R' U'"
-            />
-            <p className={cn("label", { "text-error": isError })}>
-              {error?.message ??
-                (cubeLayer === "nnn" ? "允許官方符號" : "允許官方跟非官方符號")}
-            </p>
-          </fieldset>
-        );
-      }}
-    />
   );
 }
 

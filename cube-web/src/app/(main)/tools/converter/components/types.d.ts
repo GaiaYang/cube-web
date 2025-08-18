@@ -1,8 +1,17 @@
+/** 轉換的選項 */
+export type ConvertOption =
+  | "mirror"
+  | "reverse"
+  | "rotate"
+  | "mirrorRotate"
+  | "upper"
+  | "lower";
+
 /** 被啟用的選項 */
-export type EnabledOption = Record<
-  "mirror" | "reverse" | "rotate" | "mirrorRotate" | "upper" | "lower",
-  boolean
->;
+export type EnabledOption = Record<ConvertOption, boolean>;
+
+/** 方塊層數 */
+export type CubeLayer = "nnn" | "333";
 
 export interface CommonFormProps {
   /**
@@ -10,7 +19,7 @@ export interface CommonFormProps {
    *
    * @default "nnn"
    *  */
-  cubeLayer?: "nnn" | "333";
+  cubeLayer?: CubeLayer;
 }
 
 /** 表單形式 */

@@ -29,7 +29,7 @@ export default function Tabs() {
   }
 
   return (
-    <div role="tablist" className="tabs tabs-lift">
+    <div role="tablist" className="tabs tabs-box">
       {tabs.map(_renderTab)}
     </div>
   );
