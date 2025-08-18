@@ -3,6 +3,9 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import ExternalLink from "@/components/ExternalLink";
+import Form from "./components/Form";
+import { Provider } from "jotai";
+import FormModeToggle from "./components/FormModeToggle";
 // import {
 //   MirrorForm,
 //   ReverseForm,
@@ -40,53 +43,57 @@ export default function Page() {
             {["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"].map(_renderCodeItem)}
           </span>
         </li>
-        <h3>可使用的詞綴</h3>
-        <ul>
-          <li>數字</li>
-          <li>
-            <code>{"'"}</code>
-          </li>
-        </ul>
       </ul>
-      <section>
-        <h2>三階方塊特例</h2>
-        <h3>三階專用轉動符號</h3>
-        <ul className="[&>li>span]:flex [&>li>span]:gap-2">
-          <li>
-            <span>中間層</span>
-            <span>{["M", "S", "E"].map(_renderCodeItem)}</span>
-          </li>
-          <li>
-            <span>非標準多層</span>
-            <span>{["r", "l", "u", "d", "f", "b"].map(_renderCodeItem)}</span>
-          </li>
-        </ul>
-      </section>
+      <h3>可使用的詞綴</h3>
+      <ul>
+        <li>數字</li>
+        <li>
+          <code>{"'"}</code>
+        </li>
+      </ul>
       <p>
         如果還不看不懂代號的話，請先前往
-        <ExternalLink href="/tutorial/notation">代號說明</ExternalLink>
+        <ExternalLink href="/tutorial/notation">代號說明</ExternalLink>、
+        <ExternalLink href="/tutorial/notation/structure">
+          代號結構教學
+        </ExternalLink>
       </p>
-      <h3>代號結構</h3>
-      <ExternalLink href="/tutorial/notation/structure">
-        代號結構教學
-      </ExternalLink>
-      <h2>鏡像公式</h2>
-      <p>可將右手公式直接套用到左手，解決鏡像的兩種情況。</p>
-
-      <h2>反轉公式</h2>
-      <p>可讓你倒著執行整條公式，將完成的狀態回到初始位置。</p>
-
-      <h2>旋轉公式</h2>
-      <p>可將步驟轉換成在方塊旋轉 y2 後仍能得到相同結果的公式。</p>
-
-      <h2>鏡像旋轉公式</h2>
-      <p>若公式有鏡像形式，可先左右鏡像再前後旋轉，得到同手的鏡像公式。</p>
-
-      <h2>轉換成雙層大寫公式</h2>
-      <p>將公式裡所有雙層符號替換成標準的大寫英文。</p>
-
-      <h2>轉換成雙層小寫公式</h2>
-      <p>將公式裡所有雙層符號替換成大家習慣的小寫英文。</p>
+      <section>
+        <h2>公式轉換器</h2>
+        <Provider>
+          <FormModeToggle />
+          <div className="tabs tabs-lift mt-5">
+            <label className="tab">
+              <input type="radio" name="tab-converter" defaultChecked />
+              官方格式公式轉換器
+            </label>
+            <div className="tab-content">
+              <Form />
+            </div>
+            <label className="tab">
+              <input type="radio" name="tab-converter" />
+              三階公式轉換器
+            </label>
+            <div className="tab-content">
+              <h3>三階專用轉動符號</h3>
+              <ul className="[&>li>span]:flex [&>li>span]:gap-2">
+                <li>
+                  <span>中間層</span>
+                  <span>{["M", "S", "E"].map(_renderCodeItem)}</span>
+                </li>
+                <li>
+                  <span>非標準多層</span>
+                  <span>
+                    {["r", "l", "u", "d", "f", "b"].map(_renderCodeItem)}
+                  </span>
+                </li>
+              </ul>
+              <p>該區塊的轉換器額外支援三階非官方符號及特殊功能轉換</p>
+              <Form enabledForms={{ upperForm: true, lowerForm: true }} />
+            </div>
+          </div>
+        </Provider>
+      </section>
     </Article>
   );
 }
