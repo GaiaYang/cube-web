@@ -14,13 +14,7 @@ export default function AlgorithmCaseCard({
   children,
 }: React.PropsWithChildren<AlgorithmCaseCardProps>) {
   return (
-    <div
-      className={cn(
-        "card",
-        "border border-transparent not-dark:shadow-sm",
-        "dark:bg-base-200 dark:border-base-content/5",
-      )}
-    >
+    <div className={cn("card", "border-base-300 border", "dark:bg-base-200")}>
       <figure className="aspect-square w-full p-4">
         {children ?? <div aria-hidden className="skeleton h-full w-full" />}
       </figure>

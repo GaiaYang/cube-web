@@ -20,7 +20,11 @@ export default memo(function AlgorithmInput() {
             <input
               {...field}
               type="text"
-              className={cn("input focus:input-primary w-full", {
+              // 關閉自動完成
+              autoComplete="off"
+              // 關閉拼字檢查
+              spellCheck="false"
+              className={cn("input focus:input-primary", "w-full font-mono", {
                 "input-error": isError,
               })}
               placeholder="R U R' U'"
