@@ -92,19 +92,7 @@ function mapAlgorithm(
   });
 }
 
-export const {
-  parseMove,
-  formatMove,
-  isValidMoveString,
-  isValidMoveToken,
-  isValidWideMove,
-  parseAlgorithm,
-  stringifyAlgorithm,
-  formatMoveToken,
-  mirrorAlgorithm,
-  reverseAlgorithm,
-  rotateAlgorithm,
-} = createCubeProfile({
+const cubeProfile = createCubeProfile({
   layers: 3,
   extraMoves: [...wideMoveAliases, ...middleLayerMoves],
   parseMove({ sliceCount, code, turnCount, isPrime }) {
@@ -122,6 +110,21 @@ export const {
     return mapAlgorithm(params, ROTATE_MAP, ["M", "S"]);
   },
 });
+
+export const {
+  parseMove,
+  formatMove,
+  isValidMoveString,
+  isValidMoveToken,
+  parseAlgorithm,
+  stringifyAlgorithm,
+  formatMoveToken,
+  mirrorAlgorithm,
+  reverseAlgorithm,
+  rotateAlgorithm,
+} = cubeProfile;
+
+export default cubeProfile;
 
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]) {

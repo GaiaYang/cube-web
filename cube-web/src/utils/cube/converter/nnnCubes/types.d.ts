@@ -22,13 +22,11 @@ export interface MoveToken {
   /**
    * 次數
    *
-   * 透過 `parseMove` 回傳則會被簡化成 1 ~ 3
-   *
    * @default 1
    * */
   turnCount: number;
   /**
-   * 是否為反向 `'`
+   * 是否為 `'` 符號
    *
    * @default false
    * */
