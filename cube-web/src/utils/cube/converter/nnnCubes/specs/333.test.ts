@@ -111,7 +111,7 @@ describe("333 轉動符號檢查", () => {
 
     test("應該能判斷錯誤的多層或負號符號", () => {
       allMoves.forEach((m, i) => {
-        expect(isValidMoveString(`${i}${m}'`)).toBe(false);
+        expect(isValidMoveString(`${i}${m}'`)).toBe(typeof i !== "number");
         expect(isValidMoveString(`${-i}${m}'`)).toBe(false);
       });
     });

@@ -121,7 +121,12 @@ describe("nnn 轉動符號檢查", () => {
       basicMoves.forEach((m, i) => {
         expect(parseMove(`${i}${m}'`)).toEqual(
           wideMoves.includes(m as WideMove) && i > 1
-            ? { code: m, isPrime: true, sliceCount: i, turnCount: 1 }
+            ? {
+                code: m,
+                isPrime: true,
+                sliceCount: i,
+                turnCount: 1,
+              }
             : null,
         );
         expect(parseMove(`${-i}${m}'`)).toBeNull();

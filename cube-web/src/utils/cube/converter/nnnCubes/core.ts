@@ -33,10 +33,9 @@ export function createCubeProfile(parser: CubeProfile) {
     // code 必須是已知代號
     if (!moves.includes(code)) return null;
 
-    // 多層符號前才能有數字
-    if (!wideMoves.includes(code as WideMove) && sliceCount !== null) {
+    // 非 wideMoves 不允許 sliceCount
+    if (!wideMoves.includes(code as WideMove) && sliceCount !== null)
       return null;
-    }
 
     // sliceCount 可以是 null 或 >= 1 的整數
     if (
