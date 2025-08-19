@@ -13,9 +13,32 @@ import {
   lowerAlgorithm,
 } from "./333";
 
+// 🔹 共用測資
+const invalidSymbols = [
+  null,
+  "",
+  " ",
+  "q",
+  "X",
+  "'",
+  "1",
+  "2",
+  "3",
+  "4",
+  "2'",
+  "2R",
+  "1R",
+];
+const fullAlg = "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw r u f l d b";
+const fullAlgPrime =
+  "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' r' u' f' l' d' b'";
+
+// 產生 0~4
+const range0to4 = Array.from({ length: 5 }, (_, i) => i);
+
 describe("333 轉動符號檢查", () => {
   describe("stringifyAlgorithm", () => {
-    test("組合成公式", () => {
+    test("應該能正確組合成公式", () => {
       expect(stringifyAlgorithm()).toBe("");
       expect(stringifyAlgorithm(null)).toBe("");
       expect(stringifyAlgorithm(undefined)).toBe("");
@@ -25,8 +48,9 @@ describe("333 轉動符號檢查", () => {
       expect(stringifyAlgorithm(["R", "r2", "Lw"])).toBe("R r2 Lw");
     });
   });
+
   describe("parseAlgorithm", () => {
-    test("拆解成陣列", () => {
+    test("應該能拆解成 MoveToken 陣列", () => {
       expect(parseAlgorithm("R r r' r2 r2' r3 r3' Lw")).toEqual([
         { sliceCount: null, code: "R", turnCount: 1, isPrime: false },
         { sliceCount: null, code: "r", turnCount: 1, isPrime: false },
@@ -37,10 +61,9 @@ describe("333 轉動符號檢查", () => {
         { sliceCount: null, code: "r", turnCount: 3, isPrime: true },
         { sliceCount: null, code: "Lw", turnCount: 1, isPrime: false },
       ]);
+
       expect(parseAlgorithm("r4")).toEqual([]);
       expect(parseAlgorithm("r8")).toEqual([]);
-      expect(parseAlgorithm("r4")).toEqual([]);
-      expect(parseAlgorithm("r8'")).toEqual([]);
       expect(parseAlgorithm("r6")).toEqual([
         { sliceCount: null, code: "r", turnCount: 2, isPrime: false },
       ]);
@@ -50,346 +73,169 @@ describe("333 轉動符號檢查", () => {
       expect(parseAlgorithm("R 1r2 Lw")).toEqual([]);
     });
   });
+
   describe("isValidMoveToken", () => {
-    test("檢查代號物件是否正確", () => {
-      const array: MoveToken[] = [
-        {
-          sliceCount: null,
-          code: "R",
-          turnCount: 1,
-          isPrime: false,
-        },
-        {
-          sliceCount: null,
-          code: "r",
-          turnCount: 1,
-          isPrime: true,
-        },
+    test("應該能判斷正確的 MoveToken", () => {
+      const validTokens: MoveToken[] = [
+        { sliceCount: null, code: "R", turnCount: 1, isPrime: false },
+        { sliceCount: null, code: "r", turnCount: 1, isPrime: true },
       ];
-      for (const element of array) {
-        expect(isValidMoveToken(element)).toBe(true);
-      }
+      validTokens.forEach((t) => expect(isValidMoveToken(t)).toBe(true));
     });
-    test("檢查代號物件是否錯誤", () => {
-      const array = [null, undefined, {}];
-      const array2: MoveToken[] = [
-        {
-          sliceCount: 1,
-          code: "R",
-          turnCount: 1,
-          isPrime: false,
-        },
-        {
-          sliceCount: null,
-          code: "R",
-          turnCount: -1,
-          isPrime: false,
-        },
-        {
-          sliceCount: null,
-          code: "x",
-          turnCount: 0,
-          isPrime: false,
-        },
+
+    test("應該能判斷錯誤的 MoveToken", () => {
+      const invalidTokens = [
+        null,
+        undefined,
+        {},
+        { sliceCount: 1, code: "R", turnCount: 1, isPrime: false },
+        { sliceCount: null, code: "R", turnCount: -1, isPrime: false },
+        { sliceCount: null, code: "x", turnCount: 0, isPrime: false },
       ];
-      for (const element of [...array, ...array2]) {
-        expect(isValidMoveToken(element as MoveToken)).toBe(false);
-      }
+      invalidTokens.forEach((t) =>
+        expect(isValidMoveToken(t as MoveToken)).toBe(false),
+      );
     });
   });
+
   describe("isValidMoveString", () => {
-    test("檢查單一符號是否錯誤", () => {
-      const array = [
-        null,
-        "",
-        " ",
-        "q",
-        "X",
-        "'",
-        "1",
-        "2",
-        "3",
-        "4",
-        "2'",
-        "2R",
-        "1R",
-      ];
-      for (const element of array) {
-        expect(isValidMoveString(element)).toBe(false);
-      }
+    test("應該能判斷錯誤的符號", () => {
+      invalidSymbols.forEach((s) => expect(isValidMoveString(s)).toBe(false));
     });
-    test("檢查一般符號是否正確", () => {
-      for (const move of allMoves) {
-        expect(isValidMoveString(move)).toBe(true);
-      }
+
+    test("應該能判斷正確的符號", () => {
+      allMoves.forEach((m) => expect(isValidMoveString(m)).toBe(true));
+      allMoves
+        .map((m) => `${m}'`)
+        .forEach((m) => expect(isValidMoveString(m)).toBe(true));
     });
-    test("檢查逆時鐘符號是否正確", () => {
-      for (const move of allMoves.map((item) => `${item}'`)) {
-        expect(isValidMoveString(move)).toBe(true);
-      }
+
+    test("應該能判斷錯誤的多層或負號符號", () => {
+      allMoves.forEach((m, i) => {
+        expect(isValidMoveString(`${i}${m}'`)).toBe(false);
+        expect(isValidMoveString(`${-i}${m}'`)).toBe(false);
+      });
     });
-    test("檢查多層是否錯誤", () => {
-      for (const move of allMoves.map((item, index) => `${index}${item}'`)) {
-        expect(isValidMoveString(move)).toBe(false);
-      }
-    });
-    test("檢查負號多層是否錯誤", () => {
-      for (const move of allMoves.map((item, index) => `${-index}${item}'`)) {
-        expect(isValidMoveString(move)).toBe(false);
-      }
-    });
-    test("旋轉次數符號是否正確", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        for (const move of allMoves.map((item) => `${item}${element}`)) {
-          expect(isValidMoveString(move)).toBe(element >= 1 && element <= 3);
-        }
-      }
-    });
-    test("負旋轉次數符號是否錯誤", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        for (const move of allMoves.map((item) => `${item}${-element}`)) {
-          expect(isValidMoveString(move)).toBe(false);
-        }
-      }
-    });
-    test("多層旋轉次數符號是否錯誤", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        for (const move of allMoves.map(
-          (item, index) => `${index}${item}${element}`,
-        )) {
-          expect(isValidMoveString(move)).toBe(false);
-        }
-      }
-    });
-    test("負旋轉次數符號是否錯誤", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        for (const move of allMoves.map(
-          (item, index) => `${-index}${item}${-element}`,
-        )) {
-          expect(isValidMoveString(move)).toBe(false);
-        }
-      }
+
+    test("應該能判斷旋轉次數是否合法", () => {
+      range0to4.forEach((n) => {
+        allMoves.forEach((m) => {
+          expect(isValidMoveString(`${m}${n}`)).toBe(n >= 1 && n <= 3);
+          expect(isValidMoveString(`${m}${-n}`)).toBe(false);
+        });
+      });
     });
   });
+
   describe("parseMove", () => {
-    test("檢查單一符號是否錯誤", () => {
-      const array = [
-        null,
-        "",
-        " ",
-        "q",
-        "X",
-        "'",
-        "1",
-        "2",
-        "3",
-        "4",
-        "2'",
-        "2R",
-        "1R",
-      ];
-      for (const element of array) {
-        expect(parseMove(element)).toBeNull();
-      }
+    test("應該能解析錯誤符號為 null", () => {
+      invalidSymbols.forEach((s) => expect(parseMove(s)).toBeNull());
+      allMoves.forEach((m, i) => {
+        expect(parseMove(`${i}${m}'`)).toBeNull();
+        expect(parseMove(`${-i}${m}'`)).toBeNull();
+      });
     });
-    test("檢查一般符號是否正確", () => {
-      for (const move of allMoves) {
-        expect(parseMove(move)).toEqual({
-          code: move,
+
+    test("應該能正確解析符號", () => {
+      allMoves.forEach((m) =>
+        expect(parseMove(m)).toEqual({
+          code: m,
           isPrime: false,
           sliceCount: null,
           turnCount: 1,
-        });
-      }
-    });
-    test("檢查逆時鐘符號是否正確", () => {
+        }),
+      );
+
       allMoves
-        .map((item) => `${item}'`)
-        .forEach((item, index) => {
-          expect(parseMove(item)).toEqual({
-            code: allMoves[index],
+        .map((m) => `${m}'`)
+        .forEach((m, i) =>
+          expect(parseMove(m)).toEqual({
+            code: allMoves[i],
             isPrime: true,
             sliceCount: null,
             turnCount: 1,
-          });
+          }),
+        );
+
+      range0to4.forEach((n) => {
+        allMoves.forEach((m, i) => {
+          expect(parseMove(`${m}${n}`)).toEqual(
+            n % 4 !== 0
+              ? {
+                  code: allMoves[i],
+                  isPrime: false,
+                  sliceCount: null,
+                  turnCount: n,
+                }
+              : null,
+          );
         });
-    });
-    test("檢查多層是否錯誤", () => {
-      for (const move of allMoves.map((item, index) => `${index}${item}'`)) {
-        expect(parseMove(move)).toBeNull();
-      }
-    });
-    test("檢查負號多層是否錯誤", () => {
-      for (const move of allMoves.map((item, index) => `${-index}${item}'`)) {
-        expect(parseMove(move)).toBeNull();
-      }
-    });
-    test("旋轉次數符號是否正確", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        allMoves
-          .map((item) => `${item}${element}`)
-          .forEach((item, index) => {
-            expect(parseMove(item)).toEqual(
-              element % 4 !== 0
-                ? {
-                    code: allMoves[index],
-                    isPrime: false,
-                    sliceCount: null,
-                    turnCount: element,
-                  }
-                : null,
-            );
-          });
-      }
-    });
-    test("負旋轉次數符號是否錯誤", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        for (const move of allMoves.map((item) => `${item}${-element}`)) {
-          expect(parseMove(move)).toBeNull();
-        }
-      }
-    });
-    test("多層旋轉次數符號是否錯誤", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        for (const move of allMoves.map(
-          (item, index) => `${index}${item}${element}`,
-        )) {
-          expect(parseMove(move)).toBeNull();
-        }
-      }
-    });
-    test("負旋轉次數符號是否錯誤", () => {
-      for (const element of Array(5)
-        .fill(null)
-        .map((_, i) => i)) {
-        for (const move of allMoves.map(
-          (item, index) => `${-index}${item}${-element}`,
-        )) {
-          expect(parseMove(move)).toBeNull();
-        }
-      }
+      });
     });
   });
 });
 
-describe("333轉換公式實作", () => {
-  describe("水平轉換公式", () => {
-    test("錯誤測試", () => {
-      const algs = [
+describe("333 轉換公式實作", () => {
+  describe("mirrorAlgorithm (水平轉換)", () => {
+    test("錯誤測資應該回傳空字串", () => {
+      const invalidAlgs = [
         "R4 U4 F4 L4 D4 B4 x4 y4 z4 E4 M4 S4",
         "2R 2U 2F 2L 2D 2B 2x 2y 2z 2E 2M 2S",
       ];
-      for (const alg of algs) {
+      invalidAlgs.forEach((alg) =>
         expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg)))).toBe(
           "",
-        );
-      }
+        ),
+      );
     });
-    test("正確測試", () => {
-      const alg = "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw r u f l d b";
-      const alg2 =
-        "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' r' u' f' l' d' b'";
-      const alg3 =
-        "R2' U2' F2' L2' D2' B2' x2' y2' z2' E2' M2' S2' Rw2' Uw2' Fw2' Lw2' Dw2' Bw2' r2' u2' f2' l2' d2' b2'";
-      const alg4 =
-        "R2 U2 F2 L2 D2 B2 x2 y2 z2 E2 M2 S2 Rw2 Uw2 Fw2 Lw2 Dw2 Bw2 r2 u2 f2 l2 d2 b2";
-      const alg5 =
-        "R5 U5 F5 L5 D5 B5 x5 y5 z5 E5 M5 S5 Rw5 Uw5 Fw5 Lw5 Dw5 Bw5 r5 u5 f5 l5 d5 b5";
-      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg)))).toBe(
+
+    test("正確測資應該能水平轉換", () => {
+      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlg)))).toBe(
         "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
       );
-      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg2)))).toBe(
-        "L U F R D B x y z E M S Lw Uw Fw Rw Dw Bw l u f r d b",
-      );
-      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg3)))).toBe(
-        "L2 U2 F2 R2 D2 B2 x2 y2 z2 E2 M2 S2 Lw2 Uw2 Fw2 Rw2 Dw2 Bw2 l2 u2 f2 r2 d2 b2",
-      );
-      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg4)))).toBe(
-        "L2' U2' F2' R2' D2' B2' x2' y2' z2' E2' M2' S2' Lw2' Uw2' Fw2' Rw2' Dw2' Bw2' l2' u2' f2' r2' d2' b2'",
-      );
-      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg5)))).toBe(
-        "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
-      );
+      expect(
+        stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlgPrime))),
+      ).toBe("L U F R D B x y z E M S Lw Uw Fw Rw Dw Bw l u f r d b");
     });
   });
-  describe("反轉公式", () => {
-    test("錯誤測試", () => {
+
+  describe("reverseAlgorithm (反轉公式)", () => {
+    test("錯誤測資應該回傳空字串", () => {
       expect(
-        stringifyAlgorithm(
-          reverseAlgorithm(parseAlgorithm("R U F L D B x y z E M S q")),
-        ),
-      ).toEqual("");
+        stringifyAlgorithm(reverseAlgorithm(parseAlgorithm("R U F ... q"))),
+      ).toBe("");
     });
-    test("正確測試", () => {
+
+    test("正確測資應該能反轉", () => {
       expect(reverseAlgorithm([])).toEqual([]);
       expect(
         stringifyAlgorithm(
           reverseAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
         ),
-      ).toEqual("S' M' E' z' y' x' B' D' L' F' U' R'");
+      ).toBe("S' M' E' z' y' x' B' D' L' F' U' R'");
     });
   });
-  describe("旋轉公式", () => {
-    test("正確測試", () => {
+
+  describe("rotateAlgorithm (旋轉公式)", () => {
+    test("應該能正確旋轉", () => {
       expect(
         stringifyAlgorithm(
           rotateAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
         ),
-      ).toEqual("L U B R D F x' y z' E M' S'");
-      expect(
-        stringifyAlgorithm(
-          rotateAlgorithm(
-            parseAlgorithm("R' U' F' L' D' B' x' y' z' E' M' S'"),
-          ),
-        ),
-      ).toEqual("L' U' B' R' D' F' x y' z E' M S");
+      ).toBe("L U B R D F x' y z' E M' S'");
     });
   });
 
-  const upperMixLowerAlg =
-    "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw r u f l d b";
-  const upperMixLowerPrimeAlg =
-    "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' r' u' f' l' d' b'";
-
-  describe("轉大寫", () => {
-    test("正確測試", () => {
-      expect(
-        stringifyAlgorithm(upperAlgorithm(parseAlgorithm(upperMixLowerAlg))),
-      ).toBe("R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw Rw Uw Fw Lw Dw Bw");
-      expect(
-        stringifyAlgorithm(
-          upperAlgorithm(parseAlgorithm(upperMixLowerPrimeAlg)),
-        ),
-      ).toBe(
-        "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' Rw' Uw' Fw' Lw' Dw' Bw'",
+  describe("upperAlgorithm / lowerAlgorithm (大小寫轉換)", () => {
+    test("轉大寫", () => {
+      expect(stringifyAlgorithm(upperAlgorithm(parseAlgorithm(fullAlg)))).toBe(
+        "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw Rw Uw Fw Lw Dw Bw",
       );
     });
-  });
-  describe("轉小寫", () => {
-    test("正確測試", () => {
-      expect(
-        stringifyAlgorithm(lowerAlgorithm(parseAlgorithm(upperMixLowerAlg))),
-      ).toBe("R U F L D B x y z E M S r u f l d b r u f l d b");
-      expect(
-        stringifyAlgorithm(
-          lowerAlgorithm(parseAlgorithm(upperMixLowerPrimeAlg)),
-        ),
-      ).toBe(
-        "R' U' F' L' D' B' x' y' z' E' M' S' r' u' f' l' d' b' r' u' f' l' d' b'",
+
+    test("轉小寫", () => {
+      expect(stringifyAlgorithm(lowerAlgorithm(parseAlgorithm(fullAlg)))).toBe(
+        "R U F L D B x y z E M S r u f l d b r u f l d b",
       );
     });
   });
