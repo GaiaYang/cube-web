@@ -25,11 +25,7 @@ export default memo(function StandForm() {
         <p>{item.description}</p>
         {convert ? (
           <Provider>
-            <CoreFormContainer onConvert={convert}>
-              <AlgorithmInput />
-              <AlgorithmResult />
-              <ToolButtons />
-            </CoreFormContainer>
+            <CoreFormContainer onConvert={convert} />
           </Provider>
         ) : null}
       </Fragment>
@@ -45,10 +41,7 @@ interface CoreFormContainerProps {
   onConvert: (params: string) => string;
 }
 
-function CoreFormContainer({
-  onConvert,
-  children,
-}: React.PropsWithChildren<CoreFormContainerProps>) {
+function CoreFormContainer({ onConvert }: CoreFormContainerProps) {
   const setAlgorithmString = useSetAtom(algorithmStringAtom);
   const form = useForm<Schema>({ resolver, defaultValues });
 
@@ -74,7 +67,9 @@ function CoreFormContainer({
         onReset={_reset}
         className="not-prose grid gap-3"
       >
-        {children}
+        <AlgorithmInput />
+        <AlgorithmResult />
+        <ToolButtons />
       </form>
     </FormProvider>
   );
