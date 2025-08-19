@@ -17,8 +17,8 @@ export default function AlgorithmDisplay({
     <code
       className={cn(
         "not-prose font-mono text-sm",
-        "flex min-h-10 items-center",
-        "bg-base-200 border-base-300 rounded border !px-3",
+        "flex min-h-10 items-center !px-3",
+        "hover:!bg-base-300",
         className,
       )}
     >

@@ -19,7 +19,7 @@ export default function Converter() {
   return (
     <Provider>
       <section>
-        <div className="grid gap-4">
+        <div className="not-prose grid gap-4">
           <FormModeToggle />
           <Tabs />
         </div>
