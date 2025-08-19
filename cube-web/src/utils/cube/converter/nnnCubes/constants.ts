@@ -8,8 +8,8 @@ export const wideMoves: WideMove[] = ["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"];
 export const rotations: Rotation[] = ["x", "y", "z"];
 /** 官方基本轉動代號 */
 export const basicMoves: BasicMove[] = [
-  ...faceMoves,
   ...wideMoves,
+  ...faceMoves,
   ...rotations,
 ];
 /** 分隔符號 */

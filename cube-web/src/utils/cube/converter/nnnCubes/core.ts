@@ -1,12 +1,13 @@
 import { isPlainObject } from "es-toolkit";
 
-import type { MoveToken, CubeProfile } from "./types";
+import type { MoveToken, CubeProfile, WideMove } from "./types";
 
 import {
   basicMoves,
   SEPARATE,
   MOVE_CYCLE_COUNT,
   PRIME_MARK,
+  wideMoves,
 } from "./constants";
 import { mirrorAlgorithm, reverseAlgorithm, rotateAlgorithm } from "./convert";
 
@@ -32,10 +33,15 @@ export function createCubeProfile(parser: CubeProfile) {
     // code 必須是已知代號
     if (!moves.includes(code)) return null;
 
+    // 多層符號前才能有數字
+    if (!wideMoves.includes(code as WideMove) && sliceCount !== null) {
+      return null;
+    }
+
     // sliceCount 可以是 null 或 >= 1 的整數
     if (
       sliceCount !== null &&
-      (!Number.isInteger(sliceCount) || sliceCount < 1)
+      (!Number.isInteger(sliceCount) || sliceCount <= 1)
     ) {
       return null;
     }
