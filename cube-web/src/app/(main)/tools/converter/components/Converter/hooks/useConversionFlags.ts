@@ -2,10 +2,10 @@ import { useMemo } from "react";
 import { produce } from "immer";
 
 import { conversionFlags, conversionProfiles } from "../config";
-import type { CubeOrder } from "../types";
+import { useConverterProps } from "../context";
 
-export default function useConversionFlags(params: { cubeOrder?: CubeOrder }) {
-  const cubeOrder = params?.cubeOrder;
+export default function useConversionFlags() {
+  const { cubeOrder } = useConverterProps();
 
   return useMemo(() => {
     const enabled = produce(conversionFlags, (draft) => {

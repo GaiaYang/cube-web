@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 
-import type { CubeOrder } from "../types";
-
 import convert from "../utils/convert";
+import { useConverterProps } from "../context";
 
-export default function useConvert(cubeOrder?: CubeOrder) {
+export default function useConvert() {
+  const { cubeOrder } = useConverterProps();
+
   return useMemo(
     () => convert[cubeOrder || "nnn"] || convert["nnn"],
     [cubeOrder],

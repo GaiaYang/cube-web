@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Provider, useAtomValue } from "jotai";
 import dynamic from "next/dynamic";
 
@@ -10,6 +10,8 @@ import { conversionFormLayoutAtom, conversionTabIndexAtom } from "./jotai";
 
 import FormModeToggle from "./FormModeToggle";
 import Tabs from "./Tabs";
+import CodeSpan from "../CodeSpan";
+import { ConverterPropsContext } from "./context";
 const StandForm = dynamic(() => import("./StandForm"));
 const InPlaceForm = dynamic(() => import("./InPlaceForm"));
 
@@ -41,13 +43,11 @@ function SwitchContent() {
             <ul className="[&>li>span]:flex [&>li>span]:gap-2">
               <li>
                 <span>中間層</span>
-                <span>{["M", "S", "E"].map(_renderCodeItem)}</span>
+                <CodeSpan codes={["M", "S", "E"]} />
               </li>
               <li>
                 <span>非標準多層</span>
-                <span>
-                  {["r", "l", "u", "d", "f", "b"].map(_renderCodeItem)}
-                </span>
+                <CodeSpan codes={["r", "l", "u", "d", "f", "b"]} />
               </li>
             </ul>
             <p>該區塊的轉換器額外支援三階非官方符號及特殊功能轉換</p>
@@ -60,19 +60,24 @@ function SwitchContent() {
   }
 }
 
-function _renderCodeItem(code: string) {
-  return <code key={code}>{code}</code>;
-}
-
-function FormEntry(props: CommonFormProps) {
+function FormEntry({ cubeOrder }: CommonFormProps) {
   const formType = useAtomValue(conversionFormLayoutAtom);
+  const value = useMemo(() => ({ cubeOrder }), [cubeOrder]);
 
-  switch (formType) {
-    case "stand":
-      return <StandForm {...props} />;
-    case "in-place":
-      return <InPlaceForm {...props} />;
-    default:
-      return null;
+  function _render() {
+    switch (formType) {
+      case "stand":
+        return <StandForm />;
+      case "in-place":
+        return <InPlaceForm />;
+      default:
+        return null;
+    }
   }
+
+  return (
+    <ConverterPropsContext.Provider value={value}>
+      {_render()}
+    </ConverterPropsContext.Provider>
+  );
 }

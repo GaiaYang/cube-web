@@ -1,12 +1,13 @@
+import { memo } from "react";
 import { Control, Controller } from "react-hook-form";
 
-import type { CommonFormProps } from "./types";
 import { type Schema } from "./form";
 import cn from "@/utils/cn";
+import { useConverterProps } from "./context";
 
-export default function AlgorithmInput({
-  cubeOrder,
-}: Pick<CommonFormProps, "cubeOrder">) {
+export default memo(function AlgorithmInput() {
+  const { cubeOrder } = useConverterProps();
+
   return (
     <Controller
       control={undefined as unknown as Control<Schema>}
@@ -33,4 +34,4 @@ export default function AlgorithmInput({
       }}
     />
   );
-}
+});

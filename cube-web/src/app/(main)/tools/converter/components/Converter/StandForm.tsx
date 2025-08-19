@@ -3,7 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { EraserIcon, SendIcon } from "lucide-react";
 import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
 
-import type { CommonFormProps, ConversionProfile } from "./types";
+import type { ConversionProfile } from "./types";
 
 import { type Schema, resolver, defaultValues } from "./form";
 import useConvertMap from "./hooks/useConvertMap";
@@ -12,9 +12,9 @@ import useConversionFlags from "./hooks/useConversionFlags";
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
 import AlgorithmInput from "./AlgorithmInput";
 
-export default memo(function StandForm({ cubeOrder }: CommonFormProps) {
-  const convertMap = useConvertMap(cubeOrder);
-  const conversions = useConversionFlags({ cubeOrder });
+export default memo(function StandForm() {
+  const convertMap = useConvertMap();
+  const conversions = useConversionFlags();
 
   function _renderContent(item: ConversionProfile) {
     const convert = convertMap[item.id];
@@ -26,7 +26,7 @@ export default memo(function StandForm({ cubeOrder }: CommonFormProps) {
         {convert ? (
           <Provider>
             <CoreFormContainer onConvert={convert}>
-              <AlgorithmInput cubeOrder={cubeOrder} />
+              <AlgorithmInput />
               <AlgorithmResult />
               <ToolButtons />
             </CoreFormContainer>
