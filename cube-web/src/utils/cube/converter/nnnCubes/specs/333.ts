@@ -111,21 +111,6 @@ const cubeProfile = createCubeProfile({
   },
 });
 
-export const {
-  parseMove,
-  formatMove,
-  isValidMoveString,
-  isValidMoveToken,
-  parseAlgorithm,
-  stringifyAlgorithm,
-  formatMoveToken,
-  mirrorAlgorithm,
-  reverseAlgorithm,
-  rotateAlgorithm,
-} = cubeProfile;
-
-export default cubeProfile;
-
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]) {
   return mapAlgorithm(params, UPPER_MAP);
@@ -134,3 +119,5 @@ export function upperAlgorithm(params: MoveToken[]) {
 export function lowerAlgorithm(params: MoveToken[]) {
   return mapAlgorithm(params, LOWER_MAP);
 }
+
+export default { ...cubeProfile, upperAlgorithm, lowerAlgorithm };
