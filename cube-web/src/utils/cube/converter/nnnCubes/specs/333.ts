@@ -93,7 +93,6 @@ function mapAlgorithm(
 }
 
 const cubeProfile = createCubeProfile({
-  layers: 3,
   extraMoves: [...wideMoveAliases, ...middleLayerMoves],
   parseMove({ sliceCount, code, turnCount, isPrime }) {
     // 三階不支援前數字

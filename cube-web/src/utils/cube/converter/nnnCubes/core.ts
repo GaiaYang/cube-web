@@ -23,7 +23,12 @@ export function createCubeProfile(parser: CubeProfile) {
   const movesPattern = moves.sort((a, b) => b.length - a.length).join("|");
   const REGEX = new RegExp(`^(\\d*)(${movesPattern})(\\d*)(')?$`);
 
-  /** 驗證並正規化 `MoveToken`，如果不合法就回傳 `null` */
+  /**
+   * 驗證並正規化 `MoveToken`
+   *
+   * @param token 要檢查的 `MoveToken`
+   * @returns 回傳 `MoveToken`，有不合法格式則回傳 `null`
+   * */
   function _normalizeToken(
     token: MoveToken | null | undefined,
   ): MoveToken | null {
@@ -58,14 +63,24 @@ export function createCubeProfile(parser: CubeProfile) {
     return { code, sliceCount, turnCount: normalizedTurns, isPrime };
   }
 
-  /** 正規化後再交給 `parser` 做進一步轉換 */
+  /**
+   * 正規化後再交給 `parser` 做進一步轉換
+   *
+   * @param token 要正規化的 `MoveToken`
+   * @returns 回傳 `MoveToken`，有不合法格式則回傳 `null`
+   * */
   function _normalizeAndParse(token?: MoveToken | null): MoveToken | null {
     if (!token) return null;
     const normalized = _normalizeToken(token);
     return normalized ? parser.parseMove(normalized) : null;
   }
 
-  /** 解析單一步驟字串為 `MoveToken` */
+  /**
+   * 解析單一步驟字串為 `MoveToken`
+   *
+   * @param moveStr 要解析的步驟字串
+   * @returns 回傳 `MoveToken`，有不合法格式則回傳 `null`
+   * */
   function parseMove(moveStr?: string | null): MoveToken | null {
     if (!moveStr) return null;
     const match = moveStr.match(REGEX);
@@ -80,21 +95,41 @@ export function createCubeProfile(parser: CubeProfile) {
     });
   }
 
-  /** 將 `MoveToken` 轉換成標準化字串（會經過 `parser`） */
+  /**
+   * 將 `MoveToken` 轉換成標準化字串（會經過 `parser`）
+   *
+   * @param token 要轉換的 `MoveToken`
+   * @returns 回傳標準化字串，有不合法代號則空字串
+   * */
   function formatMoveToken(token?: MoveToken | null): string {
     return toMoveTokenString(_normalizeAndParse(token));
   }
 
-  /** 將字串轉成標準化代號字串（會經過 `parser`） */
+  /**
+   * 將字串轉成標準化代號字串（會經過 `parser`）
+   *
+   * @param moveStr 要轉換的字串
+   * @returns 回傳標準化字串，有不合法代號則空字串
+   * */
   function formatMove(moveStr?: string | null): string {
     return formatMoveToken(parseMove(moveStr));
   }
-  /** 檢查字串是否為合法單步驟 */
+  /**
+   * 檢查字串是否為合法單步驟
+   *
+   * @param moveStr 要檢查的字串
+   * @returns 如果合法則回傳 `true`
+   * */
   function isValidMoveString(moveStr?: string | null): moveStr is string {
     return parseMove(moveStr) !== null;
   }
 
-  /** 檢查 MoveToken 物件是否合法 */
+  /**
+   * 檢查 `MoveToken` 物件是否合法
+   *
+   * @param token 要檢查的 `MoveToken`
+   * @returns 如果合法則回傳 `true`
+   * */
   function isValidMoveToken(token?: MoveToken | null): token is MoveToken {
     return _normalizeAndParse(token) !== null;
   }
@@ -123,14 +158,24 @@ export function createCubeProfile(parser: CubeProfile) {
     isValidMoveString,
     /** 檢查 `MoveToken` 物件是否合法 */
     isValidMoveToken,
-    /** 將公式字串解析成 `MoveToken[]` */
+    /**
+     * 將公式字串解析成 `MoveToken[]`
+     *
+     * @param input 公式字串
+     * @returns 回傳 `MoveToken[]` ，有不合法代號則空陣列
+     * */
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
       const tokens = input.trim().split(SEPARATE).map(parseMove);
       // 全部合法才回傳，否則丟棄
       return tokens.every(Boolean) ? (tokens as MoveToken[]) : [];
     },
-    /** 將 MoveToken[] 或 string[] 組合回標準化字串公式 */
+    /**
+     * 將 `MoveToken[]` 或 `string[]` 組合回標準化字串公式
+     *
+     * @param input `MoveToken[]` 或 `string[]`
+     * @returns 回傳標準化字串，有不合法代號則空字串
+     * */
     stringifyAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
       const tokens = input.map((item) =>
@@ -148,6 +193,7 @@ export function createCubeProfile(parser: CubeProfile) {
      * 注意：擴展層 (ex: 333.ts) 只需處理非官方符號的 `code` 映射，
      * 不要再次反轉 `isPrime`，否則會出現方向錯誤。
      */
+    /** 鏡像公式 */
     mirrorAlgorithm: withParserTransform(
       mirrorAlgorithm,
       parser.mirrorAlgorithm,

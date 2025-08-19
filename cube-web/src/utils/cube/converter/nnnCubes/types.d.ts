@@ -35,8 +35,6 @@ export interface MoveToken {
 
 /** 方塊實作介面 */
 export interface CubeProfile {
-  /** 方塊階數 */
-  layers?: number;
   /** 要拓展的移動代號 */
   extraMoves?: string[];
   /** 將字串解析成 MoveToken */
