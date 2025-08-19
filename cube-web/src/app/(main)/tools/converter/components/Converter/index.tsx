@@ -2,12 +2,16 @@
 
 import React from "react";
 import { Provider, useAtomValue } from "jotai";
+import dynamic from "next/dynamic";
 
-import { conversionTabIndexAtom } from "./jotai";
+import type { CommonFormProps } from "./types";
+
+import { conversionFormLayoutAtom, conversionTabIndexAtom } from "./jotai";
 
 import FormModeToggle from "./FormModeToggle";
-import FormEntry from "./FormEntry";
 import Tabs from "./Tabs";
+const StandForm = dynamic(() => import("./StandForm"));
+const InPlaceForm = dynamic(() => import("./InPlaceForm"));
 
 export default function Converter() {
   return (
@@ -58,4 +62,17 @@ function SwitchContent() {
 
 function _renderCodeItem(code: string) {
   return <code key={code}>{code}</code>;
+}
+
+function FormEntry(props: CommonFormProps) {
+  const formType = useAtomValue(conversionFormLayoutAtom);
+
+  switch (formType) {
+    case "stand":
+      return <StandForm {...props} />;
+    case "in-place":
+      return <InPlaceForm {...props} />;
+    default:
+      return null;
+  }
 }

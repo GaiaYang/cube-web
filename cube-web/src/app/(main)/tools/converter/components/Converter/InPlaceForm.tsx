@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import type { CommonFormProps, ConversionType } from "./types";
 
@@ -19,21 +19,20 @@ export default memo(function InPlaceForm({ cubeOrder }: CommonFormProps) {
     form.reset();
   }
 
-  function _submit(key: ConversionType) {
-    return form.handleSubmit(({ algorithm }) => {
-      let result = "";
-      const convert = convertMap[key];
-      if (convert) {
-        result = convert(algorithm);
-      }
+  const _submit: SubmitHandler<Schema> = ({ algorithm }, event) => {
+    const key = (event?.target as HTMLButtonElement)?.value as ConversionType;
+    let result = "";
+    const convert = convertMap[key];
+    if (convert) {
+      result = convert(algorithm);
+    }
 
-      if (result) {
-        form.setValue("algorithm", result);
-      } else {
-        form.setError("algorithm", { message: "轉換失敗，請檢查格式是否正確" });
-      }
-    })();
-  }
+    if (result) {
+      form.setValue("algorithm", result);
+    } else {
+      form.setError("algorithm", { message: "轉換失敗，請檢查格式是否正確" });
+    }
+  };
 
   return (
     <FormProvider {...form}>
@@ -46,8 +45,9 @@ export default memo(function InPlaceForm({ cubeOrder }: CommonFormProps) {
           {conversions.map(({ subtitle, id }) => (
             <button
               key={id}
+              value={id}
               type="button"
-              onClick={() => _submit(id)}
+              onClick={form.handleSubmit(_submit)}
               className="btn join-item"
             >
               {subtitle}

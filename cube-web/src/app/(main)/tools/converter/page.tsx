@@ -11,6 +11,7 @@ import ExternalLink from "@/components/ExternalLink";
 //   UpperForm,
 //   LowerForm,
 // } from "./components/ConverterForm";
+import CodeSpan from "./components/CodeSpan";
 import Converter from "./components/Converter";
 
 export const metadata: Metadata = {
@@ -29,17 +30,15 @@ export default function Page() {
       <ul className="[&>li>span]:flex [&>li>span]:gap-2">
         <li>
           <span>基本符號</span>
-          <span>{["R", "L", "U", "D", "F", "B"].map(_renderCodeItem)}</span>
+          <CodeSpan codes={["R", "L", "U", "D", "F", "B"]} />
         </li>
         <li>
           <span>轉體</span>
-          <span>{["x", "y", "z"].map(_renderCodeItem)}</span>
+          <CodeSpan codes={["x", "y", "z"]} />
         </li>
         <li>
           <span>標準多層</span>
-          <span>
-            {["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"].map(_renderCodeItem)}
-          </span>
+          <CodeSpan codes={["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"]} />
         </li>
       </ul>
       <h3>可使用的詞綴</h3>
@@ -57,8 +56,4 @@ export default function Page() {
       <Converter />
     </Article>
   );
-}
-
-function _renderCodeItem(code: string) {
-  return <code key={code}>{code}</code>;
 }
