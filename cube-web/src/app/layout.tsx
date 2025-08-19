@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | 虛空魔方",
   },
   description:
-    "虛空魔方（Voidling Cube）專為速解進階玩家設計，提供系統化的教學資源、觀念解析與公式查詢，協助你突破瓶頸、提升效率與理解力。",
+    "虛空魔方（Voidling Cube）專為三階魔術方塊速解進階玩家設計，提供系統化的教學資源、觀念解析與公式查詢，協助你突破瓶頸、提升效率與理解力。",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
   verification: {

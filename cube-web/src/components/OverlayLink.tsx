@@ -20,8 +20,8 @@ export default function OverlayLink({
       {...props}
       className={cn(
         "absolute inset-0",
-        "rounded-box border border-transparent",
-        "hover:bg-base-content/5 hover:border-base-content/5",
+        "rounded-box",
+        "hover:bg-base-content/5",
         className,
       )}
     >

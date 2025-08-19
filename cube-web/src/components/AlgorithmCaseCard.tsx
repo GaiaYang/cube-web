@@ -1,5 +1,7 @@
 import React from "react";
 
+import cn from "@/utils/cn";
+
 export interface AlgorithmCaseCardProps {
   name?: string | null;
   /** 標籤 */
@@ -12,8 +14,14 @@ export default function AlgorithmCaseCard({
   children,
 }: React.PropsWithChildren<AlgorithmCaseCardProps>) {
   return (
-    <div className="card bg-base-100 border-base-content/5 border">
-      <figure className="bg-base-200 aspect-square w-full p-4">
+    <div
+      className={cn(
+        "card",
+        "border border-transparent not-dark:shadow-sm",
+        "dark:bg-base-200 dark:border-base-content/5",
+      )}
+    >
+      <figure className="aspect-square w-full p-4">
         {children ?? <div aria-hidden className="skeleton h-full w-full" />}
       </figure>
       <div className="card-body items-center text-center">

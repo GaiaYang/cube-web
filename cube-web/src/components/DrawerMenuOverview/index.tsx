@@ -26,7 +26,12 @@ export default function DrawerMenuOverview({
   return (
     <ul
       {...props}
-      className={cn("menu bg-base-200 not-prose w-full rounded", className)}
+      className={cn(
+        "not-prose menu rounded-box w-full",
+        "border border-transparent not-dark:shadow-sm",
+        "dark:bg-base-200 dark:border-base-content/10",
+        className,
+      )}
     >
       {options.map(_renderNode)}
     </ul>
