@@ -1,17 +1,18 @@
 import React, { memo } from "react";
 
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler } from "react-hook-form";
 
 import type { ConversionType } from "./types";
 
-import { type Schema, resolver, defaultValues } from "./form";
+import { type Schema } from "./form";
 import useConvertMap from "./hooks/useConvertMap";
 import useConversionFlags from "./hooks/useConversionFlags";
+import useAlgorithmForm from "./hooks/useAlgorithmForm";
 
 import AlgorithmInput from "./AlgorithmInput";
 
 export default memo(function InPlaceForm() {
-  const form = useForm<Schema>({ resolver, defaultValues });
+  const form = useAlgorithmForm();
   const convertMap = useConvertMap();
   const conversions = useConversionFlags();
 
@@ -27,11 +28,7 @@ export default memo(function InPlaceForm() {
       result = convert(algorithm);
     }
 
-    if (result) {
-      form.setValue("algorithm", result);
-    } else {
-      form.setError("algorithm", { message: "轉換失敗，請檢查格式是否正確" });
-    }
+    form.setValue("algorithm", result);
   };
 
   return (

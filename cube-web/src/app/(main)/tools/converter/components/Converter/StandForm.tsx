@@ -1,13 +1,14 @@
 import React, { Fragment, memo } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler } from "react-hook-form";
 import { EraserIcon, SendIcon } from "lucide-react";
 import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
 
 import type { ConversionProfile } from "./types";
 
-import { type Schema, resolver, defaultValues } from "./form";
+import { type Schema } from "./form";
 import useConvertMap from "./hooks/useConvertMap";
 import useConversionFlags from "./hooks/useConversionFlags";
+import useAlgorithmForm from "./hooks/useAlgorithmForm";
 
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
 import AlgorithmInput from "./AlgorithmInput";
@@ -43,16 +44,11 @@ interface CoreFormContainerProps {
 
 function CoreFormContainer({ onConvert }: CoreFormContainerProps) {
   const setAlgorithmString = useSetAtom(algorithmStringAtom);
-  const form = useForm<Schema>({ resolver, defaultValues });
+  const form = useAlgorithmForm();
 
   const _submit: SubmitHandler<Schema> = (params) => {
     const result = onConvert(params.algorithm);
-
-    if (result) {
-      setAlgorithmString(result);
-    } else {
-      form.setError("algorithm", { message: "轉換失敗，請檢查格式是否正確" });
-    }
+    setAlgorithmString(result);
   };
 
   const _reset: React.FormEventHandler<HTMLFormElement> = () => {

@@ -3,7 +3,7 @@ import convert from "@/utils/cube/converter/nnnCubes/specs/nnn";
 import convert333 from "@/utils/cube/converter/nnnCubes/specs/333";
 
 import type { Convert } from "./types";
-import { CubeOrder } from "../types";
+import type { CubeOrder } from "../types";
 
 /** 包裝函式，將 string 轉 algorithm token → 執行方法 → stringify */
 function wrapAlgorithmMethod(

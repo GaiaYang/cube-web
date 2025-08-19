@@ -7,17 +7,5 @@ const cubeProfile = createCubeProfile({
   rotateAlgorithm: (params) => params,
 });
 
-export const {
-  parseMove,
-  formatMove,
-  isValidMoveString,
-  isValidMoveToken,
-  parseAlgorithm,
-  stringifyAlgorithm,
-  formatMoveToken,
-  mirrorAlgorithm,
-  reverseAlgorithm,
-  rotateAlgorithm,
-} = cubeProfile;
-
-export default cubeProfile;
+const output = { ...cubeProfile };
+export default output;

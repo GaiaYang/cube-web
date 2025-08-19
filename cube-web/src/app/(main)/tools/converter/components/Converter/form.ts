@@ -1,1 +1,6 @@
-export { type Schema, resolver, defaultValues } from "@/forms/algorithmInput";
+export {
+  type Schema,
+  schema,
+  resolver,
+  defaultValues,
+} from "@/forms/algorithmInput";

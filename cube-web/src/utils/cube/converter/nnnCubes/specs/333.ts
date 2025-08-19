@@ -120,4 +120,5 @@ export function lowerAlgorithm(params: MoveToken[]) {
   return mapAlgorithm(params, LOWER_MAP);
 }
 
-export default { ...cubeProfile, upperAlgorithm, lowerAlgorithm };
+const output = { ...cubeProfile, upperAlgorithm, lowerAlgorithm };
+export default output;

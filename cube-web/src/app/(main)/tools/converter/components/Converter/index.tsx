@@ -33,8 +33,6 @@ function SwitchContent() {
   const tabIndex = useAtomValue(conversionTabIndexAtom);
 
   switch (tabIndex) {
-    case 0:
-      return <FormEntry cubeOrder="nnn" />;
     case 1:
       return (
         <>
@@ -55,8 +53,9 @@ function SwitchContent() {
           <FormEntry cubeOrder="333" />
         </>
       );
+    case 0:
     default:
-      return null;
+      return <FormEntry cubeOrder="nnn" />;
   }
 }
 
