@@ -33,23 +33,25 @@ export default memo(function InPlaceForm() {
 
   return (
     <FormProvider {...form}>
-      <form onReset={_reset} className="not-prose mt-5 grid gap-3">
+      <form onReset={_reset} className="not-prose mt-5 grid gap-4">
         <AlgorithmInput />
-        <div className="join join-vertical md:join-horizontal">
-          <button type="reset" className="btn join-item btn-error">
+        <div className="flex flex-col gap-4 md:flex-row">
+          <div className="join join-vertical md:join-horizontal">
+            {conversions.map(({ subtitle, id }) => (
+              <button
+                key={id}
+                value={id}
+                type="button"
+                onClick={form.handleSubmit(_submit)}
+                className="btn join-item"
+              >
+                {subtitle}
+              </button>
+            ))}
+          </div>
+          <button type="reset" className="btn btn-error">
             重設
           </button>
-          {conversions.map(({ subtitle, id }) => (
-            <button
-              key={id}
-              value={id}
-              type="button"
-              onClick={form.handleSubmit(_submit)}
-              className="btn join-item"
-            >
-              {subtitle}
-            </button>
-          ))}
         </div>
       </form>
     </FormProvider>

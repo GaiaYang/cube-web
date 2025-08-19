@@ -61,7 +61,7 @@ function CoreFormContainer({ onConvert }: CoreFormContainerProps) {
       <form
         onSubmit={form.handleSubmit(_submit)}
         onReset={_reset}
-        className="not-prose grid gap-3"
+        className="not-prose grid gap-4"
       >
         <AlgorithmInput />
         <AlgorithmResult />
@@ -74,13 +74,13 @@ function CoreFormContainer({ onConvert }: CoreFormContainerProps) {
 function ToolButtons() {
   return (
     <div className="flex gap-4">
-      <button type="reset" className="btn btn-error btn-outline">
-        <EraserIcon />
-        清除
-      </button>
       <button type="submit" className="btn btn-primary">
         <SendIcon />
         轉換
+      </button>
+      <button type="reset" className="btn btn-error btn-outline">
+        <EraserIcon />
+        清除
       </button>
     </div>
   );
