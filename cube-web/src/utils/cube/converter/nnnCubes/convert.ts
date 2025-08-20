@@ -47,10 +47,12 @@ function mapMove(
 ): MoveToken | null {
   const mapped = map[item.code];
   if (!mapped) return null;
+  const isPrime = item.isPrime ?? false;
   return {
-    ...item,
     code: mapped,
-    isPrime: reversePrimeFor.includes(item.code) ? !item.isPrime : item.isPrime,
+    sliceCount: item.sliceCount ?? null,
+    turnCount: item.turnCount ?? 1,
+    isPrime: reversePrimeFor.includes(item.code) ? !isPrime : isPrime,
   };
 }
 

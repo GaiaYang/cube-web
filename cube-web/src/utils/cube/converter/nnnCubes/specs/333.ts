@@ -114,7 +114,7 @@ const cubeProfile = createCubeProfile({
     if (!input) return null;
     const match = parseMoveByRegex(REGEX, input);
     if (!match) return null;
-    const { sliceCount, code, turnCount, isPrime } = match;
+    const { sliceCount = null, code, turnCount = 1, isPrime = false } = match;
     // 三階不支援前數字
     if (sliceCount !== null) return null;
     if (!extendsMoves.includes(code as ExtendsMoves)) {

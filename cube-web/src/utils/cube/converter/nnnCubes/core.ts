@@ -60,6 +60,27 @@ export function createCubeProfile(parser?: CubeProfile) {
     return _safeFormat(moveStr);
   }
 
+  /** 高階函式：生成公式映射轉換器 */
+  function createAlgorithmMapper(
+    main: (move: MoveToken) => MoveToken | null,
+    fallback?: (move: MoveToken) => MoveToken | null,
+    reverse = false,
+  ) {
+    return (moves: MoveToken[]): MoveToken[] => {
+      const mapped = moves.map((move) => {
+        const prased = normalizeOfficialMove(move, cubeLayers);
+        if (prased) {
+          return main(prased);
+        }
+        return fallback?.(move) ?? null;
+      });
+      if (!mapped.every(Boolean)) return [];
+      return reverse
+        ? (mapped.reverse() as MoveToken[])
+        : (mapped as MoveToken[]);
+    };
+  }
+
   return {
     /** 解析單一步驟字串為 `MoveToken` */
     parseMove,
@@ -103,21 +124,6 @@ export function createCubeProfile(parser?: CubeProfile) {
   };
 }
 
-/** 高階函式：生成公式映射轉換器 */
-export function createAlgorithmMapper(
-  main: (move: MoveToken) => MoveToken | null,
-  fallback?: (move: MoveToken) => MoveToken | null,
-  reverse = false,
-) {
-  return (moves: MoveToken[]): MoveToken[] => {
-    const mapped = moves.map((move) => main(move) ?? fallback?.(move) ?? null);
-    if (!mapped.every(Boolean)) return [];
-    return reverse
-      ? (mapped.reverse() as MoveToken[])
-      : (mapped as MoveToken[]);
-  };
-}
-
 /**
  * 生成正則表達式
  *
@@ -149,6 +155,14 @@ export function parseMoveByRegex(
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
 
+  const invalidNumberString = ["0", "1"];
+  if (
+    invalidNumberString.includes(sliceCountStr) ||
+    invalidNumberString.includes(turnStr)
+  ) {
+    return null;
+  }
+
   return {
     sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : null,
     code,
@@ -169,7 +183,7 @@ export function normalizeOfficialMove(
   cubeLayers?: number,
 ): MoveToken | null {
   if (!isPlainObject(token)) return null;
-  const { sliceCount, isPrime, code } = token;
+  const { sliceCount = null, code, turnCount = 1, isPrime = false } = token;
   if (!basicMoves.includes(code as BasicMove)) {
     return null;
   }
@@ -183,10 +197,10 @@ export function normalizeOfficialMove(
   }
   if (!wideMoves.includes(code as WideMove) && sliceCount !== null) return null;
 
-  const turnCount = ensureValidTurnCount(token.turnCount);
-  if (turnCount === null) return null;
+  const _turnCount = ensureValidTurnCount(turnCount);
+  if (_turnCount === null) return null;
 
-  return { code, sliceCount, turnCount, isPrime };
+  return { code, sliceCount, turnCount: _turnCount, isPrime };
 }
 
 /**
@@ -213,7 +227,7 @@ export function ensureValidTurnCount(turnCount: number) {
 /** 將 MoveToken 轉為字串（不做驗證） */
 export function moveTokenToString(token?: MoveToken | null): string {
   if (!isPlainObject(token)) return "";
-  const { sliceCount, code, turnCount, isPrime } = token;
+  const { sliceCount = null, code, turnCount = 1, isPrime = false } = token;
   return [
     sliceCount && sliceCount > 1 ? sliceCount : "",
     code,

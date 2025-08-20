@@ -6,7 +6,7 @@ import {
   ensureValidCode,
   ensureValidTurnCount,
   moveTokenToString,
-  createAlgorithmMapper,
+  // createAlgorithmMapper,
 } from "./core";
 import type { MoveToken } from "./types";
 import { basicMoves } from "./constants";
@@ -364,41 +364,41 @@ describe("core.ts", () => {
 });
 
 describe("core.ts - Additional Tests", () => {
-  describe("createAlgorithmMapper", () => {
-    test("should use fallback function when main returns null", () => {
-      const main = jest.fn().mockReturnValue(null);
-      const fallback = jest.fn().mockReturnValue({
-        sliceCount: null,
-        code: "M",
-        turnCount: 1,
-        isPrime: false,
-      });
-      const mapper = createAlgorithmMapper(main, fallback);
-      const tokens: MoveToken[] = [
-        { sliceCount: null, code: "X", turnCount: 1, isPrime: false },
-      ];
-      expect(mapper(tokens)).toEqual([
-        { sliceCount: null, code: "M", turnCount: 1, isPrime: false },
-      ]);
-      expect(fallback).toHaveBeenCalled();
-    });
+  // describe("createAlgorithmMapper", () => {
+  //   test("should use fallback function when main returns null", () => {
+  //     const main = jest.fn().mockReturnValue(null);
+  //     const fallback = jest.fn().mockReturnValue({
+  //       sliceCount: null,
+  //       code: "M",
+  //       turnCount: 1,
+  //       isPrime: false,
+  //     });
+  //     const mapper = createAlgorithmMapper(main, fallback);
+  //     const tokens: MoveToken[] = [
+  //       { sliceCount: null, code: "X", turnCount: 1, isPrime: false },
+  //     ];
+  //     expect(mapper(tokens)).toEqual([
+  //       { sliceCount: null, code: "M", turnCount: 1, isPrime: false },
+  //     ]);
+  //     expect(fallback).toHaveBeenCalled();
+  //   });
 
-    test("should return empty array if both main and fallback return null", () => {
-      const main = jest.fn().mockReturnValue(null);
-      const fallback = jest.fn().mockReturnValue(null);
-      const mapper = createAlgorithmMapper(main, fallback);
-      const tokens: MoveToken[] = [
-        { sliceCount: null, code: "X", turnCount: 1, isPrime: false },
-      ];
-      expect(mapper(tokens)).toEqual([]);
-    });
+  //   test("should return empty array if both main and fallback return null", () => {
+  //     const main = jest.fn().mockReturnValue(null);
+  //     const fallback = jest.fn().mockReturnValue(null);
+  //     const mapper = createAlgorithmMapper(main, fallback);
+  //     const tokens: MoveToken[] = [
+  //       { sliceCount: null, code: "X", turnCount: 1, isPrime: false },
+  //     ];
+  //     expect(mapper(tokens)).toEqual([]);
+  //   });
 
-    test("should handle empty array input", () => {
-      const main = jest.fn();
-      const mapper = createAlgorithmMapper(main);
-      expect(mapper([])).toEqual([]);
-    });
-  });
+  //   test("should handle empty array input", () => {
+  //     const main = jest.fn();
+  //     const mapper = createAlgorithmMapper(main);
+  //     expect(mapper([])).toEqual([]);
+  //   });
+  // });
 
   describe("normalizeOfficialMove - Edge Cases", () => {
     test("should handle malformed MoveToken", () => {

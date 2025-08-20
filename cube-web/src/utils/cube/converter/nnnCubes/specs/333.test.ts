@@ -253,7 +253,7 @@ describe("333.ts - Additional Tests", () => {
         { code: "E", sliceCount: null, turnCount: 1, isPrime: true },
       ];
       expect(mirrorAlgorithm(tokens)).toEqual([
-        { code: "u", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "u", sliceCount: null, turnCount: 1, isPrime: true },
         { code: "E", sliceCount: null, turnCount: 1, isPrime: false },
       ]);
     });

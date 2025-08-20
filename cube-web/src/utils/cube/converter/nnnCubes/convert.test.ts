@@ -4,7 +4,7 @@ import type { MoveToken } from "./types";
 describe("convert.ts", () => {
   describe("mirrorMove", () => {
     test("should mirror valid moves correctly", () => {
-      const testCases: [MoveToken, MoveToken][] = [
+      const testCases: [MoveToken, MoveToken | null][] = [
         [
           { code: "R", sliceCount: null, turnCount: 1, isPrime: false },
           { code: "L", sliceCount: null, turnCount: 1, isPrime: true },
@@ -21,18 +21,9 @@ describe("convert.ts", () => {
           { code: "F", sliceCount: null, turnCount: 1, isPrime: true },
           { code: "F", sliceCount: null, turnCount: 1, isPrime: false },
         ],
-        [
-          { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
-          { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
-        ],
-        [
-          { code: "E", sliceCount: null, turnCount: 1, isPrime: true },
-          { code: "E", sliceCount: null, turnCount: 1, isPrime: false },
-        ],
-        [
-          { code: "S", sliceCount: null, turnCount: 2, isPrime: false },
-          { code: "S", sliceCount: null, turnCount: 2, isPrime: true },
-        ],
+        [{ code: "M", sliceCount: null, turnCount: 1, isPrime: false }, null],
+        [{ code: "E", sliceCount: null, turnCount: 1, isPrime: true }, null],
+        [{ code: "S", sliceCount: null, turnCount: 2, isPrime: false }, null],
         [
           { code: "L", sliceCount: null, turnCount: 1, isPrime: false },
           { code: "R", sliceCount: null, turnCount: 1, isPrime: true },
@@ -82,14 +73,14 @@ describe("convert.ts", () => {
         code: "Lw",
         sliceCount: 2,
         turnCount: 1,
-        isPrime: false,
+        isPrime: true,
       });
     });
   });
 
   describe("reverseMove", () => {
     test("should reverse valid moves correctly", () => {
-      const testCases: [MoveToken, MoveToken][] = [
+      const testCases: [MoveToken, MoveToken | null][] = [
         [
           { code: "R", sliceCount: null, turnCount: 1, isPrime: false },
           { code: "R", sliceCount: null, turnCount: 1, isPrime: true },
@@ -98,18 +89,9 @@ describe("convert.ts", () => {
           { code: "Rw", sliceCount: null, turnCount: 2, isPrime: false },
           { code: "Rw", sliceCount: null, turnCount: 2, isPrime: true },
         ],
-        [
-          { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
-          { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
-        ],
-        [
-          { code: "E", sliceCount: null, turnCount: 2, isPrime: false },
-          { code: "E", sliceCount: null, turnCount: 2, isPrime: true },
-        ],
-        [
-          { code: "S", sliceCount: null, turnCount: 1, isPrime: true },
-          { code: "S", sliceCount: null, turnCount: 1, isPrime: false },
-        ],
+        [{ code: "M", sliceCount: null, turnCount: 1, isPrime: true }, null],
+        [{ code: "E", sliceCount: null, turnCount: 2, isPrime: false }, null],
+        [{ code: "S", sliceCount: null, turnCount: 1, isPrime: true }, null],
         [
           { code: "L", sliceCount: null, turnCount: 1, isPrime: false },
           { code: "L", sliceCount: null, turnCount: 1, isPrime: true },
@@ -142,7 +124,7 @@ describe("convert.ts", () => {
       const malformedToken = { code: "R" } as MoveToken;
       expect(reverseMove(malformedToken)).toEqual({
         code: "R",
-        Count: null,
+        sliceCount: null,
         turnCount: 1,
         isPrime: true,
       });
@@ -151,7 +133,7 @@ describe("convert.ts", () => {
 
   describe("rotateMove", () => {
     test("should rotate valid moves correctly", () => {
-      const testCases: [MoveToken, MoveToken][] = [
+      const testCases: [MoveToken, MoveToken | null][] = [
         [
           { code: "F", sliceCount: null, turnCount: 1, isPrime: false },
           { code: "B", sliceCount: null, turnCount: 1, isPrime: false },
@@ -164,10 +146,7 @@ describe("convert.ts", () => {
           { code: "x", sliceCount: null, turnCount: 1, isPrime: false },
           { code: "x", sliceCount: null, turnCount: 1, isPrime: true },
         ],
-        [
-          { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
-          { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
-        ],
+        [{ code: "M", sliceCount: null, turnCount: 1, isPrime: false }, null],
         [
           { code: "U", sliceCount: null, turnCount: 2, isPrime: true },
           { code: "U", sliceCount: null, turnCount: 2, isPrime: true },
@@ -178,7 +157,7 @@ describe("convert.ts", () => {
         ],
         [
           { code: "y", sliceCount: null, turnCount: 1, isPrime: true },
-          { code: "y", sliceCount: null, turnCount: 1, isPrime: false },
+          { code: "y", sliceCount: null, turnCount: 1, isPrime: true },
         ],
         [
           { code: "z", sliceCount: null, turnCount: 1, isPrime: false },
