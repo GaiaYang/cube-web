@@ -114,25 +114,6 @@ export function createCubeProfile(parser: CubeProfile) {
   function formatMove(moveStr?: string | null): string {
     return formatMoveToken(parseMove(moveStr));
   }
-  /**
-   * 檢查字串是否為合法單步驟
-   *
-   * @param moveStr 要檢查的字串
-   * @returns 如果合法則回傳 `true`
-   * */
-  function isValidMoveString(moveStr?: string | null): moveStr is string {
-    return parseMove(moveStr) !== null;
-  }
-
-  /**
-   * 檢查 `MoveToken` 物件是否合法
-   *
-   * @param token 要檢查的 `MoveToken`
-   * @returns 如果合法則回傳 `true`
-   * */
-  function isValidMoveToken(token?: MoveToken | null): token is MoveToken {
-    return _normalizeAndParse(token) !== null;
-  }
 
   /**
    * 高階函式轉換
@@ -154,10 +135,6 @@ export function createCubeProfile(parser: CubeProfile) {
     formatMove,
     /** 將 `MoveToken` 轉換成標準化字串 */
     formatMoveToken,
-    /** 檢查字串是否為合法單步驟 */
-    isValidMoveString,
-    /** 檢查 `MoveToken` 物件是否合法 */
-    isValidMoveToken,
     /**
      * 將公式字串解析成 `MoveToken[]`
      *
@@ -176,7 +153,7 @@ export function createCubeProfile(parser: CubeProfile) {
      * @param input `MoveToken[]` 或 `string[]`
      * @returns 回傳標準化字串，有不合法代號則空字串
      * */
-    stringifyAlgorithm(input?: MoveToken[] | string[] | null): string {
+    formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
       const tokens = input.map((item) =>
         typeof item === "string" ? formatMove(item) : formatMoveToken(item),

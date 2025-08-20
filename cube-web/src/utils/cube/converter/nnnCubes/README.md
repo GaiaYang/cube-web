@@ -31,7 +31,7 @@
 
 ### MoveToken[] / string[] → 演算法字串
 
-- `stringifyAlgorithm(alg)`
+- `formatAlgorithm(alg)`
   - `map()`：
     - string → `formatMove()`
     - token → `formatMoveToken()`
@@ -58,7 +58,7 @@
 1. 所有流程最終都會經過 `parser`，確保擴充邏輯能被應用
 2. 若 `parser` 無特別實作，則回傳原始 token，保持冪等
 3. `formatMove` 與 `formatMoveToken` 結果一致，差別只在輸入型別
-4. `stringifyAlgorithm` 能同時處理字串陣列與 MoveToken 陣列
+4. `formatAlgorithm` 能同時處理字串陣列與 MoveToken 陣列
 
 ---
 

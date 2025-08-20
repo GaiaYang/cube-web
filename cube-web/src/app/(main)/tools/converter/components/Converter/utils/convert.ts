@@ -8,17 +8,15 @@ import type { CubeOrder } from "../types";
 /** 包裝函式，將 string 轉 algorithm token → 執行方法 → stringify */
 function wrapAlgorithmMethod(
   converterCore: {
-    parseAlgorithm: (input?: string | null | undefined) => MoveToken[];
-    stringifyAlgorithm: (
-      input?: MoveToken[] | string[] | null | undefined,
-    ) => string;
+    parseAlgorithm: (input?: string | null) => MoveToken[];
+    formatAlgorithm: (input?: MoveToken[] | string[] | null) => string;
   },
   converter: (input: MoveToken[]) => MoveToken[],
 ) {
   return (algorithm: string) => {
-    const { parseAlgorithm, stringifyAlgorithm } = converterCore;
+    const { parseAlgorithm, formatAlgorithm } = converterCore;
     const tokens = converter(parseAlgorithm(algorithm));
-    return stringifyAlgorithm(tokens);
+    return formatAlgorithm(tokens);
   };
 }
 const output: Record<CubeOrder, Convert> = {

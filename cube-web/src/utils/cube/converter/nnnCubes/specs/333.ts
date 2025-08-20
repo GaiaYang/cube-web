@@ -110,6 +110,17 @@ const cubeProfile = createCubeProfile({
   },
 });
 
+export const {
+  parseMove,
+  parseAlgorithm,
+  formatMove,
+  formatMoveToken,
+  formatAlgorithm,
+  mirrorAlgorithm,
+  reverseAlgorithm,
+  rotateAlgorithm,
+} = cubeProfile;
+
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]) {
   return mapAlgorithm(params, UPPER_MAP);

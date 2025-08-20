@@ -1,10 +1,8 @@
-import type { MoveToken, WideMove } from "../types";
+import type { WideMove } from "../types";
 import {
-  isValidMoveString,
-  isValidMoveToken,
   parseMove,
   parseAlgorithm,
-  stringifyAlgorithm,
+  formatAlgorithm,
   mirrorAlgorithm,
   reverseAlgorithm,
   rotateAlgorithm,
@@ -33,15 +31,15 @@ const fullAlgPrime = "R' U' F' L' D' B' x' y' z'";
 const range0to4 = Array.from({ length: 5 }, (_, i) => i);
 
 describe("nnn 轉動符號檢查", () => {
-  describe("stringifyAlgorithm", () => {
+  describe("formatAlgorithm", () => {
     test("應該能正確組合成公式", () => {
-      expect(stringifyAlgorithm()).toBe("");
-      expect(stringifyAlgorithm(null)).toBe("");
-      expect(stringifyAlgorithm(undefined)).toBe("");
-      expect(stringifyAlgorithm([])).toBe("");
-      expect(stringifyAlgorithm([""])).toBe("");
-      expect(stringifyAlgorithm(["R", "2r"])).toBe("");
-      expect(stringifyAlgorithm(["R", "r2", "Lw"])).toBe("");
+      expect(formatAlgorithm()).toBe("");
+      expect(formatAlgorithm(null)).toBe("");
+      expect(formatAlgorithm(undefined)).toBe("");
+      expect(formatAlgorithm([])).toBe("");
+      expect(formatAlgorithm([""])).toBe("");
+      expect(formatAlgorithm(["R", "2r"])).toBe("");
+      expect(formatAlgorithm(["R", "r2", "Lw"])).toBe("");
     });
   });
 
@@ -53,65 +51,6 @@ describe("nnn 轉動符號檢查", () => {
       expect(parseAlgorithm("r6")).toEqual([]);
       expect(parseAlgorithm("r6'")).toEqual([]);
       expect(parseAlgorithm("R 1r2 Lw")).toEqual([]);
-    });
-  });
-
-  describe("isValidMoveToken", () => {
-    test("應該能判斷正確的 MoveToken", () => {
-      const validTokens: MoveToken[] = [
-        { sliceCount: null, code: "R", turnCount: 1, isPrime: false },
-        { sliceCount: null, code: "Rw", turnCount: 1, isPrime: true },
-      ];
-      validTokens.forEach((t) => expect(isValidMoveToken(t)).toBe(true));
-    });
-
-    test("應該能判斷錯誤的 MoveToken", () => {
-      const invalidTokens = [
-        null,
-        undefined,
-        {},
-        { sliceCount: 1, code: "R", turnCount: 1, isPrime: false },
-        { sliceCount: null, code: "R", turnCount: -1, isPrime: false },
-        { sliceCount: null, code: "x", turnCount: 0, isPrime: false },
-      ];
-      invalidTokens.forEach((t) =>
-        expect(isValidMoveToken(t as MoveToken)).toBe(
-          t
-            ? typeof t.sliceCount === "number" &&
-                wideMoves.includes(t.code as WideMove) &&
-                t.sliceCount >= 1
-            : false,
-        ),
-      );
-    });
-  });
-
-  describe("isValidMoveString", () => {
-    test("應該能判斷錯誤的符號", () => {
-      invalidSymbols.forEach((s) => expect(isValidMoveString(s)).toBe(false));
-    });
-
-    test("應該能判斷正確的符號", () => {
-      basicMoves.forEach((m) => expect(isValidMoveString(m)).toBe(true));
-      basicMoves
-        .map((m) => `${m}'`)
-        .forEach((m) => expect(isValidMoveString(m)).toBe(true));
-    });
-
-    test("應該能判斷錯誤的多層或負號符號", () => {
-      wideMoves.forEach((m, i) => {
-        expect(isValidMoveString(`${i}${m}'`)).toBe(i > 1);
-        expect(isValidMoveString(`${-i}${m}'`)).toBe(false);
-      });
-    });
-
-    test("應該能判斷旋轉次數是否合法", () => {
-      range0to4.forEach((n) => {
-        basicMoves.forEach((m) => {
-          expect(isValidMoveString(`${m}${n}`)).toBe(n >= 1 && n <= 3);
-          expect(isValidMoveString(`${m}${-n}`)).toBe(false);
-        });
-      });
     });
   });
 
@@ -180,18 +119,16 @@ describe("nnn 轉換公式實作", () => {
         "2R 2U 2F 2L 2D 2B 2x 2y 2z 2E 2M 2S",
       ];
       invalidAlgs.forEach((alg) =>
-        expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(alg)))).toBe(
-          "",
-        ),
+        expect(formatAlgorithm(mirrorAlgorithm(parseAlgorithm(alg)))).toBe(""),
       );
     });
 
     test("正確測資應該能水平轉換", () => {
-      expect(stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlg)))).toBe(
+      expect(formatAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlg)))).toBe(
         "L' U' F' R' D' B' x' y' z'",
       );
       expect(
-        stringifyAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlgPrime))),
+        formatAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlgPrime))),
       ).toBe("L U F R D B x y z");
     });
   });
@@ -199,22 +136,20 @@ describe("nnn 轉換公式實作", () => {
   describe("reverseAlgorithm (反轉公式)", () => {
     test("錯誤測資應該回傳空字串", () => {
       expect(
-        stringifyAlgorithm(reverseAlgorithm(parseAlgorithm("R U F ... q"))),
+        formatAlgorithm(reverseAlgorithm(parseAlgorithm("R U F ... q"))),
       ).toBe("");
     });
 
     test("正確測資應該能反轉", () => {
       expect(reverseAlgorithm([])).toEqual([]);
       expect(
-        stringifyAlgorithm(
-          reverseAlgorithm(parseAlgorithm("R U F L D B x y z")),
-        ),
+        formatAlgorithm(reverseAlgorithm(parseAlgorithm("R U F L D B x y z"))),
       ).toBe("z' y' x' B' D' L' F' U' R'");
     });
     test("正確測資應該不能反轉", () => {
       expect(reverseAlgorithm([])).toEqual([]);
       expect(
-        stringifyAlgorithm(
+        formatAlgorithm(
           reverseAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
         ),
       ).toBe("");
@@ -224,9 +159,7 @@ describe("nnn 轉換公式實作", () => {
   describe("rotateAlgorithm (旋轉公式)", () => {
     test("應該能正確旋轉", () => {
       expect(
-        stringifyAlgorithm(
-          rotateAlgorithm(parseAlgorithm("R U F L D B x y z")),
-        ),
+        formatAlgorithm(rotateAlgorithm(parseAlgorithm("R U F L D B x y z"))),
       ).toBe("L U B R D F x' y z'");
     });
   });
