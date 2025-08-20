@@ -63,12 +63,8 @@ describe("333 轉動符號檢查", () => {
 
       expect(parseAlgorithm("r4")).toEqual([]);
       expect(parseAlgorithm("r8")).toEqual([]);
-      expect(parseAlgorithm("r6")).toEqual([
-        { sliceCount: null, code: "r", turnCount: 2, isPrime: false },
-      ]);
-      expect(parseAlgorithm("r6'")).toEqual([
-        { sliceCount: null, code: "r", turnCount: 2, isPrime: true },
-      ]);
+      expect(parseAlgorithm("r6")).toEqual([]);
+      expect(parseAlgorithm("r6'")).toEqual([]);
       expect(parseAlgorithm("R 1r2 Lw")).toEqual([]);
     });
   });

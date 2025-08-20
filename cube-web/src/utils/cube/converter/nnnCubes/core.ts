@@ -1,4 +1,4 @@
-import { isPlainObject } from "es-toolkit";
+import { isNil, isPlainObject } from "es-toolkit";
 
 import type { MoveToken, CubeProfile, WideMove, BasicMove } from "./types";
 
@@ -27,22 +27,12 @@ export function createCubeProfile(parser?: CubeProfile) {
   function parseMove(moveStr?: string | null): MoveToken | null {
     const match = parseMoveByRegex(REGEX, moveStr);
     if (match) {
-      const { code, sliceCount, turnCount, isPrime } = match;
-      return normalizeOfficialMove(
-        {
-          code,
-          sliceCount,
-          turnCount,
-          isPrime,
-        },
-        cubeLayers,
-      );
+      return normalizeOfficialMove(match, cubeLayers);
     }
-    // 官方規則不通過就跑擴充
     return parser?.parseMove?.(moveStr) ?? null;
   }
 
-  /** 轉換格式模板 */
+  /** 將 MoveToken 或字串轉成安全的標準化字串 */
   function _safeFormat(tokenOrStr?: MoveToken | string | null): string {
     const token =
       typeof tokenOrStr === "string" ? parseMove(tokenOrStr) : tokenOrStr;
@@ -86,7 +76,6 @@ export function createCubeProfile(parser?: CubeProfile) {
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
       const tokens = input.trim().split(SEPARATE).map(parseMove);
-      // 全部合法才回傳，否則丟棄
       return tokens.every(Boolean) ? (tokens as MoveToken[]) : [];
     },
     /**
@@ -97,41 +86,31 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      const tokens = input.map((item) =>
-        typeof item === "string" ? formatMove(item) : formatMoveToken(item),
-      );
-      // 全部合法才回傳字串，否則丟棄
-      return tokens.every(Boolean) ? (tokens as string[]).join(SEPARATE) : "";
+      const tokens = input.map(_safeFormat);
+      return tokens.every(Boolean) ? tokens.join(SEPARATE) : "";
     },
     // 以下是轉換公式實作
     /** 鏡像公式 */
-    mirrorAlgorithm: mapAlgorithmFactory(mirrorMove, parser?.mirrorMove),
+    mirrorAlgorithm: createAlgorithmMapper(mirrorMove, parser?.mirrorMove),
     /** 反轉公式 */
-    reverseAlgorithm: mapAlgorithmFactory(reverseMove, parser?.reverseMove, {
-      reverse: true,
-    }),
+    reverseAlgorithm: createAlgorithmMapper(
+      reverseMove,
+      parser?.reverseMove,
+      true,
+    ),
     /** 旋轉公式 (y2) */
-    rotateAlgorithm: mapAlgorithmFactory(rotateMove, parser?.rotateMove),
+    rotateAlgorithm: createAlgorithmMapper(rotateMove, parser?.rotateMove),
   };
 }
 
-/**
- * 通用公式映射工廠
- *
- * @param mainTransform 主要的轉換函式
- * @param fallbackTransform 備援轉換函式（可選）
- * @param options 選項
- */
-function mapAlgorithmFactory(
-  mainTransform: (item: MoveToken) => MoveToken | null,
-  fallbackTransform: ((item: MoveToken) => MoveToken | null) | undefined,
-  options?: { reverse?: boolean },
+/** 高階函式：生成公式映射轉換器 */
+function createAlgorithmMapper(
+  main: (move: MoveToken) => MoveToken | null,
+  fallback?: (move: MoveToken) => MoveToken | null,
+  reverse = false,
 ) {
-  const reverse = options?.reverse ?? false;
   return (moves: MoveToken[]): MoveToken[] => {
-    const mapped = moves.map(
-      (move) => mainTransform(move) ?? fallbackTransform?.(move) ?? null,
-    );
+    const mapped = moves.map((move) => main(move) ?? fallback?.(move) ?? null);
     if (!mapped.every(Boolean)) return [];
     return reverse
       ? (mapped.reverse() as MoveToken[])
@@ -154,9 +133,17 @@ export function createRegex(array?: string[]): RegExp {
   return new RegExp(`^(\\d*)(${movesPattern})(\\d*)(')?$`);
 }
 
-/** 無效的字串數字排除 */
-function isValidNumberString(str: string): boolean {
-  return str !== "0" && str !== "1";
+/** 驗證層數字串是否有效（≥2 或空字串） */
+function isValidSliceCount(str?: string | null): boolean {
+  if (isNil(str) || str === "") return true;
+  const num = parseInt(str, 10);
+  return Number.isInteger(num) && num >= 2;
+}
+
+/** 驗證轉動次數是否有效（空字串或 2/3） */
+function isValidTurnCountString(str?: string | null): boolean {
+  if (isNil(str) || str === "") return true;
+  return str === "2" || str === "3";
 }
 
 /**
@@ -175,7 +162,7 @@ export function parseMoveByRegex(
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
 
-  if (!isValidNumberString(sliceCountStr) || !isValidNumberString(turnStr)) {
+  if (!isValidSliceCount(sliceCountStr) || !isValidTurnCountString(turnStr)) {
     return null;
   }
 
@@ -235,9 +222,9 @@ export function ensureValidCode<T extends string>(
 
 /** 驗證並簡化 turnCount */
 export function ensureValidTurnCount(turnCount: number) {
-  if (!Number.isInteger(turnCount) || turnCount < 1) return null;
-  const simplified = turnCount % MOVE_CYCLE_COUNT;
-  return simplified === 0 ? null : simplified;
+  const isInteger = Number.isInteger(turnCount);
+  const inRange = turnCount > 0 && turnCount < MOVE_CYCLE_COUNT;
+  return isInteger && inRange ? turnCount : null;
 }
 
 /** 將 MoveToken 轉為字串（不做驗證） */
