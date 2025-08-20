@@ -33,6 +33,18 @@ describe("convert.ts", () => {
           { code: "S", sliceCount: null, turnCount: 2, isPrime: false },
           { code: "S", sliceCount: null, turnCount: 2, isPrime: true },
         ],
+        [
+          { code: "L", sliceCount: null, turnCount: 1, isPrime: false },
+          { code: "R", sliceCount: null, turnCount: 1, isPrime: true },
+        ],
+        [
+          { code: "D", sliceCount: null, turnCount: 1, isPrime: true },
+          { code: "D", sliceCount: null, turnCount: 1, isPrime: false },
+        ],
+        [
+          { code: "B", sliceCount: null, turnCount: 2, isPrime: false },
+          { code: "B", sliceCount: null, turnCount: 2, isPrime: true },
+        ],
       ];
       testCases.forEach(([input, expected]) => {
         expect(mirrorMove(input)).toEqual(expected);
@@ -98,6 +110,18 @@ describe("convert.ts", () => {
           { code: "S", sliceCount: null, turnCount: 1, isPrime: true },
           { code: "S", sliceCount: null, turnCount: 1, isPrime: false },
         ],
+        [
+          { code: "L", sliceCount: null, turnCount: 1, isPrime: false },
+          { code: "L", sliceCount: null, turnCount: 1, isPrime: true },
+        ],
+        [
+          { code: "U", sliceCount: null, turnCount: 2, isPrime: false },
+          { code: "U", sliceCount: null, turnCount: 2, isPrime: true },
+        ],
+        [
+          { code: "D", sliceCount: null, turnCount: 1, isPrime: true },
+          { code: "D", sliceCount: null, turnCount: 1, isPrime: false },
+        ],
       ];
       testCases.forEach(([input, expected]) => {
         expect(reverseMove(input)).toEqual(expected);
@@ -118,7 +142,7 @@ describe("convert.ts", () => {
       const malformedToken = { code: "R" } as MoveToken;
       expect(reverseMove(malformedToken)).toEqual({
         code: "R",
-        sliceCount: null,
+        Count: null,
         turnCount: 1,
         isPrime: true,
       });
@@ -151,6 +175,14 @@ describe("convert.ts", () => {
         [
           { code: "D", sliceCount: null, turnCount: 1, isPrime: false },
           { code: "D", sliceCount: null, turnCount: 1, isPrime: false },
+        ],
+        [
+          { code: "y", sliceCount: null, turnCount: 1, isPrime: true },
+          { code: "y", sliceCount: null, turnCount: 1, isPrime: false },
+        ],
+        [
+          { code: "z", sliceCount: null, turnCount: 1, isPrime: false },
+          { code: "z", sliceCount: null, turnCount: 1, isPrime: true },
         ],
       ];
       testCases.forEach(([input, expected]) => {
