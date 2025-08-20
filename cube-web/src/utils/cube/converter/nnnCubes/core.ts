@@ -11,12 +11,12 @@ import {
 } from "./constants";
 import { mirrorMove, reverseMove, rotateMove } from "./convert";
 
+/** 官方標準符號正則表達式 */
+const REGEX = createRegex();
 /** 建立方塊轉動解析 */
 export function createCubeProfile(parser?: CubeProfile) {
   /** 方塊層數，如果沒有表示不設限制 */
   const cubeLayers = parser?.cubeLayers;
-  /** 官方標準符號正則表達式 */
-  const REGEX = createRegex();
 
   /**
    * 解析單一步驟字串為 `MoveToken`
@@ -42,6 +42,14 @@ export function createCubeProfile(parser?: CubeProfile) {
     return parser?.parseMove?.(moveStr) ?? null;
   }
 
+  /** 轉換格式模板 */
+  function _safeFormat(tokenOrStr?: MoveToken | string | null): string {
+    const token =
+      typeof tokenOrStr === "string" ? parseMove(tokenOrStr) : tokenOrStr;
+    const str = moveTokenToString(token);
+    return parseMove(str) ? str : "";
+  }
+
   /**
    * 將 `MoveToken` 轉換成標準化字串（會經過 `parser`）
    *
@@ -49,11 +57,7 @@ export function createCubeProfile(parser?: CubeProfile) {
    * @returns 回傳標準化字串，有不合法代號則空字串
    * */
   function formatMoveToken(token?: MoveToken | null): string {
-    const output = moveTokenToString(token);
-    if (parseMove(output) === null) {
-      return "";
-    }
-    return output;
+    return _safeFormat(token);
   }
 
   /**
@@ -63,7 +67,7 @@ export function createCubeProfile(parser?: CubeProfile) {
    * @returns 回傳標準化字串，有不合法代號則空字串
    * */
   function formatMove(moveStr?: string | null): string {
-    return formatMoveToken(parseMove(moveStr));
+    return _safeFormat(moveStr);
   }
 
   return {
@@ -101,26 +105,37 @@ export function createCubeProfile(parser?: CubeProfile) {
     },
     // 以下是轉換公式實作
     /** 鏡像公式 */
-    mirrorAlgorithm: (array: MoveToken[]): MoveToken[] => {
-      const output = array.map(
-        (item) => mirrorMove(item) ?? parser?.mirrorMove?.(item) ?? null,
-      );
-      return output.every(Boolean) ? (output as MoveToken[]) : [];
-    },
+    mirrorAlgorithm: mapAlgorithmFactory(mirrorMove, parser?.mirrorMove),
     /** 反轉公式 */
-    reverseAlgorithm: (array: MoveToken[]): MoveToken[] => {
-      const output = array
-        .map((item) => reverseMove(item) ?? parser?.reverseMove?.(item) ?? null)
-        .reverse();
-      return output.every(Boolean) ? (output as MoveToken[]) : [];
-    },
+    reverseAlgorithm: mapAlgorithmFactory(reverseMove, parser?.reverseMove, {
+      reverse: true,
+    }),
     /** 旋轉公式 (y2) */
-    rotateAlgorithm: (array: MoveToken[]): MoveToken[] => {
-      const output = array.map(
-        (item) => rotateMove(item) ?? parser?.rotateMove?.(item) ?? null,
-      );
-      return output.every(Boolean) ? (output as MoveToken[]) : [];
-    },
+    rotateAlgorithm: mapAlgorithmFactory(rotateMove, parser?.rotateMove),
+  };
+}
+
+/**
+ * 通用公式映射工廠
+ *
+ * @param mainTransform 主要的轉換函式
+ * @param fallbackTransform 備援轉換函式（可選）
+ * @param options 選項
+ */
+function mapAlgorithmFactory(
+  mainTransform: (item: MoveToken) => MoveToken | null,
+  fallbackTransform: ((item: MoveToken) => MoveToken | null) | undefined,
+  options?: { reverse?: boolean },
+) {
+  const reverse = options?.reverse ?? false;
+  return (moves: MoveToken[]): MoveToken[] => {
+    const mapped = moves.map(
+      (move) => mainTransform(move) ?? fallbackTransform?.(move) ?? null,
+    );
+    if (!mapped.every(Boolean)) return [];
+    return reverse
+      ? (mapped.reverse() as MoveToken[])
+      : (mapped as MoveToken[]);
   };
 }
 
@@ -140,8 +155,8 @@ export function createRegex(array?: string[]): RegExp {
 }
 
 /** 無效的字串數字排除 */
-function isInvalidNumberString(str: string | null) {
-  return str === "0" || str === "1";
+function isValidNumberString(str: string): boolean {
+  return str !== "0" && str !== "1";
 }
 
 /**
@@ -160,7 +175,7 @@ export function parseMoveByRegex(
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
 
-  if (isInvalidNumberString(sliceCountStr) || isInvalidNumberString(turnStr)) {
+  if (!isValidNumberString(sliceCountStr) || !isValidNumberString(turnStr)) {
     return null;
   }
 
@@ -188,9 +203,13 @@ export function normalizeOfficialMove(
   if (!basicMoves.includes(code as BasicMove)) {
     return null;
   }
-  if (typeof cubeLayers === "number") {
-    // 只有四階以上才能使用 sliceCount
-    if (cubeLayers <= 3 && sliceCount !== null) return null;
+  // 只有四階以上才能使用 sliceCount
+  if (
+    typeof cubeLayers === "number" &&
+    cubeLayers <= 3 &&
+    sliceCount !== null
+  ) {
+    return null;
   }
   if (!wideMoves.includes(code as WideMove) && sliceCount !== null) return null;
 

@@ -5,7 +5,6 @@ import {
   parseMoveByRegex,
   ensureValidTurnCount,
 } from "../core";
-import { wideMoves } from "../constants";
 
 /** 非官方「多層轉動」別名 */
 export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";
@@ -148,10 +147,9 @@ export const {
 
 /** 雙層轉換成大寫 */
 function upperMove(params: MoveToken): MoveToken | null {
-  if (!wideMoveAliases.includes(params.code as WideMoveAliases)) {
-    return params;
-  }
-  return { ...params, code: UPPER_MAP[params.code as WideMoveAliases] };
+  const code = UPPER_MAP[params.code as WideMoveAliases];
+  if (!code) return params;
+  return { ...params, code };
 }
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]): MoveToken[] {
@@ -159,10 +157,9 @@ export function upperAlgorithm(params: MoveToken[]): MoveToken[] {
 }
 /** 雙層轉換成小寫 */
 function lowerMove(params: MoveToken): MoveToken | null {
-  if (!wideMoves.includes(params.code as WideMove)) {
-    return params;
-  }
-  return { ...params, code: LOWER_MAP[params.code as WideMove] };
+  const code = LOWER_MAP[params.code as WideMove];
+  if (!code) return params;
+  return { ...params, code };
 }
 /** 雙層轉換成小寫公式 */
 export function lowerAlgorithm(params: MoveToken[]): MoveToken[] {
