@@ -61,16 +61,16 @@ describe("core.ts", () => {
       expect(parseMoveByRegex(regex, "")).toBeNull();
       expect(parseMoveByRegex(regex, null)).toBeNull();
       expect(parseMoveByRegex(regex, "4R")).toEqual({
-        code: "R",
-        isPrime: false,
         sliceCount: 4,
+        code: "R",
         turnCount: 1,
+        isPrime: false,
       }); // Invalid slice count
       expect(parseMoveByRegex(regex, "R4")).toEqual({
-        code: "R",
-        isPrime: false,
         sliceCount: null,
+        code: "R",
         turnCount: 4,
+        isPrime: false,
       }); // Invalid turn count
       expect(parseMoveByRegex(regex, "X")).toBeNull(); // Invalid code
     });
@@ -258,6 +258,11 @@ describe("core.ts", () => {
         expect(profile.formatMove("X")).toBe("");
         expect(profile.formatMove("2R")).toBe("");
       });
+
+      // 新增測試用例以覆蓋 _safeFormat 的無效 MoveToken 分支
+      test("should handle invalid MoveToken in _safeFormat", () => {
+        expect(profile.formatMove("X1")).toBe("");
+      });
     });
 
     describe("formatMoveToken", () => {
@@ -280,6 +285,12 @@ describe("core.ts", () => {
         };
         expect(profile.formatMoveToken(token)).toBe("");
       });
+
+      // 新增測試用例以覆蓋 _safeFormat 的無效 MoveToken 分支
+      test("should handle malformed MoveToken in _safeFormat", () => {
+        const malformedToken = { code: "R" } as MoveToken; // 缺少必要屬性
+        expect(profile.formatMoveToken(malformedToken)).toBe("R");
+      });
     });
 
     describe("formatAlgorithm", () => {
@@ -294,6 +305,12 @@ describe("core.ts", () => {
       test("should return empty string for invalid input", () => {
         expect(profile.formatAlgorithm(null)).toBe("");
         expect(profile.formatAlgorithm(["R", "X"])).toBe("");
+      });
+
+      // 新增測試用例以覆蓋 _safeFormat 的無效字串分支
+      test("should handle invalid string array in _safeFormat", () => {
+        const invalidInput = ["R", "X", "U"];
+        expect(profile.formatAlgorithm(invalidInput)).toBe("");
       });
     });
 
