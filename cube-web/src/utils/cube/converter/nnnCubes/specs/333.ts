@@ -56,7 +56,7 @@ const ROTATE_MAP: RotateMap<ExtendsMoves> = {
   S: "S",
 };
 
-/** 雙層大小寫映射 */
+/** 雙層小轉大寫映射 */
 const UPPER_MAP: Record<WideMoveAliases, WideMove> = {
   r: "Rw",
   l: "Lw",
@@ -65,6 +65,8 @@ const UPPER_MAP: Record<WideMoveAliases, WideMove> = {
   b: "Bw",
   f: "Fw",
 };
+
+/** 雙層大轉小寫映射 */
 const LOWER_MAP: Record<WideMove, WideMoveAliases> = {
   Rw: "r",
   Lw: "l",
