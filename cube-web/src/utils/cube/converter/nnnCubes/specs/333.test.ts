@@ -1,5 +1,5 @@
 import {
-  allMoves,
+  extendsMoves,
   parseMove,
   parseAlgorithm,
   formatAlgorithm,
@@ -9,6 +9,9 @@ import {
   upperAlgorithm,
   lowerAlgorithm,
 } from "./333";
+import { basicMoves } from "../constants";
+
+const allMoves = [...basicMoves, ...extendsMoves];
 
 const invalidSymbols = [
   null,
@@ -103,7 +106,7 @@ describe("333 轉動符號檢查", () => {
       range0to4.forEach((n) => {
         allMoves.forEach((m, i) => {
           expect(parseMove(`${m}${n}`)).toEqual(
-            n % 4 !== 0
+            n % 4 !== 0 && n >= 2
               ? {
                   code: allMoves[i],
                   isPrime: false,

@@ -96,7 +96,8 @@ describe("nnn 轉動符號檢查", () => {
       range0to4.forEach((n) => {
         basicMoves.forEach((m, i) => {
           expect(parseMove(`${m}${n}`)).toEqual(
-            n % 4 !== 0
+            // 書寫必須從 2 開始
+            n % 4 !== 0 && n >= 2
               ? {
                   code: basicMoves[i],
                   isPrime: false,
