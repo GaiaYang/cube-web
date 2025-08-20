@@ -1,3 +1,4 @@
+import { basicMoves } from "./constants";
 import type { BasicMove, MirrorMap, RotateMap, MoveToken } from "./types";
 
 /** 基本鏡像映射 */
@@ -38,34 +39,40 @@ const BASIC_ROTATE_MAP: RotateMap = {
   z: "z",
 };
 
-/** 鏡像公式 */
-export function mirrorAlgorithm(params: MoveToken[]) {
-  return params.map((item) => ({
+/** 鏡像步驟 */
+export function mirrorMove(item: MoveToken): MoveToken | null {
+  if (!basicMoves.includes(item.code as BasicMove)) {
+    return null;
+  }
+  return {
     ...item,
-    code: BASIC_MIRROR_MAP[item.code as BasicMove] || item.code,
+    code: BASIC_MIRROR_MAP[item.code as BasicMove],
     isPrime: !item.isPrime, // 鏡像必定反轉
-  }));
+  };
 }
 
-/** 反轉公式（逆序 + 反向旋轉） */
-export function reverseAlgorithm(params: MoveToken[]) {
-  return params
-    .slice()
-    .reverse()
-    .map((item) => ({ ...item, isPrime: !item.isPrime }));
+/**
+ * 反轉步驟
+ *
+ * 最後處理記得要 `reverse()`
+ * */
+export function reverseMove(item: MoveToken): MoveToken | null {
+  if (!basicMoves.includes(item.code as BasicMove)) {
+    return null;
+  }
+  return { ...item, isPrime: !item.isPrime };
 }
 
-/** 旋轉公式 */
-export function rotateAlgorithm(params: MoveToken[]) {
-  return params.map((item) => {
-    const mapped = BASIC_ROTATE_MAP[item.code as BasicMove];
-    if (!mapped) return item;
-
-    // x、z 軸旋轉需反轉 isPrime
-    if (item.code === "x" || item.code === "z") {
-      return { ...item, code: mapped, isPrime: !item.isPrime };
-    }
-
-    return { ...item, code: mapped };
-  });
+/** 旋轉步驟 */
+export function rotateMove(item: MoveToken): MoveToken | null {
+  if (!basicMoves.includes(item.code as BasicMove)) {
+    return null;
+  }
+  // x、z 軸旋轉需反轉 isPrime
+  return {
+    ...item,
+    code: BASIC_ROTATE_MAP[item.code as BasicMove],
+    isPrime:
+      item.code === "x" || item.code === "z" ? !item.isPrime : item.isPrime,
+  };
 }

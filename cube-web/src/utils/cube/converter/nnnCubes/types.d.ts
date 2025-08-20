@@ -35,17 +35,21 @@ export interface MoveToken {
 
 /** 方塊實作介面 */
 export interface CubeProfile {
-  /** 要拓展的移動代號 */
-  extraMoves?: string[];
+  /**
+   * 方塊層數
+   *
+   * 沒有填就當作無限制
+   * */
+  cubeLayers?: number;
   /** 將字串解析成 MoveToken */
-  parseMove(moveToekn: MoveToken): MoveToken | null;
+  parseMove?: (input?: string | null) => MoveToken | null;
   // 以下是轉換公式實作
-  /** 鏡像公式 */
-  mirrorAlgorithm(params: MoveToken[]): MoveToken[];
-  /** 反轉公式 */
-  reverseAlgorithm(params: MoveToken[]): MoveToken[];
-  /** 旋轉公式(y2) */
-  rotateAlgorithm(params: MoveToken[]): MoveToken[];
+  /** 鏡像公式的單一步驟實作 */
+  mirrorMove?: (params: MoveToken) => MoveToken | null;
+  /** 反轉公式的單一步驟實作 */
+  reverseMove?: (params: MoveToken) => MoveToken | null;
+  /** 旋轉公式的單一步驟實作(y2) */
+  rotateMove?: (params: MoveToken) => MoveToken | null;
 }
 // 轉換公式
 /** 鏡像方向 */

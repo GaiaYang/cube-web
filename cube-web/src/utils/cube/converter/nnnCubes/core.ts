@@ -1,6 +1,6 @@
 import { isPlainObject } from "es-toolkit";
 
-import type { MoveToken, CubeProfile, WideMove } from "./types";
+import type { MoveToken, CubeProfile, WideMove, BasicMove } from "./types";
 
 import {
   basicMoves,
@@ -9,90 +9,37 @@ import {
   PRIME_MARK,
   wideMoves,
 } from "./constants";
-import { mirrorAlgorithm, reverseAlgorithm, rotateAlgorithm } from "./convert";
+import { mirrorMove, reverseMove, rotateMove } from "./convert";
 
 /** 建立方塊轉動解析 */
-export function createCubeProfile(parser: CubeProfile) {
-  /** 所有移動代號（包含 parser 擴充的符號） */
-  const moves = [
-    ...basicMoves,
-    ...(Array.isArray(parser.extraMoves) ? parser.extraMoves : []),
-  ];
-
-  /** 動態生成正規表達式，先長後短避免誤匹配 */
-  const movesPattern = moves.sort((a, b) => b.length - a.length).join("|");
-  const REGEX = new RegExp(`^(\\d*)(${movesPattern})(\\d*)(')?$`);
-
-  /**
-   * 驗證並正規化 `MoveToken`
-   *
-   * @param token 要檢查的 `MoveToken`
-   * @returns 回傳 `MoveToken`，有不合法格式則回傳 `null`
-   * */
-  function _normalizeToken(
-    token: MoveToken | null | undefined,
-  ): MoveToken | null {
-    if (!isPlainObject(token)) return null;
-    const { code, sliceCount, turnCount, isPrime } = token;
-
-    // code 必須是已知代號
-    if (!moves.includes(code)) return null;
-
-    // 非 wideMoves 不允許 sliceCount
-    if (!wideMoves.includes(code as WideMove) && sliceCount !== null)
-      return null;
-
-    // sliceCount 可以是 null 或 >= 1 的整數
-    if (
-      sliceCount !== null &&
-      (!Number.isInteger(sliceCount) || sliceCount <= 1)
-    ) {
-      return null;
-    }
-
-    // turnCount 必須是正整數
-    if (!Number.isInteger(turnCount) || turnCount < 1) return null;
-
-    /** 將 turnCount 轉換成 0 ~ 3 */
-    const normalizedTurns = turnCount % MOVE_CYCLE_COUNT;
-    if (normalizedTurns === 0) return null; // 0 表示沒有動作
-
-    // prime 必須是 boolean
-    if (typeof isPrime !== "boolean") return null;
-
-    return { code, sliceCount, turnCount: normalizedTurns, isPrime };
-  }
-
-  /**
-   * 正規化後再交給 `parser` 做進一步轉換
-   *
-   * @param token 要正規化的 `MoveToken`
-   * @returns 回傳 `MoveToken`，有不合法格式則回傳 `null`
-   * */
-  function _normalizeAndParse(token?: MoveToken | null): MoveToken | null {
-    if (!token) return null;
-    const normalized = _normalizeToken(token);
-    return normalized ? parser.parseMove(normalized) : null;
-  }
+export function createCubeProfile(parser?: CubeProfile) {
+  /** 方塊層數，如果沒有表示不設限制 */
+  const cubeLayers = parser?.cubeLayers;
+  /** 官方標準符號正則表達式 */
+  const REGEX = createRegex();
 
   /**
    * 解析單一步驟字串為 `MoveToken`
    *
    * @param moveStr 要解析的步驟字串
-   * @returns 回傳 `MoveToken`，有不合法格式則回傳 `null`
+   * @returns 回傳 `MoveToken`，官方規則不通過則執行擴充解析，有不合法格式則回傳 `null`
    * */
   function parseMove(moveStr?: string | null): MoveToken | null {
-    if (!moveStr) return null;
-    const match = moveStr.match(REGEX);
-    if (!match) return null;
-
-    const [, sliceCountStr, code, turnStr, primeMark] = match;
-    return _normalizeAndParse({
-      code,
-      sliceCount: sliceCountStr ? +sliceCountStr : null,
-      turnCount: turnStr ? +turnStr : 1,
-      isPrime: primeMark === "'",
-    });
+    const match = parseMoveByRegex(REGEX, moveStr);
+    if (match) {
+      const { code, sliceCount, turnCount, isPrime } = match;
+      return normalizeOfficialMove(
+        {
+          code,
+          sliceCount,
+          turnCount,
+          isPrime,
+        },
+        cubeLayers,
+      );
+    }
+    // 官方規則不通過就跑擴充
+    return parser?.parseMove?.(moveStr) ?? null;
   }
 
   /**
@@ -102,7 +49,11 @@ export function createCubeProfile(parser: CubeProfile) {
    * @returns 回傳標準化字串，有不合法代號則空字串
    * */
   function formatMoveToken(token?: MoveToken | null): string {
-    return toMoveTokenString(_normalizeAndParse(token));
+    const output = moveTokenToString(token);
+    if (parseMove(output) === null) {
+      return "";
+    }
+    return output;
   }
 
   /**
@@ -113,19 +64,6 @@ export function createCubeProfile(parser: CubeProfile) {
    * */
   function formatMove(moveStr?: string | null): string {
     return formatMoveToken(parseMove(moveStr));
-  }
-
-  /**
-   * 高階函式轉換
-   *
-   * @param baseFn 共用轉換
-   * @param parserFn 客製化轉換
-   * */
-  function withParserTransform(
-    baseFn: (input: MoveToken[]) => MoveToken[],
-    parserFn: (input: MoveToken[]) => MoveToken[],
-  ) {
-    return (input: MoveToken[]) => parserFn(baseFn(input));
   }
 
   return {
@@ -162,34 +100,122 @@ export function createCubeProfile(parser: CubeProfile) {
       return tokens.every(Boolean) ? (tokens as string[]).join(SEPARATE) : "";
     },
     // 以下是轉換公式實作
-    /**
-     * 鏡像處理的通用邏輯：
-     * - `code` 會依映射表轉換
-     * - `isPrime` 必定反轉一次（鏡像等於反向旋轉）
-     *
-     * 注意：擴展層 (ex: 333.ts) 只需處理非官方符號的 `code` 映射，
-     * 不要再次反轉 `isPrime`，否則會出現方向錯誤。
-     */
     /** 鏡像公式 */
-    mirrorAlgorithm: withParserTransform(
-      mirrorAlgorithm,
-      parser.mirrorAlgorithm,
-    ),
+    mirrorAlgorithm: (array: MoveToken[]): MoveToken[] => {
+      const output = array.map(
+        (item) => mirrorMove(item) ?? parser?.mirrorMove?.(item) ?? null,
+      );
+      return output.every(Boolean) ? (output as MoveToken[]) : [];
+    },
     /** 反轉公式 */
-    reverseAlgorithm: withParserTransform(
-      reverseAlgorithm,
-      parser.reverseAlgorithm,
-    ),
+    reverseAlgorithm: (array: MoveToken[]): MoveToken[] => {
+      const output = array
+        .map((item) => reverseMove(item) ?? parser?.reverseMove?.(item) ?? null)
+        .reverse();
+      return output.every(Boolean) ? (output as MoveToken[]) : [];
+    },
     /** 旋轉公式 (y2) */
-    rotateAlgorithm: withParserTransform(
-      rotateAlgorithm,
-      parser.rotateAlgorithm,
-    ),
+    rotateAlgorithm: (array: MoveToken[]): MoveToken[] => {
+      const output = array.map(
+        (item) => rotateMove(item) ?? parser?.rotateMove?.(item) ?? null,
+      );
+      return output.every(Boolean) ? (output as MoveToken[]) : [];
+    },
   };
 }
 
-/** 將 `MoveToken` 轉成標準化代號字串 */
-export function toMoveTokenString(token?: MoveToken | null): string {
+/**
+ * 生成正則表達式
+ *
+ * @param array 額外的轉動符號
+ *
+ * 把字串解析成 `[, 轉動層數字串, 轉動代號, 轉動次數字串, 逆時針符號]`
+ * */
+export function createRegex(array?: string[]): RegExp {
+  /** 動態生成正規表達式，先長後短避免誤匹配 */
+  const movesPattern = [...basicMoves, ...(Array.isArray(array) ? array : [])]
+    .sort((a, b) => b.length - a.length)
+    .join("|");
+  return new RegExp(`^(\\d*)(${movesPattern})(\\d*)(')?$`);
+}
+
+/**
+ * 純解析字串
+ *
+ * @param regex 正則表達式
+ * @param input 要解析的字串
+ * @returns `[轉動層數, 轉動代號, 轉動次數, 是否為逆時針]`
+ * */
+export function parseMoveByRegex(
+  regex: RegExp,
+  input?: string | null,
+): MoveToken | null {
+  if (!input) return null;
+  const match = regex.exec(input);
+  if (!match) return null;
+  const [, sliceCountStr, code, turnStr, primeMark] = match;
+  // 禁止 0 或 1 的 slice/turn
+  if (sliceCountStr === "0" || sliceCountStr === "1") return null;
+  if (turnStr === "0" || turnStr === "1") return null;
+  return {
+    sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : null,
+    code,
+    turnCount: turnStr ? parseInt(turnStr, 10) : 1,
+    isPrime: primeMark === PRIME_MARK,
+  };
+}
+
+/**
+ * 官方規則的標準化
+ *
+ * @param token 要檢查的 `MoveToken`
+ * @param cubeLayers 方塊層數，沒有給就不檢查
+ * @returns 回傳 `MoveToken`，有不合法格式則回傳 `null`
+ * */
+export function normalizeOfficialMove(
+  token?: MoveToken | null,
+  cubeLayers?: number,
+): MoveToken | null {
+  if (!isPlainObject(token)) return null;
+  const { sliceCount, isPrime, code } = token;
+  if (!basicMoves.includes(code as BasicMove)) {
+    return null;
+  }
+  if (typeof cubeLayers === "number") {
+    // 只有四階以上才能使用 sliceCount
+    if (cubeLayers <= 3 && sliceCount !== null) return null;
+  }
+  if (!wideMoves.includes(code as WideMove) && sliceCount !== null) return null;
+
+  const turnCount = ensureValidTurnCount(token.turnCount);
+  if (turnCount === null) return null;
+
+  return { code, sliceCount, turnCount, isPrime };
+}
+
+/**
+ * 標準化轉動代號
+ *
+ * @param moves 轉動代號清單
+ * @param code 轉動代號
+ * */
+export function ensureValidCode<T extends string>(
+  moves: T[],
+  code: string,
+): T | null {
+  // code 必須是已知代號
+  return moves.includes(code as T) ? (code as T) : null;
+}
+
+/** 驗證並簡化 turnCount */
+export function ensureValidTurnCount(turnCount: number) {
+  if (!Number.isInteger(turnCount) || turnCount < 1) return null;
+  const simplified = turnCount % MOVE_CYCLE_COUNT;
+  return simplified === 0 ? null : simplified;
+}
+
+/** 將 MoveToken 轉為字串（不做驗證） */
+export function moveTokenToString(token?: MoveToken | null): string {
   if (!isPlainObject(token)) return "";
   const { sliceCount, code, turnCount, isPrime } = token;
   return [
