@@ -139,6 +139,11 @@ export function createRegex(array?: string[]): RegExp {
   return new RegExp(`^(\\d*)(${movesPattern})(\\d*)(')?$`);
 }
 
+/** 無效的字串數字排除 */
+function isInvalidNumberString(str: string | null) {
+  return str === "0" || str === "1";
+}
+
 /**
  * 純解析字串
  *
@@ -154,9 +159,11 @@ export function parseMoveByRegex(
   const match = regex.exec(input);
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
-  // 禁止 0 或 1 的 slice/turn
-  if (sliceCountStr === "0" || sliceCountStr === "1") return null;
-  if (turnStr === "0" || turnStr === "1") return null;
+
+  if (isInvalidNumberString(sliceCountStr) || isInvalidNumberString(turnStr)) {
+    return null;
+  }
+
   return {
     sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : null,
     code,

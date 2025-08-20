@@ -26,6 +26,10 @@ export const middleLayerMoves: MiddleBlockAliasMove[] = ["E", "M", "S"];
 export const extendsMoves = [...wideMoveAliases, ...middleLayerMoves];
 /** 三階擴充轉動代號 */
 export type ExtendsMoves = MiddleBlockAliasMove | WideMoveAliases;
+/** 三階擴充轉動代號對照表 */
+export const extendsMovesMap = Object.fromEntries(
+  extendsMoves.map((k) => [k, k]),
+);
 
 /** 鏡像映射表 */
 const MIRROR_MAP: MirrorMap<ExtendsMoves> = {
@@ -71,21 +75,34 @@ const LOWER_MAP: Record<WideMove, WideMoveAliases> = {
   Fw: "f",
 };
 
-/** 共用映射函式，支援 optional 反向 isPrime */
+/**
+ * 共用映射函式
+ *
+ * @param move 移動代號
+ * @param map 映射表
+ * @param reversePrimeFor 要反向 isPrime 的代號
+ * */
 function mapAlgorithm(
-  params: MoveToken,
+  move: MoveToken,
   map: Record<string, string>,
   reversePrimeFor: string[] = [],
 ): MoveToken | null {
-  const mapped = map[params.code];
+  const mapped = map[move.code];
   if (!mapped) return null;
   return {
-    ...params,
+    ...move,
     code: mapped,
-    isPrime: reversePrimeFor.includes(params.code)
-      ? !params.isPrime
-      : params.isPrime,
+    isPrime: reversePrimeFor.includes(move.code) ? !move.isPrime : move.isPrime,
   };
+}
+
+/** 映射輸出列表 */
+function mapAlgorithmList(
+  list: MoveToken[],
+  fn: (p: MoveToken) => MoveToken | null,
+): MoveToken[] {
+  const output = list.map(fn);
+  return output.every(Boolean) ? (output as MoveToken[]) : [];
 }
 
 const REGEX = createRegex(extendsMoves);
@@ -107,36 +124,14 @@ const cubeProfile = createCubeProfile({
     return { code, sliceCount, turnCount: _turnCount, isPrime };
   },
   mirrorMove(params) {
-    if (!extendsMoves.includes(params.code as ExtendsMoves)) {
-      return null;
-    }
-    const code = MIRROR_MAP[params.code as WideMoveAliases];
-    const isPrime = !params.isPrime;
-    return {
-      ...params,
-      code,
-      isPrime,
-    };
+    return mapAlgorithm(params, MIRROR_MAP, extendsMoves);
   },
   reverseMove: (params) => {
-    if (!extendsMoves.includes(params.code as ExtendsMoves)) {
-      return null;
-    }
-    return { ...params, isPrime: !params.isPrime };
+    return mapAlgorithm(params, extendsMovesMap, extendsMoves);
   },
   rotateMove(params) {
-    if (!extendsMoves.includes(params.code as ExtendsMoves)) {
-      return null;
-    }
-    const code = ROTATE_MAP[params.code as WideMoveAliases];
-    if (!code) return null;
     // M/S 需要反轉 isPrime
-    const isPrime =
-      code === "M" || code === "S" ? !params.isPrime : params.isPrime;
-    return {
-      ...params,
-      isPrime,
-    };
+    return mapAlgorithm(params, ROTATE_MAP, ["M", "S"]);
   },
 });
 
@@ -152,33 +147,26 @@ export const {
 } = cubeProfile;
 
 /** 雙層轉換成大寫 */
-export function upperMove(params: MoveToken): MoveToken | null {
+function upperMove(params: MoveToken): MoveToken | null {
   if (!wideMoveAliases.includes(params.code as WideMoveAliases)) {
     return params;
   }
-  const code = UPPER_MAP[params.code as WideMoveAliases];
-  return {
-    ...params,
-    code,
-  };
+  return { ...params, code: UPPER_MAP[params.code as WideMoveAliases] };
 }
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]): MoveToken[] {
-  const output = params.map(upperMove);
-  return output.every(Boolean) ? (output as MoveToken[]) : [];
+  return mapAlgorithmList(params, upperMove);
 }
 /** 雙層轉換成小寫 */
-export function lowerMove(params: MoveToken): MoveToken | null {
+function lowerMove(params: MoveToken): MoveToken | null {
   if (!wideMoves.includes(params.code as WideMove)) {
     return params;
   }
-  const code = LOWER_MAP[params.code as WideMove];
-  return { ...params, code };
+  return { ...params, code: LOWER_MAP[params.code as WideMove] };
 }
 /** 雙層轉換成小寫公式 */
 export function lowerAlgorithm(params: MoveToken[]): MoveToken[] {
-  const output = params.map(lowerMove);
-  return output.every(Boolean) ? (output as MoveToken[]) : [];
+  return mapAlgorithmList(params, lowerMove);
 }
 
 const output = { ...cubeProfile, upperAlgorithm, lowerAlgorithm };

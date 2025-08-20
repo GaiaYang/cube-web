@@ -12,6 +12,8 @@ export const basicMoves: BasicMove[] = [
   ...faceMoves,
   ...rotations,
 ];
+/** 基本轉動代號對應表 */
+export const basicMovesMap = Object.fromEntries(basicMoves.map((k) => [k, k]));
 /** 分隔符號 */
 export const SEPARATE = " ";
 /** 逆時鐘符號 */
