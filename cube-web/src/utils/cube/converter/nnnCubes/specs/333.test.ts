@@ -226,3 +226,162 @@ describe("333.ts", () => {
     });
   });
 });
+
+describe("333.ts - Additional Tests", () => {
+  describe("mapAlgorithm (via mirrorAlgorithm, reverseAlgorithm, rotateAlgorithm)", () => {
+    test("should handle invalid move codes via mirrorAlgorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "X", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(mirrorAlgorithm(tokens)).toEqual([]);
+    });
+
+    test("should reverse isPrime for specified moves via rotateAlgorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "S", sliceCount: null, turnCount: 1, isPrime: true },
+      ];
+      expect(rotateAlgorithm(tokens)).toEqual([
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
+        { code: "S", sliceCount: null, turnCount: 1, isPrime: false },
+      ]);
+    });
+
+    test("should preserve non-mapped moves via mirrorAlgorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "u", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "E", sliceCount: null, turnCount: 1, isPrime: true },
+      ];
+      expect(mirrorAlgorithm(tokens)).toEqual([
+        { code: "u", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "E", sliceCount: null, turnCount: 1, isPrime: false },
+      ]);
+    });
+
+    test("should handle empty reversePrimeFor via reverseAlgorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: true },
+      ];
+      expect(reverseAlgorithm(tokens)).toEqual([
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+      ]);
+    });
+
+    test("should handle multiple move types via rotateAlgorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "f", sliceCount: null, turnCount: 2, isPrime: true },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(rotateAlgorithm(tokens)).toEqual([
+        { code: "l", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "b", sliceCount: null, turnCount: 2, isPrime: true },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
+      ]);
+    });
+  });
+
+  describe("mapAlgorithmList (via mirrorAlgorithm, reverseAlgorithm, rotateAlgorithm)", () => {
+    test("should handle empty array via mirrorAlgorithm", () => {
+      expect(mirrorAlgorithm([])).toEqual([]);
+    });
+
+    test("should handle all invalid moves via rotateAlgorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "X", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "Y", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(rotateAlgorithm(tokens)).toEqual([]);
+    });
+
+    test("should process valid move list with mixed codes via mirrorAlgorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "u", sliceCount: null, turnCount: 2, isPrime: true },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(mirrorAlgorithm(tokens)).toEqual([
+        { code: "l", sliceCount: null, turnCount: 1, isPrime: true },
+        { code: "u", sliceCount: null, turnCount: 2, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
+      ]);
+    });
+  });
+
+  describe("upperMove and lowerMove (via upperAlgorithm and lowerAlgorithm)", () => {
+    test("should map all wide moves to uppercase", () => {
+      const tokens: MoveToken[] = wideMoveAliases.map((code) => ({
+        code,
+        sliceCount: null,
+        turnCount: 1,
+        isPrime: false,
+      }));
+      const expected = tokens.map((token) => ({
+        ...token,
+        code: `${token.code.toUpperCase()}w`,
+      }));
+      expect(upperAlgorithm(tokens)).toEqual(expected);
+    });
+
+    test("should map all wide moves to lowercase", () => {
+      const tokens: MoveToken[] = ["Rw", "Lw", "Uw", "Dw", "Fw", "Bw"].map(
+        (code) => ({
+          code,
+          sliceCount: null,
+          turnCount: 1,
+          isPrime: false,
+        }),
+      );
+      const expected = tokens.map((token) => ({
+        ...token,
+        code: token.code[0].toLowerCase(),
+      }));
+      expect(lowerAlgorithm(tokens)).toEqual(expected);
+    });
+
+    test("should preserve non-mapped moves", () => {
+      const tokens: MoveToken[] = middleLayerMoves.map((code) => ({
+        code,
+        sliceCount: null,
+        turnCount: 1,
+        isPrime: false,
+      }));
+      expect(upperAlgorithm(tokens)).toEqual(tokens);
+      expect(lowerAlgorithm(tokens)).toEqual(tokens);
+    });
+
+    test("should handle malformed MoveToken", () => {
+      const malformedToken: MoveToken = { code: "r" } as MoveToken;
+      expect(upperAlgorithm([malformedToken])).toEqual([{ code: "Rw" }]);
+      expect(lowerAlgorithm([{ code: "Rw" } as MoveToken])).toEqual([
+        { code: "r" },
+      ]);
+    });
+  });
+
+  describe("parseMove - Edge Cases", () => {
+    test("should handle malformed input", () => {
+      expect(parseMove("r2'3")).toBeNull(); // Invalid format
+      expect(parseMove("r''")).toBeNull(); // Multiple prime marks
+      expect(parseMove("2r2")).toBeNull(); // Slice count not allowed
+      expect(parseMove("r#")).toBeNull(); // Invalid character
+      expect(parseMove("M2.5")).toBeNull(); // Non-integer turn count
+    });
+
+    test("should handle empty or whitespace input", () => {
+      expect(parseMove("")).toBeNull();
+      expect(parseMove(" ")).toBeNull();
+    });
+
+    test("should handle invalid turnCount", () => {
+      expect(parseMove("M4")).toBeNull(); // Invalid turn count
+    });
+  });
+
+  describe("formatMoveToken - Edge Cases", () => {
+    test("should handle malformed MoveToken", () => {
+      const malformedToken = { code: "r" } as MoveToken; // Missing required properties
+      expect(formatMoveToken(malformedToken)).toBe("r");
+    });
+  });
+});

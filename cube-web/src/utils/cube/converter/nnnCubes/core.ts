@@ -1,4 +1,4 @@
-import { isNil, isPlainObject } from "es-toolkit";
+import { isPlainObject } from "es-toolkit";
 
 import type { MoveToken, CubeProfile, WideMove, BasicMove } from "./types";
 
@@ -104,7 +104,7 @@ export function createCubeProfile(parser?: CubeProfile) {
 }
 
 /** 高階函式：生成公式映射轉換器 */
-function createAlgorithmMapper(
+export function createAlgorithmMapper(
   main: (move: MoveToken) => MoveToken | null,
   fallback?: (move: MoveToken) => MoveToken | null,
   reverse = false,

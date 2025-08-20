@@ -6,6 +6,7 @@ import {
   ensureValidCode,
   ensureValidTurnCount,
   moveTokenToString,
+  createAlgorithmMapper,
 } from "./core";
 import type { MoveToken } from "./types";
 import { basicMoves } from "./constants";
@@ -358,6 +359,79 @@ describe("core.ts", () => {
           { sliceCount: null, code: "x", turnCount: 1, isPrime: true },
         ]);
       });
+    });
+  });
+});
+
+describe("core.ts - Additional Tests", () => {
+  describe("createAlgorithmMapper", () => {
+    test("should use fallback function when main returns null", () => {
+      const main = jest.fn().mockReturnValue(null);
+      const fallback = jest.fn().mockReturnValue({
+        sliceCount: null,
+        code: "M",
+        turnCount: 1,
+        isPrime: false,
+      });
+      const mapper = createAlgorithmMapper(main, fallback);
+      const tokens: MoveToken[] = [
+        { sliceCount: null, code: "X", turnCount: 1, isPrime: false },
+      ];
+      expect(mapper(tokens)).toEqual([
+        { sliceCount: null, code: "M", turnCount: 1, isPrime: false },
+      ]);
+      expect(fallback).toHaveBeenCalled();
+    });
+
+    test("should return empty array if both main and fallback return null", () => {
+      const main = jest.fn().mockReturnValue(null);
+      const fallback = jest.fn().mockReturnValue(null);
+      const mapper = createAlgorithmMapper(main, fallback);
+      const tokens: MoveToken[] = [
+        { sliceCount: null, code: "X", turnCount: 1, isPrime: false },
+      ];
+      expect(mapper(tokens)).toEqual([]);
+    });
+
+    test("should handle empty array input", () => {
+      const main = jest.fn();
+      const mapper = createAlgorithmMapper(main);
+      expect(mapper([])).toEqual([]);
+    });
+  });
+
+  describe("normalizeOfficialMove - Edge Cases", () => {
+    test("should handle malformed MoveToken", () => {
+      const malformedToken = { code: "R" } as MoveToken;
+      expect(normalizeOfficialMove(malformedToken)).toEqual({
+        code: "R",
+        sliceCount: null,
+        turnCount: 1,
+        isPrime: false,
+      });
+    });
+
+    test("should handle non-wide move with sliceCount", () => {
+      const token: MoveToken = {
+        sliceCount: 2,
+        code: "R",
+        turnCount: 1,
+        isPrime: false,
+      };
+      expect(normalizeOfficialMove(token)).toBeNull();
+    });
+  });
+
+  describe("parseMoveByRegex - Extreme Inputs", () => {
+    test("should handle very long invalid input", () => {
+      const regex = createRegex();
+      expect(parseMoveByRegex(regex, "R".repeat(1000))).toBeNull();
+    });
+
+    test("should handle special characters", () => {
+      const regex = createRegex();
+      expect(parseMoveByRegex(regex, "R#")).toBeNull();
+      expect(parseMoveByRegex(regex, "R@2")).toBeNull();
     });
   });
 });
