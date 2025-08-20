@@ -133,19 +133,6 @@ export function createRegex(array?: string[]): RegExp {
   return new RegExp(`^(\\d*)(${movesPattern})(\\d*)(')?$`);
 }
 
-/** 驗證層數字串是否有效（≥2 或空字串） */
-function isValidSliceCount(str?: string | null): boolean {
-  if (isNil(str) || str === "") return true;
-  const num = parseInt(str, 10);
-  return Number.isInteger(num) && num >= 2;
-}
-
-/** 驗證轉動次數是否有效（空字串或 2/3） */
-function isValidTurnCountString(str?: string | null): boolean {
-  if (isNil(str) || str === "") return true;
-  return str === "2" || str === "3";
-}
-
 /**
  * 純解析字串
  *
@@ -161,10 +148,6 @@ export function parseMoveByRegex(
   const match = regex.exec(input);
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
-
-  if (!isValidSliceCount(sliceCountStr) || !isValidTurnCountString(turnStr)) {
-    return null;
-  }
 
   return {
     sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : null,

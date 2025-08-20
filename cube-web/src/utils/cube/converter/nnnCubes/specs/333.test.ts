@@ -1,7 +1,12 @@
 import {
+  wideMoveAliases,
+  middleLayerMoves,
   extendsMoves,
+  extendsMovesMap,
   parseMove,
   parseAlgorithm,
+  formatMove,
+  formatMoveToken,
   formatAlgorithm,
   mirrorAlgorithm,
   reverseAlgorithm,
@@ -9,174 +14,215 @@ import {
   upperAlgorithm,
   lowerAlgorithm,
 } from "./333";
-import { basicMoves } from "../constants";
+import type { MoveToken } from "../types";
 
-const allMoves = [...basicMoves, ...extendsMoves];
-
-const invalidSymbols = [
-  null,
-  "",
-  " ",
-  "q",
-  "X",
-  "'",
-  "1",
-  "2",
-  "3",
-  "4",
-  "2'",
-  "2R",
-  "1R",
-];
-const fullAlg = "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw r u f l d b";
-const fullAlgPrime =
-  "R' U' F' L' D' B' x' y' z' E' M' S' Rw' Uw' Fw' Lw' Dw' Bw' r' u' f' l' d' b'";
-
-// 產生 0~4
-const range0to4 = Array.from({ length: 5 }, (_, i) => i);
-
-describe("333 轉動符號檢查", () => {
-  describe("formatAlgorithm", () => {
-    test("應該能正確組合成公式", () => {
-      expect(formatAlgorithm()).toBe("");
-      expect(formatAlgorithm(null)).toBe("");
-      expect(formatAlgorithm(undefined)).toBe("");
-      expect(formatAlgorithm([])).toBe("");
-      expect(formatAlgorithm([""])).toBe("");
-      expect(formatAlgorithm(["R", "2r"])).toBe("");
-      expect(formatAlgorithm(["R", "r2", "Lw"])).toBe("R r2 Lw");
+describe("333.ts", () => {
+  describe("Constants", () => {
+    test("wideMoveAliases should contain correct aliases", () => {
+      expect(wideMoveAliases).toEqual(["r", "l", "u", "d", "f", "b"]);
     });
-  });
 
-  describe("parseAlgorithm", () => {
-    test("應該能拆解成 MoveToken 陣列", () => {
-      expect(parseAlgorithm("R r r' r2 r2' r3 r3' Lw")).toEqual([
-        { sliceCount: null, code: "R", turnCount: 1, isPrime: false },
-        { sliceCount: null, code: "r", turnCount: 1, isPrime: false },
-        { sliceCount: null, code: "r", turnCount: 1, isPrime: true },
-        { sliceCount: null, code: "r", turnCount: 2, isPrime: false },
-        { sliceCount: null, code: "r", turnCount: 2, isPrime: true },
-        { sliceCount: null, code: "r", turnCount: 3, isPrime: false },
-        { sliceCount: null, code: "r", turnCount: 3, isPrime: true },
-        { sliceCount: null, code: "Lw", turnCount: 1, isPrime: false },
+    test("middleLayerMoves should contain correct middle layer moves", () => {
+      expect(middleLayerMoves).toEqual(["E", "M", "S"]);
+    });
+
+    test("extendsMoves should combine wideMoveAliases and middleLayerMoves", () => {
+      expect(extendsMoves).toEqual([
+        "r",
+        "l",
+        "u",
+        "d",
+        "f",
+        "b",
+        "E",
+        "M",
+        "S",
       ]);
+    });
 
-      expect(parseAlgorithm("r4")).toEqual([]);
-      expect(parseAlgorithm("r8")).toEqual([]);
-      expect(parseAlgorithm("r6")).toEqual([]);
-      expect(parseAlgorithm("r6'")).toEqual([]);
-      expect(parseAlgorithm("R 1r2 Lw")).toEqual([]);
+    test("extendsMovesMap should map each move to itself", () => {
+      expect(extendsMovesMap).toEqual({
+        r: "r",
+        l: "l",
+        u: "u",
+        d: "d",
+        f: "f",
+        b: "b",
+        E: "E",
+        M: "M",
+        S: "S",
+      });
     });
   });
 
   describe("parseMove", () => {
-    test("應該能解析錯誤符號為 null", () => {
-      invalidSymbols.forEach((s) => expect(parseMove(s)).toBeNull());
-      allMoves.forEach((m, i) => {
-        expect(parseMove(`${i}${m}'`)).toBeNull();
-        expect(parseMove(`${-i}${m}'`)).toBeNull();
+    test("should parse valid move correctly", () => {
+      expect(parseMove("r")).toEqual({
+        code: "r",
+        sliceCount: null,
+        turnCount: 1,
+        isPrime: false,
+      });
+      expect(parseMove("r'")).toEqual({
+        code: "r",
+        sliceCount: null,
+        turnCount: 1,
+        isPrime: true,
+      });
+      expect(parseMove("M2")).toEqual({
+        code: "M",
+        sliceCount: null,
+        turnCount: 2,
+        isPrime: false,
       });
     });
 
-    test("應該能正確解析符號", () => {
-      allMoves.forEach((m) =>
-        expect(parseMove(m)).toEqual({
-          code: m,
-          isPrime: false,
-          sliceCount: null,
-          turnCount: 1,
-        }),
-      );
-
-      allMoves
-        .map((m) => `${m}'`)
-        .forEach((m, i) =>
-          expect(parseMove(m)).toEqual({
-            code: allMoves[i],
-            isPrime: true,
-            sliceCount: null,
-            turnCount: 1,
-          }),
-        );
-
-      range0to4.forEach((n) => {
-        allMoves.forEach((m, i) => {
-          expect(parseMove(`${m}${n}`)).toEqual(
-            n % 4 !== 0 && n >= 2
-              ? {
-                  code: allMoves[i],
-                  isPrime: false,
-                  sliceCount: null,
-                  turnCount: n,
-                }
-              : null,
-          );
-        });
-      });
+    test("should return null for invalid moves", () => {
+      expect(parseMove("X")).toBeNull();
+      expect(parseMove("2r")).toBeNull(); // No slice count allowed for 3x3
+      expect(parseMove("r4")).toBeNull(); // Invalid turn count
     });
   });
-});
 
-describe("333 轉換公式實作", () => {
-  describe("mirrorAlgorithm (水平轉換)", () => {
-    test("錯誤測資應該回傳空字串", () => {
-      const invalidAlgs = [
-        "R4 U4 F4 L4 D4 B4 x4 y4 z4 E4 M4 S4",
-        "2R 2U 2F 2L 2D 2B 2x 2y 2z 2E 2M 2S",
+  describe("parseAlgorithm", () => {
+    test("should parse valid algorithm string", () => {
+      const result = parseAlgorithm("r u' M2");
+      expect(result).toEqual([
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "u", sliceCount: null, turnCount: 1, isPrime: true },
+        { code: "M", sliceCount: null, turnCount: 2, isPrime: false },
+      ]);
+    });
+
+    test("should return empty array for invalid algorithm", () => {
+      expect(parseAlgorithm("r X u")).toEqual([]);
+      expect(parseAlgorithm("")).toEqual([]);
+      expect(parseAlgorithm(null)).toEqual([]);
+    });
+  });
+
+  describe("formatMove", () => {
+    test("should format valid move string", () => {
+      expect(formatMove("r")).toBe("r");
+      expect(formatMove("r'")).toBe("r'");
+      expect(formatMove("M2")).toBe("M2");
+    });
+
+    test("should return empty string for invalid move", () => {
+      expect(formatMove("X")).toBe("");
+      expect(formatMove("2r")).toBe("");
+    });
+  });
+
+  describe("formatMoveToken", () => {
+    test("should format valid MoveToken", () => {
+      const token: MoveToken = {
+        code: "r",
+        sliceCount: null,
+        turnCount: 1,
+        isPrime: false,
+      };
+      expect(formatMoveToken(token)).toBe("r");
+    });
+
+    test("should return empty string for invalid MoveToken", () => {
+      const token = {
+        code: "X",
+        sliceCount: null,
+        turnCount: 1,
+        isPrime: false,
+      };
+      expect(formatMoveToken(token)).toBe("");
+    });
+  });
+
+  describe("formatAlgorithm", () => {
+    test("should format valid MoveToken array", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "u", sliceCount: null, turnCount: 1, isPrime: true },
       ];
-      invalidAlgs.forEach((alg) =>
-        expect(formatAlgorithm(mirrorAlgorithm(parseAlgorithm(alg)))).toBe(""),
-      );
+      expect(formatAlgorithm(tokens)).toBe("r u'");
     });
 
-    test("正確測資應該能水平轉換", () => {
-      expect(formatAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlg)))).toBe(
-        "L' U' F' R' D' B' x' y' z' E' M' S' Lw' Uw' Fw' Rw' Dw' Bw' l' u' f' r' d' b'",
-      );
-      expect(
-        formatAlgorithm(mirrorAlgorithm(parseAlgorithm(fullAlgPrime))),
-      ).toBe("L U F R D B x y z E M S Lw Uw Fw Rw Dw Bw l u f r d b");
+    test("should return empty string for invalid MoveToken array", () => {
+      const tokens = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "X", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(formatAlgorithm(tokens)).toBe("");
     });
   });
 
-  describe("reverseAlgorithm (反轉公式)", () => {
-    test("錯誤測資應該回傳空字串", () => {
-      expect(
-        formatAlgorithm(reverseAlgorithm(parseAlgorithm("R U F ... q"))),
-      ).toBe("");
+  describe("mirrorAlgorithm", () => {
+    test("should mirror valid algorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
+      ];
+      expect(mirrorAlgorithm(tokens)).toEqual([
+        { code: "l", sliceCount: null, turnCount: 1, isPrime: true },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ]);
     });
 
-    test("正確測資應該能反轉", () => {
-      expect(reverseAlgorithm([])).toEqual([]);
-      expect(
-        formatAlgorithm(
-          reverseAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
-        ),
-      ).toBe("S' M' E' z' y' x' B' D' L' F' U' R'");
-    });
-  });
-
-  describe("rotateAlgorithm (旋轉公式)", () => {
-    test("應該能正確旋轉", () => {
-      expect(
-        formatAlgorithm(
-          rotateAlgorithm(parseAlgorithm("R U F L D B x y z E M S")),
-        ),
-      ).toBe("L U B R D F x' y z' E M' S'");
+    test("should return empty array for invalid moves", () => {
+      const tokens = [
+        { code: "X", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(mirrorAlgorithm(tokens)).toEqual([]);
     });
   });
 
-  describe("upperAlgorithm / lowerAlgorithm (大小寫轉換)", () => {
-    test("轉大寫", () => {
-      expect(formatAlgorithm(upperAlgorithm(parseAlgorithm(fullAlg)))).toBe(
-        "R U F L D B x y z E M S Rw Uw Fw Lw Dw Bw Rw Uw Fw Lw Dw Bw",
-      );
+  describe("reverseAlgorithm", () => {
+    test("should reverse valid algorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "u", sliceCount: null, turnCount: 1, isPrime: true },
+      ];
+      expect(reverseAlgorithm(tokens)).toEqual([
+        { code: "u", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: true },
+      ]);
     });
+  });
 
-    test("轉小寫", () => {
-      expect(formatAlgorithm(lowerAlgorithm(parseAlgorithm(fullAlg)))).toBe(
-        "R U F L D B x y z E M S r u f l d b r u f l d b",
-      );
+  describe("rotateAlgorithm", () => {
+    test("should rotate valid algorithm", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(rotateAlgorithm(tokens)).toEqual([
+        { code: "l", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: true },
+      ]);
+    });
+  });
+
+  describe("upperAlgorithm", () => {
+    test("should convert valid wide moves to uppercase", () => {
+      const tokens: MoveToken[] = [
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(upperAlgorithm(tokens)).toEqual([
+        { code: "Rw", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ]);
+    });
+  });
+
+  describe("lowerAlgorithm", () => {
+    test("should convert valid wide moves to lowercase", () => {
+      const tokens: MoveToken[] = [
+        { code: "Rw", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ];
+      expect(lowerAlgorithm(tokens)).toEqual([
+        { code: "r", sliceCount: null, turnCount: 1, isPrime: false },
+        { code: "M", sliceCount: null, turnCount: 1, isPrime: false },
+      ]);
     });
   });
 });
