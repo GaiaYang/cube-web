@@ -5,6 +5,7 @@ import {
   parseMoveByRegex,
   ensureValidTurnCount,
 } from "../core";
+import { basicMoves } from "../constants";
 
 /** 非官方「多層轉動」別名 */
 export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";
@@ -29,6 +30,8 @@ export type ExtendsMoves = MiddleBlockAliasMove | WideMoveAliases;
 export const extendsMovesMap = Object.fromEntries(
   extendsMoves.map((k) => [k, k]),
 );
+/** 三階所有轉動代號 */
+export const allMoves = [...basicMoves, ...extendsMoves];
 
 /** 鏡像映射表 */
 const MIRROR_MAP: MirrorMap<ExtendsMoves> = {
@@ -103,7 +106,11 @@ function mapAlgorithmList(
   fn: (p: MoveToken) => MoveToken | null,
 ): MoveToken[] {
   const output = list.map(fn);
-  return output.every(Boolean) ? (output as MoveToken[]) : [];
+  return output.every((item) =>
+    Boolean(item && allMoves.includes(item.code as ExtendsMoves)),
+  )
+    ? (output as MoveToken[])
+    : [];
 }
 
 const REGEX = createRegex(extendsMoves);

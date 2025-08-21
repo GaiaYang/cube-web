@@ -37,11 +37,11 @@ describe("Rubik's Cube Notation Parser", () => {
     });
 
     it("should return null for invalid move strings", () => {
-      expect(parseMoveByRegex(createRegex(), "1R")).toBeNull(); // Layer count cannot be 1
-      expect(parseMoveByRegex(createRegex(), "R1")).toBeNull(); // Turn count cannot be 1 if specified
-      expect(parseMoveByRegex(createRegex(), "Q")).toBeNull(); // Invalid code
-      expect(parseMoveByRegex(createRegex(), "")).toBeNull(); // Empty string
-      expect(parseMoveByRegex(createRegex(), null)).toBeNull(); // Null input
+      expect(parseMoveByRegex(createRegex(), "1R")).toBeNull();
+      expect(parseMoveByRegex(createRegex(), "R1")).toBeNull();
+      expect(parseMoveByRegex(createRegex(), "Q")).toBeNull();
+      expect(parseMoveByRegex(createRegex(), "")).toBeNull();
+      expect(parseMoveByRegex(createRegex(), null)).toBeNull();
     });
   });
 
@@ -79,7 +79,7 @@ describe("Rubik's Cube Notation Parser", () => {
           { sliceCount: 2, code: "R", turnCount: 1, isPrime: false },
           3,
         ),
-      ).toBeNull(); // Slice count > 1 invalid for 3x3
+      ).toBeNull();
       expect(
         normalizeOfficialMove({
           sliceCount: 1,
@@ -87,7 +87,7 @@ describe("Rubik's Cube Notation Parser", () => {
           turnCount: 1,
           isPrime: false,
         }),
-      ).toBeNull(); // Invalid code
+      ).toBeNull();
       expect(
         normalizeOfficialMove({
           sliceCount: 1,
@@ -95,8 +95,8 @@ describe("Rubik's Cube Notation Parser", () => {
           turnCount: 5,
           isPrime: false,
         }),
-      ).toBeNull(); // Turn count out of range
-      expect(normalizeOfficialMove(null)).toBeNull(); // Null input
+      ).toBeNull();
+      expect(normalizeOfficialMove(null)).toBeNull();
     });
   });
 
@@ -154,6 +154,8 @@ describe("Rubik's Cube Notation Parser", () => {
       it("should return null for invalid moves", () => {
         expect(cubeProfileNNN.parseMove("1R")).toBeNull();
         expect(cubeProfileNNN.parseMove("Q")).toBeNull();
+        expect(cubeProfileNNN.parseMove(null)).toBeNull();
+        expect(cubeProfileNNN.parseMove("")).toBeNull();
       });
 
       it("should handle extended moves for 3x3", () => {
@@ -163,11 +165,11 @@ describe("Rubik's Cube Notation Parser", () => {
           turnCount: 1,
           isPrime: false,
         });
-        expect(cubeProfile333.parseMove("M2")).toEqual({
+        expect(cubeProfile333.parseMove("M2'")).toEqual({
           sliceCount: 1,
           code: "M",
           turnCount: 2,
-          isPrime: false,
+          isPrime: true,
         });
       });
     });
@@ -176,11 +178,26 @@ describe("Rubik's Cube Notation Parser", () => {
       it("should format valid moves", () => {
         expect(cubeProfileNNN.formatMove("R")).toBe("R");
         expect(cubeProfileNNN.formatMove("2Rw2'")).toBe("2Rw2'");
+        expect(cubeProfile333.formatMove("r")).toBe("r");
+        expect(cubeProfile333.formatMove("M2'")).toBe("M2'");
       });
 
       it("should return empty string for invalid moves", () => {
         expect(cubeProfileNNN.formatMove("1R")).toBe("");
         expect(cubeProfileNNN.formatMove("Q")).toBe("");
+        expect(cubeProfile333.formatMove("Q")).toBe("");
+        expect(cubeProfile333.formatMove(null)).toBe("");
+        expect(cubeProfile333.formatMove("")).toBe("");
+      });
+
+      it("should handle invalid MoveToken inputs", () => {
+        expect(cubeProfileNNN.formatMoveToken({ code: "Q" } as MoveToken)).toBe(
+          "",
+        );
+        expect(cubeProfileNNN.formatMoveToken(null)).toBe("");
+        expect(cubeProfile333.formatMoveToken({ code: "Q" } as MoveToken)).toBe(
+          "",
+        );
       });
     });
 
@@ -192,12 +209,18 @@ describe("Rubik's Cube Notation Parser", () => {
           { sliceCount: 1, code: "R", turnCount: 1, isPrime: true },
           { sliceCount: 1, code: "U", turnCount: 1, isPrime: true },
         ]);
+        expect(cubeProfile333.parseAlgorithm("r M2' U")).toEqual([
+          { sliceCount: 1, code: "r", turnCount: 1, isPrime: false },
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: true },
+          { sliceCount: 1, code: "U", turnCount: 1, isPrime: false },
+        ]);
       });
 
       it("should return empty array for invalid algorithms", () => {
         expect(cubeProfileNNN.parseAlgorithm("R Q R'")).toEqual([]);
         expect(cubeProfileNNN.parseAlgorithm("")).toEqual([]);
         expect(cubeProfileNNN.parseAlgorithm(null)).toEqual([]);
+        expect(cubeProfile333.parseAlgorithm("r Q M")).toEqual([]);
       });
     });
 
@@ -208,6 +231,11 @@ describe("Rubik's Cube Notation Parser", () => {
           { sliceCount: 1, code: "U", turnCount: 1, isPrime: false },
         ];
         expect(cubeProfileNNN.formatAlgorithm(tokens)).toBe("R U");
+        const tokens333: MoveToken[] = [
+          { sliceCount: 1, code: "r", turnCount: 1, isPrime: false },
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: true },
+        ];
+        expect(cubeProfile333.formatAlgorithm(tokens333)).toBe("r M2'");
       });
 
       it("should return empty string for invalid inputs", () => {
@@ -217,11 +245,17 @@ describe("Rubik's Cube Notation Parser", () => {
           ]),
         ).toBe("");
         expect(cubeProfileNNN.formatAlgorithm(null)).toBe("");
+        expect(
+          cubeProfile333.formatAlgorithm([
+            { sliceCount: 1, code: "Q", turnCount: 1, isPrime: false },
+          ]),
+        ).toBe("");
+        expect(cubeProfile333.formatAlgorithm([])).toBe("");
       });
     });
 
     describe("mirrorAlgorithm", () => {
-      it("should mirror valid algorithms", () => {
+      it("should mirror valid algorithms (NNN)", () => {
         const input: MoveToken[] = [
           { sliceCount: 1, code: "R", turnCount: 1, isPrime: false },
           { sliceCount: 1, code: "U", turnCount: 1, isPrime: false },
@@ -232,17 +266,40 @@ describe("Rubik's Cube Notation Parser", () => {
         ]);
       });
 
+      it("should mirror valid 3x3 extended algorithms", () => {
+        const input: MoveToken[] = [
+          { sliceCount: 1, code: "r", turnCount: 1, isPrime: false },
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: true },
+        ];
+        expect(cubeProfile333.mirrorAlgorithm(input)).toEqual([
+          { sliceCount: 1, code: "l", turnCount: 1, isPrime: true },
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: false },
+        ]);
+      });
+
       it("should return empty array for invalid inputs", () => {
         expect(
           cubeProfileNNN.mirrorAlgorithm([
             { sliceCount: 1, code: "Q", turnCount: 1, isPrime: false },
           ]),
         ).toEqual([]);
+        expect(
+          cubeProfile333.mirrorAlgorithm([
+            { sliceCount: 1, code: "Q", turnCount: 1, isPrime: false },
+          ]),
+        ).toEqual([]);
+      });
+
+      it("should handle undefined fields", () => {
+        const input: MoveToken = { code: "R" } as MoveToken;
+        expect(cubeProfileNNN.mirrorAlgorithm([input])).toEqual([
+          { sliceCount: 1, code: "L", turnCount: 1, isPrime: true },
+        ]);
       });
     });
 
     describe("reverseAlgorithm", () => {
-      it("should reverse valid algorithms", () => {
+      it("should reverse valid algorithms (NNN)", () => {
         const input: MoveToken[] = [
           { sliceCount: 1, code: "R", turnCount: 1, isPrime: false },
           { sliceCount: 1, code: "U", turnCount: 1, isPrime: false },
@@ -253,9 +310,20 @@ describe("Rubik's Cube Notation Parser", () => {
         ]);
       });
 
+      it("should reverse valid 3x3 extended algorithms", () => {
+        const input: MoveToken[] = [
+          { sliceCount: 1, code: "r", turnCount: 1, isPrime: false },
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: false },
+        ];
+        expect(cubeProfile333.reverseAlgorithm(input)).toEqual([
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: true },
+          { sliceCount: 1, code: "r", turnCount: 1, isPrime: true },
+        ]);
+      });
+
       it("should return empty array for invalid inputs", () => {
         expect(
-          cubeProfileNNN.reverseAlgorithm([
+          cubeProfile333.reverseAlgorithm([
             { sliceCount: 1, code: "Q", turnCount: 1, isPrime: false },
           ]),
         ).toEqual([]);
@@ -263,7 +331,7 @@ describe("Rubik's Cube Notation Parser", () => {
     });
 
     describe("rotateAlgorithm", () => {
-      it("should rotate valid algorithms", () => {
+      it("should rotate valid algorithms (NNN)", () => {
         const input: MoveToken[] = [
           { sliceCount: 1, code: "F", turnCount: 1, isPrime: false },
           { sliceCount: 1, code: "B", turnCount: 1, isPrime: false },
@@ -274,9 +342,22 @@ describe("Rubik's Cube Notation Parser", () => {
         ]);
       });
 
+      it("should rotate valid 3x3 extended algorithms", () => {
+        const input: MoveToken[] = [
+          { sliceCount: 1, code: "f", turnCount: 1, isPrime: false },
+          { sliceCount: 1, code: "M", turnCount: 1, isPrime: false },
+          { sliceCount: 1, code: "r", turnCount: 1, isPrime: true },
+        ];
+        expect(cubeProfile333.rotateAlgorithm(input)).toEqual([
+          { sliceCount: 1, code: "b", turnCount: 1, isPrime: false },
+          { sliceCount: 1, code: "M", turnCount: 1, isPrime: true },
+          { sliceCount: 1, code: "l", turnCount: 1, isPrime: true },
+        ]);
+      });
+
       it("should return empty array for invalid inputs", () => {
         expect(
-          cubeProfileNNN.rotateAlgorithm([
+          cubeProfile333.rotateAlgorithm([
             { sliceCount: 1, code: "Q", turnCount: 1, isPrime: false },
           ]),
         ).toEqual([]);
@@ -325,14 +406,41 @@ describe("Rubik's Cube Notation Parser", () => {
         { sliceCount: 1, code: "U", turnCount: 1, isPrime: false },
       ]);
     });
+
+    it("should handle invalid inputs in upperAlgorithm and lowerAlgorithm", () => {
+      const input: MoveToken[] = [
+        { sliceCount: 1, code: "Q", turnCount: 1, isPrime: false },
+      ];
+      expect(upperAlgorithm(input)).toEqual([]);
+      expect(lowerAlgorithm(input)).toEqual([]);
+    });
   });
 
   describe("ensureValidTurnCount", () => {
     it("should validate turn counts", () => {
       expect(ensureValidTurnCount(2)).toBe(2);
-      expect(ensureValidTurnCount(1)).toBe(1); // Turn count cannot be 1 if specified
-      expect(ensureValidTurnCount(4)).toBeNull(); // Out of range
-      expect(ensureValidTurnCount(0)).toBeNull(); // Invalid
+      expect(ensureValidTurnCount(1)).toBe(1);
+      expect(ensureValidTurnCount(4)).toBeNull();
+      expect(ensureValidTurnCount(0)).toBeNull();
+    });
+  });
+
+  describe("mapMove (convert.ts)", () => {
+    it("should handle undefined fields", () => {
+      const input: MoveToken = { code: "R" } as MoveToken;
+      expect(cubeProfileNNN.mirrorAlgorithm([input])).toEqual([
+        { sliceCount: 1, code: "L", turnCount: 1, isPrime: true },
+      ]);
+    });
+
+    it("should return null for invalid code", () => {
+      const input: MoveToken = {
+        sliceCount: 1,
+        code: "Q",
+        turnCount: 1,
+        isPrime: false,
+      };
+      expect(cubeProfileNNN.mirrorAlgorithm([input])).toEqual([]);
     });
   });
 });
