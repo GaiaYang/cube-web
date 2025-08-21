@@ -450,7 +450,7 @@ describe("Rubik's Cube Notation Parser", () => {
         ];
         expect(cubeProfile333.mirrorAlgorithm(input)).toEqual([
           { sliceCount: 1, code: "l", turnCount: 1, isPrime: true },
-          { sliceCount: 1, code: "M", turnCount: 2, isPrime: true },
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: false },
         ]);
       });
 

@@ -32,14 +32,6 @@ export function createCubeProfile(parser?: CubeProfile) {
     return parser?.parseMove?.(moveStr) ?? null;
   }
 
-  /** 將 MoveToken 或字串轉成安全的標準化字串 */
-  function _safeFormat(tokenOrStr?: MoveToken | string | null): string {
-    const token =
-      typeof tokenOrStr === "string" ? parseMove(tokenOrStr) : tokenOrStr;
-    const str = moveTokenToString(token);
-    return parseMove(str) ? str : "";
-  }
-
   /**
    * 將 `MoveToken` 轉換成標準化字串（會經過 `parser`）
    *
@@ -47,7 +39,8 @@ export function createCubeProfile(parser?: CubeProfile) {
    * @returns 回傳標準化字串，有不合法代號則空字串
    * */
   function formatMoveToken(token?: MoveToken | null): string {
-    return _safeFormat(token);
+    const str = moveTokenToString(token);
+    return parseMove(str) ? str : "";
   }
 
   /**
@@ -57,7 +50,7 @@ export function createCubeProfile(parser?: CubeProfile) {
    * @returns 回傳標準化字串，有不合法代號則空字串
    * */
   function formatMove(moveStr?: string | null): string {
-    return _safeFormat(moveStr);
+    return moveTokenToString(parseMove(moveStr)) || "";
   }
 
   /** 高階函式：生成公式映射轉換器 */
@@ -94,8 +87,13 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
-      const tokens = input.trim().split(SEPARATE).map(parseMove);
-      return tokens.every(Boolean) ? (tokens as MoveToken[]) : [];
+      const output = [];
+      for (const item of input.trim().split(SEPARATE)) {
+        const value = parseMove(item);
+        if (!value) return [];
+        output.push(value);
+      }
+      return output;
     },
     /**
      * 將 `MoveToken[]` 或 `string[]` 組合回標準化字串公式
@@ -105,8 +103,14 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      const tokens = input.map(_safeFormat);
-      return tokens.every(Boolean) ? tokens.join(SEPARATE) : "";
+      const output = [];
+      for (const item of input) {
+        const value =
+          typeof item === "string" ? formatMove(item) : formatMoveToken(item);
+        if (!value) return "";
+        output.push(value);
+      }
+      return output.join(SEPARATE);
     },
     // 以下是轉換公式實作
     /** 鏡像公式 */
@@ -154,12 +158,7 @@ export function parseMoveByRegex(
   const [, sliceCountStr, code, turnStr, primeMark] = match;
 
   // 書寫必須從 2 開始
-  if (
-    sliceCountStr === "0" ||
-    sliceCountStr === "1" ||
-    turnStr === "0" ||
-    turnStr === "1"
-  ) {
+  if ([sliceCountStr, turnStr].some((item) => item === "0" || item === "1")) {
     return null;
   }
 
