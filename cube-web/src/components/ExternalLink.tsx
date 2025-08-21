@@ -24,7 +24,7 @@ export default function ExternalLink({
       {...props}
       target="_blank"
       rel="noopener noreferrer nofollow"
-      className={cn(className)}
+      className={cn("link link-info", className)}
     >
       {children}
       <span className="ml-0.5 inline-flex">

@@ -16,7 +16,9 @@ export default function Tabs() {
         type="button"
         role="tab"
         key={id}
-        onClick={() => setTabIndex(index)}
+        onClick={() => {
+          setTabIndex(index);
+        }}
         className={cn("tab", { "tab-active": tabIndex === index })}
       >
         {label}
