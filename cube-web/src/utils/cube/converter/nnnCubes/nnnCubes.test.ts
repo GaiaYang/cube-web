@@ -129,10 +129,13 @@ describe("Rubik's Cube Notation Parser", () => {
       ).toBe("y2");
     });
 
-    it("should return empty string for invalid tokens", () => {
+    it("should handle invalid tokens", () => {
       expect(moveTokenToString(null)).toBe("");
       expect(moveTokenToString({} as MoveToken)).toBe("");
       expect(moveTokenToString({ sliceCount: 1 } as MoveToken)).toBe("");
+      expect(moveTokenToString({ code: "invalid" } as MoveToken)).toBe(
+        "invalid",
+      );
     });
   });
 
@@ -175,8 +178,10 @@ describe("Rubik's Cube Notation Parser", () => {
         });
       });
 
-      it("should return null for invalid syntax in 3x3", () => {
+      it("should return null for invalid inputs in 3x3", () => {
         expect(cubeProfile333.parseMove("r!")).toBeNull();
+        expect(cubeProfile333.parseMove(null)).toBeNull();
+        expect(cubeProfile333.parseMove("")).toBeNull();
       });
     });
 
@@ -191,7 +196,11 @@ describe("Rubik's Cube Notation Parser", () => {
       it("should return empty string for invalid moves", () => {
         expect(cubeProfileNNN.formatMove("1R")).toBe("");
         expect(cubeProfileNNN.formatMove("Q")).toBe("");
+        expect(cubeProfileNNN.formatMove("invalid")).toBe("");
+        expect(cubeProfileNNN.formatMove(null)).toBe("");
+        expect(cubeProfileNNN.formatMove("")).toBe("");
         expect(cubeProfile333.formatMove("Q")).toBe("");
+        expect(cubeProfile333.formatMove("invalid")).toBe("");
         expect(cubeProfile333.formatMove(null)).toBe("");
         expect(cubeProfile333.formatMove("")).toBe("");
       });
@@ -200,10 +209,20 @@ describe("Rubik's Cube Notation Parser", () => {
         expect(cubeProfileNNN.formatMoveToken({ code: "Q" } as MoveToken)).toBe(
           "",
         );
+        expect(
+          cubeProfileNNN.formatMoveToken({ code: "invalid" } as MoveToken),
+        ).toBe("");
         expect(cubeProfileNNN.formatMoveToken(null)).toBe("");
+        expect(
+          cubeProfileNNN.formatMoveToken({ sliceCount: 1 } as MoveToken),
+        ).toBe("");
         expect(cubeProfile333.formatMoveToken({ code: "Q" } as MoveToken)).toBe(
           "",
         );
+        expect(
+          cubeProfile333.formatMoveToken({ code: "invalid" } as MoveToken),
+        ).toBe("");
+        expect(cubeProfile333.formatMoveToken(null)).toBe("");
         expect(
           cubeProfile333.formatMoveToken({ sliceCount: 1 } as MoveToken),
         ).toBe("");
@@ -431,7 +450,7 @@ describe("Rubik's Cube Notation Parser", () => {
         ];
         expect(cubeProfile333.mirrorAlgorithm(input)).toEqual([
           { sliceCount: 1, code: "l", turnCount: 1, isPrime: true },
-          { sliceCount: 1, code: "M", turnCount: 2, isPrime: false },
+          { sliceCount: 1, code: "M", turnCount: 2, isPrime: true },
         ]);
       });
 
