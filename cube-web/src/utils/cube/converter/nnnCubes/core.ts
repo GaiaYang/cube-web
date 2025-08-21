@@ -75,9 +75,7 @@ export function createCubeProfile(parser?: CubeProfile) {
         return fallback?.(move) ?? null;
       });
       if (!mapped.every(Boolean)) return [];
-      return reverse
-        ? (mapped.reverse() as MoveToken[])
-        : (mapped as MoveToken[]);
+      return (reverse ? mapped.reverse() : mapped) as MoveToken[];
     };
   }
 
@@ -155,16 +153,18 @@ export function parseMoveByRegex(
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
 
-  const invalidNumberString = ["0", "1"];
+  // 書寫必須從 2 開始
   if (
-    invalidNumberString.includes(sliceCountStr) ||
-    invalidNumberString.includes(turnStr)
+    sliceCountStr === "0" ||
+    sliceCountStr === "1" ||
+    turnStr === "0" ||
+    turnStr === "1"
   ) {
     return null;
   }
 
   return {
-    sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : null,
+    sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : 1,
     code,
     turnCount: turnStr ? parseInt(turnStr, 10) : 1,
     isPrime: primeMark === PRIME_MARK,
@@ -183,19 +183,15 @@ export function normalizeOfficialMove(
   cubeLayers?: number,
 ): MoveToken | null {
   if (!isPlainObject(token)) return null;
-  const { sliceCount = null, code, turnCount = 1, isPrime = false } = token;
+  const { sliceCount = 1, code, turnCount = 1, isPrime = false } = token;
   if (!basicMoves.includes(code as BasicMove)) {
     return null;
   }
   // 只有四階以上才能使用 sliceCount
-  if (
-    typeof cubeLayers === "number" &&
-    cubeLayers <= 3 &&
-    sliceCount !== null
-  ) {
+  if (typeof cubeLayers === "number" && cubeLayers <= 3 && sliceCount >= 2) {
     return null;
   }
-  if (!wideMoves.includes(code as WideMove) && sliceCount !== null) return null;
+  if (!wideMoves.includes(code as WideMove) && sliceCount > 1) return null;
 
   const _turnCount = ensureValidTurnCount(turnCount);
   if (_turnCount === null) return null;
@@ -227,9 +223,9 @@ export function ensureValidTurnCount(turnCount: number) {
 /** 將 MoveToken 轉為字串（不做驗證） */
 export function moveTokenToString(token?: MoveToken | null): string {
   if (!isPlainObject(token)) return "";
-  const { sliceCount = null, code, turnCount = 1, isPrime = false } = token;
+  const { sliceCount = 1, code, turnCount = 1, isPrime = false } = token;
   return [
-    sliceCount && sliceCount > 1 ? sliceCount : "",
+    sliceCount > 1 ? sliceCount : "",
     code,
     turnCount > 1 ? turnCount : "",
     isPrime ? PRIME_MARK : "",

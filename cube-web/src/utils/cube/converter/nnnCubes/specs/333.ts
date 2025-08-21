@@ -108,18 +108,18 @@ function mapAlgorithmList(
 
 const REGEX = createRegex(extendsMoves);
 
-const cubeProfile = createCubeProfile({
+export const cubeProfile = createCubeProfile({
   cubeLayers: 3,
   parseMove(input) {
     if (!input) return null;
     const match = parseMoveByRegex(REGEX, input);
     if (!match) return null;
-    const { sliceCount = null, code, turnCount = 1, isPrime = false } = match;
-    // 三階不支援前數字
-    if (sliceCount !== null) return null;
+    const { sliceCount = 1, code, turnCount = 1, isPrime = false } = match;
     if (!extendsMoves.includes(code as ExtendsMoves)) {
       return null;
     }
+    // 三階不支援前數字
+    if (sliceCount > 1) return null;
     const _turnCount = ensureValidTurnCount(turnCount);
     if (_turnCount === null) return null;
     return { code, sliceCount, turnCount: _turnCount, isPrime };

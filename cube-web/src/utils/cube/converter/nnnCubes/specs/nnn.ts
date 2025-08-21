@@ -1,6 +1,6 @@
 import { createCubeProfile } from "../core";
 
-const cubeProfile = createCubeProfile();
+export const cubeProfile = createCubeProfile();
 
 export const {
   parseMove,

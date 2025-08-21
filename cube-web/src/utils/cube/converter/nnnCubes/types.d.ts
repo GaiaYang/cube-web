@@ -16,9 +16,9 @@ export interface MoveToken {
   /**
    * 一次轉動幾層
    *
-   * @default null
+   * @default 1
    * */
-  sliceCount: number | null;
+  sliceCount: number;
   /**
    * 次數
    *
