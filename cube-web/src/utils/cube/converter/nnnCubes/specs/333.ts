@@ -80,13 +80,13 @@ const LOWER_MAP: Record<WideMove, WideMoveAliases> = {
 };
 
 /**
- * 共用映射函式
+ * 映射轉動代號
  *
  * @param move 移動代號
  * @param map 映射表
  * @param reversePrimeFor 要反向 isPrime 的代號
  * */
-function mapAlgorithm(
+function mapMove(
   move: MoveToken,
   map: Record<string, string>,
   reversePrimeFor: string[] = [],
@@ -100,8 +100,15 @@ function mapAlgorithm(
   };
 }
 
-/** 映射輸出列表 */
-function mapAlgorithmList(
+/** 映射擴充轉動代號 */
+function extendsMapMove(move: MoveToken, map: Record<string, string>) {
+  const mapped = map[move.code];
+  if (!mapped) return move;
+  return { ...move, code: mapped };
+}
+
+/** 擴充映射輸出列表 */
+function extendsMapAlgorithmList(
   list: MoveToken[],
   fn: (p: MoveToken) => MoveToken | null,
 ): MoveToken[] {
@@ -113,6 +120,7 @@ function mapAlgorithmList(
     : [];
 }
 
+/** 三階擴充轉動正則 */
 const REGEX = createRegex(extendsMoves);
 
 export const cubeProfile = createCubeProfile({
@@ -132,14 +140,14 @@ export const cubeProfile = createCubeProfile({
     return { code, sliceCount, turnCount: _turnCount, isPrime };
   },
   mirrorMove(params) {
-    return mapAlgorithm(params, MIRROR_MAP, extendsMoves);
+    return mapMove(params, MIRROR_MAP, extendsMoves);
   },
   reverseMove: (params) => {
-    return mapAlgorithm(params, extendsMovesMap, extendsMoves);
+    return mapMove(params, extendsMovesMap, extendsMoves);
   },
   rotateMove(params) {
     // M/S 需要反轉 isPrime
-    return mapAlgorithm(params, ROTATE_MAP, ["M", "S"]);
+    return mapMove(params, ROTATE_MAP, ["M", "S"]);
   },
 });
 
@@ -155,24 +163,20 @@ export const {
 } = cubeProfile;
 
 /** 雙層轉換成大寫 */
-function upperMove(params: MoveToken): MoveToken | null {
-  const code = UPPER_MAP[params.code as WideMoveAliases];
-  if (!code) return params;
-  return { ...params, code };
+function upperMove(params: MoveToken): MoveToken {
+  return extendsMapMove(params, UPPER_MAP);
 }
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]): MoveToken[] {
-  return mapAlgorithmList(params, upperMove);
+  return extendsMapAlgorithmList(params, upperMove);
 }
 /** 雙層轉換成小寫 */
-function lowerMove(params: MoveToken): MoveToken | null {
-  const code = LOWER_MAP[params.code as WideMove];
-  if (!code) return params;
-  return { ...params, code };
+function lowerMove(params: MoveToken): MoveToken {
+  return extendsMapMove(params, LOWER_MAP);
 }
 /** 雙層轉換成小寫公式 */
 export function lowerAlgorithm(params: MoveToken[]): MoveToken[] {
-  return mapAlgorithmList(params, lowerMove);
+  return extendsMapAlgorithmList(params, lowerMove);
 }
 
 const output = { ...cubeProfile, upperAlgorithm, lowerAlgorithm };

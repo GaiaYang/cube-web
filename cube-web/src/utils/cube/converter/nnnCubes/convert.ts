@@ -50,7 +50,7 @@ function mapMove(
   const isPrime = item.isPrime ?? false;
   return {
     code: mapped,
-    sliceCount: item.sliceCount ?? null,
+    sliceCount: item.sliceCount ?? 1,
     turnCount: item.turnCount ?? 1,
     isPrime: reversePrimeFor.includes(item.code) ? !isPrime : isPrime,
   };
