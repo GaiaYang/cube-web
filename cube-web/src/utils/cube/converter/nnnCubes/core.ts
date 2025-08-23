@@ -87,13 +87,8 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
-      const output = [];
-      for (const item of input.trim().split(SEPARATE)) {
-        const value = parseMove(item);
-        if (!value) return [];
-        output.push(value);
-      }
-      return output;
+      const output = input.trim().split(SEPARATE).map(parseMove);
+      return output.every(Boolean) ? (output as MoveToken[]) : [];
     },
     /**
      * 將 `MoveToken[]` 或 `string[]` 組合回標準化字串公式
@@ -103,14 +98,10 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      const output = [];
-      for (const item of input) {
-        const value =
-          typeof item === "string" ? formatMove(item) : formatMoveToken(item);
-        if (!value) return "";
-        output.push(value);
-      }
-      return output.join(SEPARATE);
+      const output = input.map((item) =>
+        typeof item === "string" ? formatMove(item) : formatMoveToken(item),
+      );
+      return output.every(Boolean) ? output.join(SEPARATE) : "";
     },
     // 以下是轉換公式實作
     /** 鏡像公式 */
