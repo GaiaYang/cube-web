@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import Link from "next/link";
-import UnderConstruction from "@/components/notices/UnderConstruction";
+import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
   title: "OLL",
@@ -20,6 +20,7 @@ export default function Page() {
         OLL（Orientation of the Last Layer）是CFOP的第三個步驟，
         目標是將頂層方塊朝向正確方向。
       </p>
+      <Notices type="under-construction" />
       <p>
         OLL有57種公式，是CFOP中公式數量最多的步驟，不過我們可以透過分類來方便記憶。
         <br />
@@ -37,7 +38,6 @@ export default function Page() {
         如果你使用<Link href="/tutorial/333/zz">ZZ Method</Link>
         ，則最後一層必定形成十字。
       </blockquote>
-      <UnderConstruction />
     </Article>
   );
 }

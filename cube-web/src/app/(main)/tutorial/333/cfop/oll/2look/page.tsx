@@ -10,7 +10,7 @@ import Article from "@/components/Article";
 import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
 
 import AlgorithmsTable from "./components/AlgorithmsTable";
-import InProgress from "@/components/notices/InProgress";
+import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
   title: "兩段式 OLL",
@@ -30,11 +30,11 @@ export default function Page() {
   return (
     <Article>
       <h1>兩段式 OLL</h1>
-      <InProgress />
       <p>
         兩段式 OLL
         將頂面復原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。
       </p>
+      <Notices type="in-progress" />
       <h2>步驟說明</h2>
       <ol>
         <li>先將對應的邊塊翻上來，使頂面形成十字（共 3 條公式）。</li>

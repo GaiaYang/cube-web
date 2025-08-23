@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import ExternalLink from "@/components/ExternalLink";
-import Mention from "@/components/notices/Mention";
+import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
   title: "ZBLS 公式列表",
@@ -23,7 +23,7 @@ export default function Page() {
       <blockquote>
         通常會搭配 <ExternalLink href="/algs/333/zbll">ZBLL</ExternalLink> 使用
       </blockquote>
-      <Mention />
+      <Notices type="mention" />
     </Article>
   );
 }

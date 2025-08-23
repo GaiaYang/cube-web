@@ -4,7 +4,7 @@ import { CircleAlertIcon } from "lucide-react";
 
 import Article from "@/components/Article";
 import ExternalLink from "@/components/ExternalLink";
-import UnderConstruction from "@/components/notices/UnderConstruction";
+import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
   title: "F2L",
@@ -21,6 +21,7 @@ export default function Page() {
         F2L（First Two Layers）是 CFOP 的第二個步驟，目標是還原 3x3
         魔術方塊的底部前兩層。
       </p>
+      <Notices type="under-construction" />
       <h2>重點提醒</h2>
       <blockquote className="alert not-italic">
         <CircleAlertIcon />
@@ -32,7 +33,6 @@ export default function Page() {
           ，本教學會適當的教部分簡單直覺實用的四項入槽。
         </span>
       </blockquote>
-      <UnderConstruction />
     </Article>
   );
 }

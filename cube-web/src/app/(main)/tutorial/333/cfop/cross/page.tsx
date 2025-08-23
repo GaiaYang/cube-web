@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import UnderConstruction from "@/components/notices/UnderConstruction";
+import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
   title: "Cross",
@@ -21,7 +21,7 @@ export default function Page() {
         這個階段的目標是在魔術方塊底部形成一個十字，
         並確保每個底層邊塊同時對齊相鄰的兩個面顏色。
       </p>
-      <UnderConstruction />
+      <Notices type="under-construction" />
     </Article>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import UnderConstruction from "@/components/notices/UnderConstruction";
+import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
   title: "EO Line",
@@ -16,7 +16,7 @@ export default function Page() {
     <Article>
       <h1>EO Line</h1>
       <p>EO（邊塊色相） Line（底層直線），為ZZ法的第一階段也是最精髓的部分。</p>
-      <UnderConstruction />
+      <Notices type="under-construction" />
     </Article>
   );
 }

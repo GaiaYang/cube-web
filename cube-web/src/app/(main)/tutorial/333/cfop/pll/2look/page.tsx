@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import UnderConstruction from "@/components/notices/UnderConstruction";
+import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
   title: "兩段式 PLL",
@@ -19,6 +19,7 @@ export default function Page() {
         兩段式 PLL
         將頂層復原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。
       </p>
+      <Notices type="under-construction" />
       <h2>步驟說明</h2>
       <ol>
         <li>先歸位角塊，使頂層只剩邊塊需要交換（共 2 條公式）。</li>
@@ -34,7 +35,6 @@ export default function Page() {
       <blockquote>
         這些公式皆為現有 PLL 的應用，學會後若要銜接完整 PLL，不需重新記憶。
       </blockquote>
-      <UnderConstruction />
     </Article>
   );
 }
