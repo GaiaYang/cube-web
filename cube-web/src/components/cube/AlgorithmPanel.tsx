@@ -5,7 +5,7 @@ import type { CommonDefinition } from "@/types/cube/common";
 import cn from "@/utils/cn";
 
 import AlgorithmDisplay from "./AlgorithmDisplay";
-import UnderConstruction from "../notices/UnderConstruction";
+import Notices from "../Notices";
 
 export type AlgorithmPanelProps = CommonDefinition;
 
@@ -18,7 +18,7 @@ export default function AlgorithmPanel({
   return (
     <div className={cn("w-full max-w-none grow", "px-4 sm:px-6 lg:px-8")}>
       {true ? (
-        <UnderConstruction />
+        <Notices type="under-construction" />
       ) : (
         <>
           <p>{id}</p>
