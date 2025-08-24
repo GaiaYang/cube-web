@@ -10,7 +10,7 @@ import {
   wideMoves,
 } from "./constants";
 import { mirrorMove, reverseMove, rotateMove } from "./convert";
-import mapEarlyExit from "@/utils/mapEarlyExit";
+import earlyMap from "@/utils/earlyMap";
 
 /** 官方標準符號正則表達式 */
 const REGEX = createRegex();
@@ -61,19 +61,14 @@ export function createCubeProfile(parser?: CubeProfile) {
     reverse = false,
   ) {
     return (moves: MoveToken[]): MoveToken[] => {
-      const output = mapEarlyExit(
-        moves,
-        (move) => {
-          const prased = normalizeOfficialMove(move, cubeLayers);
-          if (prased) {
-            return main(prased);
-          }
-          return fallback?.(move) ?? null;
-        },
-        undefined,
-        [],
-      );
-      return (reverse ? output.reverse() : output) as MoveToken[];
+      const output = earlyMap(moves, (move) => {
+        const prased = normalizeOfficialMove(move, cubeLayers);
+        if (prased) {
+          return main(prased);
+        }
+        return fallback?.(move) ?? null;
+      });
+      return reverse ? output.reverse() : output;
     };
   }
 
@@ -92,12 +87,7 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
-      return mapEarlyExit(
-        input.trim().split(SEPARATE),
-        parseMove,
-        undefined,
-        [],
-      );
+      return earlyMap(input.trim().split(SEPARATE), parseMove);
     },
     /**
      * 將 `MoveToken[]` 或 `string[]` 組合回標準化字串公式
@@ -107,13 +97,10 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      return mapEarlyExit<MoveToken | string, string>(
-        input,
-        (item) =>
-          typeof item === "string" ? formatMove(item) : formatMoveToken(item),
-        undefined,
-        [],
-      ).join(SEPARATE);
+      const output = earlyMap<MoveToken | string, string>(input, (item) =>
+        typeof item === "string" ? formatMove(item) : formatMoveToken(item),
+      );
+      return output.join(SEPARATE);
     },
     // 以下是轉換公式實作
     /** 鏡像公式 */
