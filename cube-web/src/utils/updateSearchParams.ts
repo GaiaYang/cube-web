@@ -1,4 +1,4 @@
-import { isNotNil, isPlainObject, isString } from "es-toolkit";
+import { isNotNil } from "es-toolkit";
 import { type ReadonlyURLSearchParams } from "next/navigation";
 
 export type SearchParamsInput =
@@ -8,26 +8,26 @@ export type SearchParamsInput =
 
 /**
  * 更新當前網址的搜尋參數
- * @param source 搜尋參數來源
- * @param object 要寫入的物件
+ *
+ * @param input - 搜尋參數來源 (string / URLSearchParams / ReadonlyURLSearchParams)
+ * @param changes - 要更新的 key/value 物件，值為 null 或 undefined 表示刪除
  */
 export default function updateSearchParams(
-  source: SearchParamsInput,
-  updates: Record<string, string | null | undefined>,
+  input: SearchParamsInput,
+  changes: Record<string, string | null | undefined>,
 ) {
+  if (typeof window === "undefined") return; // SSR 安全
+
   const params = new URLSearchParams(
-    isString(source) ? source : source.toString(),
+    typeof input === "string" ? input : input.toString(),
   );
 
-  if (!isPlainObject(updates)) {
-    return;
-  }
-
-  for (const [name, value] of Object.entries(updates)) {
-    if (isNotNil(value) && isString(value) && value !== "") {
-      params.set(name, value);
+  // 更新或刪除 key
+  for (const [key, value] of Object.entries(changes)) {
+    if (isNotNil(value) && value !== "") {
+      params.set(key, value);
     } else {
-      params.delete(name);
+      params.delete(key);
     }
   }
 
@@ -36,6 +36,10 @@ export default function updateSearchParams(
 
   // 確認網址不同才更新
   if (newSearch !== currentSearch) {
-    window.history.pushState(null, "", "?" + newSearch);
+    window.history.pushState(
+      null,
+      "",
+      newSearch ? `?${newSearch}` : window.location.pathname,
+    );
   }
 }

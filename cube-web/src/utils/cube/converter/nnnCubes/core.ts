@@ -10,6 +10,7 @@ import {
   wideMoves,
 } from "./constants";
 import { mirrorMove, reverseMove, rotateMove } from "./convert";
+import mapEarlyExit from "@/utils/mapEarlyExit";
 
 /** 官方標準符號正則表達式 */
 const REGEX = createRegex();
@@ -60,15 +61,19 @@ export function createCubeProfile(parser?: CubeProfile) {
     reverse = false,
   ) {
     return (moves: MoveToken[]): MoveToken[] => {
-      const mapped = moves.map((move) => {
-        const prased = normalizeOfficialMove(move, cubeLayers);
-        if (prased) {
-          return main(prased);
-        }
-        return fallback?.(move) ?? null;
-      });
-      if (!mapped.every(Boolean)) return [];
-      return (reverse ? mapped.reverse() : mapped) as MoveToken[];
+      const output = mapEarlyExit(
+        moves,
+        (move) => {
+          const prased = normalizeOfficialMove(move, cubeLayers);
+          if (prased) {
+            return main(prased);
+          }
+          return fallback?.(move) ?? null;
+        },
+        undefined,
+        [],
+      );
+      return (reverse ? output.reverse() : output) as MoveToken[];
     };
   }
 
@@ -87,8 +92,12 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
-      const output = input.trim().split(SEPARATE).map(parseMove);
-      return output.every(Boolean) ? (output as MoveToken[]) : [];
+      return mapEarlyExit(
+        input.trim().split(SEPARATE),
+        parseMove,
+        undefined,
+        [],
+      );
     },
     /**
      * 將 `MoveToken[]` 或 `string[]` 組合回標準化字串公式
@@ -98,10 +107,13 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      const output = input.map((item) =>
-        typeof item === "string" ? formatMove(item) : formatMoveToken(item),
-      );
-      return output.every(Boolean) ? output.join(SEPARATE) : "";
+      return mapEarlyExit<MoveToken | string, string>(
+        input,
+        (item) =>
+          typeof item === "string" ? formatMove(item) : formatMoveToken(item),
+        undefined,
+        [],
+      ).join(SEPARATE);
     },
     // 以下是轉換公式實作
     /** 鏡像公式 */

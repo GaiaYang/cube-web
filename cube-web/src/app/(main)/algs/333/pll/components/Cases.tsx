@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
-import searchParamToEnum from "@/utils/searchParamToEnum";
+import stringToEnum from "@/utils/stringToEnum";
 import type { PLLDefinition } from "@/types/cube/333";
 import { PLLCategory } from "@/enums/cube/333";
 import { definitions } from "@/contents/cube/333/pll/definitions";
@@ -15,7 +15,7 @@ import GridList, { type GridListProps } from "@/components/list/GridList";
 /** PLL公式列表 */
 export default function Cases() {
   const searchParams = useSearchParams();
-  const category = searchParamToEnum(PLLCategory, searchParams.get("category"));
+  const category = stringToEnum(PLLCategory, searchParams.get("category"));
 
   const data = useMemo(() => {
     if (!category) {

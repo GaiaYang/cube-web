@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
-import searchParamToEnum from "@/utils/searchParamToEnum";
+import stringToEnum from "@/utils/stringToEnum";
 import type { OLLDefinition } from "@/types/cube/333";
 import { OLLCategory } from "@/enums/cube/333";
 import { definitions } from "@/contents/cube/333/oll/definitions";
@@ -15,7 +15,7 @@ import GridList, { type GridListProps } from "@/components/list/GridList";
 /** OLL公式列表 */
 export default function Cases() {
   const searchParams = useSearchParams();
-  const category = searchParamToEnum(OLLCategory, searchParams.get("category"));
+  const category = stringToEnum(OLLCategory, searchParams.get("category"));
 
   const data = useMemo(() => {
     if (!category) {

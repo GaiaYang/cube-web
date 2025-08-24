@@ -6,6 +6,7 @@ import {
   ensureValidTurnCount,
 } from "../core";
 import { basicMoves } from "../constants";
+import mapEarlyExit from "@/utils/mapEarlyExit";
 
 /** 非官方「多層轉動」別名 */
 export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";
@@ -112,12 +113,12 @@ function extendsMapAlgorithmList(
   list: MoveToken[],
   fn: (p: MoveToken) => MoveToken | null,
 ): MoveToken[] {
-  const output = list.map(fn);
-  return output.every((item) =>
-    Boolean(item && allMoves.includes(item.code as ExtendsMoves)),
-  )
-    ? (output as MoveToken[])
-    : [];
+  return mapEarlyExit(
+    list,
+    fn,
+    (item) => Boolean(item && allMoves.includes(item.code as ExtendsMoves)),
+    [],
+  );
 }
 
 /** 三階擴充轉動正則 */

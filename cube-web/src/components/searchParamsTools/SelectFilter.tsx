@@ -7,7 +7,7 @@ import { RotateCcwIcon } from "lucide-react";
 import type { Option } from "@/options/types";
 
 import cn from "@/utils/cn";
-import searchParamToEnum from "@/utils/searchParamToEnum";
+import stringToEnum from "@/utils/stringToEnum";
 import updateSearchParams from "@/utils/updateSearchParams";
 
 export interface SelectFilterProps<TEnum extends Record<string, string>>
@@ -37,8 +37,7 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
 }: SelectFilterProps<TEnum>) {
   const searchParams = useSearchParams();
 
-  const selectedValue =
-    searchParamToEnum(enumMap, searchParams.get(paramKey)) || "";
+  const selectedValue = stringToEnum(enumMap, searchParams.get(paramKey)) || "";
 
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
     if (paramKey) {
