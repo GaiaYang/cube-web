@@ -1,16 +1,16 @@
 import { isNotNil } from "es-toolkit";
-import { type ReadonlyURLSearchParams } from "next/navigation";
 
 export type SearchParamsInput =
   | string
   | URLSearchParams
-  | ReadonlyURLSearchParams;
+  | string[][]
+  | Record<string, string>;
 
 /**
  * 更新當前網址的搜尋參數
  *
- * @param input - 搜尋參數來源 (string / URLSearchParams / ReadonlyURLSearchParams)
- * @param changes - 要更新的 key/value 物件，值為 null 或 undefined 表示刪除
+ * @param input - 搜尋參數來源
+ * @param changes - 要更新的物件，值為 `null` 或 `undefined` 表示刪除
  */
 export default function updateSearchParams(
   input: SearchParamsInput,
@@ -18,9 +18,7 @@ export default function updateSearchParams(
 ) {
   if (typeof window === "undefined") return; // SSR 安全
 
-  const params = new URLSearchParams(
-    typeof input === "string" ? input : input.toString(),
-  );
+  const params = new URLSearchParams(input);
 
   // 更新或刪除 key
   for (const [key, value] of Object.entries(changes)) {

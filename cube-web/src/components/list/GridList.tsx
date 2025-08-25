@@ -35,7 +35,7 @@ export default function GridList<ItemT extends object>({
       }
 
       if (renderListEmpty) {
-        <li>{renderListEmpty}</li>;
+        return <li>{renderListEmpty}</li>;
       }
     }
 
