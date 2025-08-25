@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import ExternalLink from "@/components/ExternalLink";
+import NewTabLink from "@/components/NewTabLink";
 import CodeSpan from "./components/CodeSpan";
 import Converter from "./components/Converter";
 
@@ -42,7 +42,7 @@ export default function Page() {
       </ul>
       <p>
         如果還不看不懂代號的話，請先前往{" "}
-        <ExternalLink href="/tutorial/notation">代號說明</ExternalLink>
+        <NewTabLink href="/tutorial/notation">代號說明</NewTabLink>
       </p>
       <h2>轉換工具</h2>
       <Converter />

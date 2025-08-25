@@ -21,7 +21,8 @@ export default function Page() {
         CFOP 是目前最多人使用的三階魔術方塊速解方法，
         其變體眾多、資源豐富，非常適合初學者入門速解。
       </p>
-      <ol className="list not-prose">{features.map(_renderItem)}</ol>
+      <h2>學習順序</h2>
+      <ul>{features.map(_renderItem)}</ul>
     </Article>
   );
 }
@@ -34,16 +35,10 @@ interface Feature {
 
 function _renderItem(item: Feature, index: number) {
   return (
-    <li key={index} className="list-row">
-      <div className="flex flex-col gap-2">
-        <div className="text-base-content text-base/7">
-          <h2 className="font-semibold">{item.title}</h2>
-          <p className="text-base-content/70">{item.description}</p>
-        </div>
-        <div className="breadcrumbs text-base">
-          <ol>{item.options.map(_renderLink)}</ol>
-        </div>
-      </div>
+    <li key={index}>
+      <h3 className="font-semibold">{item.title}</h3>
+      <p className="text-base-content/70">{item.description}</p>
+      <ol>{item.options.map(_renderLink)}</ol>
     </li>
   );
 }

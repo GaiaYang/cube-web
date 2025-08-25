@@ -2,8 +2,8 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import Link from "next/link";
 import Notices from "@/components/Notices";
+import NewTabLink from "@/components/NewTabLink";
 
 export const metadata: Metadata = {
   title: "OLL",
@@ -29,13 +29,12 @@ export default function Page() {
       <h2>十字</h2>
       <p>對於兩段式OLL，十字的情況是最先學習的公式，復原簡單且順手。</p>
       <blockquote>
-        衍生出進階公式子集
-        <Link href="/algs/333/zbll" target="_blank">
-          ZBLL
-        </Link>
+        衍生出進階公式子集 <NewTabLink href="/algs/333/zbll">ZBLL</NewTabLink>{" "}
         ，不過只有極少數人使用，一般玩家沒必要學。
         <br />
-        如果你使用<Link href="/tutorial/333/zz">ZZ Method</Link>
+        如果你使用 <NewTabLink href="/tutorial/333/zz">
+          ZZ Method
+        </NewTabLink>{" "}
         ，則最後一層必定形成十字。
       </blockquote>
     </Article>

@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import ExternalLink from "@/components/ExternalLink";
+import NewTabLink from "@/components/NewTabLink";
 import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function Page() {
         305 種情況。
       </p>
       <blockquote>
-        通常會搭配 <ExternalLink href="/algs/333/zbll">ZBLL</ExternalLink> 使用
+        通常會搭配 <NewTabLink href="/algs/333/zbll">ZBLL</NewTabLink> 使用
       </blockquote>
       <Notices type="mention" />
     </Article>

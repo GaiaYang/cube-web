@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import ExternalLink from "@/components/ExternalLink";
+import NewTabLink from "@/components/NewTabLink";
 import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function Page() {
         當最後一層已形成十字時，ZBLL 公式可以直接完成整層復原，共 493 種情況。
       </p>
       <blockquote>
-        通常會搭配 <ExternalLink href="/algs/333/zbls">ZBLS</ExternalLink> 使用
+        通常會搭配 <NewTabLink href="/algs/333/zbls">ZBLS</NewTabLink> 使用
       </blockquote>
       <Notices type="mention" />
     </Article>

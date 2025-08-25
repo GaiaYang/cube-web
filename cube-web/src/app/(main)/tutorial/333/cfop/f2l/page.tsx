@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 import { CircleAlertIcon } from "lucide-react";
 
 import Article from "@/components/Article";
-import ExternalLink from "@/components/ExternalLink";
+import NewTabLink from "@/components/NewTabLink";
 import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
@@ -27,9 +27,9 @@ export default function Page() {
         <CircleAlertIcon />
         <span>
           四向F2L幾乎沒有必要學， 很堅持不翻面的玩家請左轉出去{" "}
-          <ExternalLink href="/tutorial/333/zz" className="text-[inherit]">
+          <NewTabLink href="/tutorial/333/zz" className="text-[inherit]">
             ZZ Method
-          </ExternalLink>{" "}
+          </NewTabLink>{" "}
           ，本教學會適當的教部分簡單直覺實用的四項入槽。
         </span>
       </blockquote>

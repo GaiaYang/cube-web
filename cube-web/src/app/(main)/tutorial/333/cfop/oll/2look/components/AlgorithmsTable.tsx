@@ -4,7 +4,7 @@ import LastLayerDiagram, {
   type LastLayerDiagramProps,
 } from "@/components/cube/333/diagram/LastLayerDiagram";
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
-import ExternalLink from "@/components/ExternalLink";
+import NewTabLink from "@/components/NewTabLink";
 
 export interface AlgorithmTableRow {
   colorMap: LastLayerDiagramProps["colorMap"];
@@ -40,7 +40,7 @@ export default function AlgorithmsTable({
         </td>
         <td className="text-nowrap">
           {href ? (
-            <ExternalLink href={href}>原始公式</ExternalLink>
+            <NewTabLink href={href}>原始公式</NewTabLink>
           ) : (
             <span>無</span>
           )}
