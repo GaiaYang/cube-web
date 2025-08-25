@@ -7,9 +7,9 @@ import cn from "@/utils/cn";
 
 export type NewTabLinkProps = Omit<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  keyof LinkProps<any>
+  keyof LinkProps<unknown>
 > &
-  LinkProps<any> & {
+  LinkProps<unknown> & {
     children?: React.ReactNode | undefined;
   } & React.RefAttributes<HTMLAnchorElement>;
 
