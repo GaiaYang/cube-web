@@ -40,9 +40,7 @@ export default function AlgorithmsTable({
         </td>
         <td className="text-nowrap">
           {href ? (
-            <ExternalLink href={href} className="link link-primary">
-              原始公式
-            </ExternalLink>
+            <ExternalLink href={href}>原始公式</ExternalLink>
           ) : (
             <span>無</span>
           )}
