@@ -231,11 +231,7 @@ export const definitions: OLLDefinition[] = [
     name: "22",
     setupAlgorithm: "R' U2' R2' U R2' U R2' U2' R'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "S-LT", "S-LB", "S-TR", "S-BR"],
-    algorithms: [
-      "R U2 R2 U' R2 U' R2 U2 R",
-      "F R U R' U' F' f R U R' U' f'",
-      "y2 L' U2 L2 U L2 U L2 U2 L'",
-    ],
+    algorithms: ["R U2 R2 U' R2 U' R2 U2 R", "y2 L' U2 L2 U L2 U L2 U2 L'"],
     category: OLLCategory.OCLL,
   },
   {

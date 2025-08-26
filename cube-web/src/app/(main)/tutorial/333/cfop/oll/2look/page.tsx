@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 /** 頂層顏色 */
 const topColor = "yellow";
 /** 十字型OLL要獲得的數量 */
-const collFirstCount = 5;
+const collFirstCount = 3;
 /** 圖案尺寸 */
 const patternSize = 128;
 
@@ -37,11 +37,20 @@ export default function Page() {
       <Notices type="in-progress" />
       <h2>步驟說明</h2>
       <ol>
-        <li>先將對應的邊塊翻上來，使頂面形成十字（共 3 條公式）。</li>
-        <li>接著使用十字型 OLL 公式完成頂面復原（共 7 條公式）。</li>
+        <li>
+          先將對應的邊塊翻上來，使頂面形成十字。
+          <br />
+          <strong>共 3 條公式</strong>
+        </li>
+        <li>
+          接著使用十字型 OLL 公式完成頂面復原。
+          <br />
+          <strong>共 7 條公式</strong>
+        </li>
       </ol>
       <p>
-        透過針對特定類型的 OLL 處理頂面情況，只需要學習約 10 條公式。
+        <strong>總共 10 條公式</strong>
+        就能讓頂面完成，有些人到15秒左右都還在兩段式OLL。
         <br />
         相比完整版 OLL 的 57 種案例，能大幅減輕記憶負擔與判斷難度。
       </p>
@@ -127,10 +136,7 @@ export default function Page() {
           size={patternSize}
         />
       </div>
-      <p>
-        如果頂層的邊塊翻上的數量不是偶數或者0那就表示方塊裝錯了，
-        請自行將任一邊塊拆開反過來裝回去讓頂面出現以上三種任意情況。
-      </p>
+      <p>如果頂層的邊塊翻上的數量不是0或者偶數那就表示方塊裝錯了。</p>
       <h2>第二次判斷</h2>
       <LastLayerDiagram
         colorMap={{
@@ -159,7 +165,7 @@ export default function Page() {
         getOriginalAlgorithmUrl={(item) => `/algs/333/oll/${item.caseId}`}
       />
       <h3>錯誤情況</h3>
-      <p>如果沒有出現以上案例表示方塊裝錯，請將角塊掰成任一情況開始復原。</p>
+      <p>十字必定是上面的情況，如果沒有出現以上案例表示方塊裝錯。</p>
       <h2>下一步</h2>
       <p>現在你完成了頂面，接下來開始完成頂層的排列來復原方塊。</p>
       <ul>

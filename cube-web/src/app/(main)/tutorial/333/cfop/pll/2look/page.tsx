@@ -22,13 +22,20 @@ export default function Page() {
       <Notices type="under-construction" />
       <h2>步驟說明</h2>
       <ol>
-        <li>先歸位角塊，使頂層只剩邊塊需要交換（共 2 條公式）。</li>
         <li>
-          接著歸位邊塊，使用邊塊相關的 PLL 公式完成頂層復原（共 4 條公式）。
+          先歸位角塊，使頂層只剩邊塊需要交換。
+          <br />
+          <strong>共 2 條公式</strong>
+        </li>
+        <li>
+          接著歸位邊塊，使用邊塊相關的 PLL 公式完成頂層復原。
+          <br />
+          <strong>共 4 條公式</strong>
         </li>
       </ol>
       <p>
-        透過針對特定類型的 PLL 處理頂面，只需要學習約 6 條公式。
+        <strong>總共 6 條公式</strong>
+        ，就能讓最後一層復原，這裡一樣有些人到15秒左右還在用兩段式 PLL。
         <br />
         相較完整的 21 種 PLL 案例，這種方式能大幅降低記憶量與判斷難度。
       </p>
