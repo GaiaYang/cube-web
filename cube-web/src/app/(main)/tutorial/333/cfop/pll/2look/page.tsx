@@ -35,10 +35,9 @@ export default function Page() {
       </ol>
       <p>
         <strong>總共 6 條公式</strong>
-        ，就能讓最後一層復原，這裡一樣有些人到15秒左右還在用兩段式 PLL。
-        <br />
-        相較完整的 21 種 PLL 案例，這種方式能大幅降低記憶量與判斷難度。
+        就能讓最後一層復原。
       </p>
+      <p>相較完整的 21 種 PLL 案例，這種方式能大幅降低記憶量與判斷難度。</p>
       <blockquote>
         這些公式皆為現有 PLL 的應用，學會後若要銜接完整 PLL，不需重新記憶。
       </blockquote>

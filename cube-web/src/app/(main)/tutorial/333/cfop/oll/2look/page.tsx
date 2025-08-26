@@ -50,12 +50,11 @@ export default function Page() {
       </ol>
       <p>
         <strong>總共 10 條公式</strong>
-        就能讓頂面完成，有些人到15秒左右都還在兩段式OLL。
-        <br />
-        相比完整版 OLL 的 57 種案例，能大幅減輕記憶負擔與判斷難度。
+        就能讓頂面完成。
       </p>
+      <p>相比完整版 OLL 的 57 種案例，能大幅減輕記憶負擔與判斷難度。</p>
       <blockquote>
-        這些公式皆為現有 OLL 的應用，學會後若要銜接完整 PLL，不需重新記憶。
+        這些公式皆為現有 OLL 的應用，學會後若要銜接完整 OLL，不需重新記憶。
       </blockquote>
       <h2>運氣很好</h2>
       <LastLayerDiagram
