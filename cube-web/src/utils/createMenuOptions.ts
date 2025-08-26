@@ -16,7 +16,11 @@ export default function createMenuOptions(
 function callbackfn(item: MenuOptionRaw) {
   return {
     ...item,
-    id: item.id || nanoid(),
+    id:
+      item.id ||
+      item.href ||
+      (item.title ? `menu-${item.title}` : "") ||
+      nanoid(),
     submenu: item.submenu ? createMenuOptions(item.submenu) : undefined,
   };
 }

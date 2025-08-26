@@ -2,9 +2,11 @@ import { atom } from "jotai";
 
 import type { MenuOption } from "@/types/menu";
 
+/** 要開啟的 `id` 列表 */
 export const openIdsAtom = atom<string[]>([]);
+/** 路徑名稱 */
 export const pathnameAtom = atom<string>("");
-
+/** 更新開啟 `id` 列表 */
 export const updateOpenIdsAtom = atom(
   (get) => get(openIdsAtom),
   (_, set, params: { options: MenuOption[]; pathname: string }) => {
