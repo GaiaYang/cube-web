@@ -11,6 +11,7 @@ import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
 
 import AlgorithmsTable from "./components/AlgorithmsTable";
 import Notices from "@/components/Notices";
+import Chart from "./components/Chart";
 
 export const metadata: Metadata = {
   title: "兩段式 OLL",
@@ -52,6 +53,7 @@ export default function Page() {
         <strong>總共 10 條公式</strong>
         就能讓頂面完成。
       </p>
+      <Chart />
       <p>相比完整版 OLL 的 57 種案例，能大幅減輕記憶負擔與判斷難度。</p>
       <blockquote>
         這些公式皆為現有 OLL 的應用，學會後若要銜接完整 OLL，不需重新記憶。
