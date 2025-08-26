@@ -22,7 +22,6 @@ export default function Page() {
         魔術方塊的底部前兩層。
       </p>
       <Notices type="under-construction" />
-      <h2>重點提醒</h2>
       <blockquote className="alert not-italic">
         <CircleAlertIcon />
         <span>
