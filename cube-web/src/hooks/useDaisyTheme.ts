@@ -7,31 +7,23 @@ export default function useDaisyTheme() {
   /** 更新主題狀態 */
   const updateTheme = useCallback(() => {
     const dataTheme = document.documentElement.dataset.theme;
-    const newTheme =
-      dataTheme ??
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-    const newIsDark = newTheme === "dark";
-
+    const newTheme = dataTheme ?? (getMediaDark().matches ? "dark" : "light");
     setTheme(newTheme);
-    setIsDark(newIsDark);
+    setIsDark(newTheme === "dark");
   }, []);
 
   useEffect(() => {
-    const html = document.documentElement;
-
     updateTheme();
 
     // 監聽 DaisyUI data-theme 變化
     const observer = new MutationObserver(updateTheme);
-    observer.observe(html, {
+    observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
     });
 
     // 監聽瀏覽器深色模式變化
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = getMediaDark();
     mediaQuery.addEventListener("change", updateTheme);
 
     return () => {
@@ -41,4 +33,8 @@ export default function useDaisyTheme() {
   }, [updateTheme]);
 
   return { theme, isDark };
+}
+
+function getMediaDark() {
+  return window.matchMedia("(prefers-color-scheme: dark)");
 }

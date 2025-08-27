@@ -3,16 +3,13 @@ import ProportionChart from "@/components/charts/ProportionChart";
 
 export default function Chart() {
   return (
-    <section className="not-prose">
-      <ProportionChart
-        name="公式佔比"
-        maxValue={21}
-        data={[
-          { value: 2, name: "第一階段" },
-          { value: 4, name: "第二階段" },
-        ]}
-        restLabel="其餘PLL"
-      />
-    </section>
+    <ProportionChart
+      name="公式佔比"
+      maxValue={21}
+      data={[
+        { value: 2, name: "第一階段" },
+        { value: 4, name: "第二階段" },
+      ]}
+    />
   );
 }
