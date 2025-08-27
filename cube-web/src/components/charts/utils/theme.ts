@@ -203,7 +203,9 @@ const darkTheme: PartialTheme = {
   },
 };
 
-export default {
+const theme = {
   light: lightTheme,
   dark: darkTheme,
 };
+
+export default theme;

@@ -6,6 +6,7 @@ import { drawerId } from "./config";
 import cn from "@/utils/cn";
 
 import LogoButton from "./LogoButton";
+import ThemeButton from "./ThemeButton";
 
 export type NavbarProps = CommonProps;
 
@@ -26,6 +27,8 @@ export default function Navbar({ autoExpandDrawer }: NavbarProps) {
           "lg:hidden": autoExpandDrawer,
         })}
       />
+      <div className="grow" />
+      <ThemeButton />
     </nav>
   );
 }
