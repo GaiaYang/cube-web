@@ -2,8 +2,8 @@
 
 import React from "react";
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
+import { useTheme } from "next-themes";
 
-import useDaisyTheme from "@/hooks/useDaisyTheme";
 import theme from "./utils/theme";
 
 export interface ProportionChartProps {
@@ -17,12 +17,12 @@ export default function ProportionChart({
   name,
   maxValue,
 }: ProportionChartProps) {
-  const { isDark } = useDaisyTheme();
+  const { systemTheme } = useTheme();
 
   return (
     <section className="not-prose card h-80 w-full overflow-hidden">
       <ResponsiveRadialBar
-        theme={theme[isDark ? "dark" : "light"]}
+        theme={theme[systemTheme ?? "light"]}
         data={[
           {
             id: name,

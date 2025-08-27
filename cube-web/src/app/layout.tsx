@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import clsx from "clsx";
 
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant-TW">
+    <html lang="zh-Hant-TW" suppressHydrationWarning>
       <body
         className={clsx(
           noto_sans_tc.className,
@@ -36,7 +37,7 @@ export default function RootLayout({
           "selection:bg-primary selection:text-primary-content",
         )}
       >
-        {children}
+        <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
       </body>
     </html>
   );
