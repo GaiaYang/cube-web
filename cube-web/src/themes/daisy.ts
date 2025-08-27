@@ -24,7 +24,7 @@ interface Theme {
 }
 
 // daisyUI v5 預設主題色票
-const daisyTheme: { light: Theme; dark: Theme } = {
+const daisyTheme: Record<"light" | "dark", Theme> = {
   light: {
     primary: colors.indigo[500],
     primaryContent: colors.indigo[50],

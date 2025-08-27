@@ -12,6 +12,7 @@ export interface ProportionChartProps {
   maxValue: number;
 }
 
+/** 顯示佔比的圖表 */
 export default function ProportionChart({
   data = [],
   name,
