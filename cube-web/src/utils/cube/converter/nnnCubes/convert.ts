@@ -59,7 +59,12 @@ function mapMove(
 /** 鏡像步驟 */
 export function mirrorMove(item: MoveToken): MoveToken | null {
   // 鏡像全部都反轉 isPrime
-  return mapMove(item, BASIC_MIRROR_MAP, basicMoves);
+  // 垂直軸左右鏡像不受影響
+  return mapMove(
+    item,
+    BASIC_MIRROR_MAP,
+    basicMoves.filter((item) => !(item === "x")),
+  );
 }
 
 /**

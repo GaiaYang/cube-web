@@ -138,7 +138,13 @@ export const cubeProfile = createCubeProfile({
     return { code, sliceCount, turnCount: _turnCount, isPrime };
   },
   mirrorMove(params) {
-    return mapMove(params, MIRROR_MAP, extendsMoves);
+    // 鏡像全部都反轉 isPrime
+    // 垂直軸左右鏡像不受影響
+    return mapMove(
+      params,
+      MIRROR_MAP,
+      extendsMoves.filter((item) => !(item === "M")),
+    );
   },
   reverseMove: (params) => {
     return mapMove(params, extendsMovesMap, extendsMoves);
