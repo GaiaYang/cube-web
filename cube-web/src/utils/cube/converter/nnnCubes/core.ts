@@ -136,7 +136,7 @@ export function createRegex(array?: string[]): RegExp {
  *
  * @param regex 正則表達式
  * @param input 要解析的字串
- * @returns `[轉動層數, 轉動代號, 轉動次數, 是否為逆時針]`
+ * @returns 回傳解析結果
  * */
 export function parseMoveByRegex(
   regex: RegExp,

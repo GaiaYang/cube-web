@@ -127,7 +127,7 @@ export const cubeProfile = createCubeProfile({
     if (!input) return null;
     const match = parseMoveByRegex(REGEX, input);
     if (!match) return null;
-    const { sliceCount = 1, code, turnCount = 1, isPrime = false } = match;
+    const { sliceCount, code, turnCount, isPrime } = match;
     if (!extendsMoves.includes(code as ExtendsMoves)) {
       return null;
     }
