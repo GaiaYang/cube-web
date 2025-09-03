@@ -143,7 +143,7 @@ export const cubeProfile = createCubeProfile({
     return mapMove(
       params,
       MIRROR_MAP,
-      extendsMoves.filter((item) => !(item === "M")),
+      extendsMoves.filter((item) => item !== "M"),
     );
   },
   reverseMove: (params) => {

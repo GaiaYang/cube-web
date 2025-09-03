@@ -63,7 +63,7 @@ export function mirrorMove(item: MoveToken): MoveToken | null {
   return mapMove(
     item,
     BASIC_MIRROR_MAP,
-    basicMoves.filter((item) => !(item === "x")),
+    basicMoves.filter((item) => item !== "x"),
   );
 }
 
