@@ -150,13 +150,11 @@ const data: Record<"step1" | "step2", TableRow[]> = {
   ],
   step2: definitions
     .filter((item) => item.category === OLLCategory.OCLL)
-    .map((item) => {
-      return {
-        pattern: item.pattern,
-        algorithms: item.algorithms.slice(0, collFirstCount),
-        caseId: item.id as OLLCaseId,
-      };
-    }),
+    .map((item) => ({
+      pattern: item.pattern,
+      algorithms: item.algorithms.slice(0, collFirstCount),
+      caseId: item.id,
+    })),
 };
 
 type TableRow = AlgorithmTableRow<
