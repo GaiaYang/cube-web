@@ -11,12 +11,14 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-8 p-8">
-      <div className="prose">
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="prose mb-8">
         <h1>網站設定</h1>
         <p>本網站的一些設定項目。</p>
       </div>
-      <ThemeToggle />
+      <div className="grid gap-x-6 gap-y-8">
+        <ThemeToggle />
+      </div>
     </div>
   );
 }
