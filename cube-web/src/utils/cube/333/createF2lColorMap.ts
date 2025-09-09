@@ -4,16 +4,18 @@ import type { CubeBlockPosition3D, F2LDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 import getCubeColorMap from "./getCubeColorMap";
 
+export type F2LColorMap = Partial<Record<CubeBlockPosition3D, CubeFaceColor>>;
+
 export default function createF2lColorMap(
   pattern?: F2LDefinition["pattern"],
   topColor?: CubeFaceColor,
   frontColor?: CubeFaceColor,
-) {
+): F2LColorMap | undefined {
   if (!isPlainObject(pattern)) {
     return;
   }
 
-  const colorMap: Partial<Record<CubeBlockPosition3D, CubeFaceColor>> = {
+  const colorMap: F2LColorMap = {
     "U-TL": "none",
     "U-TC": "none",
     "U-TR": "none",

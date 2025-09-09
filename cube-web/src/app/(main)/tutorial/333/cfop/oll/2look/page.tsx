@@ -2,14 +2,20 @@ import React from "react";
 import { type Metadata } from "next";
 import Link from "next/link";
 
+import type { OLLCaseId } from "@/types/cube/333";
+
 import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
-import createOllColorMap from "@/utils/cube/333/createOllColorMap";
+import createOllColorMap, {
+  type OLLColorMap,
+} from "@/utils/cube/333/createOllColorMap";
 
 import Article from "@/components/Article";
 import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
 
-import AlgorithmsTable from "./components/AlgorithmsTable";
+import AlgorithmsTable, {
+  AlgorithmTableRow,
+} from "./components/AlgorithmsTable";
 import Notices from "@/components/Notices";
 import Chart from "./components/Chart";
 
@@ -84,39 +90,28 @@ export default function Page() {
         這裡的判斷不需要管角塊，我們只需要專注在四個邊塊就好，目標是做出十字。
       </p>
       <AlgorithmsTable
-        algorithms={[
+        cases={[
           {
-            colorMap: {
-              CL: topColor,
-              CC: topColor,
-              CR: topColor,
-            },
-            algorithm: "F ( R U R' U' ) F'",
-            caseId: "45",
-            description:
-              "如果這裡形狀為Ｔ型，可以擺放跟原始公式一樣，有一半的機率直接完成頂面。",
+            colorMap: createOllColorMap(["CL", "CC", "CR"], topColor),
+            algorithms: "F R U R' U' F'",
+            caseId: "45" as OLLCaseId,
+            description: "F 後做手順公式在做 F'",
           },
           {
-            colorMap: {
-              CC: topColor,
-              CR: topColor,
-              BC: topColor,
-            },
-            algorithm: "f ( R U R' U' ) f'",
+            colorMap: createOllColorMap(["CC", "CR", "BC"], topColor),
+            algorithms: "f R U R' U' f'",
             caseId: "44",
             description: "從上面一層改為轉動兩層。",
           },
           {
-            colorMap: {
-              CC: topColor,
-            },
-            algorithm: "F (R U R' U') F' f ( R U R' U' ) f'",
-            description:
-              "這裡可以看成以上兩個情況照順序執行，這OLL屬於公式疊加。",
+            colorMap: createOllColorMap(["CC"], topColor),
+            algorithms: "F R U R' U' F' f R U R' U' f'",
+            description: "這裡可以看成以上兩個情況照順序執行。",
             caseId: "2",
           },
         ]}
-        getOriginalAlgorithmUrl={(item) => `/algs/333/oll/${item.caseId}`}
+        renderPattern={renderPattern}
+        getOriginalAlgorithmUrl={getOriginalAlgorithmUrl}
       />
       <h3>錯誤情況</h3>
       <div className="flex gap-4">
@@ -154,16 +149,17 @@ export default function Page() {
       </p>
       <blockquote>{`請選擇順手或者習慣的公式，這裡直接照公式表列出前${collFirstCount}項。`}</blockquote>
       <AlgorithmsTable
-        algorithms={definitions
+        cases={definitions
           .filter((item) => item.category === OLLCategory.OCLL)
           .map((item) => {
             return {
               colorMap: createOllColorMap(item.pattern, topColor),
-              algorithm: item.algorithms.slice(0, collFirstCount),
-              caseId: item.id,
+              algorithms: item.algorithms.slice(0, collFirstCount),
+              caseId: item.id as OLLCaseId,
             };
           })}
-        getOriginalAlgorithmUrl={(item) => `/algs/333/oll/${item.caseId}`}
+        renderPattern={renderPattern}
+        getOriginalAlgorithmUrl={getOriginalAlgorithmUrl}
       />
       <h3>錯誤情況</h3>
       <p>十字必定是上面的情況，如果沒有出現以上案例表示方塊裝錯。</p>
@@ -179,4 +175,14 @@ export default function Page() {
       </ul>
     </Article>
   );
+}
+
+type TableRow = AlgorithmTableRow<OLLColorMap | undefined, OLLCaseId>;
+
+function renderPattern(item: TableRow) {
+  return <LastLayerDiagram colorMap={item.colorMap} size={patternSize} />;
+}
+
+function getOriginalAlgorithmUrl(item: TableRow) {
+  return `/algs/333/oll/${item.caseId}`;
 }

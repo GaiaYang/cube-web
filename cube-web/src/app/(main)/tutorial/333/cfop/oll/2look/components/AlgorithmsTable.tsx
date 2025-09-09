@@ -1,40 +1,44 @@
-import type { OLLCaseId } from "@/types/cube/333";
+import React from "react";
 
-import LastLayerDiagram, {
-  type LastLayerDiagramProps,
-} from "@/components/cube/333/diagram/LastLayerDiagram";
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
 import NewTabLink from "@/components/NewTabLink";
 
-export interface AlgorithmTableRow {
-  colorMap: LastLayerDiagramProps["colorMap"];
-  caseId: OLLCaseId;
-  algorithm: string | string[];
+export interface AlgorithmTableRow<TColorMap, TCaseId extends string> {
+  colorMap: TColorMap;
+  caseId: TCaseId;
+  algorithms: string | string[];
   description?: string;
 }
 
-interface AlgorithmsTableProps {
-  algorithms: AlgorithmTableRow[];
-  getOriginalAlgorithmUrl?: (params: AlgorithmTableRow) => string;
+interface AlgorithmsTableProps<TColorMap, TCaseId extends string> {
+  cases: AlgorithmTableRow<TColorMap, TCaseId>[];
+  renderPattern?: (
+    params: AlgorithmTableRow<TColorMap, TCaseId>,
+  ) => React.ReactNode;
+  getOriginalAlgorithmUrl?: (
+    params: AlgorithmTableRow<TColorMap, TCaseId>,
+  ) => string;
 }
 
-export default function AlgorithmsTable({
-  algorithms,
+export default function AlgorithmsTable<TColorMap, TCaseId extends string>({
+  cases,
+  renderPattern,
   getOriginalAlgorithmUrl,
-}: AlgorithmsTableProps) {
-  function _renderItem(item: AlgorithmTableRow, index: number) {
+}: AlgorithmsTableProps<TColorMap, TCaseId>) {
+  function _renderItem(
+    item: AlgorithmTableRow<TColorMap, TCaseId>,
+    index: number,
+  ) {
     const href = getOriginalAlgorithmUrl?.(item);
 
     return (
       <tr key={index}>
-        <td>
-          <LastLayerDiagram colorMap={item.colorMap} size={128} />
-        </td>
+        <td>{renderPattern?.(item)}</td>
         <td className="w-full">
           <div className="not-prose mb-4 flex flex-col items-start gap-2">
-            {Array.isArray(item.algorithm)
-              ? item.algorithm.map(_renderAlgorithm)
-              : _renderAlgorithm(item.algorithm)}
+            {Array.isArray(item.algorithms)
+              ? item.algorithms.map(_renderAlgorithm)
+              : _renderAlgorithm(item.algorithms)}
           </div>
           {item.description}
         </td>
@@ -59,7 +63,7 @@ export default function AlgorithmsTable({
             <th className="text-center">原始案例</th>
           </tr>
         </thead>
-        <tbody>{algorithms.map(_renderItem)}</tbody>
+        <tbody>{cases.map(_renderItem)}</tbody>
       </table>
     </div>
   );

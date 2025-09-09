@@ -1,16 +1,18 @@
 import type { CubeFaceletPosition2D, OLLDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 
+export type OLLColorMap = Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;
+
 /** 建立OLL顏色地圖 */
 export default function createOllColorMap(
   pattern?: OLLDefinition["pattern"],
   color?: CubeFaceColor,
-) {
+): OLLColorMap | undefined {
   if (!Array.isArray(pattern)) {
     return;
   }
 
-  const result: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>> = {
+  const result: OLLColorMap = {
     TL: "none",
     TC: "none",
     TR: "none",

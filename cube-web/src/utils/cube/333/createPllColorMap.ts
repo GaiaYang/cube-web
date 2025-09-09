@@ -5,17 +5,19 @@ import type { CubeFaceColor } from "@/types/cube/color";
 
 import getCubeColorMap from "./getCubeColorMap";
 
+export type PLLColorMap = Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;
+
 /** 建立PLL顏色地圖 */
 export default function createPllColorMap(
   pattern?: PLLDefinition["pattern"],
   topColor?: CubeFaceColor,
   frontColor?: CubeFaceColor,
-) {
+): PLLColorMap | undefined {
   if (!isPlainObject(pattern)) {
     return;
   }
 
-  const colorMap: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>> = {
+  const colorMap: PLLColorMap = {
     TL: "none",
     TC: "none",
     TR: "none",
