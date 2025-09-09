@@ -6,12 +6,11 @@ import type { OLLCaseId } from "@/types/cube/333";
 
 import { definitions } from "@/contents/cube/333/oll/definitions";
 import { OLLCategory } from "@/enums/cube/333";
-import createOllColorMap, {
-  type OLLColorMap,
-} from "@/utils/cube/333/createOllColorMap";
 
 import Article from "@/components/Article";
-import LastLayerDiagram from "@/components/cube/333/diagram/LastLayerDiagram";
+import OrientationLastLayer, {
+  OrientationLastLayerProps,
+} from "@/components/cube/333/diagram/OrientationLastLayer";
 
 import AlgorithmsTable, {
   AlgorithmTableRow,
@@ -26,8 +25,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tutorial/333/cfop/oll/2look" },
 };
 
-/** 頂層顏色 */
-const topColor = "yellow";
 /** 十字型OLL要獲得的數量 */
 const collFirstCount = 3;
 /** 圖案尺寸 */
@@ -65,18 +62,8 @@ export default function Page() {
         這些公式皆為現有 OLL 的應用，學會後若要銜接完整 OLL，不需重新記憶。
       </blockquote>
       <h2>運氣很好</h2>
-      <LastLayerDiagram
-        colorMap={{
-          TL: topColor,
-          TC: topColor,
-          TR: topColor,
-          CL: topColor,
-          CR: topColor,
-          CC: topColor,
-          BL: topColor,
-          BC: topColor,
-          BR: topColor,
-        }}
+      <OrientationLastLayer
+        pattern={["TL", "TC", "TR", "CL", "CR", "CC", "BL", "BC", "BR"]}
         size={patternSize}
       />
       <p>
@@ -92,19 +79,19 @@ export default function Page() {
       <AlgorithmsTable
         cases={[
           {
-            colorMap: createOllColorMap(["CL", "CC", "CR"], topColor),
+            pattern: ["CL", "CC", "CR"],
             algorithms: "F R U R' U' F'",
             caseId: "45" as OLLCaseId,
             description: "F 後做手順公式在做 F'",
           },
           {
-            colorMap: createOllColorMap(["CC", "CR", "BC"], topColor),
+            pattern: ["CC", "CR", "BC"],
             algorithms: "f R U R' U' f'",
             caseId: "44",
             description: "從上面一層改為轉動兩層。",
           },
           {
-            colorMap: createOllColorMap(["CC"], topColor),
+            pattern: ["CC"],
             algorithms: "F R U R' U' F' f R U R' U' f'",
             description: "這裡可以看成以上兩個情況照順序執行。",
             caseId: "2",
@@ -115,33 +102,16 @@ export default function Page() {
       />
       <h3>錯誤情況</h3>
       <div className="flex gap-4">
-        <LastLayerDiagram
-          colorMap={{
-            CC: topColor,
-            BC: topColor,
-          }}
-          size={patternSize}
-        />
-        <LastLayerDiagram
-          colorMap={{
-            CC: topColor,
-            CL: topColor,
-            CR: topColor,
-            BC: topColor,
-          }}
+        <OrientationLastLayer pattern={["CC", "BC"]} size={patternSize} />
+        <OrientationLastLayer
+          pattern={["CC", "CL", "CR", "BC"]}
           size={patternSize}
         />
       </div>
       <p>如果頂層的邊塊翻上的數量不是0或者偶數那就表示方塊裝錯了。</p>
       <h2>第二次判斷</h2>
-      <LastLayerDiagram
-        colorMap={{
-          TC: topColor,
-          CL: topColor,
-          CC: topColor,
-          CR: topColor,
-          BC: topColor,
-        }}
+      <OrientationLastLayer
+        pattern={["TC", "CL", "CC", "CR", "BC"]}
         size={patternSize}
       />
       <p>
@@ -153,7 +123,7 @@ export default function Page() {
           .filter((item) => item.category === OLLCategory.OCLL)
           .map((item) => {
             return {
-              colorMap: createOllColorMap(item.pattern, topColor),
+              pattern: item.pattern,
               algorithms: item.algorithms.slice(0, collFirstCount),
               caseId: item.id as OLLCaseId,
             };
@@ -177,10 +147,13 @@ export default function Page() {
   );
 }
 
-type TableRow = AlgorithmTableRow<OLLColorMap | undefined, OLLCaseId>;
+type TableRow = AlgorithmTableRow<
+  OrientationLastLayerProps["pattern"],
+  OLLCaseId
+>;
 
 function renderPattern(item: TableRow) {
-  return <LastLayerDiagram colorMap={item.colorMap} size={patternSize} />;
+  return <OrientationLastLayer pattern={item.pattern} size={patternSize} />;
 }
 
 function getOriginalAlgorithmUrl(item: TableRow) {

@@ -3,30 +3,30 @@ import React from "react";
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
 import NewTabLink from "@/components/NewTabLink";
 
-export interface AlgorithmTableRow<TColorMap, TCaseId extends string> {
-  colorMap: TColorMap;
+export interface AlgorithmTableRow<TPattern, TCaseId extends string> {
+  pattern: TPattern;
   caseId: TCaseId;
   algorithms: string | string[];
   description?: string;
 }
 
-interface AlgorithmsTableProps<TColorMap, TCaseId extends string> {
-  cases: AlgorithmTableRow<TColorMap, TCaseId>[];
+interface AlgorithmsTableProps<TPattern, TCaseId extends string> {
+  cases: AlgorithmTableRow<TPattern, TCaseId>[];
   renderPattern?: (
-    params: AlgorithmTableRow<TColorMap, TCaseId>,
+    params: AlgorithmTableRow<TPattern, TCaseId>,
   ) => React.ReactNode;
   getOriginalAlgorithmUrl?: (
-    params: AlgorithmTableRow<TColorMap, TCaseId>,
+    params: AlgorithmTableRow<TPattern, TCaseId>,
   ) => string;
 }
 
-export default function AlgorithmsTable<TColorMap, TCaseId extends string>({
+export default function AlgorithmsTable<TPattern, TCaseId extends string>({
   cases,
   renderPattern,
   getOriginalAlgorithmUrl,
-}: AlgorithmsTableProps<TColorMap, TCaseId>) {
+}: AlgorithmsTableProps<TPattern, TCaseId>) {
   function _renderItem(
-    item: AlgorithmTableRow<TColorMap, TCaseId>,
+    item: AlgorithmTableRow<TPattern, TCaseId>,
     index: number,
   ) {
     const href = getOriginalAlgorithmUrl?.(item);
