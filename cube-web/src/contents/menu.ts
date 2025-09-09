@@ -3,6 +3,7 @@ import createMenuOptions from "@/utils/createMenuOptions";
 /** 抽屜菜單(側邊欄) */
 export const drawerMenu = createMenuOptions([
   {
+    id: "tutorial",
     title: "教學",
     submenu: [
       {
@@ -63,6 +64,7 @@ export const drawerMenu = createMenuOptions([
     collapsible: true,
   },
   {
+    id: "algs",
     title: "公式表",
     submenu: [
       {
@@ -86,8 +88,11 @@ export const drawerMenu = createMenuOptions([
     collapsible: true,
   },
   {
+    id: "tools",
     title: "工具",
     submenu: [{ title: "公式轉換", href: "/tools/converter" }],
     collapsible: true,
   },
+  { divider: true },
+  { id: "settings", title: "網站設定", href: "/settings" },
 ]);

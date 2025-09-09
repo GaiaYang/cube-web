@@ -8,6 +8,8 @@ export interface MenuOptionBase {
   collapsible?: boolean;
   /** 是否是 `menu-title` */
   asTitle?: boolean;
+  /** 分隔線 */
+  divider?: boolean;
 }
 
 /** 不含 id 的菜單選項（純資料定義） */

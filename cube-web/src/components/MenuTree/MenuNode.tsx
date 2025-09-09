@@ -14,7 +14,13 @@ export default function MenuNode({
   submenu,
   collapsible,
   asTitle,
+  divider,
 }: MenuNodeProps) {
+  // 分隔線
+  if (divider) {
+    return <li />;
+  }
+
   // menu-title（純文字）
   if (asTitle && !submenu) {
     return <li className="menu-title">{title}</li>;
