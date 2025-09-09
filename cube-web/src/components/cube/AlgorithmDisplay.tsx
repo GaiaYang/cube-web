@@ -8,6 +8,7 @@ export interface AlgorithmDisplayProps {
   className?: string;
 }
 
+/** 公式顯示 */
 export default function AlgorithmDisplay({
   algorithm,
   placeholder,

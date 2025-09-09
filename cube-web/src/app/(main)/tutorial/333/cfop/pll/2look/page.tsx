@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import Notices from "@/components/Notices";
-import Chart from "./components/Chart";
+import ProportionChart from "@/components/charts/ProportionChart";
 
 export const metadata: Metadata = {
   title: "兩段式 PLL",
@@ -38,7 +38,14 @@ export default function Page() {
         <strong>總共 6 條公式</strong>
         就能讓最後一層復原。
       </p>
-      <Chart />
+      <ProportionChart
+        name="公式量"
+        maxValue={21}
+        data={[
+          { value: 2, name: "第一階段" },
+          { value: 4, name: "第二階段" },
+        ]}
+      />
       <p>相較完整的 21 種 PLL 案例，這種方式能大幅降低記憶量與判斷難度。</p>
       <blockquote>
         這些公式皆為現有 PLL 的應用，學會後若要銜接完整 PLL，不需重新記憶。

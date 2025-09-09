@@ -14,9 +14,9 @@ import OrientationLastLayer, {
 
 import AlgorithmsTable, {
   AlgorithmTableRow,
-} from "./components/AlgorithmsTable";
+} from "@/components/cube/AlgorithmsTable";
 import Notices from "@/components/Notices";
-import Chart from "./components/Chart";
+import ProportionChart from "@/components/charts/ProportionChart";
 
 export const metadata: Metadata = {
   title: "兩段式 OLL",
@@ -56,7 +56,14 @@ export default function Page() {
         <strong>總共 10 條公式</strong>
         就能讓頂面完成。
       </p>
-      <Chart />
+      <ProportionChart
+        name="公式量"
+        maxValue={57}
+        data={[
+          { value: 3, name: "第一階段" },
+          { value: 7, name: "第二階段" },
+        ]}
+      />
       <p>相比完整版 OLL 的 57 種案例，能大幅減輕記憶負擔與判斷難度。</p>
       <blockquote>
         這些公式皆為現有 OLL 的應用，學會後若要銜接完整 OLL，不需重新記憶。
@@ -77,26 +84,7 @@ export default function Page() {
         這裡的判斷不需要管角塊，我們只需要專注在四個邊塊就好，目標是做出十字。
       </p>
       <AlgorithmsTable
-        cases={[
-          {
-            pattern: ["CL", "CC", "CR"],
-            algorithms: "F R U R' U' F'",
-            caseId: "45" as OLLCaseId,
-            description: "F 後做手順公式在做 F'",
-          },
-          {
-            pattern: ["CC", "CR", "BC"],
-            algorithms: "f R U R' U' f'",
-            caseId: "44",
-            description: "從上面一層改為轉動兩層。",
-          },
-          {
-            pattern: ["CC"],
-            algorithms: "F R U R' U' F' f R U R' U' f'",
-            description: "這裡可以看成以上兩個情況照順序執行。",
-            caseId: "2",
-          },
-        ]}
+        cases={data.step1}
         renderPattern={renderPattern}
         getOriginalAlgorithmUrl={getOriginalAlgorithmUrl}
       />
@@ -119,15 +107,7 @@ export default function Page() {
       </p>
       <blockquote>{`請選擇順手或者習慣的公式，這裡直接照公式表列出前${collFirstCount}項。`}</blockquote>
       <AlgorithmsTable
-        cases={definitions
-          .filter((item) => item.category === OLLCategory.OCLL)
-          .map((item) => {
-            return {
-              pattern: item.pattern,
-              algorithms: item.algorithms.slice(0, collFirstCount),
-              caseId: item.id as OLLCaseId,
-            };
-          })}
+        cases={data.step2}
         renderPattern={renderPattern}
         getOriginalAlgorithmUrl={getOriginalAlgorithmUrl}
       />
@@ -146,6 +126,38 @@ export default function Page() {
     </Article>
   );
 }
+
+const data: Record<"step1" | "step2", TableRow[]> = {
+  step1: [
+    {
+      pattern: ["CL", "CC", "CR"],
+      algorithms: "F R U R' U' F'",
+      caseId: "45",
+      description: "F 後做手順公式在做 F'",
+    },
+    {
+      pattern: ["CC", "CR", "BC"],
+      algorithms: "f R U R' U' f'",
+      caseId: "44",
+      description: "從上面一層改為轉動兩層。",
+    },
+    {
+      pattern: ["CC"],
+      algorithms: "F R U R' U' F' f R U R' U' f'",
+      description: "這裡可以看成以上兩個情況照順序執行。",
+      caseId: "2",
+    },
+  ],
+  step2: definitions
+    .filter((item) => item.category === OLLCategory.OCLL)
+    .map((item) => {
+      return {
+        pattern: item.pattern,
+        algorithms: item.algorithms.slice(0, collFirstCount),
+        caseId: item.id as OLLCaseId,
+      };
+    }),
+};
 
 type TableRow = AlgorithmTableRow<
   OrientationLastLayerProps["pattern"],

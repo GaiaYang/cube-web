@@ -9,6 +9,7 @@ import Notices from "../Notices";
 
 export type AlgorithmPanelProps = CommonDefinition;
 
+/** 公式面板 */
 export default function AlgorithmPanel({
   id,
   name,

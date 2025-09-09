@@ -1,6 +1,6 @@
 import React from "react";
 
-import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
+import AlgorithmDisplay from "./AlgorithmDisplay";
 import NewTabLink from "@/components/NewTabLink";
 
 export interface AlgorithmTableRow<TPattern, TCaseId extends string> {
@@ -20,6 +20,7 @@ interface AlgorithmsTableProps<TPattern, TCaseId extends string> {
   ) => string;
 }
 
+/** 公式表格 */
 export default function AlgorithmsTable<TPattern, TCaseId extends string>({
   cases,
   renderPattern,
