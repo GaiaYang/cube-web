@@ -3,8 +3,10 @@ import React from "react";
 import type { F2LDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 
-import CubeDiagram, { type CubeDiagramProps } from "./CubeDiagram";
 import createF2lColorMap from "@/utils/cube/333/createF2lColorMap";
+import useCubeFaceColor from "./useCubeFaceColor";
+
+import CubeDiagram, { type CubeDiagramProps } from "./CubeDiagram";
 
 export interface FirstTwoLayersProps
   extends Omit<CubeDiagramProps, "colorMap">,
@@ -18,14 +20,20 @@ export interface FirstTwoLayersProps
 /** F2L顯示圖案 */
 export default function FirstTwoLayers({
   pattern,
-  topColor = "yellow",
-  frontColor = "green",
+  topColor,
+  frontColor,
   ...props
 }: FirstTwoLayersProps) {
+  const cubeFaceColor = useCubeFaceColor();
+
   return (
     <CubeDiagram
       {...props}
-      colorMap={createF2lColorMap(pattern, topColor, frontColor)}
+      colorMap={createF2lColorMap(
+        pattern,
+        topColor ?? cubeFaceColor.top,
+        frontColor ?? cubeFaceColor.front,
+      )}
     />
   );
 }

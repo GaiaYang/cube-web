@@ -35,6 +35,9 @@ importers:
       jotai:
         specifier: ^2.14.0
         version: 2.14.0(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.12)(react@19.1.1)
+      jotai-optics:
+        specifier: ^0.4.0
+        version: 0.4.0(jotai@2.14.0(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.12)(react@19.1.1))(optics-ts@2.4.1)
       lucide-react:
         specifier: ^0.543.0
         version: 0.543.0(react@19.1.1)
@@ -47,6 +50,9 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      optics-ts:
+        specifier: ^2.4.1
+        version: 2.4.1
       react:
         specifier: ^19.1.1
         version: 19.1.1
@@ -2450,6 +2456,12 @@ packages:
     resolution: {integrity: sha512-twQoecYPiVA5K/h6SxtORw/Bs3ar+mLUtoPSc7iMXzQzK8d7eJ/R09wmTwAjiamETn1cXYPGfNnu7DMoHgu12w==}
     hasBin: true
 
+  jotai-optics@0.4.0:
+    resolution: {integrity: sha512-osbEt9AgS55hC4YTZDew2urXKZkaiLmLqkTS/wfW5/l0ib8bmmQ7kBXSFaosV6jDDWSp00IipITcJARFHdp42g==}
+    peerDependencies:
+      jotai: '>=2.0.0'
+      optics-ts: '>=2.0.0'
+
   jotai@2.14.0:
     resolution: {integrity: sha512-JQkNkTnqjk1BlSUjHfXi+pGG/573bVN104gp6CymhrWDseZGDReTNniWrLhJ+zXbM6pH+82+UNJ2vwYQUkQMWQ==}
     engines: {node: '>=12.20.0'}
@@ -2804,6 +2816,9 @@ packages:
   onetime@5.1.2:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
+
+  optics-ts@2.4.1:
+    resolution: {integrity: sha512-HaYzMHvC80r7U/LqAd4hQyopDezC60PO2qF5GuIwALut2cl5rK1VWHsqTp0oqoJJWjiv6uXKqsO+Q2OO0C3MmQ==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -6386,6 +6401,11 @@ snapshots:
 
   jiti@2.5.1: {}
 
+  jotai-optics@0.4.0(jotai@2.14.0(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.12)(react@19.1.1))(optics-ts@2.4.1):
+    dependencies:
+      jotai: 2.14.0(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.12)(react@19.1.1)
+      optics-ts: 2.4.1
+
   jotai@2.14.0(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.12)(react@19.1.1):
     optionalDependencies:
       '@babel/core': 7.28.0
@@ -6696,6 +6716,8 @@ snapshots:
   onetime@5.1.2:
     dependencies:
       mimic-fn: 2.1.0
+
+  optics-ts@2.4.1: {}
 
   optionator@0.9.4:
     dependencies:

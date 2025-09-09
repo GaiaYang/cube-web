@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 
 import type { OLLDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 
 import createOllColorMap from "@/utils/cube/333/createOllColorMap";
+import useCubeFaceColor from "./useCubeFaceColor";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 
@@ -17,10 +20,15 @@ export interface OrientationLastLayerProps
 /** OLL圖案 */
 export default function OrientationLastLayer({
   pattern,
-  topColor = "yellow",
+  topColor,
   ...props
 }: OrientationLastLayerProps) {
+  const cubeFaceColor = useCubeFaceColor();
+
   return (
-    <LastLayer {...props} colorMap={createOllColorMap(pattern, topColor)} />
+    <LastLayer
+      {...props}
+      colorMap={createOllColorMap(pattern, topColor ?? cubeFaceColor.top)}
+    />
   );
 }

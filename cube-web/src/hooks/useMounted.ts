@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * 判斷載入情況
@@ -13,4 +13,15 @@ export default function useMounted(): boolean {
   }, []);
 
   return mounted;
+}
+
+export function useMountedHandle(fn?: () => void) {
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (!mounted.current) {
+      fn?.();
+      mounted.current = true;
+    }
+  }, [fn]);
 }

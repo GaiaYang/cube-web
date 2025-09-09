@@ -33,7 +33,10 @@ export default function ThemeToggleButton() {
 
     // 使用 DaisyUI swap class 控制切換動畫
     return themeIcons.map(({ id, Icon }) => (
-      <Icon key={id} className={cn(theme === id ? "swap-on" : "swap-off")} />
+      <Icon
+        key={id}
+        className={cn("size-6", theme === id ? "swap-on" : "swap-off")}
+      />
     ));
   }
 

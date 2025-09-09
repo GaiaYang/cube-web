@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
+import { Provider as JotaiProvider } from "jotai";
 import "./globals.css";
 import clsx from "clsx";
 
@@ -37,7 +38,9 @@ export default function RootLayout({
           "selection:bg-primary selection:text-primary-content",
         )}
       >
-        <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
+        <JotaiProvider>
+          <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
+        </JotaiProvider>
       </body>
     </html>
   );
