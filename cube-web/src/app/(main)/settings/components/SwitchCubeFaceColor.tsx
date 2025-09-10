@@ -6,6 +6,7 @@ import { useAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
 import { withImmer } from "jotai-immer";
 
+import type { Option } from "@/options/types";
 import { CubeFaceColors } from "@/enums/cube/color";
 
 import cn from "@/utils/cn";
@@ -33,98 +34,104 @@ export default function SwitchCubeFaceColor() {
   const isDisabled = !mounted;
 
   return (
-    <div className="card">
-      <div className="card-body p-0">
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">方塊頂面顏色調整</legend>
-          <div className="flex flex-wrap gap-6">
-            {topOptions.map(({ id, value, label }) => {
-              return (
-                <label
-                  key={id}
-                  className="flex items-center gap-3 hover:cursor-pointer"
-                >
-                  <input
-                    type="radio"
-                    name="cubeTopColor"
-                    disabled={isDisabled}
-                    checked={cubeFaceColor.top === value}
-                    onChange={() => {
-                      setCubeFaceColor((draft) => {
-                        draft.top = value;
-                        // 頂面替換預設替換前面顏色
-                        draft.front = topOptions.filter(
-                          (item) =>
-                            !(
-                              item.value === value ||
-                              item.value === getOppositeColor(value)
-                            ),
-                        )[0].value;
-                      });
-                    }}
-                    className="radio"
-                  />
-                  <ColorPreviewBox color={value} />
-                  {label}
-                </label>
-              );
-            })}
-          </div>
-        </fieldset>
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">方塊前面顏色調整</legend>
-          <div className="flex flex-wrap gap-6">
-            {frontOptions.map(({ id, value, label }) => {
-              return (
-                <label
-                  key={id}
-                  className="flex items-center gap-3 hover:cursor-pointer"
-                >
-                  <input
-                    type="radio"
-                    name="cubeFrontColor"
-                    checked={cubeFaceColor.front === value}
-                    disabled={isDisabled}
-                    onChange={() => {
-                      setCubeFaceColor((draft) => {
-                        draft.front = value;
-                      });
-                    }}
-                    className="radio"
-                  />
-                  <ColorPreviewBox color={value} />
-                  {label}
-                </label>
-              );
-            })}
-          </div>
-        </fieldset>
-        <div className="card-actions">
-          <button
-            type="button"
-            disabled={isDisabled}
-            className="btn btn-soft btn-error"
-            onClick={() => {
-              setCubeFaceColor(initialValue.cubeFaceColor);
-            }}
-          >
-            <RotateCcwIcon />
-            重設顏色
-          </button>
-        </div>
+    <div className="card-body gap-4 p-0">
+      <fieldset className="fieldset">
+        <legend className="fieldset-legend">方塊頂面顏色調整</legend>
+        <ColorRadios
+          radios={topOptions}
+          name="cubeTopColor"
+          isDisabled={isDisabled}
+          getChecked={({ value }) => value === cubeFaceColor.top}
+          onCheck={({ value }) => {
+            setCubeFaceColor((draft) => {
+              draft.top = value;
+              // 頂面替換預設替換前面顏色
+              draft.front = topOptions.filter(
+                (item) =>
+                  !(
+                    item.value === value ||
+                    item.value === getOppositeColor(value)
+                  ),
+              )[0].value;
+            });
+          }}
+        />
+      </fieldset>
+      <fieldset className="fieldset">
+        <legend className="fieldset-legend">方塊前面顏色調整</legend>
+        <ColorRadios
+          radios={frontOptions}
+          name="cubeFrontColor"
+          isDisabled={isDisabled}
+          getChecked={({ value }) => value === cubeFaceColor.front}
+          onCheck={({ value }) => {
+            setCubeFaceColor((draft) => {
+              draft.front = value;
+            });
+          }}
+        />
+      </fieldset>
+      <div className="card-actions mt-4">
+        <button
+          type="button"
+          disabled={isDisabled}
+          className="btn btn-soft btn-error"
+          onClick={() => {
+            setCubeFaceColor(initialValue.cubeFaceColor);
+          }}
+        >
+          <RotateCcwIcon />
+          重設顏色
+        </button>
       </div>
     </div>
   );
 }
 
-function ColorPreviewBox({ color }: { color: CubeFaceColors }) {
+function ColorRadios({
+  radios,
+  name,
+  getChecked,
+  onCheck,
+  isDisabled,
+}: {
+  radios: typeof options;
+  name: string;
+  getChecked?: (params: Option<CubeFaceColors>) => boolean;
+  onCheck?: (params: Option<CubeFaceColors>) => void;
+  isDisabled?: boolean;
+}) {
   return (
-    <span
-      aria-hidden="true"
-      className={cn(
-        "border-neutral/25 size-6 rounded border",
-        getBgColor(color),
-      )}
-    />
+    <div className="mt-2 flex flex-wrap gap-6">
+      {radios.map((item) => {
+        return (
+          <label
+            key={item.id}
+            className={cn(
+              "group rounded-box flex items-center gap-3",
+              "hover:cursor-pointer",
+            )}
+          >
+            <input
+              type="radio"
+              name={name}
+              checked={getChecked?.(item)}
+              disabled={isDisabled}
+              onChange={() => {
+                onCheck?.(item);
+              }}
+              className="radio"
+            />
+            <div
+              className={cn(
+                "border-neutral/25 size-6 rounded border",
+                getBgColor(item.value),
+              )}
+            />
+            {item.label}
+          </label>
+        );
+      })}
+    </div>
   );
 }

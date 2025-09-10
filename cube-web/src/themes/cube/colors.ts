@@ -49,7 +49,23 @@ export function getBgColor(params?: CubeFaceColor | null) {
   return bgColors[params ?? "none"] ?? bgColors.none;
 }
 
-export type CubeColorType = "fill" | "bg" | "stroke";
+/** 外框顏色 */
+export const outlineColors: Record<CubeFaceColor, string> = {
+  red: "outline-red-500",
+  orange: "outline-orange-400",
+  white: "outline-white",
+  yellow: "outline-yellow-300",
+  blue: "outline-blue-500",
+  green: "outline-green-500",
+  none: "outline-gray-300 dark:outline-gray-500",
+};
+
+/** 取得外框顏色 */
+export function getOutlineColor(params?: CubeFaceColor | null) {
+  return outlineColors[params ?? "none"] ?? bgColors.none;
+}
+
+export type CubeColorType = "fill" | "bg" | "stroke" | "outline";
 
 export function getCubeColor(
   params: CubeFaceColor | null,
@@ -67,6 +83,9 @@ export function getCubeColor(
         break;
       case "stroke":
         result.push(getStrokeColor(params));
+        break;
+      case "outline":
+        result.push(getOutlineColor(params));
         break;
       default:
         break;

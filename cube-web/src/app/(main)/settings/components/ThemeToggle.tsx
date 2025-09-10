@@ -34,25 +34,23 @@ export default function ThemeToggle() {
   }
 
   return (
-    <div className="card">
-      <div className="card-body p-0">
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">網站主題色</legend>
-          <div className="flex flex-wrap gap-6">
-            {options.map(_renderButton)}
-          </div>
-        </fieldset>
-        <div className="card-actions">
-          <button
-            type="button"
-            disabled={isDisabled}
-            onClick={() => setTheme("system")}
-            className="btn btn-soft btn-error"
-          >
-            <RotateCcwIcon />
-            重設主題
-          </button>
+    <div className="card-body gap-4 p-0">
+      <fieldset className="fieldset">
+        <legend className="fieldset-legend">網站主題色</legend>
+        <div className="mt-2 flex flex-wrap gap-6">
+          {options.map(_renderButton)}
         </div>
+      </fieldset>
+      <div className="card-actions mt-4">
+        <button
+          type="button"
+          disabled={isDisabled}
+          onClick={() => setTheme("system")}
+          className="btn btn-soft btn-error"
+        >
+          <RotateCcwIcon />
+          重設主題
+        </button>
       </div>
     </div>
   );
