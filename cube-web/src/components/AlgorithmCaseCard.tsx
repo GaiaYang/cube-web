@@ -1,7 +1,5 @@
 import React from "react";
 
-import cn from "@/utils/cn";
-
 export interface AlgorithmCaseCardProps {
   name?: string | null;
   /** 標籤 */
