@@ -4,6 +4,7 @@ import React from "react";
 import { RotateCcwIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
+import cn from "@/utils/cn";
 import { options, type OptionType } from "@/options/theme";
 import useMounted from "@/hooks/useMounted";
 
@@ -16,7 +17,12 @@ export default function ThemeToggle() {
 
   function _renderButton({ id, value, label }: OptionType) {
     return (
-      <label key={id} className="flex items-center gap-3 hover:cursor-pointer">
+      <label
+        key={id}
+        className={cn("btn has-checked:btn-primary", {
+          "btn-disabled": isDisabled,
+        })}
+      >
         <input
           type="radio"
           name="theme"
@@ -25,7 +31,7 @@ export default function ThemeToggle() {
           onChange={() => {
             setTheme(value);
           }}
-          className="radio"
+          className="sr-only"
         />
         <ThemeIcon theme={value} className="size-6" />
         {label}
@@ -34,23 +40,26 @@ export default function ThemeToggle() {
   }
 
   return (
-    <div className="card-body gap-4 p-0">
-      <fieldset className="fieldset">
-        <legend className="fieldset-legend">網站主題色</legend>
-        <div className="mt-2 flex flex-wrap gap-6">
-          {options.map(_renderButton)}
+    <div className="card bg-base-100 shadow-sm">
+      <div className="card-body">
+        <h2 className="card-title">基本設定</h2>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">網站主題色</legend>
+          <div className="flex flex-wrap gap-2">
+            {options.map(_renderButton)}
+          </div>
+        </fieldset>
+        <div className="card-actions mt-6">
+          <button
+            type="button"
+            disabled={isDisabled}
+            onClick={() => setTheme("system")}
+            className="btn btn-soft btn-error"
+          >
+            <RotateCcwIcon />
+            重設主題
+          </button>
         </div>
-      </fieldset>
-      <div className="card-actions mt-4">
-        <button
-          type="button"
-          disabled={isDisabled}
-          onClick={() => setTheme("system")}
-          className="btn btn-soft btn-error"
-        >
-          <RotateCcwIcon />
-          重設主題
-        </button>
       </div>
     </div>
   );

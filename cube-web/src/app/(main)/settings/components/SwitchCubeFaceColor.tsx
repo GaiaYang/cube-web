@@ -34,55 +34,58 @@ export default function SwitchCubeFaceColor() {
   const isDisabled = !mounted;
 
   return (
-    <div className="card-body gap-4 p-0">
-      <fieldset className="fieldset">
-        <legend className="fieldset-legend">方塊頂面顏色調整</legend>
-        <ColorRadios
-          radios={topOptions}
-          name="cubeTopColor"
-          isDisabled={isDisabled}
-          getChecked={({ value }) => value === cubeFaceColor.top}
-          onCheck={({ value }) => {
-            setCubeFaceColor((draft) => {
-              draft.top = value;
-              // 頂面替換預設替換前面顏色
-              draft.front = topOptions.filter(
-                (item) =>
-                  !(
-                    item.value === value ||
-                    item.value === getOppositeColor(value)
-                  ),
-              )[0].value;
-            });
-          }}
-        />
-      </fieldset>
-      <fieldset className="fieldset">
-        <legend className="fieldset-legend">方塊前面顏色調整</legend>
-        <ColorRadios
-          radios={frontOptions}
-          name="cubeFrontColor"
-          isDisabled={isDisabled}
-          getChecked={({ value }) => value === cubeFaceColor.front}
-          onCheck={({ value }) => {
-            setCubeFaceColor((draft) => {
-              draft.front = value;
-            });
-          }}
-        />
-      </fieldset>
-      <div className="card-actions mt-4">
-        <button
-          type="button"
-          disabled={isDisabled}
-          className="btn btn-soft btn-error"
-          onClick={() => {
-            setCubeFaceColor(initialValue.cubeFaceColor);
-          }}
-        >
-          <RotateCcwIcon />
-          重設顏色
-        </button>
+    <div className="card bg-base-100 shadow-sm">
+      <div className="card-body">
+        <h2 className="card-title">方塊設定</h2>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">方塊頂面顏色調整</legend>
+          <ColorRadios
+            radios={topOptions}
+            name="cubeTopColor"
+            isDisabled={isDisabled}
+            getChecked={({ value }) => value === cubeFaceColor.top}
+            onCheck={({ value }) => {
+              setCubeFaceColor((draft) => {
+                draft.top = value;
+                // 頂面替換預設替換前面顏色
+                draft.front = topOptions.filter(
+                  (item) =>
+                    !(
+                      item.value === value ||
+                      item.value === getOppositeColor(value)
+                    ),
+                )[0].value;
+              });
+            }}
+          />
+        </fieldset>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">方塊前面顏色調整</legend>
+          <ColorRadios
+            radios={frontOptions}
+            name="cubeFrontColor"
+            isDisabled={isDisabled}
+            getChecked={({ value }) => value === cubeFaceColor.front}
+            onCheck={({ value }) => {
+              setCubeFaceColor((draft) => {
+                draft.front = value;
+              });
+            }}
+          />
+        </fieldset>
+        <div className="card-actions mt-6">
+          <button
+            type="button"
+            disabled={isDisabled}
+            className="btn btn-soft btn-error"
+            onClick={() => {
+              setCubeFaceColor(initialValue.cubeFaceColor);
+            }}
+          >
+            <RotateCcwIcon />
+            重設顏色
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -102,15 +105,14 @@ function ColorRadios({
   isDisabled?: boolean;
 }) {
   return (
-    <div className="mt-2 flex flex-wrap gap-6">
+    <div className="flex flex-wrap gap-2">
       {radios.map((item) => {
         return (
           <label
             key={item.id}
-            className={cn(
-              "group rounded-box flex items-center gap-3",
-              "hover:cursor-pointer",
-            )}
+            className={cn("btn has-checked:btn-primary", {
+              "btn-disabled": isDisabled,
+            })}
           >
             <input
               type="radio"
@@ -120,7 +122,7 @@ function ColorRadios({
               onChange={() => {
                 onCheck?.(item);
               }}
-              className="radio"
+              className="sr-only"
             />
             <div
               className={cn(

@@ -17,9 +17,8 @@ export default function Page() {
         <h1>網站設定</h1>
         <p>本網站的一些設定項目。</p>
       </div>
-      <div className="grid">
+      <div className="grid gap-6">
         <ThemeToggle />
-        <div className="divider" />
         <SwitchCubeFaceColor />
       </div>
     </div>

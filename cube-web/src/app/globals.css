@@ -1,14 +1,13 @@
 @import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @plugin "daisyui";
 @plugin "daisyui/theme" {
   name: "light";
-  /* default: true; */
   --color-primary: oklch(51% 0.253 323.949);
   --color-primary-content: oklch(95% 0.037 318.852);
 }
 @plugin "daisyui/theme" {
   name: "dark";
-  /* prefersdark: true; */
   --color-primary: oklch(83% 0.145 321.434);
   --color-primary-content: oklch(40% 0.17 325.612);
 }
