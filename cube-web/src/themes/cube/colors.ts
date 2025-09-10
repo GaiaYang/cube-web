@@ -1,4 +1,5 @@
 import type { CubeFaceColor } from "@/types/cube/color";
+import cn from "@/utils/cn";
 
 /** 填滿顏色 */
 export const fillColors: Record<CubeFaceColor, string> = {
@@ -30,4 +31,46 @@ export const strokeColors: Record<CubeFaceColor, string> = {
 /** 取得線條顏色 */
 export function getStrokeColor(params?: CubeFaceColor | null) {
   return strokeColors[params ?? "none"] ?? strokeColors.none;
+}
+
+/** 背景顏色 */
+export const bgColors: Record<CubeFaceColor, string> = {
+  red: "bg-red-500",
+  orange: "bg-orange-400",
+  white: "bg-white",
+  yellow: "bg-yellow-300",
+  blue: "bg-blue-500",
+  green: "bg-green-500",
+  none: "bg-gray-300 dark:bg-gray-500",
+};
+
+/** 取得背景顏色 */
+export function getBgColor(params?: CubeFaceColor | null) {
+  return bgColors[params ?? "none"] ?? bgColors.none;
+}
+
+export type CubeColorType = "fill" | "bg" | "stroke";
+
+export function getCubeColor(
+  params: CubeFaceColor | null,
+  types: CubeColorType[],
+) {
+  const _types = Array.from(new Set(types));
+  const result = [];
+  for (const type of _types) {
+    switch (type) {
+      case "bg":
+        result.push(getBgColor(params));
+        break;
+      case "fill":
+        result.push(getFillColor(params));
+        break;
+      case "stroke":
+        result.push(getStrokeColor(params));
+        break;
+      default:
+        break;
+    }
+  }
+  return cn(result);
 }

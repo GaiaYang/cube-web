@@ -2,7 +2,7 @@ import { isPlainObject } from "es-toolkit";
 
 import type { CubeBlockPosition3D, F2LDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
-import getCubeColorMap from "./getCubeColorMap";
+import getCubeColorMap from "../getCubeColorMap";
 
 export type F2LColorMap = Partial<Record<CubeBlockPosition3D, CubeFaceColor>>;
 

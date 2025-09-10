@@ -2,6 +2,7 @@ import { type Metadata } from "next";
 import React from "react";
 
 import ThemeToggle from "./components/ThemeToggle";
+import SwitchCubeFaceColor from "./components/SwitchCubeFaceColor";
 
 export const metadata: Metadata = {
   title: "網站設定",
@@ -18,6 +19,7 @@ export default function Page() {
       </div>
       <div className="grid gap-x-6 gap-y-8">
         <ThemeToggle />
+        <SwitchCubeFaceColor />
       </div>
     </div>
   );
