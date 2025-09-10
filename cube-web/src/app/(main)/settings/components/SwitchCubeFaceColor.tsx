@@ -37,7 +37,10 @@ export default function SwitchCubeFaceColor() {
           {topOptions.map(({ id, value, label }) => {
             const isChecked = cubeFaceColor.top === value;
             return (
-              <label key={id} className="flex items-center gap-2">
+              <label
+                key={id}
+                className="flex items-center gap-3 hover:cursor-pointer"
+              >
                 <input
                   type="radio"
                   name="cubeTopColor"
@@ -74,7 +77,10 @@ export default function SwitchCubeFaceColor() {
           {frontOptions.map(({ id, value, label }) => {
             const isChecked = cubeFaceColor.front === value;
             return (
-              <label key={id} className="flex items-center gap-2">
+              <label
+                key={id}
+                className="flex items-center gap-3 hover:cursor-pointer"
+              >
                 <input
                   type="radio"
                   name="cubeFrontColor"
