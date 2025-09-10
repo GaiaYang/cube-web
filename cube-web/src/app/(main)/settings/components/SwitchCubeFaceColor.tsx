@@ -34,7 +34,7 @@ export default function SwitchCubeFaceColor() {
   const isDisabled = !mounted;
 
   return (
-    <div className="card bg-base-100 shadow-sm">
+    <div className="card bg-base-100 dark:bg-base-200 shadow-sm">
       <div className="card-body">
         <h2 className="card-title">方塊設定</h2>
         <fieldset className="fieldset">

@@ -40,7 +40,7 @@ export default function ThemeToggle() {
   }
 
   return (
-    <div className="card bg-base-100 shadow-sm">
+    <div className="card bg-base-100 dark:bg-base-200 shadow-sm">
       <div className="card-body">
         <h2 className="card-title">基本設定</h2>
         <fieldset className="fieldset">
