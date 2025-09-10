@@ -3,7 +3,6 @@
 import React from "react";
 import { RotateCcwIcon } from "lucide-react";
 import { useAtom } from "jotai";
-import { useHydrateAtoms } from "jotai/utils";
 import { withImmer } from "jotai-immer";
 
 import type { Option } from "@/options/types";
@@ -17,15 +16,13 @@ import { cubeFaceColorAtom, store, initialValue } from "@/jotai/settings";
 import useMounted from "@/hooks/useMounted";
 
 const notNilOptions = options.filter(({ value }) => value !== "none");
-const hydrateAtoms = new Map([[cubeFaceColorAtom, initialValue.cubeFaceColor]]);
 const immerCubeFaceColorAtom = withImmer(cubeFaceColorAtom);
 
 export default function SwitchCubeFaceColor() {
   const mounted = useMounted();
-  useHydrateAtoms(hydrateAtoms, {
+  const [cubeFaceColor, setCubeFaceColor] = useAtom(immerCubeFaceColorAtom, {
     store,
   });
-  const [cubeFaceColor, setCubeFaceColor] = useAtom(immerCubeFaceColorAtom);
   const bottomColor = getOppositeColor(cubeFaceColor.top);
   const topOptions = notNilOptions;
   const frontOptions = notNilOptions.filter(
