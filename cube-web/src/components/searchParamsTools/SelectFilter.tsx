@@ -72,7 +72,7 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
         type="button"
         onClick={handleReset}
         title={resetLabel}
-        className="join-item btn btn-error btn-square"
+        className="join-item btn btn-error btn-square btn-soft"
       >
         <span className="sr-only">{resetLabel}</span>
         <RotateCcwIcon />

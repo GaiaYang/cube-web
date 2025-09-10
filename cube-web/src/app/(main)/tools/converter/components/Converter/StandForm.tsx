@@ -73,12 +73,12 @@ function CoreFormContainer({ onConvert }: CoreFormContainerProps) {
 
 function ToolButtons() {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-2">
       <button type="submit" className="btn btn-primary">
         <SendIcon />
         轉換
       </button>
-      <button type="reset" className="btn btn-error btn-outline">
+      <button type="reset" className="btn btn-error btn-soft">
         <EraserIcon />
         清除
       </button>

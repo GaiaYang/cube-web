@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-
+import { RotateCcwIcon } from "lucide-react";
 import { FormProvider, SubmitHandler } from "react-hook-form";
 
 import type { ConversionType } from "./types";
@@ -49,7 +49,8 @@ export default memo(function InPlaceForm() {
               </button>
             ))}
           </div>
-          <button type="reset" className="btn btn-error">
+          <button type="reset" className="btn btn-soft btn-error">
+            <RotateCcwIcon />
             重設
           </button>
         </div>
