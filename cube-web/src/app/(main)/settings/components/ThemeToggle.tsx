@@ -2,17 +2,18 @@
 
 import React from "react";
 import { useTheme } from "next-themes";
-import { LucideProps, MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
 
-import type { Option } from "@/options/types";
+import { options, type OptionType } from "@/options/theme";
 import useMounted from "@/hooks/useMounted";
 import cn from "@/utils/cn";
+
+import ThemeIcon from "@/components/ThemeIcon";
 
 export default function ThemeToggle() {
   const mounted = useMounted();
   const { theme, setTheme } = useTheme();
 
-  function _renderButton({ id, value, label, Icon }: ToggleOption) {
+  function _renderButton({ id, value, label }: OptionType) {
     return (
       <button
         key={id}
@@ -30,7 +31,7 @@ export default function ThemeToggle() {
           },
         )}
       >
-        <Icon className="size-6" />
+        <ThemeIcon theme={value} className="size-6" />
         {label}
       </button>
     );
@@ -43,15 +44,3 @@ export default function ThemeToggle() {
     </fieldset>
   );
 }
-
-type ToggleOption = Option<"system" | "light" | "dark"> & {
-  Icon: React.ForwardRefExoticComponent<
-    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
-  >;
-};
-
-const options: ToggleOption[] = [
-  { id: "system", label: "系統", value: "system", Icon: SunMoonIcon },
-  { id: "light", label: "亮色", value: "light", Icon: SunIcon },
-  { id: "dark", label: "暗色", value: "dark", Icon: MoonIcon },
-];
