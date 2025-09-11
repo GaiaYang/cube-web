@@ -1,5 +1,7 @@
 import React from "react";
 
+import Card from "@/components/ui/Card";
+
 export interface AlgorithmCaseCardProps {
   name?: string | null;
   /** 標籤 */
@@ -12,7 +14,7 @@ export default function AlgorithmCaseCard({
   children,
 }: React.PropsWithChildren<AlgorithmCaseCardProps>) {
   return (
-    <div className="card bg-base-100 dark:bg-base-200 shadow-sm">
+    <Card>
       <figure className="w-full p-6 pb-0">
         {children ?? (
           <div aria-hidden className="skeleton aspect-square w-full" />
@@ -22,7 +24,7 @@ export default function AlgorithmCaseCard({
         {_renderTitle(name)}
         {_renderBadge(tag)}
       </div>
-    </div>
+    </Card>
   );
 }
 

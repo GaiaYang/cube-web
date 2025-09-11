@@ -21,7 +21,7 @@ export default function ProportionChart({
   const { resolvedTheme } = useTheme();
 
   return (
-    <section className="not-prose h-80 w-full">
+    <section className="not-prose rounded-box h-80 w-full overflow-hidden">
       <ResponsiveRadialBar
         theme={
           chartTheme[(resolvedTheme as "light" | "dark" | undefined) ?? "light"]

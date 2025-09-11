@@ -46,9 +46,7 @@ function _renderItem(item: Feature, index: number) {
 function _renderLink(item: Option<string>) {
   return (
     <li key={item.id}>
-      <Link href={item.value} className="link link-hover">
-        {item.label}
-      </Link>
+      <Link href={item.value}>{item.label}</Link>
     </li>
   );
 }

@@ -15,6 +15,8 @@ import { getBgColor } from "@/themes/cube/colors";
 import { cubeFaceColorAtom, store, initialValue } from "@/jotai/settings";
 import useMounted from "@/hooks/useMounted";
 
+import Card from "@/components/ui/Card";
+
 const notNilOptions = options.filter(({ value }) => value !== "none");
 const immerCubeFaceColorAtom = withImmer(cubeFaceColorAtom);
 
@@ -31,7 +33,7 @@ export default function SwitchCubeFaceColor() {
   const isDisabled = !mounted;
 
   return (
-    <div className="card bg-base-100 dark:bg-base-200 shadow-sm">
+    <Card>
       <div className="card-body">
         <h2 className="card-title">方塊設定</h2>
         <fieldset className="fieldset">
@@ -84,7 +86,7 @@ export default function SwitchCubeFaceColor() {
           </button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 

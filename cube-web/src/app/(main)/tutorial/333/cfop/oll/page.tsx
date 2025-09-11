@@ -26,6 +26,11 @@ export default function Page() {
         <br />
         由於作者偏好左右手操作，因此本頁會用到大量鏡像公式，並挑選易操作的公式直接鏡像到另一隻手。
       </p>
+      <blockquote>
+        如果覺得57條公式太多想先跳過，可以使用{" "}
+        <NewTabLink href="oll/2look">兩段式OLL</NewTabLink>{" "}
+        ，用極少量的公式且速度不會太慢的情況做完OLL
+      </blockquote>
       <h2>十字</h2>
       <p>對於兩段式OLL，十字的情況是最先學習的公式，復原簡單且順手。</p>
       <blockquote>

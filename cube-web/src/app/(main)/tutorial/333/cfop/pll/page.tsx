@@ -3,6 +3,7 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import Notices from "@/components/Notices";
+import NewTabLink from "@/components/NewTabLink";
 
 export const metadata: Metadata = {
   title: "PLL",
@@ -28,6 +29,11 @@ export default function Page() {
         由於作者偏好左右手操作，因此本頁會用到大量鏡像公式，
         並挑選易操作的公式直接鏡像到另一隻手。
       </p>
+      <blockquote>
+        如果覺得21條公式太多想先跳過，可以使用{" "}
+        <NewTabLink href="pll/2look">兩段式PLL</NewTabLink>{" "}
+        ，用極少量的公式且速度不會太慢的情況做完OLL
+      </blockquote>
     </Article>
   );
 }

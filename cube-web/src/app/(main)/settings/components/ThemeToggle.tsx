@@ -9,6 +9,7 @@ import { options, type OptionType } from "@/options/theme";
 import useMounted from "@/hooks/useMounted";
 
 import ThemeIcon from "@/components/ThemeIcon";
+import Card from "@/components/ui/Card";
 
 export default function ThemeToggle() {
   const mounted = useMounted();
@@ -40,7 +41,7 @@ export default function ThemeToggle() {
   }
 
   return (
-    <div className="card bg-base-100 dark:bg-base-200 shadow-sm">
+    <Card>
       <div className="card-body">
         <h2 className="card-title">基本設定</h2>
         <fieldset className="fieldset">
@@ -61,6 +62,6 @@ export default function ThemeToggle() {
           </button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
