@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 
-import { drawerId, drawerMenuId } from "./config";
+import { drawerToggleId, drawerMenuId } from "./config";
 
 export default function DrawerToggle() {
   const ref = useRef<HTMLInputElement>(null);
@@ -27,6 +27,11 @@ export default function DrawerToggle() {
   }, []);
 
   return (
-    <input ref={ref} id={drawerId} type="checkbox" className="drawer-toggle" />
+    <input
+      ref={ref}
+      id={drawerToggleId}
+      type="checkbox"
+      className="drawer-toggle"
+    />
   );
 }

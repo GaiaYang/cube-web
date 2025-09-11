@@ -2,7 +2,7 @@ import React from "react";
 import { MenuIcon } from "lucide-react";
 
 import type { CommonProps } from "./types";
-import { drawerId } from "./config";
+import { drawerToggleId } from "./config";
 import cn from "@/utils/cn";
 
 import LogoButton from "./LogoButton";
@@ -14,7 +14,7 @@ export default function Navbar({ autoExpandDrawer }: NavbarProps) {
   return (
     <nav className="navbar">
       <label
-        htmlFor={drawerId}
+        htmlFor={drawerToggleId}
         className={cn("btn btn-ghost btn-circle", {
           "lg:hidden": autoExpandDrawer,
         })}

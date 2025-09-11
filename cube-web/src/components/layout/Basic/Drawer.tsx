@@ -1,8 +1,10 @@
+"use client";
+
 import React from "react";
 import { XIcon } from "lucide-react";
 
 import type { CommonProps } from "./types";
-import { drawerAsideId, drawerId } from "./config";
+import { drawerId, drawerSideId, drawerToggleId } from "./config";
 import cn from "@/utils/cn";
 
 import DrawerMenu from "./DrawerMenu";
@@ -18,6 +20,7 @@ export default function Drawer({
 }: React.PropsWithChildren<DrawerProps>) {
   return (
     <div
+      id={drawerId}
       className={cn(
         "drawer",
         { "lg:drawer-open": autoExpandDrawer },
@@ -26,22 +29,21 @@ export default function Drawer({
     >
       <DrawerToggle />
       <div className="drawer-content">{children}</div>
-      <div className={cn("drawer-side z-40", "scroll-pt-20 scroll-smooth")}>
+      <div
+        id={drawerSideId}
+        className={cn("drawer-side z-40", "scroll-pt-20 scroll-smooth")}
+      >
         <label
-          htmlFor={drawerId}
+          htmlFor={drawerToggleId}
           aria-label="關閉菜單"
           className="drawer-overlay"
         />
-        <aside
-          id={drawerAsideId}
-          aria-label="側邊導航區塊"
-          className="bg-base-100 min-h-dvh w-80"
-        >
+        <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-80">
           <DrawerNavbar>
             <LogoButton />
             <div className="flex-1" />
             <label
-              htmlFor={drawerId}
+              htmlFor={drawerToggleId}
               aria-label="關閉菜單"
               className={cn("btn btn-ghost btn-circle", {
                 "lg:hidden": autoExpandDrawer,

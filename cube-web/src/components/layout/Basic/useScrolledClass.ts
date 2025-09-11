@@ -1,9 +1,13 @@
 import cn from "@/utils/cn";
-import useScrolled from "@/hooks/useScrolled";
-import { SCROLL_THRESHOLD } from "./config";
 
-export default function useScrolledClass() {
-  const scrolled = useScrolled(SCROLL_THRESHOLD);
+import { SCROLL_THRESHOLD } from "./config";
+import useScrolled from "@/hooks/useScrolled";
+
+export default function useScrolledClass(
+  getElement?: () => HTMLElement | null,
+) {
+  const scrolled = useScrolled(SCROLL_THRESHOLD, getElement);
+
   return cn(
     "sticky top-0 z-30 w-full print:hidden",
     "bg-base-100/90 backdrop-blur transition-shadow",
