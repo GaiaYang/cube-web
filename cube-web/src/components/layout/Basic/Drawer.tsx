@@ -2,12 +2,13 @@ import React from "react";
 import { XIcon } from "lucide-react";
 
 import type { CommonProps } from "./types";
-import { drawerId } from "./config";
+import { drawerAsideId, drawerId } from "./config";
 import cn from "@/utils/cn";
 
 import DrawerMenu from "./DrawerMenu";
 import LogoButton from "./LogoButton";
 import DrawerToggle from "./DrawerToggle";
+import DrawerNavbar from "./DrawerNavbar";
 
 export type DrawerProps = CommonProps;
 
@@ -31,14 +32,12 @@ export default function Drawer({
           aria-label="關閉菜單"
           className="drawer-overlay"
         />
-        <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-80">
-          <div
-            className={cn(
-              "navbar px-4",
-              "bg-base-100/90 shadow-xs backdrop-blur",
-              "sticky top-0 z-20",
-            )}
-          >
+        <aside
+          id={drawerAsideId}
+          aria-label="側邊導航區塊"
+          className="bg-base-100 min-h-dvh w-80"
+        >
+          <DrawerNavbar>
             <LogoButton />
             <div className="flex-1" />
             <label
@@ -50,7 +49,7 @@ export default function Drawer({
             >
               <XIcon />
             </label>
-          </div>
+          </DrawerNavbar>
           <nav aria-label="主選單導覽" className="mt-4">
             <DrawerMenu />
           </nav>
