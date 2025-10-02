@@ -106,6 +106,8 @@ function ColorRadios({
   return (
     <div className="flex flex-wrap gap-2">
       {radios.map((item) => {
+        const checked = getChecked?.(item);
+
         return (
           <label
             key={item.id}
@@ -116,7 +118,7 @@ function ColorRadios({
             <input
               type="radio"
               name={name}
-              checked={getChecked?.(item)}
+              checked={checked}
               disabled={isDisabled}
               onChange={() => {
                 onCheck?.(item);
@@ -125,7 +127,8 @@ function ColorRadios({
             />
             <div
               className={cn(
-                "border-neutral/25 size-6 rounded border",
+                "size-6 rounded border",
+                checked ? "border-primary-content" : "border-base-content",
                 getBgColor(item.value),
               )}
             />

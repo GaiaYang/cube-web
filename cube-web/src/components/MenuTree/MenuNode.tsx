@@ -1,21 +1,24 @@
 import React from "react";
 
 import type { MenuOption } from "@/types/menu";
+import type { MenuIconProps } from "./types";
 
 import MenuLink from "./MenuLink";
 import MenuDetails from "./MenuDetails";
 
-export type MenuNodeProps = MenuOption;
+export interface MenuNodeProps extends MenuOption {
+  renderIcon?: (pramas: MenuIconProps) => React.ReactNode;
+}
 
-export default function MenuNode({
-  id,
-  title,
-  href,
-  submenu,
-  collapsible,
-  asTitle,
-  divider,
-}: MenuNodeProps) {
+const iconProps: Omit<MenuIconProps, keyof MenuOption> = {
+  className: "size-5",
+  size: 24,
+};
+
+export default function MenuNode({ renderIcon, ...item }: MenuNodeProps) {
+  const { id, title, href, submenu, collapsible, asTitle, divider } = item;
+  const _iconElement = renderIcon?.({ ...item, ...iconProps }) || null;
+
   // 分隔線
   if (divider) {
     return <li />;
@@ -23,14 +26,22 @@ export default function MenuNode({
 
   // menu-title（純文字）
   if (asTitle && !submenu) {
-    return <li className="menu-title">{title}</li>;
+    return (
+      <li className="menu-title">
+        {_iconElement}
+        {title}
+      </li>
+    );
   }
 
   // menu-title + 子菜單
   if (asTitle && submenu) {
     return (
       <li>
-        <h2 className="menu-title">{title}</h2>
+        <h2 className="menu-title">
+          {_iconElement}
+          {title}
+        </h2>
         <ul>{submenu.map(_renderNode)}</ul>
       </li>
     );
@@ -41,7 +52,10 @@ export default function MenuNode({
     return (
       <li>
         <MenuDetails id={id}>
-          <summary>{title}</summary>
+          <summary>
+            {_iconElement}
+            {title}
+          </summary>
           <ul>{submenu.map(_renderNode)}</ul>
         </MenuDetails>
       </li>
@@ -51,10 +65,20 @@ export default function MenuNode({
   /** 統一渲染文字 */
   function _renderLabel() {
     if (href) {
-      return <MenuLink href={href}>{title}</MenuLink>;
+      return (
+        <MenuLink href={href}>
+          {_iconElement}
+          {title}
+        </MenuLink>
+      );
     }
 
-    return <a>{title}</a>;
+    return (
+      <a>
+        {_iconElement}
+        {title}
+      </a>
+    );
   }
 
   // 一般有子菜單的父層（可點擊）
