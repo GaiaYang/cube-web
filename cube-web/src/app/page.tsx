@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { MoveRightIcon } from "lucide-react";
+import { InfoIcon, MoveRightIcon } from "lucide-react";
 
 import cn from "@/utils/cn";
 
@@ -16,26 +16,28 @@ export default function Home() {
           "px-6 lg:px-8",
         )}
       >
-        <h2 className="text-primary mb-2 text-base/7 font-semibold">
-          專為速解玩家設計的魔術方塊教學與資源
-        </h2>
-        <h1
-          className={cn(
-            "text-5xl sm:text-7xl",
-            "text-base-content",
-            "font-semibold tracking-tight text-balance",
-          )}
-        >
-          虛空魔方
-        </h1>
-        <p
-          className={cn(
-            "text-lg sm:text-xl/8",
-            "text-base-content/70 mt-8 font-medium text-pretty",
-          )}
-        >
-          分享作者邁向速解進階的教學與心法，提供系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。
-        </p>
+        <div>
+          <h2 className="text-primary mb-2 text-base/7 font-semibold">
+            專為速解玩家設計的魔術方塊教學與資源
+          </h2>
+          <h1
+            className={cn(
+              "text-5xl sm:text-7xl",
+              "text-base-content",
+              "font-semibold tracking-tight text-balance",
+            )}
+          >
+            虛空魔方
+          </h1>
+          <p
+            className={cn(
+              "text-lg sm:text-xl/8",
+              "text-base-content/70 mt-8 font-medium text-pretty",
+            )}
+          >
+            分享作者邁向速解進階的教學與心法，提供系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。
+          </p>
+        </div>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link
             href="/tutorial/333/cfop"
@@ -47,6 +49,13 @@ export default function Home() {
           <Link href="/algs/333" className="btn md:btn-lg rounded-full">
             公式查詢
           </Link>
+        </div>
+        <div
+          role="alert"
+          className="alert alert-info alert-dash mt-10 self-center text-sm"
+        >
+          <InfoIcon />
+          <span>因作者健康因素，此網站極度緩慢且不定時更新，請見諒。</span>
         </div>
       </main>
     </BasicLayout>

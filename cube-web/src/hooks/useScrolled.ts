@@ -16,7 +16,7 @@ export default function useScrolled(
 
     if (typeof target === "function") {
       element = target() ?? null;
-    } else if (target && "current" in target && target.current) {
+    } else if (target?.current) {
       element = target.current;
     } else {
       element = window;
@@ -34,7 +34,9 @@ export default function useScrolled(
     onScroll(); // 初始判斷一次
     element.addEventListener("scroll", onScroll, { passive: true });
 
-    return () => element.removeEventListener("scroll", onScroll);
+    return () => {
+      element.removeEventListener("scroll", onScroll);
+    };
   }, [threshold, target]); // target 是函式，每次 render 都會呼叫最新 target
 
   return scrolled;

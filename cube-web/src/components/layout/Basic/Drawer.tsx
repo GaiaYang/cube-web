@@ -53,7 +53,7 @@ export default function Drawer({
           <nav aria-label="主選單導覽" className="mt-4">
             <DrawerMenu />
           </nav>
-          <div className="bg-base-100 pointer-events-none sticky bottom-0 flex h-40 [mask-image:linear-gradient(transparent,#000000)]" />
+          <div className="bg-base-100 pointer-events-none sticky bottom-0 flex h-40 mask-[linear-gradient(transparent,#000000)]" />
         </aside>
       </div>
     </div>
