@@ -1,5 +1,6 @@
+import clsx from "clsx";
+
 import type { CubeFaceColor } from "@/types/cube/color";
-import cn from "@/utils/cn";
 
 /** 填滿顏色 */
 export const fillColors: Record<CubeFaceColor, string> = {
@@ -72,7 +73,7 @@ export function getCubeColor(
   types: CubeColorType[],
 ) {
   const _types = Array.from(new Set(types));
-  const result = [];
+  const result: string[] = [];
   for (const type of _types) {
     switch (type) {
       case "bg":
@@ -91,5 +92,5 @@ export function getCubeColor(
         break;
     }
   }
-  return cn(result);
+  return clsx(result);
 }
