@@ -1,10 +1,6 @@
 import type { WideMove, MirrorMap, RotateMap, MoveToken } from "../types";
-import {
-  createCubeProfile,
-  createRegex,
-  parseMoveByRegex,
-  ensureValidTurnCount,
-} from "../core";
+import { createCubeProfile } from "../core";
+import { createRegex, parseMoveByRegex, ensureValidTurnCount } from "../tools";
 import { basicMoves } from "../constants";
 import earlyMap from "@/utils/earlyMap";
 

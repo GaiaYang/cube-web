@@ -4,7 +4,7 @@ import {
   moveTokenToString,
   createRegex,
   ensureValidTurnCount,
-} from "./core";
+} from "./tools";
 import {
   cubeProfile as cubeProfile333,
   upperAlgorithm,
