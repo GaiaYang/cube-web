@@ -20,7 +20,7 @@ export default function ThemeToggle() {
     return (
       <label
         key={id}
-        className={cn("btn has-checked:btn-primary", {
+        className={cn("btn has-checked:btn-primary join-item", {
           "btn-disabled": isDisabled,
         })}
       >
@@ -46,7 +46,7 @@ export default function ThemeToggle() {
         <h2 className="card-title">基本設定</h2>
         <fieldset className="fieldset">
           <legend className="fieldset-legend">網站主題色</legend>
-          <div className="flex flex-wrap gap-2">
+          <div className="join join-vertical sm:join-horizontal">
             {options.map(_renderButton)}
           </div>
         </fieldset>
