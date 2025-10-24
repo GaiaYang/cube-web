@@ -104,16 +104,14 @@ function ColorRadios({
   isDisabled?: boolean;
 }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-3">
       {radios.map((item) => {
         const checked = getChecked?.(item);
 
         return (
           <label
             key={item.id}
-            className={cn("btn has-checked:btn-primary", {
-              "btn-disabled": isDisabled,
-            })}
+            className="relative flex items-center justify-center"
           >
             <input
               type="radio"
@@ -127,12 +125,15 @@ function ColorRadios({
             />
             <div
               className={cn(
-                "size-6 rounded border",
-                checked ? "border-primary-content" : "border-base-content",
+                "size-8 cursor-pointer rounded-full",
+                { "outline-primary outline-2 outline-offset-2": checked },
+                {
+                  "border border-neutral-500/50":
+                    item.value === CubeFaceColors.WHITE,
+                },
                 getBgColor(item.value),
               )}
             />
-            {item.label}
           </label>
         );
       })}
