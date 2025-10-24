@@ -1,43 +1,47 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useEffectEvent } from "react";
 
-/**
- * 判斷滾動是否超過閾值
- * @param threshold 閾值 px
- * @param target 可選，延遲取得 DOM 的函式，預設為 `window`
- */
 export default function useScrolled(
   threshold: number = 0,
   target?: (() => HTMLElement | null) | React.RefObject<HTMLElement>,
 ) {
   const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    let element: HTMLElement | Window | null = null;
-
-    if (typeof target === "function") {
-      element = target() ?? null;
-    } else if (target?.current) {
-      element = target.current;
-    } else {
-      element = window;
-    }
+  // 最新 handler
+  const handleScroll = useEffectEvent(() => {
+    const element = resolveTarget(target);
 
     if (!element) return;
 
-    const onScroll = () => {
-      setScrolled(
-        (element instanceof Window ? element.scrollY : element.scrollTop) >
-          threshold,
-      );
-    };
+    const value =
+      element instanceof Window ? element.scrollY : element.scrollTop;
 
-    onScroll(); // 初始判斷一次
-    element.addEventListener("scroll", onScroll, { passive: true });
+    setScrolled(value > threshold);
+  });
+
+  useEffect(() => {
+    const element = resolveTarget(target);
+
+    if (!element) return;
+
+    handleScroll(); // 初始判斷一次
+    element.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      element.removeEventListener("scroll", onScroll);
+      element.removeEventListener("scroll", handleScroll);
     };
-  }, [threshold, target]); // target 是函式，每次 render 都會呼叫最新 target
+  }, [target]);
 
   return scrolled;
+}
+
+function resolveTarget(
+  target?: (() => HTMLElement | null) | React.RefObject<HTMLElement>,
+): HTMLElement | Window | null {
+  if (typeof target === "function") {
+    return target() ?? null;
+  } else if (target?.current) {
+    return target.current;
+  } else {
+    return window;
+  }
 }
