@@ -1,5 +1,4 @@
 import Link, { type LinkProps } from "next/link";
-import React from "react";
 
 import cn from "@/utils/cn";
 

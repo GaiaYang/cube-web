@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 

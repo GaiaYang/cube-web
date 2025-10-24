@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { PLLDefinition } from "@/types/cube/333";
 import { labels } from "@/options/cube/333/pllCategory";
 

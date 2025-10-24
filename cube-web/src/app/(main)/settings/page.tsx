@@ -1,5 +1,4 @@
 import { type Metadata } from "next";
-import React from "react";
 
 import ThemeToggle from "./components/ThemeToggle";
 import SwitchCubeFaceColor from "./components/SwitchCubeFaceColor";

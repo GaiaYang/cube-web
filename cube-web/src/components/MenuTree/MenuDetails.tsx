@@ -1,7 +1,6 @@
 "use client";
-
 import { atom, useAtomValue } from "jotai";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { openIdsAtom, pathnameAtom } from "./jotai";
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { ListProps } from "@/types/list";
 import cn from "@/utils/cn";
 import getItemKey from "@/utils/list/getItemKey";

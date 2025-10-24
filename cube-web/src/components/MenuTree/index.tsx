@@ -1,4 +1,3 @@
-import React from "react";
 import { Provider } from "jotai";
 
 import type { MenuOption } from "@/types/menu";

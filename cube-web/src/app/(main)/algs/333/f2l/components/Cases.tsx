@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
 import stringToEnum from "@/utils/stringToEnum";

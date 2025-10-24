@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useEffectEvent, useRef } from "react";
+import { useEffect, useEffectEvent, useRef } from "react";
 
 import { drawerToggleId, drawerMenuId } from "./config";
 

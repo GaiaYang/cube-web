@@ -1,6 +1,4 @@
-"use client";
-
-import React from "react";
+"use client";;
 import { RotateCcwIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 

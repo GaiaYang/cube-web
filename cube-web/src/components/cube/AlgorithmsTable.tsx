@@ -1,5 +1,3 @@
-import React from "react";
-
 import AlgorithmDisplay from "./AlgorithmDisplay";
 import NewTabLink from "@/components/NewTabLink";
 

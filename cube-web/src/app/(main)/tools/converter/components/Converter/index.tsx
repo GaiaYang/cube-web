@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { Provider, useAtomValue } from "jotai";
 import dynamic from "next/dynamic";
 import { Activity } from "react";

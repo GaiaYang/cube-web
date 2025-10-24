@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { CommonDefinition } from "@/types/cube/common";
 
 import cn from "@/utils/cn";

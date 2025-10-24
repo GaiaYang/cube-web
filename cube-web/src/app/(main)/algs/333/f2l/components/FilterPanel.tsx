@@ -1,5 +1,3 @@
-import React from "react";
-
 import { options as f2lOptions } from "@/options/cube/333/f2lCategory";
 import { F2LCategory } from "@/enums/cube/333";
 

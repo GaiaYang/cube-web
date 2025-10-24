@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { F2LDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 

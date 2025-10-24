@@ -1,4 +1,3 @@
-import React from "react";
 import { MenuIcon } from "lucide-react";
 
 import type { CommonProps } from "./types";

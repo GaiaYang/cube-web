@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { F2LDefinition } from "@/types/cube/333";
 import { labels } from "@/options/cube/333/f2lCategory";
 

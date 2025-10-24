@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { MenuOption } from "@/types/menu";
 import type { MenuIconProps } from "./types";
 

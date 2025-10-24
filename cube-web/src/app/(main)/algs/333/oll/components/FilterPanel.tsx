@@ -1,5 +1,3 @@
-import React from "react";
-
 import { options as ollOptions } from "@/options/cube/333/ollCategory";
 import { OLLCategory } from "@/enums/cube/333";
 

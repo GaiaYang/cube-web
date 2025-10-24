@@ -1,5 +1,3 @@
-import React from "react";
-
 import { options as pllOptions } from "@/options/cube/333/pllCategory";
 import { PLLCategory } from "@/enums/cube/333";
 

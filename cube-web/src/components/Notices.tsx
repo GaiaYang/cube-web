@@ -1,4 +1,3 @@
-import React from "react";
 import { ConstructionIcon, InfoIcon, PickaxeIcon } from "lucide-react";
 
 export interface NoticesProps {

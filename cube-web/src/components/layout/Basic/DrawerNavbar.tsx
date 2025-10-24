@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { drawerSideId } from "./config";
 
 import cn from "@/utils/cn";

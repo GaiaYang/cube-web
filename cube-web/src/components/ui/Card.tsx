@@ -1,5 +1,5 @@
 import cn from "@/utils/cn";
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 
 export interface CardProps
   extends React.DetailedHTMLProps<

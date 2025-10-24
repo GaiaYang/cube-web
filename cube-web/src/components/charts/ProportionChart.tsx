@@ -1,6 +1,4 @@
-"use client";
-
-import React from "react";
+"use client";;
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
 import { useTheme } from "next-themes";
 

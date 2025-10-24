@@ -1,4 +1,5 @@
-import React, { createElement, useMemo } from "react";
+import { createElement, useMemo } from "react";
+
 import { LucideProps, MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
 
 import type { Theme } from "@/types/theme";

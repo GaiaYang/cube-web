@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { CommonProps } from "./types";
 
 import Navbar from "./Navbar";

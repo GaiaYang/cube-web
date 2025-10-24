@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useTheme } from "next-themes";
 
 import cn from "@/utils/cn";
