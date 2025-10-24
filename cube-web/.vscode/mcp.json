@@ -1,5 +1,9 @@
 {
   "servers": {
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
     "daisyUI": {
       "type": "sse",
       "url": "https://gitmcp.io/saadeghi/daisyui"
