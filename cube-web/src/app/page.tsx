@@ -13,6 +13,7 @@ export default function Home() {
           "flex flex-1 flex-col justify-center",
           "mx-auto min-h-[calc(100dvh-4rem)] max-w-2xl text-center",
           "px-6 lg:px-8",
+          "py-8",
         )}
       >
         <div>
