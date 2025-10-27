@@ -9,65 +9,99 @@ export interface AlgorithmTableRow<TPattern, TCaseId extends string> {
 }
 
 interface AlgorithmsTableProps<TPattern, TCaseId extends string> {
-  cases: AlgorithmTableRow<TPattern, TCaseId>[];
+  rows: AlgorithmTableRow<TPattern, TCaseId>[];
   renderPattern?: (
     params: AlgorithmTableRow<TPattern, TCaseId>,
   ) => React.ReactNode;
-  getOriginalAlgorithmUrl?: (
-    params: AlgorithmTableRow<TPattern, TCaseId>,
-  ) => string;
+  getOriginalUrl?: (params: AlgorithmTableRow<TPattern, TCaseId>) => string;
 }
 
 /** 公式表格 */
 export default function AlgorithmsTable<TPattern, TCaseId extends string>({
-  cases,
+  rows,
   renderPattern,
-  getOriginalAlgorithmUrl,
+  getOriginalUrl,
 }: AlgorithmsTableProps<TPattern, TCaseId>) {
-  function _renderItem(
-    item: AlgorithmTableRow<TPattern, TCaseId>,
-    index: number,
-  ) {
-    const href = getOriginalAlgorithmUrl?.(item);
-
-    return (
-      <tr key={index}>
-        <td>{renderPattern?.(item)}</td>
-        <td className="w-full">
-          <div className="not-prose mb-4 flex flex-col items-start gap-2">
-            {Array.isArray(item.algorithms)
-              ? item.algorithms.map(_renderAlgorithm)
-              : _renderAlgorithm(item.algorithms)}
-          </div>
-          {item.description}
-        </td>
-        <td className="text-nowrap">
-          {href ? (
-            <NewTabLink href={href}>原始公式</NewTabLink>
-          ) : (
-            <span>無</span>
-          )}
-        </td>
-      </tr>
-    );
-  }
-
   return (
-    <div className="not-prose overflow-x-auto">
-      <table className="table min-w-(--container-2xl)">
-        <thead>
-          <tr>
-            <th className="text-center">情況</th>
-            <th>公式</th>
-            <th className="text-center">原始案例</th>
-          </tr>
-        </thead>
-        <tbody>{cases.map(_renderItem)}</tbody>
-      </table>
-    </div>
+    <TableContainer>
+      <Table>
+        <TableHead />
+        <TableBody>
+          {rows.map((item, index) => (
+            <TableRow
+              key={index}
+              renderPattern={renderPattern?.(item)}
+              renderContent={
+                <>
+                  <div className="mb-4 flex flex-col items-start gap-2">
+                    {(Array.isArray(item.algorithms)
+                      ? item.algorithms
+                      : [item.algorithms]
+                    ).map(_renderAlgorithm)}
+                  </div>
+                  {item.description}
+                </>
+              }
+              href={getOriginalUrl?.(item)}
+            />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 
 function _renderAlgorithm(item: string) {
   return <AlgorithmDisplay algorithm={item} key={item} />;
+}
+
+export function TableContainer({ children }: React.PropsWithChildren) {
+  return <div className="not-prose overflow-x-auto">{children}</div>;
+}
+
+export function Table({ children }: React.PropsWithChildren) {
+  return <table className="table min-w-2xl">{children}</table>;
+}
+
+export function TableBody(
+  props: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLTableSectionElement>,
+    HTMLTableSectionElement
+  >,
+) {
+  return <tbody {...props} />;
+}
+
+export function TableHead() {
+  return (
+    <thead>
+      <tr>
+        <th className="text-center">情況</th>
+        <th className="w-full">公式</th>
+        <th className="text-center">原始案例</th>
+      </tr>
+    </thead>
+  );
+}
+
+export interface TableRowProps {
+  href?: string;
+  renderPattern?: React.ReactNode;
+  renderContent?: React.ReactNode;
+}
+
+export function TableRow({
+  href,
+  renderPattern,
+  renderContent,
+}: TableRowProps) {
+  return (
+    <tr>
+      <td>{renderPattern}</td>
+      <td>{renderContent}</td>
+      <td className="text-nowrap">
+        {href ? <NewTabLink href={href}>原始公式</NewTabLink> : <span>無</span>}
+      </td>
+    </tr>
+  );
 }

@@ -23,17 +23,15 @@ export default function AlgorithmPanel({
           <p>{id}</p>
           <p>{name}</p>
           <AlgorithmDisplay algorithm={setupAlgorithm} />
-          <ul>{algorithms.map(_renderAlgorithm)}</ul>
+          <ul>
+            {algorithms.map((item, index) => (
+              <li key={index}>
+                <AlgorithmDisplay algorithm={item} />
+              </li>
+            ))}
+          </ul>
         </>
       )}
     </div>
-  );
-}
-
-function _renderAlgorithm(algorithm: string, index: number) {
-  return (
-    <li key={index}>
-      <AlgorithmDisplay algorithm={algorithm} />
-    </li>
   );
 }

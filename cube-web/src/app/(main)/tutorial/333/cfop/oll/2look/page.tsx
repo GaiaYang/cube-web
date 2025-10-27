@@ -83,9 +83,9 @@ export default function Page() {
         這裡的判斷不需要管角塊，我們只需要專注在四個邊塊就好，目標是做出十字。
       </p>
       <AlgorithmsTable
-        cases={data.step1}
+        rows={data.step1}
         renderPattern={renderPattern}
-        getOriginalAlgorithmUrl={getOriginalAlgorithmUrl}
+        getOriginalUrl={getOriginalUrl}
       />
       <h3>錯誤情況</h3>
       <div className="flex gap-4">
@@ -106,9 +106,9 @@ export default function Page() {
       </p>
       <blockquote>{`請選擇順手或者習慣的公式，這裡直接照公式表列出前${collFirstCount}項。`}</blockquote>
       <AlgorithmsTable
-        cases={data.step2}
+        rows={data.step2}
         renderPattern={renderPattern}
-        getOriginalAlgorithmUrl={getOriginalAlgorithmUrl}
+        getOriginalUrl={getOriginalUrl}
       />
       <h3>錯誤情況</h3>
       <p>十字必定是上面的情況，如果沒有出現以上案例表示方塊裝錯。</p>
@@ -165,6 +165,6 @@ function renderPattern(item: TableRow) {
   return <OrientationLastLayer pattern={item.pattern} size={patternSize} />;
 }
 
-function getOriginalAlgorithmUrl(item: TableRow) {
+function getOriginalUrl(item: TableRow) {
   return `/algs/333/oll/${item.caseId}`;
 }
