@@ -12,10 +12,17 @@ import OrientationLastLayer, {
 } from "@/components/cube/333/diagram/OrientationLastLayer";
 
 import AlgorithmsTable, {
-  AlgorithmTableRow,
+  type AlgorithmTableRow,
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
 } from "@/components/cube/AlgorithmsTable";
 import Notices from "@/components/Notices";
 import ProportionChart from "@/components/charts/ProportionChart";
+import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
+import AlgorithmSplitDisplay from "@/components/cube/AlgorithmSplitDisplay";
 
 export const metadata: Metadata = {
   title: "兩段式 OLL",
@@ -82,11 +89,66 @@ export default function Page() {
       <p>
         這裡的判斷不需要管角塊，我們只需要專注在四個邊塊就好，目標是做出十字。
       </p>
-      <AlgorithmsTable
-        rows={data.step1}
-        renderPattern={renderPattern}
-        getOriginalUrl={getOriginalUrl}
-      />
+      <div className="flex items-center">
+        <p>這裡需要了解一個小公式：</p>
+        <AlgorithmDisplay algorithm="R U R' U'" />
+      </div>
+      <p>這是一個小型的手順公式，接下來三種情境都會用到所以提出來方便記憶</p>
+      <TableContainer>
+        <Table>
+          <TableHead />
+          <TableBody>
+            <TableRow
+              href={getCaseIdUrl("45")}
+              renderPattern={
+                <OrientationLastLayer
+                  pattern={["CL", "CC", "CR"]}
+                  size={patternSize}
+                />
+              }
+              renderContent={
+                <>
+                  <AlgorithmSplitDisplay algorithm={["F", "R U R' U'", "F'"]} />
+                  先做 F 後做手順公式在做 F&apos;。
+                </>
+              }
+            />
+            <TableRow
+              href={getCaseIdUrl("44")}
+              renderPattern={
+                <OrientationLastLayer
+                  pattern={["CC", "CR", "BC"]}
+                  size={patternSize}
+                />
+              }
+              renderContent={
+                <>
+                  <AlgorithmSplitDisplay algorithm={["f", "R U R' U'", "f'"]} />
+                  同上情況，但是改為轉動兩層。
+                </>
+              }
+            />
+            <TableRow
+              href={getCaseIdUrl("2")}
+              renderPattern={
+                <OrientationLastLayer pattern={["CC"]} size={patternSize} />
+              }
+              renderContent={
+                <>
+                  <AlgorithmSplitDisplay
+                    algorithm={["F", "R U R' U'", "F'", "f", "R U R' U'", "f'"]}
+                    groups={[
+                      [0, 2],
+                      [3, 5],
+                    ]}
+                  />
+                  以上兩個情況照順序執行，先做橫線再做直角。
+                </>
+              }
+            />
+          </TableBody>
+        </Table>
+      </TableContainer>
       <h3>錯誤情況</h3>
       <div className="flex gap-4">
         <OrientationLastLayer pattern={["CC", "BC"]} size={patternSize} />
@@ -106,7 +168,7 @@ export default function Page() {
       </p>
       <blockquote>{`請選擇順手或者習慣的公式，這裡直接照公式表列出前${collFirstCount}項。`}</blockquote>
       <AlgorithmsTable
-        rows={data.step2}
+        rows={step2Alg}
         renderPattern={renderPattern}
         getOriginalUrl={getOriginalUrl}
       />
@@ -126,45 +188,27 @@ export default function Page() {
   );
 }
 
-const data: Record<"step1" | "step2", TableRow[]> = {
-  step1: [
-    {
-      pattern: ["CL", "CC", "CR"],
-      algorithms: "F R U R' U' F'",
-      caseId: "45",
-      description: "F 後做手順公式在做 F'",
-    },
-    {
-      pattern: ["CC", "CR", "BC"],
-      algorithms: "f R U R' U' f'",
-      caseId: "44",
-      description: "從上面一層改為轉動兩層。",
-    },
-    {
-      pattern: ["CC"],
-      algorithms: "F R U R' U' F' f R U R' U' f'",
-      description: "這裡可以看成以上兩個情況照順序執行。",
-      caseId: "2",
-    },
-  ],
-  step2: definitions
-    .filter((item) => item.category === OLLCategory.OCLL)
-    .map((item) => ({
-      pattern: item.pattern,
-      algorithms: item.algorithms.slice(0, collFirstCount),
-      caseId: item.id,
-    })),
-};
+const step2Alg = definitions
+  .filter((item) => item.category === OLLCategory.OCLL)
+  .map((item) => ({
+    pattern: item.pattern,
+    algorithms: item.algorithms.slice(0, collFirstCount),
+    caseId: item.id,
+  }));
 
-type TableRow = AlgorithmTableRow<
+type TwoLookTableRow = AlgorithmTableRow<
   OrientationLastLayerProps["pattern"],
   OLLCaseId
 >;
 
-function renderPattern(item: TableRow) {
+function renderPattern(item: TwoLookTableRow) {
   return <OrientationLastLayer pattern={item.pattern} size={patternSize} />;
 }
 
-function getOriginalUrl(item: TableRow) {
+function getOriginalUrl(item: TwoLookTableRow) {
   return `/algs/333/oll/${item.caseId}`;
+}
+
+function getCaseIdUrl(item: OLLCaseId) {
+  return `/algs/333/oll/${item}`;
 }
