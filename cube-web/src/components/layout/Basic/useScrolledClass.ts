@@ -1,11 +1,9 @@
 import cn from "@/utils/cn";
 
 import { SCROLL_THRESHOLD } from "./config";
-import useScrolled from "@/hooks/useScrolled";
+import useScrolled, { type UseScrolledTarget } from "@/hooks/useScrolled";
 
-export default function useScrolledClass(
-  getElement?: () => HTMLElement | null,
-) {
+export default function useScrolledClass(getElement?: UseScrolledTarget) {
   const scrolled = useScrolled(SCROLL_THRESHOLD, getElement);
 
   return cn(
