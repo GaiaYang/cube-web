@@ -1,12 +1,8 @@
 "use client";
-import { atom, useAtomValue } from "jotai";
-import {
-  useCallback,
-  useEffect,
-  useEffectEvent,
-  useMemo,
-  useState,
-} from "react";
+
+import { useCallback, useMemo, useState } from "react";
+import { atom, useAtom, useAtomValue } from "jotai";
+import { atomEffect } from "jotai-effect";
 
 import { openIdsAtom, pathnameAtom } from "./jotai";
 
@@ -20,16 +16,18 @@ export default function MenuDetails({ id, ...props }: MenuDetailsProps) {
       [id],
     ),
   );
-  const pathname = useAtomValue(pathnameAtom);
-
-  const resetOpen = useEffectEvent(() => {
-    setOpen(null);
-  });
 
   // 換頁時重設獨立開關
-  useEffect(() => {
-    resetOpen();
-  }, [pathname]);
+  useAtom(
+    useMemo(
+      () =>
+        atomEffect((get) => {
+          get(pathnameAtom);
+          setOpen(null);
+        }),
+      [],
+    ),
+  );
 
   // 手動操作時獨立開關
   const onToggle = useCallback<React.ToggleEventHandler<HTMLDetailsElement>>(
