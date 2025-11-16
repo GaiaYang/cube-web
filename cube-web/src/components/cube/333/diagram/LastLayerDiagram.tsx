@@ -22,9 +22,7 @@ export default memo(function LastLayerDiagram({
   colorMap,
   ...props
 }: LastLayerDiagramProps) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-  });
+  const { ref, inView } = useInView();
 
   function _renderItem(item: RectItem) {
     return (

@@ -22,9 +22,7 @@ export default memo(function CubeDiagram({
   colorMap,
   ...props
 }: CubeDiagramProps) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-  });
+  const { ref, inView } = useInView();
 
   function _renderPath(item: PathItem) {
     return (

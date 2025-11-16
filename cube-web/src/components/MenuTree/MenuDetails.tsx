@@ -1,6 +1,12 @@
 "use client";
 import { atom, useAtomValue } from "jotai";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useState,
+} from "react";
 
 import { openIdsAtom, pathnameAtom } from "./jotai";
 
@@ -16,9 +22,13 @@ export default function MenuDetails({ id, ...props }: MenuDetailsProps) {
   );
   const pathname = useAtomValue(pathnameAtom);
 
+  const resetOpen = useEffectEvent(() => {
+    setOpen(null);
+  });
+
   // 換頁時重設獨立開關
   useEffect(() => {
-    setOpen(null);
+    resetOpen();
   }, [pathname]);
 
   // 手動操作時獨立開關

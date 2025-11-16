@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 
 /**
  * 判斷載入情況
@@ -8,8 +8,12 @@ import { useEffect, useState } from "react";
 export default function useMounted(): boolean {
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
+  const onMount = useEffectEvent(() => {
     setMounted(true);
+  });
+
+  useEffect(() => {
+    onMount();
   }, []);
 
   return mounted;
