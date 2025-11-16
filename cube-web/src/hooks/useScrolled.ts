@@ -1,4 +1,4 @@
-import { useEffect, useState, useEffectEvent } from "react";
+import { useEffect, useState } from "react";
 
 export type UseScrolledTarget =
   | (() => HTMLElement | null)
@@ -24,20 +24,15 @@ export default function useScrolled(
 ): boolean {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // 最新版的滾動處理函式
-  const updateScrollState = useEffectEvent(() => {
-    const element = getScrollTarget(target);
-    if (!element) return;
-
-    const scrollTop =
-      element instanceof Window ? element.scrollY : element.scrollTop;
-
-    setIsScrolled(scrollTop > threshold);
-  });
-
   useEffect(() => {
     const element = getScrollTarget(target);
     if (!element) return;
+    const updateScrollState = () => {
+      const scrollTop =
+        element instanceof Window ? element.scrollY : element.scrollTop;
+
+      setIsScrolled(scrollTop > threshold);
+    };
 
     updateScrollState(); // 初始化先判斷一次
 
@@ -45,7 +40,7 @@ export default function useScrolled(
     return () => {
       element.removeEventListener("scroll", updateScrollState);
     };
-  }, [target]);
+  }, [target, threshold]);
 
   return isScrolled;
 }
