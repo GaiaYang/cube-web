@@ -10,7 +10,7 @@ import { isNil } from "es-toolkit";
  * @param validator 對轉換後的元素進行驗證的函式
  * @returns 包含所有成功轉換元素的新陣列或者空陣列
  */
-export default function earlyMap<T, U>(
+export default function safeMap<T, U>(
   array: T[],
   callbackfn: (item: T, index: number, array: T[]) => U | null | undefined,
   validator?: (item: U) => unknown,

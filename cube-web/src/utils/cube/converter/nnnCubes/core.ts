@@ -8,7 +8,8 @@ import {
   normalizeOfficialMove,
   moveTokenToString,
 } from "./tools";
-import earlyMap from "@/utils/earlyMap";
+
+import safeMap from "@/utils/safeMap";
 
 /** 官方標準符號正則表達式 */
 const REGEX = createRegex();
@@ -59,7 +60,7 @@ export function createCubeProfile(parser?: CubeProfile) {
     reverse = false,
   ) {
     return (moves: MoveToken[]): MoveToken[] => {
-      const output = earlyMap(moves, (move) => {
+      const output = safeMap(moves, (move) => {
         const prased = normalizeOfficialMove(move, cubeLayers);
         if (prased) {
           return main(prased);
@@ -85,7 +86,7 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
-      return earlyMap(input.trim().split(SEPARATE), parseMove);
+      return safeMap(input.trim().split(SEPARATE), parseMove);
     },
     /**
      * 將 `MoveToken[]` 或 `string[]` 組合回標準化字串公式
@@ -95,7 +96,7 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      const output = earlyMap<MoveToken | string, string>(input, (item) =>
+      const output = safeMap<MoveToken | string, string>(input, (item) =>
         typeof item === "string" ? formatMove(item) : formatMoveToken(item),
       );
       return output.join(SEPARATE);

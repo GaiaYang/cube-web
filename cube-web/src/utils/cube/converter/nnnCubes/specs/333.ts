@@ -2,7 +2,8 @@ import type { WideMove, MirrorMap, RotateMap, MoveToken } from "../types";
 import { createCubeProfile } from "../core";
 import { createRegex, parseMoveByRegex, ensureValidTurnCount } from "../tools";
 import { basicMoves } from "../constants";
-import earlyMap from "@/utils/earlyMap";
+
+import safeMap from "@/utils/safeMap";
 
 /** 非官方「多層轉動」別名 */
 export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";
@@ -109,7 +110,7 @@ function extendsMapAlgorithmList(
   list: MoveToken[],
   fn: (p: MoveToken) => MoveToken | null,
 ): MoveToken[] {
-  return earlyMap(list, fn, (item) =>
+  return safeMap(list, fn, (item) =>
     Boolean(item && allMoves.includes(item.code as ExtendsMoves)),
   );
 }
