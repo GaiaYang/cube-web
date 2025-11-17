@@ -26,9 +26,7 @@ export function createCubeProfile(parser?: CubeProfile) {
    * */
   function parseMove(moveStr?: string | null): MoveToken | null {
     const match = parseMoveByRegex(REGEX, moveStr);
-    if (match) {
-      return normalizeOfficialMove(match, cubeLayers);
-    }
+    if (match) return normalizeOfficialMove(match, cubeLayers);
     return parser?.parseMove?.(moveStr) ?? null;
   }
 
@@ -40,7 +38,7 @@ export function createCubeProfile(parser?: CubeProfile) {
    * */
   function formatMoveToken(token?: MoveToken | null): string {
     const str = moveTokenToString(token);
-    return parseMove(str) ? str : "";
+    return str && parseMove(str) ? str : "";
   }
 
   /**
@@ -50,7 +48,8 @@ export function createCubeProfile(parser?: CubeProfile) {
    * @returns 回傳標準化字串，有不合法代號則空字串
    * */
   function formatMove(moveStr?: string | null): string {
-    return moveTokenToString(parseMove(moveStr)) || "";
+    const parsed = parseMove(moveStr);
+    return parsed ? moveTokenToString(parsed) : "";
   }
 
   /** 高階函式：生成公式映射轉換器 */
@@ -61,11 +60,8 @@ export function createCubeProfile(parser?: CubeProfile) {
   ) {
     return (moves: MoveToken[]): MoveToken[] => {
       const output = notNilMap(moves, (move) => {
-        const prased = normalizeOfficialMove(move, cubeLayers);
-        if (prased) {
-          return main(prased);
-        }
-        return fallback?.(move) ?? null;
+        const parsed = normalizeOfficialMove(move, cubeLayers);
+        return parsed ? main(parsed) : (fallback?.(move) ?? null);
       });
       return reverse ? output.reverse() : output;
     };
@@ -94,9 +90,11 @@ export function createCubeProfile(parser?: CubeProfile) {
      * @param input `MoveToken[]` 或 `string[]`
      * @returns 回傳標準化字串，有不合法代號則空字串
      * */
-    formatAlgorithm(input?: MoveToken[] | string[] | null): string {
+    formatAlgorithm(
+      input?: readonly MoveToken[] | readonly string[] | null,
+    ): string {
       if (!Array.isArray(input)) return "";
-      const output = notNilMap<MoveToken | string, string>(input, (item) =>
+      const output = notNilMap(input, (item) =>
         typeof item === "string" ? formatMove(item) : formatMoveToken(item),
       );
       return output.join(SEPARATE);

@@ -65,14 +65,12 @@ export function normalizeOfficialMove(
 ): MoveToken | null {
   if (!isPlainObject(token)) return null;
   const { sliceCount = 1, code, turnCount = 1, isPrime = false } = token;
-  if (!basicMoves.includes(code as BasicMove)) {
-    return null;
-  }
+  if (!basicMoves.includes(code as BasicMove)) return null;
   // 只有四階以上才能使用 sliceCount
-  if (typeof cubeLayers === "number" && cubeLayers <= 3 && sliceCount >= 2) {
-    return null;
+  if (sliceCount > 1) {
+    if (cubeLayers && cubeLayers <= 3) return null;
+    if (!wideMoves.includes(code as WideMove)) return null;
   }
-  if (!wideMoves.includes(code as WideMove) && sliceCount > 1) return null;
 
   const _turnCount = ensureValidTurnCount(turnCount);
   if (_turnCount === null) return null;
