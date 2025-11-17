@@ -3,7 +3,7 @@ import { createCubeProfile } from "../core";
 import { createRegex, parseMoveByRegex, ensureValidTurnCount } from "../tools";
 import { basicMoves } from "../constants";
 
-import safeMap from "@/utils/safeMap";
+import notNilMap from "@/utils/notNilMap";
 
 /** 非官方「多層轉動」別名 */
 export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";
@@ -105,16 +105,6 @@ function extendsMapMove(move: MoveToken, map: Record<string, string>) {
   return { ...move, code: mapped };
 }
 
-/** 擴充映射輸出列表 */
-function extendsMapAlgorithmList(
-  list: MoveToken[],
-  fn: (p: MoveToken) => MoveToken | null,
-): MoveToken[] {
-  return safeMap(list, fn, (item) =>
-    Boolean(item && allMoves.includes(item.code as ExtendsMoves)),
-  );
-}
-
 /** 三階擴充轉動正則 */
 const REGEX = createRegex(extendsMoves);
 
@@ -169,7 +159,7 @@ function upperMove(params: MoveToken): MoveToken {
 }
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]): MoveToken[] {
-  return extendsMapAlgorithmList(params, upperMove);
+  return notNilMap(params, upperMove);
 }
 /** 雙層轉換成小寫 */
 function lowerMove(params: MoveToken): MoveToken {
@@ -177,7 +167,7 @@ function lowerMove(params: MoveToken): MoveToken {
 }
 /** 雙層轉換成小寫公式 */
 export function lowerAlgorithm(params: MoveToken[]): MoveToken[] {
-  return extendsMapAlgorithmList(params, lowerMove);
+  return notNilMap(params, lowerMove);
 }
 
 const output = { ...cubeProfile, upperAlgorithm, lowerAlgorithm };

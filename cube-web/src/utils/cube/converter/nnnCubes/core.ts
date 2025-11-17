@@ -9,7 +9,7 @@ import {
   moveTokenToString,
 } from "./tools";
 
-import safeMap from "@/utils/safeMap";
+import notNilMap from "@/utils/notNilMap";
 
 /** 官方標準符號正則表達式 */
 const REGEX = createRegex();
@@ -60,7 +60,7 @@ export function createCubeProfile(parser?: CubeProfile) {
     reverse = false,
   ) {
     return (moves: MoveToken[]): MoveToken[] => {
-      const output = safeMap(moves, (move) => {
+      const output = notNilMap(moves, (move) => {
         const prased = normalizeOfficialMove(move, cubeLayers);
         if (prased) {
           return main(prased);
@@ -86,7 +86,7 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     parseAlgorithm(input?: string | null): MoveToken[] {
       if (!input) return [];
-      return safeMap(input.trim().split(SEPARATE), parseMove);
+      return notNilMap(input.trim().split(SEPARATE), parseMove);
     },
     /**
      * 將 `MoveToken[]` 或 `string[]` 組合回標準化字串公式
@@ -96,7 +96,7 @@ export function createCubeProfile(parser?: CubeProfile) {
      * */
     formatAlgorithm(input?: MoveToken[] | string[] | null): string {
       if (!Array.isArray(input)) return "";
-      const output = safeMap<MoveToken | string, string>(input, (item) =>
+      const output = notNilMap<MoveToken | string, string>(input, (item) =>
         typeof item === "string" ? formatMove(item) : formatMoveToken(item),
       );
       return output.join(SEPARATE);
