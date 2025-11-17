@@ -105,6 +105,16 @@ function extendsMapMove(move: MoveToken, map: Record<string, string>) {
   return { ...move, code: mapped };
 }
 
+/** 擴充映射輸出列表 */
+function extendsMapAlgorithmList(
+  list: MoveToken[],
+  fn: (p: MoveToken) => MoveToken | null,
+): MoveToken[] {
+  return notNilMap(list, fn, (item) =>
+    Boolean(item && allMoves.includes(item.code as ExtendsMoves)),
+  );
+}
+
 /** 三階擴充轉動正則 */
 const REGEX = createRegex(extendsMoves);
 
@@ -159,7 +169,7 @@ function upperMove(params: MoveToken): MoveToken {
 }
 /** 雙層轉換成大寫公式 */
 export function upperAlgorithm(params: MoveToken[]): MoveToken[] {
-  return notNilMap(params, upperMove);
+  return extendsMapAlgorithmList(params, upperMove);
 }
 /** 雙層轉換成小寫 */
 function lowerMove(params: MoveToken): MoveToken {
@@ -167,7 +177,7 @@ function lowerMove(params: MoveToken): MoveToken {
 }
 /** 雙層轉換成小寫公式 */
 export function lowerAlgorithm(params: MoveToken[]): MoveToken[] {
-  return notNilMap(params, lowerMove);
+  return extendsMapAlgorithmList(params, lowerMove);
 }
 
 const output = { ...cubeProfile, upperAlgorithm, lowerAlgorithm };
