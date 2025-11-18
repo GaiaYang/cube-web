@@ -28,7 +28,7 @@ export default function AlgorithmCaseCard({
 
 function _renderTitle(param: AlgorithmCaseCardProps["name"]) {
   if (param === undefined) {
-    return <div aria-hidden className="skeleton h-[18px] w-full" />;
+    return <div aria-hidden className="skeleton h-4.5 w-full" />;
   }
 
   if (param === null) {

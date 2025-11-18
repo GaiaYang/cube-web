@@ -15,34 +15,31 @@ const iconProps: Omit<MenuIconProps, keyof MenuOption> = {
 
 export default function MenuNode({ renderIcon, ...item }: MenuNodeProps) {
   const { id, title, href, submenu, collapsible, asTitle, divider } = item;
-  const _iconElement = renderIcon?.({ ...item, ...iconProps }) || null;
 
   // 分隔線
-  if (divider) {
-    return <li />;
-  }
+  if (divider) return <li />;
 
-  // menu-title（純文字）
-  if (asTitle && !submenu) {
-    return (
-      <li className="menu-title">
-        {_iconElement}
-        {title}
-      </li>
-    );
-  }
+  /** 渲染內容 */
+  const _renderContent = (
+    <>
+      {renderIcon?.({ ...item, ...iconProps }) || null}
+      {title}
+    </>
+  );
 
-  // menu-title + 子菜單
-  if (asTitle && submenu) {
-    return (
-      <li>
-        <h2 className="menu-title">
-          {_iconElement}
-          {title}
-        </h2>
-        <ul>{submenu.map(_renderNode)}</ul>
-      </li>
-    );
+  if (asTitle) {
+    if (submenu) {
+      // menu-title + 子菜單
+      return (
+        <li>
+          <h2 className="menu-title">{_renderContent}</h2>
+          <ul>{submenu.map(_renderNode)}</ul>
+        </li>
+      );
+    } else {
+      // menu-title（純文字）
+      return <li className="menu-title">{_renderContent}</li>;
+    }
   }
 
   // 可折疊父層
@@ -50,47 +47,23 @@ export default function MenuNode({ renderIcon, ...item }: MenuNodeProps) {
     return (
       <li>
         <MenuDetails id={id}>
-          <summary>
-            {_iconElement}
-            {title}
-          </summary>
+          <summary>{_renderContent}</summary>
           <ul>{submenu.map(_renderNode)}</ul>
         </MenuDetails>
       </li>
     );
   }
 
-  /** 統一渲染文字 */
-  function _renderLabel() {
-    if (href) {
-      return (
-        <MenuLink href={href}>
-          {_iconElement}
-          {title}
-        </MenuLink>
-      );
-    }
-
-    return (
-      <a>
-        {_iconElement}
-        {title}
-      </a>
-    );
-  }
-
-  // 一般有子菜單的父層（可點擊）
-  if (submenu) {
-    return (
-      <li>
-        {_renderLabel()}
-        <ul>{submenu.map(_renderNode)}</ul>
-      </li>
-    );
-  }
-
-  // 單純連結或文字
-  return <li>{_renderLabel()}</li>;
+  return (
+    <li>
+      {href ? (
+        <MenuLink href={href}>{_renderContent}</MenuLink>
+      ) : (
+        <span>{_renderContent}</span>
+      )}
+      {submenu ? <ul>{submenu.map(_renderNode)}</ul> : null}
+    </li>
+  );
 }
 
 function _renderNode(item: MenuOption) {
