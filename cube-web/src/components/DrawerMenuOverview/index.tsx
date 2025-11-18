@@ -17,11 +17,10 @@ export default function DrawerMenuOverview({
   ...props
 }: DrawerMenuOverviewProps) {
   const pathname = usePathname();
-  const options = useMemo(() => {
-    const node = findMenuNodeByHref(drawerMenu, pathname);
-
-    return node?.submenu || [];
-  }, [pathname]);
+  const options = useMemo(
+    () => findMenuNodeByHref(drawerMenu, pathname)?.submenu || [],
+    [pathname],
+  );
 
   return (
     <ul
@@ -48,7 +47,8 @@ function findMenuNodeByHref(
   href: string,
 ): MenuOption | null {
   for (const option of options) {
-    if (option.id === href) return option;
+    if (`/${option.id}` === href) return option;
+    if (option.href === href) return option;
     if (option.submenu) {
       const found = findMenuNodeByHref(option.submenu, href);
       if (found) return found;

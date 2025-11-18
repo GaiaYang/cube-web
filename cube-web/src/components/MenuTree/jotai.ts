@@ -27,9 +27,8 @@ function findMatchedPath(
 
   for (const option of options) {
     const currentPath = [...paths, option.id];
-    if (option.href === pathname) {
-      return currentPath;
-    }
+    if (`/${option.id}` === pathname) return currentPath;
+    if (option.href === pathname) return currentPath;
     if (option.submenu) {
       const foundPath = findMatchedPath(option.submenu, pathname, currentPath);
       if (foundPath.length > 0) {

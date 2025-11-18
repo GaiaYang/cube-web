@@ -11,19 +11,19 @@ export default function MenuNode({
   collapsible,
   asTitle,
 }: MenuNodeProps) {
-  // menu-title（純文字）
-  if (asTitle && !submenu) {
-    return <li className="menu-title">{title}</li>;
-  }
-
-  // menu-title + 子菜單
-  if (asTitle && submenu) {
-    return (
-      <li>
-        <h2 className="menu-title">{title}</h2>
-        <ul>{submenu.map(_renderNode)}</ul>
-      </li>
-    );
+  if (asTitle) {
+    if (submenu) {
+      // menu-title + 子菜單
+      return (
+        <li>
+          <h2 className="menu-title">{title}</h2>
+          <ul>{submenu.map(_renderNode)}</ul>
+        </li>
+      );
+    } else {
+      // menu-title（純文字）
+      return <li className="menu-title">{title}</li>;
+    }
   }
 
   // 可折疊父層
@@ -38,27 +38,12 @@ export default function MenuNode({
     );
   }
 
-  /** 統一渲染文字 */
-  function _renderLabel() {
-    if (href) {
-      return <Link href={href}>{title}</Link>;
-    }
-
-    return <a>{title}</a>;
-  }
-
-  // 一般有子菜單的父層（可點擊）
-  if (submenu) {
-    return (
-      <li>
-        {_renderLabel()}
-        <ul>{submenu.map(_renderNode)}</ul>
-      </li>
-    );
-  }
-
-  // 單純連結或文字
-  return <li>{_renderLabel()}</li>;
+  return (
+    <li>
+      {href ? <Link href={href}>{title}</Link> : <span>{title}</span>}
+      {submenu ? <ul>{submenu.map(_renderNode)}</ul> : null}
+    </li>
+  );
 }
 
 function _renderNode(item: MenuOption) {
