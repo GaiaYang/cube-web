@@ -64,7 +64,7 @@ export default function createPllColorMap(
       "S-LC",
       "S-LB",
     ]) {
-      const cubePos = pattern?.[item as CubeFaceletPosition2D];
+      const cubePos = pattern[item as CubeFaceletPosition2D];
       if (cubePos) {
         colorMap[item as CubeFaceletPosition2D] = faceColors[cubePos];
       }
