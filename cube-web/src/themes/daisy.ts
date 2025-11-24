@@ -23,7 +23,7 @@ interface Theme {
   errorContent: string;
 }
 
-// daisyUI v5 預設主題色票
+/** daisyUI v5 預設主題色票 */
 const daisyTheme: Record<"light" | "dark", Theme> = {
   light: {
     primary: colors.indigo[500],
