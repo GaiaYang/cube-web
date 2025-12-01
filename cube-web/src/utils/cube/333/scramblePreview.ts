@@ -11,8 +11,39 @@ export type ScramblePreviewID = Extract<
   "TL" | "TC" | "TR" | "CL" | "CR" | "CC" | "BL" | "BC" | "BR"
 >;
 
+const initial: ScramblePreviewResult = (() => {
+  const codes: CubeFaceCode[] = ["U", "D", "L", "R", "F", "B"];
+  const ids: ScramblePreviewID[] = [
+    "TL",
+    "TC",
+    "TR",
+    "CL",
+    "CR",
+    "CC",
+    "BL",
+    "BC",
+    "BR",
+  ];
+
+  const result = {} as ScramblePreviewResult;
+
+  for (const code of codes) {
+    const ob = {} as ScramblePreviewResult[CubeFaceCode];
+    for (const id of ids) {
+      ob[id] = code;
+    }
+    result[code] = ob;
+  }
+
+  return result;
+})();
+
 /** 打亂預覽 */
 export default function scramblePreview(moves?: string): ScramblePreviewResult {
+  if (!moves) {
+    return initial;
+  }
+
   const stack: Record<
     CubeFaceCode,
     [
@@ -53,77 +84,6 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
     ],
   };
 
-  if (!moves) {
-    return {
-      U: {
-        TL: "U",
-        TC: "U",
-        TR: "U",
-        CL: "U",
-        CC: "U",
-        CR: "U",
-        BL: "U",
-        BC: "U",
-        BR: "U",
-      },
-      D: {
-        TL: "D",
-        TC: "D",
-        TR: "D",
-        CL: "D",
-        CC: "D",
-        CR: "D",
-        BL: "D",
-        BC: "D",
-        BR: "D",
-      },
-      L: {
-        TL: "L",
-        TC: "L",
-        TR: "L",
-        CL: "L",
-        CC: "L",
-        CR: "L",
-        BL: "L",
-        BC: "L",
-        BR: "L",
-      },
-      R: {
-        TL: "R",
-        TC: "R",
-        TR: "R",
-        CL: "R",
-        CC: "R",
-        CR: "R",
-        BL: "R",
-        BC: "R",
-        BR: "R",
-      },
-      F: {
-        TL: "F",
-        TC: "F",
-        TR: "F",
-        CL: "F",
-        CC: "F",
-        CR: "F",
-        BL: "F",
-        BC: "F",
-        BR: "F",
-      },
-      B: {
-        TL: "B",
-        TC: "B",
-        TR: "B",
-        CL: "B",
-        CC: "B",
-        CR: "B",
-        BL: "B",
-        BC: "B",
-        BR: "B",
-      },
-    };
-  }
-
   const algorithm = cubeProfile.parseAlgorithm(moves);
   for (const { code, turnCount, isPrime } of algorithm) {
     for (let index = 0; index < turnCount; index++) {
@@ -140,9 +100,9 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.U[2][1],
             stack.U[2][2],
           ] = [...faceRotate(stack.U, isPrime)];
-          if (isPrime) {
-          } else {
-          }
+          [stack.B[0], stack.R[0], stack.F[0], stack.L[0]] = isPrime
+            ? [stack.R[0], stack.F[0], stack.L[0], stack.B[0]]
+            : [stack.L[0], stack.B[0], stack.R[0], stack.F[0]];
           break;
         case "D":
           [
@@ -156,9 +116,9 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.D[2][1],
             stack.D[2][2],
           ] = [...faceRotate(stack.D, isPrime)];
-          if (isPrime) {
-          } else {
-          }
+          [stack.B[2], stack.R[2], stack.F[2], stack.L[2]] = isPrime
+            ? [stack.R[2], stack.F[2], stack.L[2], stack.B[2]]
+            : [stack.L[2], stack.B[2], stack.R[2], stack.F[2]];
           break;
         case "L":
           [
@@ -172,9 +132,18 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.L[2][1],
             stack.L[2][2],
           ] = [...faceRotate(stack.L, isPrime)];
-          if (isPrime) {
-          } else {
-          }
+          [stack.U[0][0], stack.U[1][0], stack.U[2][0]] = isPrime
+            ? [stack.F[0][0], stack.F[1][0], stack.F[2][0]]
+            : [stack.B[2][2], stack.B[1][2], stack.B[0][2]];
+          [stack.F[0][0], stack.F[1][0], stack.F[2][0]] = isPrime
+            ? [stack.D[0][0], stack.D[1][0], stack.D[2][0]]
+            : [stack.U[0][0], stack.U[1][0], stack.U[2][0]];
+          [stack.D[0][0], stack.D[1][0], stack.D[2][0]] = isPrime
+            ? [stack.B[2][2], stack.B[1][2], stack.B[0][2]]
+            : [stack.F[0][0], stack.F[1][0], stack.F[2][0]];
+          [stack.B[0][2], stack.B[1][2], stack.B[2][2]] = isPrime
+            ? [stack.U[2][0], stack.U[1][0], stack.U[0][0]]
+            : [stack.D[2][0], stack.D[1][0], stack.D[0][0]];
           break;
         case "R":
           [
@@ -188,9 +157,18 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.R[2][1],
             stack.R[2][2],
           ] = [...faceRotate(stack.R, isPrime)];
-          if (isPrime) {
-          } else {
-          }
+          [stack.U[0][2], stack.U[1][2], stack.U[2][2]] = isPrime
+            ? [stack.B[2][0], stack.B[1][0], stack.B[0][0]]
+            : [stack.F[0][2], stack.F[1][2], stack.F[2][2]];
+          [stack.B[0][0], stack.B[1][0], stack.B[2][0]] = isPrime
+            ? [stack.D[2][2], stack.D[1][2], stack.D[0][2]]
+            : [stack.F[2][2], stack.F[1][2], stack.F[0][2]];
+          [stack.D[0][2], stack.D[1][2], stack.D[2][2]] = isPrime
+            ? [stack.F[0][2], stack.F[1][2], stack.F[2][2]]
+            : [stack.B[2][0], stack.B[1][0], stack.B[0][0]];
+          [stack.F[0][2], stack.F[1][2], stack.F[2][2]] = isPrime
+            ? [stack.U[0][2], stack.U[1][2], stack.U[2][2]]
+            : [stack.D[0][2], stack.D[1][2], stack.D[2][2]];
           break;
         case "F":
           [
@@ -204,9 +182,18 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.F[2][1],
             stack.F[2][2],
           ] = [...faceRotate(stack.F, isPrime)];
-          if (isPrime) {
-          } else {
-          }
+          [stack.U[2][0], stack.U[2][1], stack.U[2][2]] = isPrime
+            ? [stack.R[0][0], stack.R[1][0], stack.R[2][0]]
+            : [stack.L[0][2], stack.L[1][2], stack.L[2][2]];
+          [stack.R[0][0], stack.R[1][0], stack.R[2][0]] = isPrime
+            ? [stack.D[0][2], stack.D[0][1], stack.D[0][0]]
+            : [stack.U[2][0], stack.U[2][1], stack.U[2][2]];
+          [stack.D[0][0], stack.D[0][1], stack.D[0][2]] = isPrime
+            ? [stack.L[0][2], stack.L[1][2], stack.L[2][2]]
+            : [stack.R[2][0], stack.R[1][0], stack.R[0][0]];
+          [stack.L[0][2], stack.L[1][2], stack.L[2][2]] = isPrime
+            ? [stack.U[2][2], stack.U[2][1], stack.U[2][0]]
+            : [stack.D[0][0], stack.D[0][1], stack.D[0][2]];
           break;
         case "B":
           [
@@ -220,9 +207,18 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.B[2][1],
             stack.B[2][2],
           ] = [...faceRotate(stack.B, isPrime)];
-          if (isPrime) {
-          } else {
-          }
+          [stack.U[0][0], stack.U[0][1], stack.U[0][2]] = isPrime
+            ? [stack.L[0][0], stack.L[1][0], stack.L[2][0]]
+            : [stack.R[0][2], stack.R[1][2], stack.R[2][2]];
+          [stack.L[0][0], stack.L[1][0], stack.L[2][0]] = isPrime
+            ? [stack.D[2][0], stack.D[2][1], stack.D[2][2]]
+            : [stack.U[0][0], stack.U[0][1], stack.U[0][2]];
+          [stack.D[2][0], stack.D[2][1], stack.D[2][2]] = isPrime
+            ? [stack.L[2][0], stack.L[1][0], stack.L[0][0]]
+            : [stack.R[2][2], stack.R[1][2], stack.R[0][2]];
+          [stack.R[0][2], stack.R[1][2], stack.R[2][2]] = isPrime
+            ? [stack.U[0][0], stack.U[0][1], stack.U[0][2]]
+            : [stack.D[2][2], stack.D[2][1], stack.D[2][0]];
           break;
         default:
           break;
