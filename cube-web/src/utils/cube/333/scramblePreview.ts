@@ -11,31 +11,32 @@ export type ScramblePreviewID = Extract<
   "TL" | "TC" | "TR" | "CL" | "CR" | "CC" | "BL" | "BC" | "BR"
 >;
 
-const faceCodes = ["U", "D", "L", "R", "F", "B"] satisfies CubeFaceCode[];
-const ids = [
+const faces = ["U", "D", "L", "R", "F", "B"] satisfies CubeFaceCode[];
+const facelets = [
   "TL",
   "TC",
   "TR",
   "CL",
-  "CR",
   "CC",
+  "CR",
   "BL",
   "BC",
   "BR",
 ] satisfies ScramblePreviewID[];
 
 const initial: ScramblePreviewResult = Object.fromEntries(
-  faceCodes.map((code) => [
+  faces.map((code) => [
     code,
-    Object.fromEntries(ids.map((id) => [id, code])),
+    Object.fromEntries(facelets.map((id) => [id, code])),
   ]),
 ) as ScramblePreviewResult;
 
+/** 三階打亂預覽 */
 export default function scramblePreview(moves?: string): ScramblePreviewResult {
   if (!moves) return initial;
 
   const stack: Record<CubeFaceCode, CubeFaceCode[][]> = Object.fromEntries(
-    faceCodes.map((code) => [
+    faces.map((code) => [
       code,
       Array.from({ length: 3 }, () => Array(3).fill(code)),
     ]),
@@ -213,7 +214,7 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
   }
 
   return Object.fromEntries(
-    faceCodes.map((code) => [code, mapFaceToFacelets(stack[code])]),
+    faces.map((code) => [code, mapFaceToFacelets(stack[code])]),
   ) as ScramblePreviewResult;
 }
 

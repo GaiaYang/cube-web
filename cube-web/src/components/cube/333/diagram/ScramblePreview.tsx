@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import type { CubeFaceCode } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
@@ -11,10 +11,11 @@ import scramblePreview, {
 
 export interface ScramblePreviewProps {
   size?: number;
+  scramble?: string;
 }
 
-export default function ScramblePreview({}: ScramblePreviewProps) {
-  const sc = scramblePreview();
+export default function ScramblePreview({ scramble }: ScramblePreviewProps) {
+  const sc = useMemo(() => scramblePreview(scramble), [scramble]);
   return (
     <div className="grid w-60 grid-cols-4 grid-rows-3 gap-1 p-1">
       <EmptyFace />
@@ -109,7 +110,6 @@ const paths: PathItem[] = [
     id: "CR",
     d: "m 35.758934,17.172623 c -1.891181,0 -3.413689,1.522506 -3.413689,3.413688 v 3.413688 3.413688 c 0,1.891182 1.522508,3.413688 3.413689,3.413688 h 3.413689 6.827376 V 20.586311 17.952895 c 0,-0.432272 -0.347981,-0.780272 -0.780272,-0.780272 h -6.047104 z",
   },
-
   {
     id: "BL",
     d: "m 1.9999992,32.345246 v 3.413688 6.827374 3.413691 H 5.4136876 12.241063 15.65475 V 35.758934 c 0,-1.891181 -1.522505,-3.413688 -3.413687,-3.413688 z",
