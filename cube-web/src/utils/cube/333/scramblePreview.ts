@@ -24,25 +24,17 @@ const initial: ScramblePreviewResult = (() => {
     "BC",
     "BR",
   ];
-
   const result = {} as ScramblePreviewResult;
-
   for (const code of codes) {
     const ob = {} as ScramblePreviewResult[CubeFaceCode];
-    for (const id of ids) {
-      ob[id] = code;
-    }
+    for (const id of ids) ob[id] = code;
     result[code] = ob;
   }
-
   return result;
 })();
 
-/** 打亂預覽 */
 export default function scramblePreview(moves?: string): ScramblePreviewResult {
-  if (!moves) {
-    return initial;
-  }
+  if (!moves) return initial;
 
   const stack: Record<
     CubeFaceCode,
@@ -89,137 +81,171 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
     for (let index = 0; index < turnCount; index++) {
       switch (code) {
         case "U":
-          [
-            stack.U[0][0],
-            stack.U[0][1],
-            stack.U[0][2],
-            stack.U[1][0],
-            stack.U[1][1],
-            stack.U[1][2],
-            stack.U[2][0],
-            stack.U[2][1],
-            stack.U[2][2],
-          ] = [...faceRotate(stack.U, isPrime)];
-          [stack.B[0], stack.R[0], stack.F[0], stack.L[0]] = isPrime
-            ? [stack.R[0], stack.F[0], stack.L[0], stack.B[0]]
-            : [stack.L[0], stack.B[0], stack.R[0], stack.F[0]];
+          rotateFaceInPlace(stack.U, isPrime);
+          if (isPrime) {
+            const tmp = stack.F[0];
+            stack.F[0] = stack.L[0];
+            stack.L[0] = stack.B[0];
+            stack.B[0] = stack.R[0];
+            stack.R[0] = tmp;
+          } else {
+            const tmp = stack.F[0];
+            stack.F[0] = stack.R[0];
+            stack.R[0] = stack.B[0];
+            stack.B[0] = stack.L[0];
+            stack.L[0] = tmp;
+          }
           break;
+
         case "D":
-          [
-            stack.D[0][0],
-            stack.D[0][1],
-            stack.D[0][2],
-            stack.D[1][0],
-            stack.D[1][1],
-            stack.D[1][2],
-            stack.D[2][0],
-            stack.D[2][1],
-            stack.D[2][2],
-          ] = [...faceRotate(stack.D, isPrime)];
-          [stack.B[2], stack.R[2], stack.F[2], stack.L[2]] = isPrime
-            ? [stack.R[2], stack.F[2], stack.L[2], stack.B[2]]
-            : [stack.L[2], stack.B[2], stack.R[2], stack.F[2]];
+          rotateFaceInPlace(stack.D, isPrime);
+          if (isPrime) {
+            const tmp = stack.B[2];
+            stack.B[2] = stack.L[2];
+            stack.L[2] = stack.F[2];
+            stack.F[2] = stack.R[2];
+            stack.R[2] = tmp;
+          } else {
+            const tmp = stack.B[2];
+            stack.B[2] = stack.R[2];
+            stack.R[2] = stack.F[2];
+            stack.F[2] = stack.L[2];
+            stack.L[2] = tmp;
+          }
           break;
+
         case "L":
-          [
-            stack.L[0][0],
-            stack.L[0][1],
-            stack.L[0][2],
-            stack.L[1][0],
-            stack.L[1][1],
-            stack.L[1][2],
-            stack.L[2][0],
-            stack.L[2][1],
-            stack.L[2][2],
-          ] = [...faceRotate(stack.L, isPrime)];
-          [stack.U[0][0], stack.U[1][0], stack.U[2][0]] = isPrime
-            ? [stack.F[0][0], stack.F[1][0], stack.F[2][0]]
-            : [stack.B[2][2], stack.B[1][2], stack.B[0][2]];
-          [stack.F[0][0], stack.F[1][0], stack.F[2][0]] = isPrime
-            ? [stack.D[0][0], stack.D[1][0], stack.D[2][0]]
-            : [stack.U[0][0], stack.U[1][0], stack.U[2][0]];
-          [stack.D[0][0], stack.D[1][0], stack.D[2][0]] = isPrime
-            ? [stack.B[2][2], stack.B[1][2], stack.B[0][2]]
-            : [stack.F[0][0], stack.F[1][0], stack.F[2][0]];
-          [stack.B[0][2], stack.B[1][2], stack.B[2][2]] = isPrime
-            ? [stack.U[2][0], stack.U[1][0], stack.U[0][0]]
-            : [stack.D[2][0], stack.D[1][0], stack.D[0][0]];
+          rotateFaceInPlace(stack.L, isPrime);
+          if (isPrime) {
+            const tmpU = [stack.U[0][0], stack.U[1][0], stack.U[2][0]];
+            stack.U[0][0] = stack.F[0][0];
+            stack.U[1][0] = stack.F[1][0];
+            stack.U[2][0] = stack.F[2][0];
+            stack.F[0][0] = stack.D[0][0];
+            stack.F[1][0] = stack.D[1][0];
+            stack.F[2][0] = stack.D[2][0];
+            stack.D[0][0] = stack.B[2][2];
+            stack.D[1][0] = stack.B[1][2];
+            stack.D[2][0] = stack.B[0][2];
+            stack.B[0][2] = tmpU[2];
+            stack.B[1][2] = tmpU[1];
+            stack.B[2][2] = tmpU[0];
+          } else {
+            const tmpU = [stack.U[0][0], stack.U[1][0], stack.U[2][0]];
+            stack.U[0][0] = stack.B[2][2];
+            stack.U[1][0] = stack.B[1][2];
+            stack.U[2][0] = stack.B[0][2];
+            stack.B[0][2] = stack.D[2][0];
+            stack.B[1][2] = stack.D[1][0];
+            stack.B[2][2] = stack.D[0][0];
+            stack.D[0][0] = stack.F[0][0];
+            stack.D[1][0] = stack.F[1][0];
+            stack.D[2][0] = stack.F[2][0];
+            stack.F[0][0] = tmpU[0];
+            stack.F[1][0] = tmpU[1];
+            stack.F[2][0] = tmpU[2];
+          }
           break;
+
         case "R":
-          [
-            stack.R[0][0],
-            stack.R[0][1],
-            stack.R[0][2],
-            stack.R[1][0],
-            stack.R[1][1],
-            stack.R[1][2],
-            stack.R[2][0],
-            stack.R[2][1],
-            stack.R[2][2],
-          ] = [...faceRotate(stack.R, isPrime)];
-          [stack.U[0][2], stack.U[1][2], stack.U[2][2]] = isPrime
-            ? [stack.B[2][0], stack.B[1][0], stack.B[0][0]]
-            : [stack.F[0][2], stack.F[1][2], stack.F[2][2]];
-          [stack.B[0][0], stack.B[1][0], stack.B[2][0]] = isPrime
-            ? [stack.D[2][2], stack.D[1][2], stack.D[0][2]]
-            : [stack.F[2][2], stack.F[1][2], stack.F[0][2]];
-          [stack.D[0][2], stack.D[1][2], stack.D[2][2]] = isPrime
-            ? [stack.F[0][2], stack.F[1][2], stack.F[2][2]]
-            : [stack.B[2][0], stack.B[1][0], stack.B[0][0]];
-          [stack.F[0][2], stack.F[1][2], stack.F[2][2]] = isPrime
-            ? [stack.U[0][2], stack.U[1][2], stack.U[2][2]]
-            : [stack.D[0][2], stack.D[1][2], stack.D[2][2]];
+          rotateFaceInPlace(stack.R, isPrime);
+          if (isPrime) {
+            const tmpU = [stack.U[0][2], stack.U[1][2], stack.U[2][2]];
+            stack.U[0][2] = stack.B[2][0];
+            stack.U[1][2] = stack.B[1][0];
+            stack.U[2][2] = stack.B[0][0];
+            stack.B[0][0] = stack.D[2][2];
+            stack.B[1][0] = stack.D[1][2];
+            stack.B[2][0] = stack.D[0][2];
+            stack.D[0][2] = stack.F[0][2];
+            stack.D[1][2] = stack.F[1][2];
+            stack.D[2][2] = stack.F[2][2];
+            stack.F[0][2] = tmpU[0];
+            stack.F[1][2] = tmpU[1];
+            stack.F[2][2] = tmpU[2];
+          } else {
+            const tmpU = [stack.U[0][2], stack.U[1][2], stack.U[2][2]];
+            stack.U[0][2] = stack.F[0][2];
+            stack.U[1][2] = stack.F[1][2];
+            stack.U[2][2] = stack.F[2][2];
+            stack.F[0][2] = stack.D[0][2];
+            stack.F[1][2] = stack.D[1][2];
+            stack.F[2][2] = stack.D[2][2];
+            stack.D[0][2] = stack.B[2][0];
+            stack.D[1][2] = stack.B[1][0];
+            stack.D[2][2] = stack.B[0][0];
+            stack.B[0][0] = tmpU[2];
+            stack.B[1][0] = tmpU[1];
+            stack.B[2][0] = tmpU[0];
+          }
           break;
+
         case "F":
-          [
-            stack.F[0][0],
-            stack.F[0][1],
-            stack.F[0][2],
-            stack.F[1][0],
-            stack.F[1][1],
-            stack.F[1][2],
-            stack.F[2][0],
-            stack.F[2][1],
-            stack.F[2][2],
-          ] = [...faceRotate(stack.F, isPrime)];
-          [stack.U[2][0], stack.U[2][1], stack.U[2][2]] = isPrime
-            ? [stack.R[0][0], stack.R[1][0], stack.R[2][0]]
-            : [stack.L[0][2], stack.L[1][2], stack.L[2][2]];
-          [stack.R[0][0], stack.R[1][0], stack.R[2][0]] = isPrime
-            ? [stack.D[0][2], stack.D[0][1], stack.D[0][0]]
-            : [stack.U[2][0], stack.U[2][1], stack.U[2][2]];
-          [stack.D[0][0], stack.D[0][1], stack.D[0][2]] = isPrime
-            ? [stack.L[0][2], stack.L[1][2], stack.L[2][2]]
-            : [stack.R[2][0], stack.R[1][0], stack.R[0][0]];
-          [stack.L[0][2], stack.L[1][2], stack.L[2][2]] = isPrime
-            ? [stack.U[2][2], stack.U[2][1], stack.U[2][0]]
-            : [stack.D[0][0], stack.D[0][1], stack.D[0][2]];
+          rotateFaceInPlace(stack.F, isPrime);
+          if (isPrime) {
+            const tmpU = [stack.U[2][0], stack.U[2][1], stack.U[2][2]];
+            stack.U[2][0] = stack.R[0][0];
+            stack.U[2][1] = stack.R[1][0];
+            stack.U[2][2] = stack.R[2][0];
+            stack.R[0][0] = stack.D[0][2];
+            stack.R[1][0] = stack.D[0][1];
+            stack.R[2][0] = stack.D[0][0];
+            stack.D[0][0] = stack.L[0][2];
+            stack.D[0][1] = stack.L[1][2];
+            stack.D[0][2] = stack.L[2][2];
+            stack.L[0][2] = tmpU[2];
+            stack.L[1][2] = tmpU[1];
+            stack.L[2][2] = tmpU[0];
+          } else {
+            const tmpU = [stack.U[2][0], stack.U[2][1], stack.U[2][2]];
+            stack.U[2][0] = stack.L[2][2];
+            stack.U[2][1] = stack.L[1][2];
+            stack.U[2][2] = stack.L[0][2];
+            stack.L[0][2] = stack.D[0][0];
+            stack.L[1][2] = stack.D[0][1];
+            stack.L[2][2] = stack.D[0][2];
+            stack.D[0][0] = stack.R[2][0];
+            stack.D[0][1] = stack.R[1][0];
+            stack.D[0][2] = stack.R[0][0];
+            stack.R[0][0] = tmpU[0];
+            stack.R[1][0] = tmpU[1];
+            stack.R[2][0] = tmpU[2];
+          }
           break;
+
         case "B":
-          [
-            stack.B[0][0],
-            stack.B[0][1],
-            stack.B[0][2],
-            stack.B[1][0],
-            stack.B[1][1],
-            stack.B[1][2],
-            stack.B[2][0],
-            stack.B[2][1],
-            stack.B[2][2],
-          ] = [...faceRotate(stack.B, isPrime)];
-          [stack.U[0][0], stack.U[0][1], stack.U[0][2]] = isPrime
-            ? [stack.L[0][0], stack.L[1][0], stack.L[2][0]]
-            : [stack.R[0][2], stack.R[1][2], stack.R[2][2]];
-          [stack.L[0][0], stack.L[1][0], stack.L[2][0]] = isPrime
-            ? [stack.D[2][0], stack.D[2][1], stack.D[2][2]]
-            : [stack.U[0][0], stack.U[0][1], stack.U[0][2]];
-          [stack.D[2][0], stack.D[2][1], stack.D[2][2]] = isPrime
-            ? [stack.L[2][0], stack.L[1][0], stack.L[0][0]]
-            : [stack.R[2][2], stack.R[1][2], stack.R[0][2]];
-          [stack.R[0][2], stack.R[1][2], stack.R[2][2]] = isPrime
-            ? [stack.U[0][0], stack.U[0][1], stack.U[0][2]]
-            : [stack.D[2][2], stack.D[2][1], stack.D[2][0]];
+          rotateFaceInPlace(stack.B, isPrime);
+          if (isPrime) {
+            const tmpU = [stack.U[0][0], stack.U[0][1], stack.U[0][2]];
+            stack.U[0][0] = stack.L[0][0];
+            stack.U[0][1] = stack.L[1][0];
+            stack.U[0][2] = stack.L[2][0];
+            stack.L[0][0] = stack.D[2][0];
+            stack.L[1][0] = stack.D[2][1];
+            stack.L[2][0] = stack.D[2][2];
+            stack.D[2][0] = stack.R[2][2];
+            stack.D[2][1] = stack.R[1][2];
+            stack.D[2][2] = stack.R[0][2];
+            stack.R[0][2] = tmpU[0];
+            stack.R[1][2] = tmpU[1];
+            stack.R[2][2] = tmpU[2];
+          } else {
+            const tmpU = [stack.U[0][0], stack.U[0][1], stack.U[0][2]];
+            stack.U[0][0] = stack.R[0][2];
+            stack.U[0][1] = stack.R[1][2];
+            stack.U[0][2] = stack.R[2][2];
+            stack.R[0][2] = stack.D[2][2];
+            stack.R[1][2] = stack.D[2][1];
+            stack.R[2][2] = stack.D[2][0];
+            stack.D[2][0] = stack.L[0][0];
+            stack.D[2][1] = stack.L[1][0];
+            stack.D[2][2] = stack.L[2][0];
+            stack.L[0][0] = tmpU[2];
+            stack.L[1][0] = tmpU[1];
+            stack.L[2][0] = tmpU[0];
+          }
           break;
+
         default:
           break;
       }
@@ -296,35 +322,9 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
   } satisfies ScramblePreviewResult;
 }
 
-function faceRotate(
-  input: [
-    [CubeFaceCode, CubeFaceCode, CubeFaceCode],
-    [CubeFaceCode, CubeFaceCode, CubeFaceCode],
-    [CubeFaceCode, CubeFaceCode, CubeFaceCode],
-  ],
-  isPrime: boolean,
-) {
-  return isPrime
-    ? [
-        input[0][2],
-        input[1][2],
-        input[2][2],
-        input[0][1],
-        input[1][1],
-        input[2][1],
-        input[0][0],
-        input[1][0],
-        input[2][0],
-      ]
-    : [
-        input[2][0],
-        input[1][0],
-        input[0][0],
-        input[2][1],
-        input[1][1],
-        input[0][1],
-        input[2][2],
-        input[1][2],
-        input[0][2],
-      ];
+function rotateFaceInPlace(face: CubeFaceCode[][], isPrime: boolean) {
+  const copy = face.map((row) => [...row]);
+  for (let i = 0; i < 3; i++)
+    for (let j = 0; j < 3; j++)
+      face[i][j] = isPrime ? copy[j][2 - i] : copy[2 - j][i];
 }
