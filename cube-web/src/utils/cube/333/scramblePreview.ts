@@ -96,7 +96,6 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.L[0] = tmp;
           }
           break;
-
         case "D":
           rotateFaceInPlace(stack.D, isPrime);
           if (isPrime) {
@@ -113,7 +112,6 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.L[2] = tmp;
           }
           break;
-
         case "L":
           rotateFaceInPlace(stack.L, isPrime);
           if (isPrime) {
@@ -146,7 +144,6 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.F[2][0] = tmpU[2];
           }
           break;
-
         case "R":
           rotateFaceInPlace(stack.R, isPrime);
           if (isPrime) {
@@ -179,7 +176,6 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.B[2][0] = tmpU[0];
           }
           break;
-
         case "F":
           rotateFaceInPlace(stack.F, isPrime);
           if (isPrime) {
@@ -212,7 +208,6 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.R[2][0] = tmpU[2];
           }
           break;
-
         case "B":
           rotateFaceInPlace(stack.B, isPrime);
           if (isPrime) {
@@ -245,7 +240,6 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
             stack.L[2][0] = tmpU[0];
           }
           break;
-
         default:
           break;
       }
@@ -322,9 +316,12 @@ export default function scramblePreview(moves?: string): ScramblePreviewResult {
   } satisfies ScramblePreviewResult;
 }
 
+/** 單面轉動 */
 function rotateFaceInPlace(face: CubeFaceCode[][], isPrime: boolean) {
   const copy = face.map((row) => [...row]);
-  for (let i = 0; i < 3; i++)
-    for (let j = 0; j < 3; j++)
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
       face[i][j] = isPrime ? copy[j][2 - i] : copy[2 - j][i];
+    }
+  }
 }
