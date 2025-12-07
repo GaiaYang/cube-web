@@ -1,4 +1,4 @@
-import { isNotNil } from "es-toolkit";
+import { isNil } from "es-toolkit";
 
 /**
  * 映射陣列並收集非 `null`、`undefined` 的回傳值。
@@ -24,7 +24,7 @@ export default function notNilMap<T, R>(
     const mapped = callbackfn(array[i], i, array);
 
     // 若為 null 或 undefined，直接回傳空陣列
-    if (!isNotNil(mapped)) return [];
+    if (isNil(mapped)) return [];
 
     // 若有 validator 且不通過，也直接回傳空陣列
     if (validator && !validator(mapped)) return [];
