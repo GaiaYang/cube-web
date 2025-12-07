@@ -1,12 +1,17 @@
-"use client";;
+"use client";
+
 export default function BackButton() {
   return (
     <button
       type="button"
-      onClick={() => window.history.back()}
+      onClick={_back}
       className="btn btn-primary btn-outline"
     >
       回上一頁
     </button>
   );
+}
+
+function _back() {
+  window.history.back();
 }
