@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   description: "方塊速解玩家的資源網站，提供各項工具及個人化教學。",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
+  verification: { google: "ohw_G7NoQYAvdJw9l8JNTUerponBoJ2c7yIfVH1YoIU" },
 };
 
 export default function RootLayout({
