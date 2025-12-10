@@ -18,7 +18,7 @@ export default function Home() {
       >
         <div>
           <h2 className="text-primary mb-2 text-base/7 font-semibold">
-            專為速解玩家設計的魔術方塊教學與資源
+            一個喜歡魔術方塊的前端程式設計師
           </h2>
           <h1
             className={cn(
@@ -27,7 +27,7 @@ export default function Home() {
               "font-semibold tracking-tight text-balance",
             )}
           >
-            虛空魔方
+            Void Cube
           </h1>
           <p
             className={cn(
@@ -35,7 +35,7 @@ export default function Home() {
               "text-base-content/70 mt-8 font-medium text-pretty",
             )}
           >
-            分享作者邁向速解進階的教學與心法，提供系統化解法、觀念解析與實用公式查詢，協助你突破瓶頸、提升效率與理解力。
+            提供教學、工具及作者的觀念，不用艱深的技巧跟高價的魔術方塊，即使手速跟反應都不夠快也能在15秒內復原完成。
           </p>
         </div>
         <div className="mt-10 flex items-center justify-center gap-x-6">

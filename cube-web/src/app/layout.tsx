@@ -12,7 +12,8 @@ export const metadata: Metadata = {
     default: "Void Cube | 魔術方塊資源網站",
     template: "%s | Void Cube",
   },
-  description: "方塊速解玩家的資源網站，提供各項工具及個人化教學。",
+  description:
+    "提供教學、工具及作者的觀念，不用艱深的技巧跟高價的魔術方塊，即使手速跟反應都不夠快也能在15秒內復原完成。",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
   verification: { google: "ohw_G7NoQYAvdJw9l8JNTUerponBoJ2c7yIfVH1YoIU" },
