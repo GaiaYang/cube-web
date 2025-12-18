@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { RotateCcwIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -52,7 +52,9 @@ export default function ThemeToggle() {
           <button
             type="button"
             disabled={isDisabled}
-            onClick={() => setTheme("system")}
+            onClick={() => {
+              setTheme("system");
+            }}
             className="btn btn-soft btn-error"
           >
             <RotateCcwIcon />

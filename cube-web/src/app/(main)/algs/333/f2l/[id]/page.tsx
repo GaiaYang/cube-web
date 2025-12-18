@@ -9,7 +9,7 @@ import {
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: F2LCaseId }>;
 };
 
 export async function generateMetadata(
@@ -18,7 +18,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { id } = await params;
 
-  const data = definitionMap.get(id as F2LCaseId);
+  const data = definitionMap.get(id);
 
   if (!data) {
     notFound();

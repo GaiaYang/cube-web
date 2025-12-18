@@ -1,6 +1,6 @@
 import colors from "tailwindcss/colors";
 
-interface Theme {
+export interface Theme {
   primary: string;
   primaryContent: string;
   secondary: string;
