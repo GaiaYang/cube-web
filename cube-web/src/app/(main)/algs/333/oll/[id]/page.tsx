@@ -3,7 +3,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
-  definitionMap,
+  definitions,
   type OLLCaseId,
 } from "@/contents/cube/333/oll/definitions";
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
@@ -18,7 +18,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { id } = await params;
 
-  const data = definitionMap.get(id);
+  const data = definitions.find((item) => item.id === id);
 
   if (!data) {
     notFound();
@@ -37,7 +37,7 @@ export async function generateMetadata(
 
 export default function Page({ params }: Props) {
   const { id } = use(params);
-  const data = definitionMap.get(id as OLLCaseId);
+  const data = definitions.find((item) => item.id === id);
 
   if (!data) {
     notFound();

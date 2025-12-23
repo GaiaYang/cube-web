@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
 import { useTheme } from "next-themes";
 

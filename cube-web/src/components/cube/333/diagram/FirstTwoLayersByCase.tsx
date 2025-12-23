@@ -1,12 +1,14 @@
 import {
-  definitionMap,
+  definitions,
   type F2LCaseId,
 } from "@/contents/cube/333/f2l/definitions";
 
 import FirstTwoLayers, { type FirstTwoLayersProps } from "./FirstTwoLayers";
 
-export interface FirstTwoLayersByCaseProps
-  extends Omit<FirstTwoLayersProps, "pattern"> {
+export interface FirstTwoLayersByCaseProps extends Omit<
+  FirstTwoLayersProps,
+  "pattern"
+> {
   /** 該案例的`id` */
   caseId?: F2LCaseId | null;
 }
@@ -23,7 +25,11 @@ export default function FirstTwoLayersByCase({
   return (
     <FirstTwoLayers
       {...props}
-      pattern={caseId ? definitionMap.get(caseId)?.pattern : undefined}
+      pattern={
+        caseId
+          ? definitions.find((item) => item.id === caseId)?.pattern
+          : undefined
+      }
     />
   );
 }

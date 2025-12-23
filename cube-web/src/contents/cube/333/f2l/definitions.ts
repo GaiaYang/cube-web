@@ -612,7 +612,3 @@ export const definitions: F2LDefinition[] = [
     },
   },
 ];
-
-export const definitionMap = new Map(
-  definitions.map((definition) => [definition.id, definition]),
-);

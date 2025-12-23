@@ -515,7 +515,3 @@ export const definitions: OLLDefinition[] = [
     category: OLLCategory.ALL_CORNERS_ORIENTED,
   },
 ];
-
-export const definitionMap = new Map(
-  definitions.map((definition) => [definition.id, definition]),
-);

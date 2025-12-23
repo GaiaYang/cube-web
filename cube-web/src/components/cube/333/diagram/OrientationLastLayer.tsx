@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import type { OLLDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 
@@ -8,7 +8,8 @@ import useCubeFaceColor from "./useCubeFaceColor";
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 
 export interface OrientationLastLayerProps
-  extends Omit<LastLayerDiagramProps, "colorMap">,
+  extends
+    Omit<LastLayerDiagramProps, "colorMap">,
     Partial<Pick<OLLDefinition, "pattern">> {
   /** 頂層顏色 */
   topColor?: CubeFaceColor;

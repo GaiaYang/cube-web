@@ -446,7 +446,3 @@ export const definitions: PLLDefinition[] = [
     category: PLLCategory.EPLL,
   },
 ];
-
-export const definitionMap = new Map(
-  definitions.map((definition) => [definition.id, definition]),
-);

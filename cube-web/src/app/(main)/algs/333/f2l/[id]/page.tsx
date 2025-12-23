@@ -3,7 +3,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
-  definitionMap,
+  definitions,
   type F2LCaseId,
 } from "@/contents/cube/333/f2l/definitions";
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
@@ -18,7 +18,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { id } = await params;
 
-  const data = definitionMap.get(id);
+  const data = definitions.find((item) => item.id === id);
 
   if (!data) {
     notFound();
@@ -38,7 +38,7 @@ export async function generateMetadata(
 export default function Page({ params }: Props) {
   const { id } = use(params);
 
-  const data = definitionMap.get(id as F2LCaseId);
+  const data = definitions.find((item) => item.id === id);
 
   if (!data) {
     notFound();

@@ -1,5 +1,5 @@
 import {
-  definitionMap,
+  definitions,
   type PLLCaseId,
 } from "@/contents/cube/333/pll/definitions";
 
@@ -7,8 +7,10 @@ import PermutationLastLayer, {
   type PermutationLastLayerProps,
 } from "./PermutationLastLayer";
 
-export interface PermutationLastLayerByCaseProps
-  extends Omit<PermutationLastLayerProps, "pattern"> {
+export interface PermutationLastLayerByCaseProps extends Omit<
+  PermutationLastLayerProps,
+  "pattern"
+> {
   /** 該案例的`id` */
   caseId?: PLLCaseId | null;
 }
@@ -25,7 +27,11 @@ export default function PermutationLastLayerByCase({
   return (
     <PermutationLastLayer
       {...props}
-      pattern={caseId ? definitionMap.get(caseId)?.pattern : undefined}
+      pattern={
+        caseId
+          ? definitions.find((item) => item.id === caseId)?.pattern
+          : undefined
+      }
     />
   );
 }

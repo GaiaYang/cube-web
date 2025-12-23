@@ -232,16 +232,15 @@ function rotateFaceInPlace(face: CubeFaceCode[][], isPrime: boolean) {
 function mapFaceToFacelets(
   face: CubeFaceCode[][],
 ): Record<ScramblePreviewID, CubeFaceCode> {
-  const [TL, TC, TR, CL, CC, CR, BL, BC, BR] = [
-    face[0][0],
-    face[0][1],
-    face[0][2],
-    face[1][0],
-    face[1][1],
-    face[1][2],
-    face[2][0],
-    face[2][1],
-    face[2][2],
-  ];
-  return { TL, TC, TR, CL, CC, CR, BL, BC, BR };
+  return {
+    TL: face[0][0],
+    TC: face[0][1],
+    TR: face[0][2],
+    CL: face[1][0],
+    CC: face[1][1],
+    CR: face[1][2],
+    BL: face[2][0],
+    BC: face[2][1],
+    BR: face[2][2],
+  };
 }

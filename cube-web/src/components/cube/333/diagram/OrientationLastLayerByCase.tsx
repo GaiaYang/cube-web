@@ -1,5 +1,5 @@
 import {
-  definitionMap,
+  definitions,
   type OLLCaseId,
 } from "@/contents/cube/333/oll/definitions";
 
@@ -7,8 +7,10 @@ import OrientationLastLayer, {
   type OrientationLastLayerProps,
 } from "./OrientationLastLayer";
 
-export interface OrientationLastLayerByCaseProps
-  extends Omit<OrientationLastLayerProps, "pattern"> {
+export interface OrientationLastLayerByCaseProps extends Omit<
+  OrientationLastLayerProps,
+  "pattern"
+> {
   /** 該案例的`id` */
   caseId?: OLLCaseId | null;
 }
@@ -25,7 +27,11 @@ export default function OrientationLastLayerByCase({
   return (
     <OrientationLastLayer
       {...props}
-      pattern={caseId ? definitionMap.get(caseId)?.pattern : undefined}
+      pattern={
+        caseId
+          ? definitions.find((item) => item.id === caseId)?.pattern
+          : undefined
+      }
     />
   );
 }
