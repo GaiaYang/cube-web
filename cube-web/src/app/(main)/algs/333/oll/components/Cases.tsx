@@ -8,7 +8,7 @@ import type { OLLDefinition } from "@/types/cube/333";
 import { OLLCategory } from "@/enums/cube/333";
 import { definitions } from "@/contents/cube/333/oll/definitions";
 
-import OverlayLink from "@/components/OverlayLink";
+import OverlayLink from "@/components/ui/OverlayLink";
 import OLLCase from "@/components/gridItems/OLLCase";
 import GridList, { type GridListProps } from "@/components/list/GridList";
 

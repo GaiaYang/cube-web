@@ -8,7 +8,7 @@ import type { PLLDefinition } from "@/types/cube/333";
 import { PLLCategory } from "@/enums/cube/333";
 import { definitions } from "@/contents/cube/333/pll/definitions";
 
-import OverlayLink from "@/components/OverlayLink";
+import OverlayLink from "@/components/ui/OverlayLink";
 import PLLCase from "@/components/gridItems/PLLCase";
 import GridList, { type GridListProps } from "@/components/list/GridList";
 

@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 
 import Article from "@/components/Article";
-import NewTabLink from "@/components/NewTabLink";
+import NewTabLink from "@/components/ui/NewTabLink";
 import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {

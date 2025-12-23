@@ -8,7 +8,7 @@ import type { F2LDefinition } from "@/types/cube/333";
 import { F2LCategory } from "@/enums/cube/333";
 import { definitions } from "@/contents/cube/333/f2l/definitions";
 
-import OverlayLink from "@/components/OverlayLink";
+import OverlayLink from "@/components/ui/OverlayLink";
 import F2LCase from "@/components/gridItems/F2LCase";
 import GridList, { type GridListProps } from "@/components/list/GridList";
 

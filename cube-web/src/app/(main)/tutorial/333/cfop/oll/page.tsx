@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 
 import Article from "@/components/Article";
 import Notices from "@/components/Notices";
-import NewTabLink from "@/components/NewTabLink";
+import NewTabLink from "@/components/ui/NewTabLink";
 
 export const metadata: Metadata = {
   title: "OLL",
