@@ -19,8 +19,8 @@ export default function NewTabLink({
   ...props
 }: NewTabLinkProps) {
   const href = props.href;
-  const isExternal = isExternalUrl(href);
-  if (isExternal) {
+
+  if (typeof href === "string" && z.httpUrl().safeParse(href).success) {
     return (
       <a
         {...props}
@@ -54,7 +54,3 @@ export default function NewTabLink({
 
 /** 圖標尺寸 */
 const ICON_SIZE = 16;
-
-function isExternalUrl(href: unknown): href is string {
-  return typeof href === "string" && z.httpUrl().safeParse(href).success;
-}
