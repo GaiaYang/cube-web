@@ -12,6 +12,7 @@ export const drawerMenu = createMenuOptions([
       },
       {
         title: "三階教學",
+        href: "/tutorial/333",
         submenu: [
           {
             title: "CFOP",
@@ -70,6 +71,7 @@ export const drawerMenu = createMenuOptions([
       {
         title: "三階公式表",
         asTitle: true,
+        href: "/algs/333",
         submenu: [
           { title: "F2L", href: "/algs/333/f2l" },
           { title: "OLL", href: "/algs/333/oll" },

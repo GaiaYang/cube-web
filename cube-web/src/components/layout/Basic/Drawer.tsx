@@ -21,7 +21,7 @@ export default function Drawer({
       className={cn(
         "drawer",
         { "lg:drawer-open": autoExpandDrawer },
-        "bg-base-100 mx-auto min-h-dvh max-w-[1920px]",
+        "bg-base-100 mx-auto min-h-dvh max-w-480",
       )}
     >
       <DrawerToggle />
