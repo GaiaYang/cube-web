@@ -5,11 +5,12 @@
       "args": ["-y", "next-devtools-mcp@latest"]
     },
     "daisyUI": {
-      "type": "sse",
-      "url": "https://gitmcp.io/saadeghi/daisyui"
+      "command": "npx",
+      "args": ["mcp-remote", "https://gitmcp.io/saadeghi/daisyui"]
     },
     "inkeepMcp": {
-      "url": "https://mcp.inkeep.com/zod/mcp"
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.inkeep.com/zod/mcp"]
     }
   }
 }
