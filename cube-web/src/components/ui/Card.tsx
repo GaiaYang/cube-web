@@ -2,24 +2,30 @@ import { forwardRef } from "react";
 
 import cn from "@/utils/cn";
 
-export interface CardProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
+export interface CardProps extends React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   /**
    * 卡片樣式
    *
-   * - `elevation`: 陰影
-   * - `outlined`: 邊框
+   * - `shadow`: 陰影
+   * - `border`: 邊框
+   * - `dash-border`: 虛線邊框
    *
-   * @default "outlined"
+   * @default "border"
    */
-  variant?: "elevation" | "outlined";
+  variant?: "shadow" | "border" | "dash-border";
+  /**
+   * 卡片尺寸
+   *
+   * @default "md"
+   */
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
-  { variant, className, ...props },
+  { variant = "border", size = "md", className, ...props },
   ref,
 ) {
   return (
@@ -27,16 +33,31 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
       {...props}
       ref={ref}
       className={cn(
-        "card rounded-lg",
+        "card bg-base-100 dark:bg-base-200",
         (() => {
           switch (variant) {
-            case "elevation":
-              // 深色模式下提升底色並加強陰影
-              return ["shadow", "bg-base-100 dark:bg-base-200"];
-            case "outlined":
+            case "shadow":
+              return "shadow-sm";
+            case "dash-border":
+              return "card-dash border-base-300";
+            case "border":
             default:
-              // 深色模式下提升底色並加強邊框
-              return ["bg-base-100 dark:bg-base-200", "border-base-300 border"];
+              return "card-border border-base-300";
+          }
+        })(),
+        (() => {
+          switch (size) {
+            case "xs":
+              return "card-xs";
+            case "sm":
+              return "card-sm";
+            case "lg":
+              return "card-lg";
+            case "xl":
+              return "card-xl";
+            case "md":
+            default:
+              return "card-md";
           }
         })(),
         className,
