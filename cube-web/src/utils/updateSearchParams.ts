@@ -1,5 +1,3 @@
-import { isNotNil } from "es-toolkit";
-
 export type SearchParamsInput =
   | string
   | URLSearchParams
@@ -22,7 +20,7 @@ export default function updateSearchParams(
 
   // 更新或刪除 key
   for (const [key, value] of Object.entries(changes)) {
-    if (isNotNil(value) && value !== "") {
+    if (typeof value === "string" && value !== "") {
       params.set(key, value);
     } else {
       params.delete(key);
