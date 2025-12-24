@@ -4,9 +4,9 @@
       "command": "npx",
       "args": ["-y", "next-devtools-mcp@latest"]
     },
-    "daisyUI": {
+    "daisyui-github": {
       "command": "npx",
-      "args": ["mcp-remote", "https://gitmcp.io/saadeghi/daisyui"]
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/saadeghi/daisyui"]
     },
     "inkeepMcp": {
       "command": "npx",
