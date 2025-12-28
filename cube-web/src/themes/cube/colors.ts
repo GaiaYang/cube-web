@@ -1,9 +1,20 @@
 import clsx from "clsx";
+import { uniq } from "es-toolkit";
 
 import type { CubeFaceColor } from "@/types/cube/color";
 
+import getValueWithFallback from "@/utils/getValueWithFallback";
+
+/** 魔方顏色物件 */
+export type CubeFaceColorObject = Record<CubeFaceColor, string>;
+
+/** 退回預設選項 */
+function fallback(obj: CubeFaceColorObject, key?: CubeFaceColor | null) {
+  return getValueWithFallback(obj, "none", key);
+}
+
 /** 填滿顏色 */
-export const fillColors: Record<CubeFaceColor, string> = {
+export const fillColors: CubeFaceColorObject = {
   red: "fill-red-500",
   orange: "fill-orange-400",
   white: "fill-white",
@@ -15,11 +26,11 @@ export const fillColors: Record<CubeFaceColor, string> = {
 
 /** 取得填滿顏色 */
 export function getFillColor(params?: CubeFaceColor | null) {
-  return fillColors[params ?? "none"] ?? fillColors.none;
+  return fallback(fillColors, params);
 }
 
 /** 線條顏色 */
-export const strokeColors: Record<CubeFaceColor, string> = {
+export const strokeColors: CubeFaceColorObject = {
   red: "stroke-red-500",
   orange: "stroke-orange-400",
   white: "stroke-white",
@@ -31,11 +42,11 @@ export const strokeColors: Record<CubeFaceColor, string> = {
 
 /** 取得線條顏色 */
 export function getStrokeColor(params?: CubeFaceColor | null) {
-  return strokeColors[params ?? "none"] ?? strokeColors.none;
+  return fallback(strokeColors, params);
 }
 
 /** 背景顏色 */
-export const bgColors: Record<CubeFaceColor, string> = {
+export const bgColors: CubeFaceColorObject = {
   red: "bg-red-500",
   orange: "bg-orange-400",
   white: "bg-white",
@@ -47,11 +58,11 @@ export const bgColors: Record<CubeFaceColor, string> = {
 
 /** 取得背景顏色 */
 export function getBgColor(params?: CubeFaceColor | null) {
-  return bgColors[params ?? "none"] ?? bgColors.none;
+  return fallback(bgColors, params);
 }
 
 /** 外框顏色 */
-export const outlineColors: Record<CubeFaceColor, string> = {
+export const outlineColors: CubeFaceColorObject = {
   red: "outline-red-500",
   orange: "outline-orange-400",
   white: "outline-white",
@@ -63,18 +74,29 @@ export const outlineColors: Record<CubeFaceColor, string> = {
 
 /** 取得外框顏色 */
 export function getOutlineColor(params?: CubeFaceColor | null) {
-  return outlineColors[params ?? "none"] ?? bgColors.none;
+  return fallback(outlineColors, params);
 }
 
+/** 魔方顏色類型 */
 export type CubeColorType = "fill" | "bg" | "stroke" | "outline";
 
-export function getCubeColor(
-  params: CubeFaceColor | null,
-  types: CubeColorType[],
+/**
+ * 取得魔方顏色列表
+ * @param params 魔方顏色
+ * @param types 顏色類型
+ * @returns 魔方顏色class
+ */
+export default function getCubeColor(
+  params: CubeFaceColor | null | undefined,
+  types: CubeColorType[] | CubeColorType,
 ) {
-  const _types = Array.from(new Set(types));
+  if (!params || !types) {
+    return "";
+  }
+
   const result: string[] = [];
-  for (const type of _types) {
+
+  for (const type of uniq(typeof types === "string" ? [types] : types)) {
     switch (type) {
       case "bg":
         result.push(getBgColor(params));

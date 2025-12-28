@@ -9,7 +9,7 @@ import cn from "@/utils/cn";
 
 import type { CubeBlockPosition3D } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
-import { getFillColor } from "@/themes/cube/colors";
+import getCubeColor from "@/themes/cube/colors";
 
 export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
@@ -33,7 +33,7 @@ export default memo(function CubeDiagram({
         className={cn(
           "stroke-1",
           "drak:stroke-slate-300 stroke-slate-400",
-          getFillColor(colorMap?.[item.id]),
+          getCubeColor(colorMap?.[item.id], "fill"),
         )}
       />
     );

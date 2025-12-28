@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import type { CubeFaceCode } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 import cn from "@/utils/cn";
-import { getFillColor } from "@/themes/cube/colors";
+import getCubeColor from "@/themes/cube/colors";
 import scramblePreview, {
   type ScramblePreviewResult,
   type ScramblePreviewID,
@@ -66,7 +66,7 @@ function SingleFace({ id, colorMap }: SingleFaceProps) {
         className={cn(
           "stroke-1",
           "drak:stroke-slate-300 stroke-slate-400",
-          getFillColor(defaultColorMap[colorMap[item.id]]),
+          getCubeColor(defaultColorMap[colorMap[item.id]], "fill"),
         )}
       />
     );

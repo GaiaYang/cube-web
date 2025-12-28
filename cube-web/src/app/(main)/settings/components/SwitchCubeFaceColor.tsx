@@ -9,7 +9,7 @@ import { CubeFaceColors } from "@/enums/cube/color";
 import cn from "@/utils/cn";
 import getOppositeColor from "@/utils/cube/getOppositeColor";
 import { options } from "@/options/cube/color";
-import { getBgColor } from "@/themes/cube/colors";
+import getCubeColor from "@/themes/cube/colors";
 import { cubeFaceColorAtom, store, initialValue } from "@/jotai/settings";
 import useMounted from "@/hooks/useMounted";
 
@@ -129,7 +129,7 @@ function ColorRadios({
                   "border border-neutral-500/50":
                     item.value === CubeFaceColors.WHITE,
                 },
-                getBgColor(item.value),
+                getCubeColor(item.value, "bg"),
               )}
             />
           </label>
