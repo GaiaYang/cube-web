@@ -9,7 +9,7 @@ export default function useScrolledClass(getElement?: UseScrolledTarget) {
   return cn(
     "sticky top-0 z-30 w-full print:hidden",
     "bg-base-100/90 backdrop-blur transition-shadow",
-    "[transform:translate3d(0,0,0)] duration-100",
+    "transform-[translate3d(0,0,0)] duration-100",
     { "shadow-xs": scrolled },
   );
 }

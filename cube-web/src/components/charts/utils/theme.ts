@@ -100,7 +100,7 @@ function nivoThemeFromDaisy(theme: Theme): PartialTheme {
         outlineOpacity: 0.35,
       },
       symbol: {
-        fill: " theme.neutralContent",
+        fill: theme.neutralContent,
         outlineWidth: 2,
         outlineColor: theme.base200,
         outlineOpacity: 0.35,

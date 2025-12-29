@@ -80,10 +80,8 @@ export default function Page() {
         size={patternSize}
       />
       <p>
-        這不用解釋了吧，直接進入
-        <Link href="/tutorial/333/cfop/pll">PLL</Link>
-        或者
-        <Link href="/tutorial/333/cfop/pll/2look">兩段式PLL</Link>
+        這不用解釋了吧，直接進入 <Link href="/tutorial/333/cfop/pll">PLL</Link>{" "}
+        或者 <Link href="/tutorial/333/cfop/pll/2look">兩段式PLL</Link>
       </p>
       <h2>第一次判斷</h2>
       <p>

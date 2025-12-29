@@ -9,8 +9,9 @@ import cn from "@/utils/cn";
 import stringToEnum from "@/utils/stringToEnum";
 import updateSearchParams from "@/utils/updateSearchParams";
 
-export interface SelectFilterProps<TEnum extends Record<string, string>>
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface SelectFilterProps<
+  TEnum extends Record<string, string>,
+> extends React.HTMLAttributes<HTMLDivElement> {
   /** 選擇器選項 */
   options: Option<TEnum[keyof TEnum]>[];
   /** Enum 物件 */
