@@ -28,27 +28,30 @@ export default function ThemeToggleButton() {
     });
   }, [setTheme, themes]);
 
+  if (!mounted) {
+    return (
+      <div className="btn btn-square btn-ghost">
+        <span className="loading loading-ring" aria-hidden />
+      </div>
+    );
+  }
+
   return (
     <button
       type="button"
       onClick={handleToggleTheme}
-      disabled={!mounted}
       title="切換網站配色模式"
-      className={cn("btn btn-square btn-ghost swap swap-active swap-rotate")}
+      className="btn btn-square btn-ghost swap swap-active swap-rotate"
     >
       <span className="sr-only">切換網站配色模式</span>
-      {mounted ? (
-        // 使用 DaisyUI swap class 控制切換動畫
-        options.map(({ id, value }) => (
-          <ThemeIcon
-            key={id}
-            theme={value}
-            className={cn("size-6", theme === value ? "swap-on" : "swap-off")}
-          />
-        ))
-      ) : (
-        <span className="loading loading-spinner" aria-hidden />
-      )}
+      {/* 使用 DaisyUI swap class 控制切換動畫 */}
+      {options.map(({ id, value }) => (
+        <ThemeIcon
+          key={id}
+          theme={value}
+          className={cn("size-6", theme === value ? "swap-on" : "swap-off")}
+        />
+      ))}
     </button>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import type { SVGProps } from "react";
-import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
 
@@ -19,8 +18,6 @@ export default function LastLayerDiagram({
   colorMap,
   ...props
 }: LastLayerDiagramProps) {
-  const { ref, inView } = useInView({ triggerOnce: true });
-
   function _renderItem(item: RectItem) {
     return (
       <rect
@@ -41,12 +38,12 @@ export default function LastLayerDiagram({
       width={size}
       height={size}
       {...props}
-      ref={ref}
       viewBox="0 0 56 56"
       aria-hidden
-      className={cn({ skeleton: !inView }, props.className)}
+      pointerEvents="none"
+      shapeRendering="optimizeSpeed"
     >
-      {inView ? rectangles.map(_renderItem) : null}
+      {rectangles.map(_renderItem)}
     </svg>
   );
 }

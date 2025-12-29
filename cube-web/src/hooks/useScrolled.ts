@@ -30,7 +30,6 @@ export default function useScrolled(
     const updateScrollState = () => {
       const scrollTop =
         element instanceof Window ? element.scrollY : element.scrollTop;
-
       setIsScrolled(scrollTop > threshold);
     };
 
@@ -58,7 +57,9 @@ function getScrollTarget(
     case "string":
       return document.getElementById(target);
     default:
-      if (target?.current) return target.current;
+      if (target?.current) {
+        return target.current;
+      }
   }
   return window;
 }

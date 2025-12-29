@@ -1,6 +1,5 @@
 "use client";
 import type { SVGProps } from "react";
-import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
 
@@ -19,8 +18,6 @@ export default function CubeDiagram({
   colorMap,
   ...props
 }: CubeDiagramProps) {
-  const { ref, inView } = useInView({ triggerOnce: true });
-
   function _renderPath(item: PathItem) {
     return (
       <path
@@ -39,7 +36,7 @@ export default function CubeDiagram({
   function _renderGroup(item: GroupItem) {
     return (
       <g {...item} key={item.id}>
-        {item.children.map(_renderPath)}
+        {item.paths.map(_renderPath)}
       </g>
     );
   }
@@ -49,12 +46,12 @@ export default function CubeDiagram({
       width={size}
       height={size}
       {...props}
-      ref={ref}
       viewBox="0 0 56 56"
       aria-hidden
-      className={cn({ skeleton: !inView }, props.className)}
+      pointerEvents="none"
+      shapeRendering="optimizeSpeed"
     >
-      {inView ? groups.map(_renderGroup) : null}
+      {groups.map(_renderGroup)}
     </svg>
   );
 }
@@ -63,16 +60,16 @@ interface PathItem extends React.SVGProps<SVGPathElement> {
   id: CubeBlockPosition3D;
 }
 
-interface GroupItem extends Omit<React.SVGProps<SVGGElement>, "children"> {
+interface GroupItem extends React.SVGProps<SVGGElement> {
   id: "up" | "front" | "side";
-  children: PathItem[];
+  paths: PathItem[];
 }
 
 const groups: GroupItem[] = [
   {
     id: "front",
     transform: "matrix(3.870286,0,0,3.870286,-21.335022,-2.6308982)",
-    children: [
+    paths: [
       {
         id: "F-BR",
         width: 3.1750002,
@@ -168,7 +165,7 @@ const groups: GroupItem[] = [
   {
     id: "up",
     transform: "matrix(3.870286,0,0,3.870286,-7.0779203,-33.779492)",
-    children: [
+    paths: [
       {
         id: "U-BR",
         width: 3.1750002,
@@ -264,7 +261,7 @@ const groups: GroupItem[] = [
   {
     id: "side",
     transform: "matrix(3.870286,0,0,3.870286,22.142316,-2.7727485)",
-    children: [
+    paths: [
       {
         id: "S-BR",
         width: 3.1750002,
