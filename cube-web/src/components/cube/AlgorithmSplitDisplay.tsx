@@ -15,6 +15,7 @@ export interface AlgorithmSplitDisplayProps {
   className?: string;
 }
 
+/** 公式顯示分離型 */
 export default function AlgorithmSplitDisplay({
   algorithm,
   groups,

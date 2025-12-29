@@ -1,8 +1,5 @@
 "use client";
 import type { SVGProps } from "react";
-import { memo } from "react";
-
-import { deepEqual } from "fast-equals";
 import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
@@ -17,7 +14,7 @@ export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
 }
 
 /** 最後一層圖案 */
-export default memo(function LastLayerDiagram({
+export default function LastLayerDiagram({
   size,
   colorMap,
   ...props
@@ -52,7 +49,7 @@ export default memo(function LastLayerDiagram({
       {inView ? rectangles.map(_renderItem) : null}
     </svg>
   );
-}, deepEqual);
+}
 
 interface RectItem extends React.SVGProps<SVGRectElement> {
   id: CubeFaceletPosition2D;

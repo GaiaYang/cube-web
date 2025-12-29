@@ -1,8 +1,5 @@
 "use client";
 import type { SVGProps } from "react";
-import { memo } from "react";
-
-import { deepEqual } from "fast-equals";
 import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
@@ -17,7 +14,7 @@ export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
 }
 
 /** 立體方塊圖 */
-export default memo(function CubeDiagram({
+export default function CubeDiagram({
   size,
   colorMap,
   ...props
@@ -60,7 +57,7 @@ export default memo(function CubeDiagram({
       {inView ? groups.map(_renderGroup) : null}
     </svg>
   );
-}, deepEqual);
+}
 
 interface PathItem extends React.SVGProps<SVGPathElement> {
   id: CubeBlockPosition3D;
