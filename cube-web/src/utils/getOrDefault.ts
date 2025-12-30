@@ -5,10 +5,9 @@
  * @param key 要取得的鍵（可選）
  * @returns 物件指定值
  */
-export default function getValueWithFallback<
-  T extends Record<string, V>,
-  V,
+export default function getOrDefault<
+  T extends Record<PropertyKey, unknown>,
   K extends keyof T,
->(obj: T, defaultKey: keyof T, key?: K | null): T[keyof T] {
+>(obj: T, defaultKey: K, key?: K | null): T[K] {
   return obj[key ?? defaultKey] ?? obj[defaultKey];
 }

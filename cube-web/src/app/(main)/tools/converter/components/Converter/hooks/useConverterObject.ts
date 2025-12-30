@@ -4,12 +4,12 @@ import { produce } from "immer";
 import convert from "../utils/convert";
 import { useConverterProps } from "../context";
 import { conversionFlags, conversionProfiles } from "../config";
-import getValueWithFallback from "@/utils/getValueWithFallback";
+import getOrDefault from "@/utils/getOrDefault";
 
 export default function useConverterObject() {
   const { cubeOrder } = useConverterProps();
   const conversionMap = useMemo(
-    () => getValueWithFallback(convert, "nnn", cubeOrder),
+    () => getOrDefault(convert, "nnn", cubeOrder),
     [cubeOrder],
   );
   const enabledProfiles = useMemo(() => {

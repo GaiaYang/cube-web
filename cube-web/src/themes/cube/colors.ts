@@ -3,14 +3,14 @@ import { uniq } from "es-toolkit";
 
 import type { CubeFaceColor } from "@/types/cube/color";
 
-import getValueWithFallback from "@/utils/getValueWithFallback";
+import getOrDefault from "@/utils/getOrDefault";
 
 /** 魔方顏色物件 */
 export type CubeFaceColorObject = Record<CubeFaceColor, string>;
 
 /** 退回預設選項 */
 function fallback(obj: CubeFaceColorObject, key?: CubeFaceColor | null) {
-  return getValueWithFallback(obj, "none", key);
+  return getOrDefault(obj, "none", key);
 }
 
 /** 填滿顏色 */
