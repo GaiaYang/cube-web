@@ -7,19 +7,17 @@ import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
 import type { ConversionProfile } from "./types";
 
 import { type Schema } from "./form";
-import useConvertMap from "./hooks/useConvertMap";
-import useConversionFlags from "./hooks/useConversionFlags";
 import useAlgorithmForm from "./hooks/useAlgorithmForm";
+import useConverterObject from "./hooks/useConverterObject";
 
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
 import AlgorithmInput from "./AlgorithmInput";
 
 export default memo(function StandForm() {
-  const convertMap = useConvertMap();
-  const conversions = useConversionFlags();
+  const { conversionMap, enabledProfiles } = useConverterObject();
 
   function _renderContent(item: ConversionProfile) {
-    const convert = convertMap[item.id];
+    const convert = conversionMap[item.id];
 
     return (
       <Fragment key={item.id}>
@@ -34,7 +32,7 @@ export default memo(function StandForm() {
     );
   }
 
-  return <div>{conversions.map(_renderContent)}</div>;
+  return <div>{enabledProfiles.map(_renderContent)}</div>;
 });
 
 const algorithmStringAtom = atom("");

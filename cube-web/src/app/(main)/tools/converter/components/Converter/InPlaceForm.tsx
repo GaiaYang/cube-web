@@ -5,16 +5,14 @@ import { FormProvider, SubmitHandler } from "react-hook-form";
 import type { ConversionType } from "./types";
 
 import { type Schema } from "./form";
-import useConvertMap from "./hooks/useConvertMap";
-import useConversionFlags from "./hooks/useConversionFlags";
 import useAlgorithmForm from "./hooks/useAlgorithmForm";
+import useConverterObject from "./hooks/useConverterObject";
 
 import AlgorithmInput from "./AlgorithmInput";
 
 export default memo(function InPlaceForm() {
   const form = useAlgorithmForm();
-  const convertMap = useConvertMap();
-  const conversions = useConversionFlags();
+  const { conversionMap, enabledProfiles } = useConverterObject();
 
   function _reset() {
     form.reset();
@@ -23,7 +21,7 @@ export default memo(function InPlaceForm() {
   const _submit: SubmitHandler<Schema> = ({ algorithm }, event) => {
     const key = (event?.target as HTMLButtonElement)?.value as ConversionType;
     let result = "";
-    const convert = convertMap[key];
+    const convert = conversionMap[key];
     if (convert) {
       result = convert(algorithm);
     }
@@ -37,7 +35,7 @@ export default memo(function InPlaceForm() {
         <AlgorithmInput />
         <div className="flex flex-col gap-4 md:flex-row">
           <div className="join join-vertical md:join-horizontal">
-            {conversions.map(({ subtitle, id }) => (
+            {enabledProfiles.map(({ subtitle, id }) => (
               <button
                 key={id}
                 value={id}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Activity, useMemo } from "react";
+import { useMemo } from "react";
 import { Provider, useAtomValue } from "jotai";
 import dynamic from "next/dynamic";
 
@@ -32,12 +32,11 @@ export default function Converter() {
 function SwitchContent() {
   const tabIndex = useAtomValue(conversionTabIndexAtom);
 
-  return (
-    <>
-      <Activity mode={tabIndex === 0 ? "visible" : "hidden"}>
-        <FormEntry cubeOrder="nnn" />
-      </Activity>
-      <Activity mode={tabIndex === 1 ? "visible" : "hidden"}>
+  switch (tabIndex) {
+    case 0:
+      return <FormEntry cubeOrder="nnn" />;
+    case 1:
+      return (
         <div>
           <h3>三階額外符號</h3>
           <ul className="[&>li>span]:flex [&>li>span]:gap-2">
@@ -53,23 +52,29 @@ function SwitchContent() {
           <p>該區塊的轉換器額外支援三階非官方符號及特殊功能轉換</p>
           <FormEntry cubeOrder="333" />
         </div>
-      </Activity>
-    </>
-  );
+      );
+    default:
+      break;
+  }
 }
 
 function FormEntry({ cubeOrder }: CommonFormProps) {
   const formType = useAtomValue(conversionFormLayoutAtom);
   const value = useMemo(() => ({ cubeOrder }), [cubeOrder]);
+  function _render() {
+    switch (formType) {
+      case "stand":
+        return <StandForm />;
+      case "in-place":
+        return <InPlaceForm />;
+      default:
+        break;
+    }
+  }
 
   return (
     <ConverterPropsContext.Provider value={value}>
-      <Activity mode={formType === "stand" ? "visible" : "hidden"}>
-        <StandForm />
-      </Activity>
-      <Activity mode={formType === "in-place" ? "visible" : "hidden"}>
-        <InPlaceForm />
-      </Activity>
+      {_render()}
     </ConverterPropsContext.Provider>
   );
 }
