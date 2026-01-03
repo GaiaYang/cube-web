@@ -6,7 +6,7 @@ export type { PLLDefinition, PLLCaseId } from "@/types/cube/333";
 export const definitions: PLLDefinition[] = [
   {
     id: "Aa",
-    name: "Aa",
+    name: "PLL Aa",
     setupAlgorithm: "x R2' D2' R U R' D2' R U' R x'",
     pattern: {
       "S-TL": "R",
@@ -32,7 +32,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Ab",
-    name: "Ab",
+    name: "PLL Ab",
     setupAlgorithm: "x R' U R' D2' R U' R' D2' R2' x'",
     pattern: {
       "S-TL": "F",
@@ -58,7 +58,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "E",
-    name: "E",
+    name: "PLL E",
     setupAlgorithm: "x' D R U R' D' R U' R' D R U' R' D' R U R' x y'",
     pattern: {
       "S-TL": "F",
@@ -84,7 +84,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "F",
-    name: "F",
+    name: "PLL F",
     setupAlgorithm: "R' U' R U' R' U R U R2' F' R U R U' R' F U R y'",
     pattern: {
       "S-TL": "F",
@@ -110,7 +110,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Ga",
-    name: "Ga",
+    name: "PLL Ga",
     setupAlgorithm: "R' U' R D' U R2' U R' U R U' R U' R2' D",
     pattern: {
       "S-TL": "B",
@@ -136,7 +136,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Gb",
-    name: "Gb",
+    name: "PLL Gb",
     setupAlgorithm: "R2' U R' U R' U' R U' R2' D U' R' U R D'",
     pattern: {
       "S-TL": "B",
@@ -162,7 +162,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Gc",
-    name: "Gc",
+    name: "PLL Gc",
     setupAlgorithm: "D' R U R' U' D R2' U' R U' R' U R' U R2'",
     pattern: {
       "S-TL": "B",
@@ -188,7 +188,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Gd",
-    name: "Gd",
+    name: "PLL Gd",
     setupAlgorithm: "R2' U' R U' R U R' U R2' D' U R U' R' D",
     pattern: {
       "S-TL": "B",
@@ -214,7 +214,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "H",
-    name: "H",
+    name: "PLL H",
     setupAlgorithm: "M2' U' M2' U2' M2' U' M2'",
     pattern: {
       "S-TL": "B",
@@ -240,7 +240,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Ja",
-    name: "Ja",
+    name: "PLL Ja",
     setupAlgorithm: "L' R' U2' R U R' U2' L U' R y'",
     pattern: {
       "S-TL": "R",
@@ -266,7 +266,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Jb",
-    name: "Jb",
+    name: "PLL Jb",
     setupAlgorithm: "R U R2' F' R U R U' R' F R U' R'",
     pattern: {
       "S-TL": "R",
@@ -292,7 +292,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Na",
-    name: "Na",
+    name: "PLL Na",
     setupAlgorithm: "R U R' U2' R U R2' F' R U R U' R' F R U' R' U' R U' R'",
     pattern: {
       "S-TL": "B",
@@ -318,7 +318,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Nb",
-    name: "Nb",
+    name: "PLL Nb",
     setupAlgorithm: "F r' F' r U r U' r2' D' F r U r' F' D r",
     pattern: {
       "S-TL": "F",
@@ -344,7 +344,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Ra",
-    name: "Ra",
+    name: "PLL Ra",
     setupAlgorithm: "R U2' R D R' U R D' R' U' R' U R U R' y'",
     pattern: {
       "S-TL": "L",
@@ -370,7 +370,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Rb",
-    name: "Rb",
+    name: "PLL Rb",
     setupAlgorithm: "R' U R U R' U' R' D' R U R' D R U2' R",
     pattern: {
       "S-TL": "F",
@@ -396,7 +396,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "T",
-    name: "T",
+    name: "PLL T",
     setupAlgorithm: "F R' F' R U R U R2' F' R U R U' R'",
     pattern: {
       "S-TL": "B",
@@ -422,7 +422,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Ua",
-    name: "Ua",
+    name: "PLL Ua",
     setupAlgorithm: "M2' U' M' U2' M U' M2'",
     pattern: {
       "S-TL": "B",
@@ -448,7 +448,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Ub",
-    name: "Ub",
+    name: "PLL Ub",
     setupAlgorithm: "M2' U M' U2' M U M2'",
     pattern: {
       "S-TL": "B",
@@ -474,7 +474,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "V",
-    name: "V",
+    name: "PLL V",
     setupAlgorithm: "D2' R' U R D' R2' U' R' U R' U R' D' R U2' R'",
     pattern: {
       "S-TL": "F",
@@ -500,7 +500,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Y",
-    name: "Y",
+    name: "PLL Y",
     setupAlgorithm: "F R' F' R U R U' R' F R U' R' U R U R' F'",
     pattern: {
       "S-TL": "F",
@@ -526,7 +526,7 @@ export const definitions: PLLDefinition[] = [
   },
   {
     id: "Z",
-    name: "Z",
+    name: "PLL Z",
     setupAlgorithm: "M U2' M2' U2' M U' M2' U' M2'",
     pattern: {
       "S-TL": "F",

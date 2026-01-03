@@ -6,7 +6,7 @@ export type { OLLDefinition, OLLCaseId } from "@/types/cube/333";
 export const definitions: OLLDefinition[] = [
   {
     id: "1",
-    name: "1",
+    name: "OLL 1",
     setupAlgorithm: "F R' F' R U2' F R' F' R2' U2' R'",
     pattern: [
       "CC",
@@ -29,7 +29,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "2",
-    name: "2",
+    name: "OLL 2",
     setupAlgorithm: "f U R U' R' f' F U R U' R' F'",
     pattern: [
       "CC",
@@ -52,7 +52,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "3",
-    name: "3",
+    name: "OLL 3",
     setupAlgorithm: "F U R U' R' F' U f U R U' R' f' y",
     pattern: [
       "CC",
@@ -75,7 +75,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "4",
-    name: "4",
+    name: "OLL 4",
     setupAlgorithm: "F U R U' R' F' U' f U R U' R' f' y",
     pattern: [
       "CC",
@@ -98,7 +98,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "5",
-    name: "5",
+    name: "OLL 5",
     setupAlgorithm: "r' U' R U' R' U2' r",
     pattern: ["CC", "CR", "BC", "BR", "S-TL", "S-TC", "S-LC", "S-LB", "S-RT"],
     algorithms: [
@@ -111,7 +111,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "6",
-    name: "6",
+    name: "OLL 6",
     setupAlgorithm: "r U R' U R U2' r'",
     pattern: ["CC", "TC", "TR", "CR", "S-LT", "S-LC", "S-BL", "S-BC", "S-RB"],
     algorithms: [
@@ -124,7 +124,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "7",
-    name: "7",
+    name: "OLL 7",
     setupAlgorithm: "r U2' R' U' R U' r'",
     pattern: ["CC", "TC", "CL", "BL", "S-TL", "S-BC", "S-BR", "S-RT", "S-RC"],
     algorithms: [
@@ -137,7 +137,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "8",
-    name: "8",
+    name: "OLL 8",
     setupAlgorithm: "r' U2' R U R' U r y2'",
     pattern: ["CC", "TC", "CR", "BR", "S-TR", "S-LT", "S-LC", "S-BL", "S-BC"],
     algorithms: [
@@ -150,7 +150,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "9",
-    name: "9",
+    name: "OLL 9",
     setupAlgorithm: "F U R U' R2' F' R U R U' R' y'",
     pattern: ["CC", "TR", "CL", "BC", "S-TC", "S-LT", "S-BL", "S-RC", "S-RB"],
     algorithms: [
@@ -163,7 +163,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "10",
-    name: "10",
+    name: "OLL 10",
     setupAlgorithm: "R U2' R' F R' F' R U' R U' R'",
     pattern: ["CC", "TR", "CL", "BC", "S-TL", "S-TC", "S-LB", "S-BR", "S-RC"],
     algorithms: [
@@ -176,7 +176,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "11",
-    name: "11",
+    name: "OLL 11",
     setupAlgorithm: "M U' R U2' R' U' R U' R2' r",
     pattern: ["CC", "CR", "BL", "BC", "S-TL", "S-TC", "S-LC", "S-BR", "S-RT"],
     algorithms: [
@@ -189,7 +189,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "12",
-    name: "12",
+    name: "OLL 12",
     setupAlgorithm: "F U R U' R' F' U' F U R U' R' F'",
     pattern: ["CC", "TR", "CR", "BC", "S-TC", "S-LT", "S-LC", "S-BL", "S-RB"],
     algorithms: [
@@ -202,7 +202,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "13",
-    name: "13",
+    name: "OLL 13",
     setupAlgorithm: "F' U' F r U' r' U r U r'",
     pattern: ["CC", "CL", "CR", "BL", "S-TL", "S-TC", "S-BC", "S-BR", "S-RT"],
     algorithms: [
@@ -215,7 +215,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "14",
-    name: "14",
+    name: "OLL 14",
     setupAlgorithm: "F U F' R' F R U' R' F' R",
     pattern: ["CC", "CL", "CR", "BR", "S-TR", "S-TC", "S-BC", "S-BL", "S-LT"],
     algorithms: [
@@ -228,7 +228,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "15",
-    name: "15",
+    name: "OLL 15",
     setupAlgorithm: "r' U' r U' R' U R r' U r",
     pattern: ["CC", "CL", "CR", "BR", "S-TL", "S-TC", "S-LB", "S-BC", "S-RT"],
     algorithms: [
@@ -241,7 +241,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "16",
-    name: "16",
+    name: "OLL 16",
     setupAlgorithm: "r U r' U R U' R' r U' r'",
     pattern: ["CC", "CL", "CR", "TR", "S-TC", "S-LT", "S-BL", "S-BC", "S-RB"],
     algorithms: [
@@ -254,7 +254,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "17",
-    name: "17",
+    name: "OLL 17",
     setupAlgorithm: "F R' F' R U2' F R' F' R U' R U' R'",
     pattern: ["CC", "TL", "BR", "S-TC", "S-TR", "S-LC", "S-LB", "S-BC", "S-RC"],
     algorithms: [
@@ -267,7 +267,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "18",
-    name: "18",
+    name: "OLL 18",
     setupAlgorithm: "r' U2' R U R' U r2' U2' R' U' R U' r'",
     pattern: [
       "CC",
@@ -291,7 +291,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "19",
-    name: "19",
+    name: "OLL 19",
     setupAlgorithm: "F R' F' R M U R U' R' U' M'",
     pattern: ["CC", "TL", "TR", "S-TC", "S-LC", "S-LB", "S-RC", "S-RB", "S-BC"],
     algorithms: [
@@ -304,7 +304,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "20",
-    name: "20",
+    name: "OLL 20",
     setupAlgorithm: "r U R' U' M2' U R U' R' U' M'",
     pattern: ["CC", "TL", "TR", "BL", "BR", "S-TC", "S-LC", "S-BC", "S-RC"],
     algorithms: [
@@ -317,7 +317,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "21",
-    name: "21",
+    name: "OLL 21",
     setupAlgorithm: "R U R' U R U' R' U R U2' R' y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "S-LT", "S-LB", "S-RT", "S-RB"],
     algorithms: [
@@ -330,7 +330,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "22",
-    name: "22",
+    name: "OLL 22",
     setupAlgorithm: "R' U2' R2' U R2' U R2' U2' R'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "S-LT", "S-LB", "S-TR", "S-BR"],
     algorithms: [
@@ -343,7 +343,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "23",
-    name: "23",
+    name: "OLL 23",
     setupAlgorithm: "R U2' R D R' U2' R D' R2'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "TR", "S-BL", "S-BR"],
     algorithms: [
@@ -356,7 +356,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "24",
-    name: "24",
+    name: "OLL 24",
     setupAlgorithm: "F R' F' r U R U' r'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TR", "BR", "S-TL", "S-BL"],
     algorithms: [
@@ -369,7 +369,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "25",
-    name: "25",
+    name: "OLL 25",
     setupAlgorithm: "R' F' r U R U' r' F y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "BR", "S-BL", "S-RT"],
     algorithms: [
@@ -382,7 +382,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "26",
-    name: "26",
+    name: "OLL 26",
     setupAlgorithm: "R U R' U R U2' R' y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "S-TR", "S-RB", "S-BL"],
     algorithms: [
@@ -395,7 +395,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "27",
-    name: "27",
+    name: "OLL 27",
     setupAlgorithm: "R U2' R' U' R U' R'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "BL", "S-TL", "S-RT", "S-BR"],
     algorithms: [
@@ -408,7 +408,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "28",
-    name: "28",
+    name: "OLL 28",
     setupAlgorithm: "R U R' U' M' U R U' r'",
     pattern: ["CC", "TL", "TC", "TR", "CL", "BL", "BR", "S-RC", "S-BC"],
     algorithms: [
@@ -421,7 +421,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "29",
-    name: "29",
+    name: "OLL 29",
     setupAlgorithm: "M F R' F' R U R U' R' U' M'",
     pattern: ["CC", "TL", "TR", "CL", "BC", "S-TC", "S-LB", "S-RC", "S-RB"],
     algorithms: [
@@ -434,7 +434,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "30",
-    name: "30",
+    name: "OLL 30",
     setupAlgorithm: "F U R U2' R' U R U2' R' U' F' y2'",
     pattern: ["CC", "TL", "TR", "CR", "BC", "S-TC", "S-RB", "S-LC", "S-LB"],
     algorithms: [
@@ -447,7 +447,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "31",
-    name: "31",
+    name: "OLL 31",
     setupAlgorithm: "R' F R U R' U' F' U R",
     pattern: ["CC", "TC", "TR", "CR", "BR", "S-TL", "S-LC", "S-BL", "S-BC"],
     algorithms: [
@@ -460,7 +460,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "32",
-    name: "32",
+    name: "OLL 32",
     setupAlgorithm: "f R' F' R U R U' R' S'",
     pattern: ["CC", "BC", "TR", "CR", "BR", "S-TL", "S-TC", "S-LC", "S-BL"],
     algorithms: [
@@ -473,7 +473,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "33",
-    name: "33",
+    name: "OLL 33",
     setupAlgorithm: "F R' F' R U R U' R'",
     pattern: ["CC", "TR", "CL", "CR", "BR", "S-TL", "S-TC", "S-BL", "S-BC"],
     algorithms: [
@@ -486,7 +486,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "34",
-    name: "34",
+    name: "OLL 34",
     setupAlgorithm: "F U R' U' R' F' R U R2' U' R' y2'",
     pattern: ["CC", "TL", "TR", "CL", "CR", "S-TC", "S-LB", "S-BC", "S-RB"],
     algorithms: [
@@ -499,7 +499,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "35",
-    name: "35",
+    name: "OLL 35",
     setupAlgorithm: "R U2' R' F R' F' R2' U2' R'",
     pattern: ["CC", "TL", "CR", "BC", "BR", "S-TC", "S-RT", "S-LC", "S-BL"],
     algorithms: [
@@ -512,7 +512,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "36",
-    name: "36",
+    name: "OLL 36",
     setupAlgorithm: "F' L F L' U' L' U' L U L' U L y2'",
     pattern: ["CC", "TL", "CL", "BC", "BR", "S-TC", "S-RT", "S-RC", "S-BL"],
     algorithms: [
@@ -525,7 +525,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "37",
-    name: "37",
+    name: "OLL 37",
     setupAlgorithm: "F R U' R' U R U R' F'",
     pattern: ["CC", "TL", "TC", "CL", "BR", "S-RT", "S-RC", "S-BL", "S-BC"],
     algorithms: [
@@ -538,7 +538,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "38",
-    name: "38",
+    name: "OLL 38",
     setupAlgorithm: "F R' F' R U R U R' U' R U' R'",
     pattern: ["CC", "TC", "TR", "CL", "BL", "S-TL", "S-RC", "S-RB", "S-BC"],
     algorithms: [
@@ -549,7 +549,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "39",
-    name: "39",
+    name: "OLL 39",
     setupAlgorithm: "L U F' U' L' U L F L' y'",
     pattern: ["CC", "TL", "TC", "BC", "BR", "S-TR", "S-RC", "S-LC", "S-LB"],
     algorithms: [
@@ -562,7 +562,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "40",
-    name: "40",
+    name: "OLL 40",
     setupAlgorithm: "R' U' F U R U' R' F' R y'",
     pattern: ["CC", "TR", "TC", "BC", "BL", "S-LT", "S-LC", "S-RC", "S-BR"],
     algorithms: [
@@ -575,7 +575,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "41",
-    name: "41",
+    name: "OLL 41",
     setupAlgorithm: "F U R U' R' F' R U2' R' U' R U' R' y2'",
     pattern: ["CC", "TL", "TR", "CR", "BC", "S-TC", "S-LC", "S-BL", "S-BR"],
     algorithms: [
@@ -588,7 +588,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "42",
-    name: "42",
+    name: "OLL 42",
     setupAlgorithm: "F U R U' R' F' R' U2' R U R' U R",
     pattern: ["CC", "TL", "TR", "CL", "BC", "S-TC", "S-RC", "S-BL", "S-BR"],
     algorithms: [
@@ -601,7 +601,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "43",
-    name: "43",
+    name: "OLL 43",
     setupAlgorithm: "f' U' L' U L f",
     pattern: ["CC", "TL", "CL", "BL", "BC", "S-TC", "S-RT", "S-RC", "S-RB"],
     algorithms: [
@@ -614,7 +614,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "44",
-    name: "44",
+    name: "OLL 44",
     setupAlgorithm: "f U R U' R' f'",
     pattern: ["CC", "TR", "CR", "BR", "BC", "S-TC", "S-LT", "S-LC", "S-LB"],
     algorithms: [
@@ -627,7 +627,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "45",
-    name: "45",
+    name: "OLL 45",
     setupAlgorithm: "F U R U' R' F'",
     pattern: ["CC", "TR", "CL", "CR", "BR", "S-TC", "S-BC", "S-LT", "S-LB"],
     algorithms: [
@@ -640,7 +640,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "46",
-    name: "46",
+    name: "OLL 46",
     setupAlgorithm: "R' U' F R' F' R U R",
     pattern: ["CC", "TL", "TC", "BL", "BC", "S-LC", "S-RT", "S-RC", "S-RB"],
     algorithms: [
@@ -652,7 +652,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "47",
-    name: "47",
+    name: "OLL 47",
     setupAlgorithm: "F' U' L' U L U' L' U L F",
     pattern: ["CC", "TC", "CR", "S-TL", "S-LC", "S-RT", "S-RB", "S-BL", "S-BC"],
     algorithms: [
@@ -665,7 +665,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "48",
-    name: "48",
+    name: "OLL 48",
     setupAlgorithm: "F U R U' R' U R U' R' F'",
     pattern: ["CC", "TC", "CL", "S-TR", "S-RC", "S-LT", "S-LB", "S-BR", "S-BC"],
     algorithms: ["F R U R' U' R U R' U' F'", "R U2 R' U' R U R' U2 R' F R F'"],
@@ -673,7 +673,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "49",
-    name: "49",
+    name: "OLL 49",
     setupAlgorithm: "r' U r2' U' r2' U' r2' U r' y2'",
     pattern: ["CC", "BC", "CL", "S-TL", "S-TC", "S-BL", "S-RT", "S-RC", "S-RB"],
     algorithms: [
@@ -686,7 +686,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "50",
-    name: "50",
+    name: "OLL 50",
     setupAlgorithm: "r U' r2' U r2' U r2' U' r",
     pattern: ["CC", "BC", "CR", "S-TR", "S-TC", "S-BR", "S-LT", "S-LC", "S-LB"],
     algorithms: [
@@ -699,7 +699,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "51",
-    name: "51",
+    name: "OLL 51",
     setupAlgorithm: "f U R U' R' U R U' R' f'",
     pattern: ["CC", "CL", "CR", "S-TC", "S-TR", "S-LT", "S-LB", "S-BC", "S-BR"],
     algorithms: [
@@ -712,7 +712,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "52",
-    name: "52",
+    name: "OLL 52",
     setupAlgorithm: "F R U R' d R' U' R U' R'",
     pattern: ["CC", "TC", "BC", "S-TL", "S-LC", "S-BL", "S-RT", "S-RC", "S-RB"],
     algorithms: [
@@ -725,7 +725,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "53",
-    name: "53",
+    name: "OLL 53",
     setupAlgorithm: "r' U2' R U R' U' R U R' U r",
     pattern: ["CC", "BC", "CR", "S-TC", "S-RT", "S-RB", "S-LT", "S-LC", "S-LB"],
     algorithms: [
@@ -738,7 +738,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "54",
-    name: "54",
+    name: "OLL 54",
     setupAlgorithm: "r U2' R' U' R U R' U' R U' r'",
     pattern: ["CC", "TC", "CR", "S-BC", "S-RT", "S-RB", "S-LT", "S-LC", "S-LB"],
     algorithms: [
@@ -751,7 +751,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "55",
-    name: "55",
+    name: "OLL 55",
     setupAlgorithm: "F R' F' U2' R U R' U R2' U2' R'",
     pattern: ["CC", "TC", "BC", "S-LT", "S-LC", "S-LB", "S-RT", "S-RC", "S-RB"],
     algorithms: [
@@ -764,7 +764,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "56",
-    name: "56",
+    name: "OLL 56",
     setupAlgorithm: "r U r' R U R' U' R U R' U' r U' r'",
     pattern: ["CC", "CL", "CR", "S-TC", "S-BC", "S-LT", "S-LB", "S-RT", "S-RB"],
     algorithms: [
@@ -777,7 +777,7 @@ export const definitions: OLLDefinition[] = [
   },
   {
     id: "57",
-    name: "57",
+    name: "OLL 57",
     setupAlgorithm: "r U R' U' M U R U' R'",
     pattern: ["CC", "TL", "CL", "BL", "TR", "CR", "BR", "S-TC", "S-BC"],
     algorithms: [

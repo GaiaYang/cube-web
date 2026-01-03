@@ -7,6 +7,7 @@ import {
   type PLLCaseId,
 } from "@/contents/cube/333/pll/definitions";
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
+import PermutationLastLayerByCase from "@/components/cube/333/diagram/PermutationLastLayerByCase";
 
 type Props = {
   params: Promise<{ id: PLLCaseId }>;
@@ -27,8 +28,8 @@ export async function generateMetadata(
   const previousTitle = (await parent).title;
 
   return {
-    title: `PLL ${data.name}` || previousTitle,
-    description: `PLL ${data.name}`,
+    title: `PLL ${data.id}` || previousTitle,
+    description: data.name,
     alternates: {
       canonical: `/algs/333/pll/${id}`,
     },
@@ -44,5 +45,10 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return <AlgorithmPanel {...data} />;
+  return (
+    <AlgorithmPanel
+      {...data}
+      renderPattern={<PermutationLastLayerByCase caseId={id} />}
+    />
+  );
 }

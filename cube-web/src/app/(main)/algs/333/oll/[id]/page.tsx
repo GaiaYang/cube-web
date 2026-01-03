@@ -7,6 +7,7 @@ import {
   type OLLCaseId,
 } from "@/contents/cube/333/oll/definitions";
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
+import OrientationLastLayerByCase from "@/components/cube/333/diagram/OrientationLastLayerByCase";
 
 type Props = {
   params: Promise<{ id: OLLCaseId }>;
@@ -27,8 +28,8 @@ export async function generateMetadata(
   const previousTitle = (await parent).title;
 
   return {
-    title: `OLL ${data.name}` || previousTitle,
-    description: `OLL ${data.name}`,
+    title: `OLL ${data.id}` || previousTitle,
+    description: data.name,
     alternates: {
       canonical: `/algs/333/oll/${id}`,
     },
@@ -43,5 +44,10 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return <AlgorithmPanel {...data} />;
+  return (
+    <AlgorithmPanel
+      {...data}
+      renderPattern={<OrientationLastLayerByCase caseId={id} />}
+    />
+  );
 }
