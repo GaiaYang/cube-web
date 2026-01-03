@@ -22,7 +22,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "R",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "R' F R' B2 R F' R' B2 R2",
+      "x' R' D R' U2 R D' R' U2 R2 x",
+      "x R' U R' D2 R U' R' D2 R2 x'",
+      "l' U R' D2 R U' R' D2 R2 x'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -43,7 +48,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "R",
       "S-RB": "B",
     },
-    algorithms: [],
+    algorithms: [
+      "R B' R F2 R' B R F2 R2",
+      "x R D' R U2 R' D R U2 R2 x'",
+      "x' R U' R D2 R' U R D2 R2 x",
+      "y' x R2 D2 R U R' D2 R U' R x'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -64,7 +74,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "F",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "y x' R U' R' D R U R' D' R U R' D R U' R' D' x",
+      "R2 U R' U' y R U R' U' R U R' U' R U R' y' R U' R2",
+      "z U2' R2' F R U R' U' R U R' U' R U R' U' F' R2 U2'",
+      "y x' R U' R' D R U R' u2 R' U R D R' U' R x",
+    ],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -85,7 +100,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "F",
     },
-    algorithms: [],
+    algorithms: [
+      "R' U R U' R2 F' U' F U R F R' F' R2 U'",
+      "R' U R U' R2 y' R' U' R U y x R U R' U' R2 x'",
+      "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R",
+      "y' L U F L' U' L U L F' L2 U L U L' U' L U' L'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -106,7 +126,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "B",
     },
-    algorithms: [],
+    algorithms: [
+      "R2 U R' U R' U' R U' R2 D U' R' U R D'",
+      "y R2' u R' U R' U' R u' R2 y' R' U R",
+      "y R2 U R' U R' U' R U' R2 D U' R' U R D'",
+      "y2 F2' D R' U R' U' R D' F2 L' U L",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -127,7 +152,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "F",
       "S-RB": "B",
     },
-    algorithms: [],
+    algorithms: [
+      "R' U' R y R2 u R' U R U' R u' R2",
+      "R' U' R U D' R2 U R' U R U' R U' R2 D",
+      "y F' U' F R2 u R' U R U' R u' R2",
+      "R' d' F R2 u R' U R U' R u' R2",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -148,7 +178,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "B",
     },
-    algorithms: [],
+    algorithms: [
+      "y R2' u' R U' R U R' u R2 y R U' R'",
+      "y R2' u' R U' R U R' u R2 B U' B'",
+      "y R2' U' R U' R U R' U R2 D' U R U' R' D",
+      "y R2' D' F U' F U F' D R2 B U' B'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -169,7 +204,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "B",
     },
-    algorithms: [],
+    algorithms: [
+      "y2 R U R' y' R2 u' R U' R' U R' u R2",
+      "y2 R U R' F2 D' L U' L' U L' D F2",
+      "y2 L U2 L' U F' L' U' L U L F U L' U' L' U L",
+      "y2 l2 U' L2 U' F2 L' U' R U2 L' U l x'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -190,7 +230,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
-    algorithms: [],
+    algorithms: [
+      "M2 U M2 U2 M2 U M2",
+      "M2 U' M2 U2 M2 U' M2",
+      "R2 U2 R U2 R2 U2 R2 U2 R U2 R2",
+      "M2' U' M2' U2' M2' U' M2'",
+    ],
     category: PLLCategory.EPLL,
   },
   {
@@ -211,7 +256,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "B' U F' U2 B U' B' U2 F B U'",
+      "y R' U L' U2 R U' R' U2 R L",
+      "y' L' U R' U2 L U' L' U2 R L",
+      "y' L' U R' z R2 U R' U' R2 U D z'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -232,7 +282,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
-    algorithms: [],
+    algorithms: [
+      "R U R' F' R U R' U' R' F R2 U' R' U'",
+      "R U2 R' U' R U2 L' U R' U' r x",
+      "R U2 R' U' R U2 L' U R' U' L",
+      "L' U R U' L U2' R' U R U2' R'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -253,7 +308,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
-    algorithms: [],
+    algorithms: [
+      "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'",
+      "L U' R U2 L' U R' L U' R U2 L' U R'",
+      "z U R' D R2 U' R D' U R' D R2 U' R D' z'",
+      "r' D r U2 r' D r U2 r' D r U2 r' D r U2 r' D r",
+    ],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -274,7 +334,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "R' U L' U2 R U' L R' U L' U2 R U' L",
+      "R' U R U' R' F' U' F R U R' F R' F' R U' R",
+      "z D' R U' R2 D R' U D' R U' R2 D R' U z'",
+      "z U' R D' R2 U R' D U' R D' R2 U R' D z'",
+    ],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -295,7 +360,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "y2 L U2 L' U2 L F' L' U' L U L F L2",
+      "y' R U R' F' R U2 R' U2 R' F R U R U2 R'",
+      "y' R U' R' U' R U R D R' U' R D' R' U2 R'",
+      "R U2 R' U2 R B' R' U' R U R B R2 U",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -316,7 +386,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "F",
     },
-    algorithms: [],
+    algorithms: [
+      "R' U2 R U2 R' F R U R' U' R' F' R2",
+      "R' U2 R' D' R U' R' D R U R U' R' U' R",
+      "y R2 F R U R U' R' F' R U2 R' U2 R",
+      "y' R U2' R' U2 R' F R2 U' R' U' R U R' F' R U R' U R U2 R'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -337,7 +412,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "B",
     },
-    algorithms: [],
+    algorithms: [
+      "R U R' U' R' F R2 U' R' U' R U R' F'",
+      "R U R' U' R' F R2 U' R' U F' L' U L",
+      "R2 U R2 U' R2 U' D R2 U' R2 U R2 D'",
+      "y F2 D R2 U' R2 F2 D' L2 U L2 U'",
+    ],
     category: PLLCategory.ADJ_SWAP,
   },
   {
@@ -358,7 +438,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "R",
     },
-    algorithms: [],
+    algorithms: [
+      "R2 U' R' U' R U R U R U' R",
+      "y2 R U' R U R U R U' R' U' R2",
+      "M2 U M' U2 M U M2",
+      "y2 M2 U M U2 M' U M2",
+    ],
     category: PLLCategory.EPLL,
   },
   {
@@ -379,7 +464,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "L",
       "S-RB": "R",
     },
-    algorithms: [],
+    algorithms: [
+      "R' U R' U' R' U' R' U R U R2",
+      "y2 M2 U' M U2 M' U' M2",
+      "y2 R2' U R U R' U' R' U' R' U R'",
+      "M2 U' M' U2 M U' M2",
+    ],
     category: PLLCategory.EPLL,
   },
   {
@@ -400,7 +490,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "R' U R' d' R' F' R2 U' R' U R' F R F",
+      "R' U R' U' y R' F' R2 U' R' U R' F R F",
+      "z D' R2 D R2' U R' D' R U' R U R' D R U'",
+      "R U2 R' D R U' R U' R U R2 D R' U' R D2",
+    ],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -421,7 +516,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "R",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "F R U' R' U' R U R' F' R U R' U' R' F R F'",
+      "F R' F R2 U' R' U' R U R' F' R U R' U' F'",
+      "R2 U' R2 U' R2 U y' R U R' B2 R U' R'",
+      "R2 U' R' U R U' y' x' L' U' R U' R' U' L U",
+    ],
     category: PLLCategory.OPP_SWAP,
   },
   {
@@ -442,7 +542,12 @@ export const definitions: PLLDefinition[] = [
       "S-RC": "B",
       "S-RB": "L",
     },
-    algorithms: [],
+    algorithms: [
+      "M2 U M2 U M' U2 M2 U2 M'",
+      "y M2' U' M2' U' M' U2' M2' U2' M'",
+      "M' U' M2' U' M2' U' M' U2' M2'",
+      "R' U' R2 U R U R' U' R U R U' R U' R'",
+    ],
     category: PLLCategory.EPLL,
   },
 ];

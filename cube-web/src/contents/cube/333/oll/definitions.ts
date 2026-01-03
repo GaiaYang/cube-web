@@ -19,7 +19,12 @@ export const definitions: OLLDefinition[] = [
       "S-RC",
       "S-RB",
     ],
-    algorithms: ["R U2 R2 F R F' U2 R' F R F'"],
+    algorithms: [
+      "R U2 R2' F R F' U2 R' F R F'",
+      "R U B' R B R2 U' R' F R F'",
+      "y R U' R2 D' r U' r' D R2 U R'",
+      "r U R' U R' r2 U' R' U R' r2 U2 r'",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
@@ -37,7 +42,12 @@ export const definitions: OLLDefinition[] = [
       "S-BR",
       "S-RC",
     ],
-    algorithms: ["F R U R' U' F' f R U R' U' f'"],
+    algorithms: [
+      "F R U R' U' F' f R U R' U' f'",
+      "F R U R' U' S R U R' U' f'",
+      "y r U r' U2 R U2 R' U2 r U' r'",
+      "F R U r' U' R U R' M' U' F'",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
@@ -55,7 +65,12 @@ export const definitions: OLLDefinition[] = [
       "S-RT",
       "S-RC",
     ],
-    algorithms: ["y' f R U R' U' f' U' F R U R' U' F'"],
+    algorithms: [
+      "y' f R U R' U' f' U' F R U R' U' F'",
+      "r' R2 U R' U r U2 r' U M'",
+      "r' R U R' F2 R U L' U L M'",
+      "y F U R U' R' F' U F R U R' U' F'",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
@@ -73,7 +88,12 @@ export const definitions: OLLDefinition[] = [
       "S-BC",
       "S-RC",
     ],
-    algorithms: ["y F' L' U' L U F U' f R U R' U' f'"],
+    algorithms: [
+      "y' f R U R' U' f' U F R U R' U' F'",
+      "M U' r U2 r' U' R U' R2 r",
+      "y F U R U' R' F' U' F R U R' U' F'",
+      "y2 r R2' U' R U' r' U2 r U' M",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
@@ -81,7 +101,12 @@ export const definitions: OLLDefinition[] = [
     name: "5",
     setupAlgorithm: "r' U' R U' R' U2' r",
     pattern: ["CC", "CR", "BC", "BR", "S-TL", "S-TC", "S-LC", "S-LB", "S-RT"],
-    algorithms: ["r' U2 R U R' U r"],
+    algorithms: [
+      "r' U2 R U R' U r",
+      "y2 l' U2 L U L' U l",
+      "y2 R' F2 r U r' F R",
+      "L' U' L2 F' L' F2 U' F'",
+    ],
     category: OLLCategory.SQUARE_SHAPES,
   },
   {
@@ -89,7 +114,12 @@ export const definitions: OLLDefinition[] = [
     name: "6",
     setupAlgorithm: "r U R' U R U2' r'",
     pattern: ["CC", "TC", "TR", "CR", "S-LT", "S-LC", "S-BL", "S-BC", "S-RB"],
-    algorithms: ["r U2 R' U' R U' r'", "y2 l U2 L' U' L U' l'"],
+    algorithms: [
+      "r U2 R' U' R U' r'",
+      "y2 l U2 L' U' L U' l'",
+      "y2 R U R2 F R F2 U F",
+      "y' x' D R2 U' R' U R' D' x",
+    ],
     category: OLLCategory.SQUARE_SHAPES,
   },
   {
@@ -97,7 +127,12 @@ export const definitions: OLLDefinition[] = [
     name: "7",
     setupAlgorithm: "r U2' R' U' R U' r'",
     pattern: ["CC", "TC", "CL", "BL", "S-TL", "S-BC", "S-BR", "S-RT", "S-RC"],
-    algorithms: ["r U R' U R U2 r'", "y2 l U L' U L U2 l'"],
+    algorithms: [
+      "r U R' U R U2 r'",
+      "L' U2 L U2 L F' L' F",
+      "F R' F' R U2 R U2 R'",
+      "r U r' U R U' R' r U' r'",
+    ],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
@@ -105,7 +140,12 @@ export const definitions: OLLDefinition[] = [
     name: "8",
     setupAlgorithm: "r' U2' R U R' U r y2'",
     pattern: ["CC", "TC", "CR", "BR", "S-TR", "S-LT", "S-LC", "S-BL", "S-BC"],
-    algorithms: ["y2 r' U' R U' R' U2 r"],
+    algorithms: [
+      "y2 r' U' R U' R' U2 r",
+      "l' U' L U' L' U2 l",
+      "R U2 R' U2 R' F R F'",
+      "F' L F L' U2 L' U2 L",
+    ],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
@@ -113,7 +153,12 @@ export const definitions: OLLDefinition[] = [
     name: "9",
     setupAlgorithm: "F U R U' R2' F' R U R U' R' y'",
     pattern: ["CC", "TR", "CL", "BC", "S-TC", "S-LT", "S-BL", "S-RC", "S-RB"],
-    algorithms: ["y R U R' U' R' F R2 U R' U' F'"],
+    algorithms: [
+      "y R U R' U' R' F R2 U R' U' F'",
+      "y2 R' U' R U' R' U R' F R F' U R",
+      "r' R2 U2 R' U' R U' R' U' M'",
+      "y' L' U' L U' L F' L' F L' U2 L",
+    ],
     category: OLLCategory.FISH_SHAPES,
   },
   {
@@ -121,7 +166,12 @@ export const definitions: OLLDefinition[] = [
     name: "10",
     setupAlgorithm: "R U2' R' F R' F' R U' R U' R'",
     pattern: ["CC", "TR", "CL", "BC", "S-TL", "S-TC", "S-LB", "S-BR", "S-RC"],
-    algorithms: ["y2 L' U' L U L F' L2 U' L U F"],
+    algorithms: [
+      "R U R' U R' F R F' R U2 R'",
+      "R U R' y R' F R U' R' F' R",
+      "y2 L' U' L U L F' L2 U' L U F",
+      "R U R' y' r' U r U' r' U' r",
+    ],
     category: OLLCategory.FISH_SHAPES,
   },
   {
@@ -129,7 +179,12 @@ export const definitions: OLLDefinition[] = [
     name: "11",
     setupAlgorithm: "M U' R U2' R' U' R U' R2' r",
     pattern: ["CC", "CR", "BL", "BC", "S-TL", "S-TC", "S-LC", "S-BR", "S-RT"],
-    algorithms: ["r' R2 U R' U R U2 R' U M'"],
+    algorithms: [
+      "r' R2 U R' U R U2 R' U M'",
+      "M R U R' U R U2 R' U M'",
+      "r U R' U R' F R F' R U2 r'",
+      "y2 r U R' U R' F R F' R U2 r'",
+    ],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
@@ -137,7 +192,12 @@ export const definitions: OLLDefinition[] = [
     name: "12",
     setupAlgorithm: "F U R U' R' F' U' F U R U' R' F'",
     pattern: ["CC", "TR", "CR", "BC", "S-TC", "S-LT", "S-LC", "S-BL", "S-RB"],
-    algorithms: ["y l L2 U' L U' L' U2 L U' M'"],
+    algorithms: [
+      "F R U R' U' F' U F R U R' U' F'",
+      "y' r R2' U' R U' R' U2 R U' R r'",
+      "y M U2 R' U' R U' R' U2 R U M'",
+      "y M L' U' L U' L' U2 L U' M'",
+    ],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
@@ -145,7 +205,12 @@ export const definitions: OLLDefinition[] = [
     name: "13",
     setupAlgorithm: "F' U' F r U' r' U r U r'",
     pattern: ["CC", "CL", "CR", "BL", "S-TL", "S-TC", "S-BC", "S-BR", "S-RT"],
-    algorithms: ["r U' r' U' r U r' y L' U L"],
+    algorithms: [
+      "r U' r' U' r U r' F' U F",
+      "F U R U' R2 F' R U R U' R'",
+      "F U R U2 R' U' R U R' F'",
+      "r U' r' U' r U r' y' R' U R",
+    ],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
@@ -153,7 +218,12 @@ export const definitions: OLLDefinition[] = [
     name: "14",
     setupAlgorithm: "F U F' R' F R U' R' F' R",
     pattern: ["CC", "CL", "CR", "BR", "S-TR", "S-TC", "S-BC", "S-BL", "S-LT"],
-    algorithms: ["l' U l U l' U' l y' R U' R'"],
+    algorithms: [
+      "R' F R U R' F' R F U' F'",
+      "R' F R U R' F' R y' R U' R'",
+      "F' U' r' F r2 U r' U' r' F r",
+      "r' U r U r' U' r y R U' R'",
+    ],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
@@ -161,7 +231,12 @@ export const definitions: OLLDefinition[] = [
     name: "15",
     setupAlgorithm: "r' U' r U' R' U R r' U r",
     pattern: ["CC", "CL", "CR", "BR", "S-TL", "S-TC", "S-LB", "S-BC", "S-RT"],
-    algorithms: ["y2 l' U' l L' U' L U l' U l"],
+    algorithms: [
+      "r' U' r R' U' R U r' U r",
+      "y2 l' U' l L' U' L U l' U l",
+      "r' U' M' U' R U r' U r",
+      "y' R' U2 R U R' F U R U' R' F' R",
+    ],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
@@ -169,7 +244,12 @@ export const definitions: OLLDefinition[] = [
     name: "16",
     setupAlgorithm: "r U r' U R U' R' r U' r'",
     pattern: ["CC", "CL", "CR", "TR", "S-TC", "S-LT", "S-BL", "S-BC", "S-RB"],
-    algorithms: ["r U r' R U R' U' r U' r'"],
+    algorithms: [
+      "r U r' R U R' U' r U' r'",
+      "r U M U R' U' r U' r'",
+      "y2 R' F R U R' U' F' R U' R' U2 R",
+      "y2 l U l' L U L' U' l U' l'",
+    ],
     category: OLLCategory.KNIGHT_MOVE_SHAPES,
   },
   {
@@ -177,7 +257,12 @@ export const definitions: OLLDefinition[] = [
     name: "17",
     setupAlgorithm: "F R' F' R U2' F R' F' R U' R U' R'",
     pattern: ["CC", "TL", "BR", "S-TC", "S-TR", "S-LC", "S-LB", "S-BC", "S-RC"],
-    algorithms: ["R U R' U R' F R F' U2 R' F R F'"],
+    algorithms: [
+      "R U R' U R' F R F' U2 R' F R F'",
+      "f R U R' U' f' U' R U R' U' R' F R F'",
+      "y2 F R' F' R2 r' U R U' R' U' M'",
+      "y' F' r U r' U' S r' F r S'",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
@@ -196,7 +281,12 @@ export const definitions: OLLDefinition[] = [
       "S-BC",
       "S-BR",
     ],
-    algorithms: ["y R U2 R2 F R F' U2 M' U R U' r'"],
+    algorithms: [
+      "r U R' U R U2 r2 U' R U' R' U2 r",
+      "y R U2 R2 F R F' U2 M' U R U' r'",
+      "y2 F R U R' d R' U2 R' F R F'",
+      "y2 F R U R' U y' R' U2 R' F R F'",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
@@ -204,7 +294,12 @@ export const definitions: OLLDefinition[] = [
     name: "19",
     setupAlgorithm: "F R' F' R M U R U' R' U' M'",
     pattern: ["CC", "TL", "TR", "S-TC", "S-LC", "S-LB", "S-RC", "S-RB", "S-BC"],
-    algorithms: ["y S' R U R' S U' R' F R F'"],
+    algorithms: [
+      "M U R U R' U' M' R' F R F'",
+      "r' R U R U R' U' r R2' F R F'",
+      "r' U2 R U R' U r2 U2 R' U' R U' r'",
+      "R' U2 F R U R' U' F2 U2 F R",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
@@ -212,50 +307,88 @@ export const definitions: OLLDefinition[] = [
     name: "20",
     setupAlgorithm: "r U R' U' M2' U R U' R' U' M'",
     pattern: ["CC", "TL", "TR", "BL", "BR", "S-TC", "S-LC", "S-BC", "S-RC"],
-    algorithms: ["S' R U R' S U' M' U R U' r'"],
+    algorithms: [
+      "M U R U R' U' M2 U R U' r'",
+      "r U R' U' M2 U R U' R' U' M'",
+      "M' U M' U M' U M' U' M' U M' U M' U M'",
+      "M' U' R' U' R U M2' U' R' U r",
+    ],
     category: OLLCategory.DOT_CASE,
   },
   {
-    id: "21",
-    name: "21",
-    setupAlgorithm: "R U R' U R U' R' U R U2' R' y'",
-    pattern: ["CC", "TC", "CL", "BC", "CR", "S-LT", "S-LB", "S-RT", "S-RB"],
+    id: "17",
+    name: "17",
+    setupAlgorithm: "F R' F' R U2' F R' F' R U' R U' R'",
+    pattern: ["CC", "TL", "BR", "S-TC", "S-TR", "S-LC", "S-LB", "S-BC", "S-RC"],
     algorithms: [
-      "y R' U2 R U R' U' R U R' U R",
-      "y' L U2 L' U' L U L' U' L U' L'",
+      "R U R' U R' F R F' U2 R' F R F'",
+      "f R U R' U' f' U' R U R' U' R' F R F'",
+      "y2 F R' F' R2 r' U R U' R' U' M'",
+      "y' F' r U r' U' S r' F r S'",
     ],
-    category: OLLCategory.OCLL,
+    category: OLLCategory.DOT_CASE,
   },
   {
-    id: "22",
-    name: "22",
-    setupAlgorithm: "R' U2' R2' U R2' U R2' U2' R'",
-    pattern: ["CC", "TC", "CL", "BC", "CR", "S-LT", "S-LB", "S-TR", "S-BR"],
-    algorithms: ["R U2 R2 U' R2 U' R2 U2 R", "y2 L' U2 L2 U L2 U L2 U2 L'"],
-    category: OLLCategory.OCLL,
+    id: "18",
+    name: "18",
+    setupAlgorithm: "r' U2' R U R' U r2' U2' R' U' R U' r'",
+    pattern: [
+      "CC",
+      "TL",
+      "TR",
+      "S-TC",
+      "S-LC",
+      "S-RC",
+      "S-RC",
+      "S-BL",
+      "S-BC",
+      "S-BR",
+    ],
+    algorithms: [
+      "r U R' U R U2 r2 U' R U' R' U2 r",
+      "y R U2 R2 F R F' U2 M' U R U' r'",
+      "y2 F R U R' d R' U2 R' F R F'",
+      "y2 F R U R' U y' R' U2 R' F R F'",
+    ],
+    category: OLLCategory.DOT_CASE,
   },
   {
-    id: "23",
-    name: "23",
-    setupAlgorithm: "R U2' R D R' U2' R D' R2'",
-    pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "TR", "S-BL", "S-BR"],
-    algorithms: ["y2 R2 D' R U2 R' D R U2 R", "R2 D R' U2 R D' R' U2 R'"],
-    category: OLLCategory.OCLL,
+    id: "19",
+    name: "19",
+    setupAlgorithm: "F R' F' R M U R U' R' U' M'",
+    pattern: ["CC", "TL", "TR", "S-TC", "S-LC", "S-LB", "S-RC", "S-RB", "S-BC"],
+    algorithms: [
+      "M U R U R' U' M' R' F R F'",
+      "r' R U R U R' U' r R2' F R F'",
+      "r' U2 R U R' U r2 U2 R' U' R U' r'",
+      "R' U2 F R U R' U' F2 U2 F R",
+    ],
+    category: OLLCategory.DOT_CASE,
   },
   {
-    id: "24",
-    name: "24",
-    setupAlgorithm: "F R' F' r U R U' r'",
-    pattern: ["CC", "TC", "CL", "BC", "CR", "TR", "BR", "S-TL", "S-BL"],
-    algorithms: ["r U R' U' r' F R F'", "y2 l' U' L U R U' r' F"],
-    category: OLLCategory.OCLL,
+    id: "20",
+    name: "20",
+    setupAlgorithm: "r U R' U' M2' U R U' R' U' M'",
+    pattern: ["CC", "TL", "TR", "BL", "BR", "S-TC", "S-LC", "S-BC", "S-RC"],
+    algorithms: [
+      "M U R U R' U' M2 U R U' r'",
+      "r U R' U' M2 U R U' R' U' M'",
+      "M' U M' U M' U M' U' M' U M' U M' U M'",
+      "M' U' R' U' R U M2' U' R' U r",
+    ],
+    category: OLLCategory.DOT_CASE,
   },
   {
     id: "25",
     name: "25",
     setupAlgorithm: "R' F' r U R U' r' F y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "BR", "S-BL", "S-RT"],
-    algorithms: ["y F' r U R' U' r' F R", "F l' U' L U R U' r'"],
+    algorithms: [
+      "y F' r U R' U' r' F R",
+      "R' F R B' R' F' R B",
+      "F R' F' r U R U' r'",
+      "y2 R U2 R' U' R U R' U' R U R' U' R U' R'",
+    ],
     category: OLLCategory.OCLL,
   },
   {
@@ -263,7 +396,12 @@ export const definitions: OLLDefinition[] = [
     name: "26",
     setupAlgorithm: "R U R' U R U2' R' y'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "TL", "S-TR", "S-RB", "S-BL"],
-    algorithms: ["y2 L' U' L U' L' U2 L"],
+    algorithms: [
+      "y R U2 R' U' R U' R'",
+      "R' U' R U' R' U2 R",
+      "y2 L' U' L U' L' U2 L",
+      "R' U L U' R U L'",
+    ],
     category: OLLCategory.OCLL,
   },
   {
@@ -271,7 +409,12 @@ export const definitions: OLLDefinition[] = [
     name: "27",
     setupAlgorithm: "R U2' R' U' R U' R'",
     pattern: ["CC", "TC", "CL", "BC", "CR", "BL", "S-TL", "S-RT", "S-BR"],
-    algorithms: ["R U R' U R U2 R'"],
+    algorithms: [
+      "R U R' U R U2 R'",
+      "y' R' U2 R U R' U R",
+      "R U' L' U R' U' L",
+      "y L' U2 L U L' U L",
+    ],
     category: OLLCategory.OCLL,
   },
   {
@@ -279,7 +422,12 @@ export const definitions: OLLDefinition[] = [
     name: "28",
     setupAlgorithm: "R U R' U' M' U R U' r'",
     pattern: ["CC", "TL", "TC", "TR", "CL", "BL", "BR", "S-RC", "S-BC"],
-    algorithms: ["r U R' U' r' R U R U' R'", "y l' U' L U l L' U' L' U L"],
+    algorithms: [
+      "r U R' U' M U R U' R'",
+      "y2 M' U M U2 M' U M",
+      "M U M' U2 M U M'",
+      "y' M' U' M U2 M' U' M",
+    ],
     category: OLLCategory.ALL_CORNERS_ORIENTED,
   },
   {
@@ -287,7 +435,12 @@ export const definitions: OLLDefinition[] = [
     name: "29",
     setupAlgorithm: "M F R' F' R U R U' R' U' M'",
     pattern: ["CC", "TL", "TR", "CL", "BC", "S-TC", "S-LB", "S-RC", "S-RB"],
-    algorithms: ["r2 D' r U r' D r2 U' r' U' r"],
+    algorithms: [
+      "M U R U R' U' R' F R F' M'",
+      "r2 D' r U r' D r2 U' r' U' r",
+      "y R U R' U' R U' R' F' U' F R U R'",
+      "y2 R' F R F' R U2 R' U' F' U' F",
+    ],
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
@@ -295,7 +448,12 @@ export const definitions: OLLDefinition[] = [
     name: "30",
     setupAlgorithm: "F U R U2' R' U R U2' R' U' F' y2'",
     pattern: ["CC", "TL", "TR", "CR", "BC", "S-TC", "S-RB", "S-LC", "S-LB"],
-    algorithms: ["l2 D l' U' l D' l2 U l U l'"],
+    algorithms: [
+      "M U' L' U' L U L F' L' F M'",
+      "y' r' D' r U' r' D r2 U' r' U r U r'",
+      "y2 F R' F R2 U' R' U' R U R' F2",
+      "R2 U R' B' R U' R2 U R B R'",
+    ],
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
@@ -303,7 +461,12 @@ export const definitions: OLLDefinition[] = [
     name: "31",
     setupAlgorithm: "R' F R U R' U' F' U R",
     pattern: ["CC", "TC", "TR", "CR", "BR", "S-TL", "S-LC", "S-BL", "S-BC"],
-    algorithms: [],
+    algorithms: [
+      "R' U' F U R U' R' F' R",
+      "y2 S' L' U' L U L F' L' f",
+      "y' F R' F' R U R U R' U' R U' R'",
+      "y S R U R' U' f' U' F",
+    ],
     category: OLLCategory.P_SHAPES,
   },
   {
@@ -311,7 +474,12 @@ export const definitions: OLLDefinition[] = [
     name: "32",
     setupAlgorithm: "f R' F' R U R U' R' S'",
     pattern: ["CC", "BC", "TR", "CR", "BR", "S-TL", "S-TC", "S-LC", "S-BL"],
-    algorithms: [],
+    algorithms: [
+      "S R U R' U' R' F R f'",
+      "R U B' U' R' U R B R'",
+      "y2 L U F' U' L' U L F L'",
+      "R d L' d' R' U l U l'",
+    ],
     category: OLLCategory.P_SHAPES,
   },
   {
@@ -319,7 +487,12 @@ export const definitions: OLLDefinition[] = [
     name: "33",
     setupAlgorithm: "F R' F' R U R U' R'",
     pattern: ["CC", "TR", "CL", "CR", "BR", "S-TL", "S-TC", "S-BL", "S-BC"],
-    algorithms: [],
+    algorithms: [
+      "R U R' U' R' F R F'",
+      "F R U' R' U R U R' F'",
+      "y2 L' U' L U L F' L' F",
+      "y' r' U' r' D' r U r' D r2",
+    ],
     category: OLLCategory.T_SHAPES,
   },
   {
@@ -327,7 +500,12 @@ export const definitions: OLLDefinition[] = [
     name: "34",
     setupAlgorithm: "F U R' U' R' F' R U R2' U' R' y2'",
     pattern: ["CC", "TL", "TR", "CL", "CR", "S-TC", "S-LB", "S-BC", "S-RB"],
-    algorithms: [],
+    algorithms: [
+      "y2 R U R' U' B' R' F R F' B",
+      "y2 R U R2 U' R' F R U R U' F'",
+      "F R U R' U' R' F' r U R U' r'",
+      "y2 R U R' U' y' r' U' R U M'",
+    ],
     category: OLLCategory.C_SHAPES,
   },
   {
@@ -335,7 +513,12 @@ export const definitions: OLLDefinition[] = [
     name: "35",
     setupAlgorithm: "R U2' R' F R' F' R2' U2' R'",
     pattern: ["CC", "TL", "CR", "BC", "BR", "S-TC", "S-RT", "S-LC", "S-BL"],
-    algorithms: [],
+    algorithms: [
+      "R U2 R2' F R F' R U2 R'",
+      "f R U R' U' f' R U R' U R U2 R'",
+      "y' R U2 R' U' R U' R' U2 F R U R' U' F'",
+      "R U2 R' U' y' r' U r U' r' U' r",
+    ],
     category: OLLCategory.FISH_SHAPES,
   },
   {
@@ -343,7 +526,12 @@ export const definitions: OLLDefinition[] = [
     name: "36",
     setupAlgorithm: "F' L F L' U' L' U' L U L' U L y2'",
     pattern: ["CC", "TL", "CL", "BC", "BR", "S-TC", "S-RT", "S-RC", "S-BL"],
-    algorithms: [],
+    algorithms: [
+      "y2 L' U' L U' L' U L U L F' L' F",
+      "R' U' R U' R' U R U l U' R' U x",
+      "R' U' R U' R' U R U R y R' F' R",
+      "R U2 r D r' U2 r D' R' r'",
+    ],
     category: OLLCategory.W_SHAPES,
   },
   {
@@ -351,7 +539,12 @@ export const definitions: OLLDefinition[] = [
     name: "37",
     setupAlgorithm: "F R U' R' U R U R' F'",
     pattern: ["CC", "TL", "TC", "CL", "BR", "S-RT", "S-RC", "S-BL", "S-BC"],
-    algorithms: [],
+    algorithms: [
+      "F R U' R' U' R U R' F'",
+      "F R' F' R U R U' R'",
+      "R' F R F' U' F' U F",
+      "y' R U2 R' F R' F' R2 U2 R'",
+    ],
     category: OLLCategory.FISH_SHAPES,
   },
   {
@@ -359,7 +552,10 @@ export const definitions: OLLDefinition[] = [
     name: "38",
     setupAlgorithm: "F R' F' R U R U R' U' R U' R'",
     pattern: ["CC", "TC", "TR", "CL", "BL", "S-TL", "S-RC", "S-RB", "S-BC"],
-    algorithms: [],
+    algorithms: [
+      "R U R' U R U' R' U' R' F R F'",
+      "L' U' L F L' U' L U L F' L' U L F' L' F",
+    ],
     category: OLLCategory.W_SHAPES,
   },
   {
@@ -367,7 +563,12 @@ export const definitions: OLLDefinition[] = [
     name: "39",
     setupAlgorithm: "L U F' U' L' U L F L' y'",
     pattern: ["CC", "TL", "TC", "BC", "BR", "S-TR", "S-RC", "S-LC", "S-LB"],
-    algorithms: [],
+    algorithms: [
+      "y L F' L' U' L U F U' L'",
+      "y' R U R' F' U' F U R U2 R'",
+      "y' R B' R' U' R U B U' R'",
+      "R' r' D' r U' r' D r U R",
+    ],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
@@ -375,7 +576,12 @@ export const definitions: OLLDefinition[] = [
     name: "40",
     setupAlgorithm: "R' U' F U R U' R' F' R y'",
     pattern: ["CC", "TR", "TC", "BC", "BL", "S-LT", "S-LC", "S-RC", "S-BR"],
-    algorithms: [],
+    algorithms: [
+      "y R' F R U R' U' F' U R",
+      "R r D r' U r D' r' U' R'",
+      "y' f R' F' R U R U' R' S'",
+      "y' F R U R' U' F' R U R' U R U2 R'",
+    ],
     category: OLLCategory.LIGHTNING_SHAPES,
   },
   {
@@ -383,7 +589,12 @@ export const definitions: OLLDefinition[] = [
     name: "41",
     setupAlgorithm: "F U R U' R' F' R U2' R' U' R U' R' y2'",
     pattern: ["CC", "TL", "TR", "CR", "BC", "S-TC", "S-LC", "S-BL", "S-BR"],
-    algorithms: [],
+    algorithms: [
+      "y2 R U R' U R U2' R' F R U R' U' F'",
+      "R U' R' U2 R U y R U' R' U' F'",
+      "y' L F' L' F L F' L' F L' U' L U L' U' L",
+      "f R U R' U' f' U' R U R' U R U2 R'",
+    ],
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
@@ -391,7 +602,12 @@ export const definitions: OLLDefinition[] = [
     name: "42",
     setupAlgorithm: "F U R U' R' F' R' U2' R U R' U R",
     pattern: ["CC", "TL", "TR", "CL", "BC", "S-TC", "S-RC", "S-BL", "S-BR"],
-    algorithms: [],
+    algorithms: [
+      "R' U' R U' R' U2 R F R U R' U' F'",
+      "y R' F R F' R' F R F' R U R' U' R U R'",
+      "L' U L U2 L' U' y' L' U L U F",
+      "R' U R U2 R' U' F' U F U R",
+    ],
     category: OLLCategory.AWKWARD_SHAPES,
   },
   {
@@ -399,7 +615,12 @@ export const definitions: OLLDefinition[] = [
     name: "43",
     setupAlgorithm: "f' U' L' U L f",
     pattern: ["CC", "TL", "CL", "BL", "BC", "S-TC", "S-RT", "S-RC", "S-RB"],
-    algorithms: [],
+    algorithms: [
+      "f' L' U' L U f",
+      "y2 F' U' L' U L F",
+      "y R' U' F' U F R",
+      "y2 R' U' F R' F' R U R",
+    ],
     category: OLLCategory.P_SHAPES,
   },
   {
@@ -407,7 +628,12 @@ export const definitions: OLLDefinition[] = [
     name: "44",
     setupAlgorithm: "f U R U' R' f'",
     pattern: ["CC", "TR", "CR", "BR", "BC", "S-TC", "S-LT", "S-LC", "S-LB"],
-    algorithms: [],
+    algorithms: [
+      "f R U R' U' f'",
+      "y2 F U R U' R' F'",
+      "y2 r U x' R U' R' U x U' r'",
+      "y' L d R U' R' F'",
+    ],
     category: OLLCategory.P_SHAPES,
   },
   {
@@ -415,7 +641,12 @@ export const definitions: OLLDefinition[] = [
     name: "45",
     setupAlgorithm: "F U R U' R' F'",
     pattern: ["CC", "TR", "CL", "CR", "BR", "S-TC", "S-BC", "S-LT", "S-LB"],
-    algorithms: [],
+    algorithms: [
+      "F R U R' U' F'",
+      "y2 f U R U' R' f'",
+      "y2 F' L' U' L U F",
+      "F R2 D R' U R D' R2 U' F'",
+    ],
     category: OLLCategory.T_SHAPES,
   },
   {
@@ -423,7 +654,11 @@ export const definitions: OLLDefinition[] = [
     name: "46",
     setupAlgorithm: "R' U' F R' F' R U R",
     pattern: ["CC", "TL", "TC", "BL", "BC", "S-LC", "S-RT", "S-RC", "S-RB"],
-    algorithms: [],
+    algorithms: [
+      "R' U' R' F R F' U R",
+      "y F R U R' y' R' U R U2 R'",
+      "y2 r' F' L' U L U' F r",
+    ],
     category: OLLCategory.C_SHAPES,
   },
   {
@@ -431,7 +666,12 @@ export const definitions: OLLDefinition[] = [
     name: "47",
     setupAlgorithm: "F' U' L' U L U' L' U L F",
     pattern: ["CC", "TC", "CR", "S-TL", "S-LC", "S-RT", "S-RB", "S-BL", "S-BC"],
-    algorithms: [],
+    algorithms: [
+      "F' L' U' L U L' U' L U F",
+      "R' U' R' F R F' R' F R F' U R",
+      "R' U' l' U R U' R' U R U' x' U R",
+      "y2 B' R' U' R U R' U' R U B",
+    ],
     category: OLLCategory.L_SHAPES,
   },
   {
@@ -439,7 +679,7 @@ export const definitions: OLLDefinition[] = [
     name: "48",
     setupAlgorithm: "F U R U' R' U R U' R' F'",
     pattern: ["CC", "TC", "CL", "S-TR", "S-RC", "S-LT", "S-LB", "S-BR", "S-BC"],
-    algorithms: [],
+    algorithms: ["F R U R' U' R U R' U' F'", "R U2 R' U' R U R' U2 R' F R F'"],
     category: OLLCategory.L_SHAPES,
   },
   {
@@ -447,7 +687,12 @@ export const definitions: OLLDefinition[] = [
     name: "49",
     setupAlgorithm: "r' U r2' U' r2' U' r2' U r' y2'",
     pattern: ["CC", "BC", "CL", "S-TL", "S-TC", "S-BL", "S-RT", "S-RC", "S-RB"],
-    algorithms: [],
+    algorithms: [
+      "y2 r U' r2 U r2 U r2 U' r",
+      "l U' l2 U l2 U l2 U' l",
+      "R B' R2 F R2 B R2 F' R",
+      "y2 R' F R' F' R2 U2 B' R B R'",
+    ],
     category: OLLCategory.L_SHAPES,
   },
   {
@@ -455,7 +700,12 @@ export const definitions: OLLDefinition[] = [
     name: "50",
     setupAlgorithm: "r U' r2' U r2' U r2' U' r",
     pattern: ["CC", "BC", "CR", "S-TR", "S-TC", "S-BR", "S-LT", "S-LC", "S-LB"],
-    algorithms: [],
+    algorithms: [
+      "r' U r2 U' r2' U' r2 U r'",
+      "y2 R' F R2 B' R2 F' R2 B R'",
+      "y' R U2 R' U' R U' R' F R U R' U' F'",
+      "y2 l' U l2 U' l2 U' l2 U l'",
+    ],
     category: OLLCategory.L_SHAPES,
   },
   {
@@ -463,7 +713,12 @@ export const definitions: OLLDefinition[] = [
     name: "51",
     setupAlgorithm: "f U R U' R' U R U' R' f'",
     pattern: ["CC", "CL", "CR", "S-TC", "S-TR", "S-LT", "S-LB", "S-BC", "S-BR"],
-    algorithms: [],
+    algorithms: [
+      "f R U R' U' R U R' U' f'",
+      "y2 F U R U' R' U R U' R' F'",
+      "y' R' U' R' F R F' R U' R' U2 R",
+      "y2 f' L' U' L U L' U' L U f",
+    ],
     category: OLLCategory.LINE_SHAPES,
   },
   {
@@ -471,7 +726,12 @@ export const definitions: OLLDefinition[] = [
     name: "52",
     setupAlgorithm: "F R U R' d R' U' R U' R'",
     pattern: ["CC", "TC", "BC", "S-TL", "S-LC", "S-BL", "S-RT", "S-RC", "S-RB"],
-    algorithms: [],
+    algorithms: [
+      "R U R' U R d' R U' R' F'",
+      "R' U' R U' R' d R' U R B",
+      "R' U' R U' R' U F' U F R",
+      "R U R' U R U' y R U' R' F'",
+    ],
     category: OLLCategory.LINE_SHAPES,
   },
   {
@@ -479,7 +739,12 @@ export const definitions: OLLDefinition[] = [
     name: "53",
     setupAlgorithm: "r' U2' R U R' U' R U R' U r",
     pattern: ["CC", "BC", "CR", "S-TC", "S-RT", "S-RB", "S-LT", "S-LC", "S-LB"],
-    algorithms: [],
+    algorithms: [
+      "r' U' R U' R' U R U' R' U2 r",
+      "y2 l' U' L U' L' U L U' L' U2 l",
+      "y r' U2 R U R' U' R U R' U r",
+      "y' l' U2 L U L' U' L U L' U l",
+    ],
     category: OLLCategory.L_SHAPES,
   },
   {
@@ -487,7 +752,12 @@ export const definitions: OLLDefinition[] = [
     name: "54",
     setupAlgorithm: "r U2' R' U' R U R' U' R U' r'",
     pattern: ["CC", "TC", "CR", "S-BC", "S-RT", "S-RB", "S-LT", "S-LC", "S-LB"],
-    algorithms: [],
+    algorithms: [
+      "r U R' U R U' R' U R U2 r'",
+      "y' r U2 R' U' R U R' U' R U' r'",
+      "F' L' U' L U L' U L U' L' U' L F",
+      "y2 F R' F' R U2 F2 L F L' F",
+    ],
     category: OLLCategory.L_SHAPES,
   },
   {
@@ -495,7 +765,12 @@ export const definitions: OLLDefinition[] = [
     name: "55",
     setupAlgorithm: "F R' F' U2' R U R' U R2' U2' R'",
     pattern: ["CC", "TC", "BC", "S-LT", "S-LC", "S-LB", "S-RT", "S-RC", "S-RB"],
-    algorithms: [],
+    algorithms: [
+      "R U2 R2 U' R U' R' U2 F R F'",
+      "y R' F R U R U' R2 F' R2 U' R' U R U R'",
+      "r U2 R2 F R F' U2 r' F R F'",
+      "R' U2 R2 U R' U R U2 y R' F' R",
+    ],
     category: OLLCategory.LINE_SHAPES,
   },
   {
@@ -503,7 +778,12 @@ export const definitions: OLLDefinition[] = [
     name: "56",
     setupAlgorithm: "r U r' R U R' U' R U R' U' r U' r'",
     pattern: ["CC", "CL", "CR", "S-TC", "S-BC", "S-LT", "S-LB", "S-RT", "S-RB"],
-    algorithms: [],
+    algorithms: [
+      "r U r' U R U' R' U R U' R' r U' r'",
+      "F R U R' U' R F' r U R' U' r'",
+      "y f R U R' U' f' F R U R' U' R U R' U' F'",
+      "r' U' r U' R' U R U' R' U R r' U r",
+    ],
     category: OLLCategory.LINE_SHAPES,
   },
   {
@@ -511,7 +791,12 @@ export const definitions: OLLDefinition[] = [
     name: "57",
     setupAlgorithm: "r U R' U' M U R U' R'",
     pattern: ["CC", "TL", "CL", "BL", "TR", "CR", "BR", "S-TC", "S-BC"],
-    algorithms: [],
+    algorithms: [
+      "R U R' U' M' U R U' r'",
+      "M' U M' U M' U2 M U M U M",
+      "R U R' U' r R' U R U' r'",
+      "M' U M' U M' U M' U2 M' U M' U M' U M'",
+    ],
     category: OLLCategory.ALL_CORNERS_ORIENTED,
   },
 ];
