@@ -12,7 +12,7 @@ import DrawerNavbar from "./DrawerNavbar";
 export type DrawerProps = CommonProps;
 
 export default function Drawer({
-  autoExpandDrawer,
+  responsive,
   children,
 }: React.PropsWithChildren<DrawerProps>) {
   return (
@@ -20,7 +20,7 @@ export default function Drawer({
       id={drawerId}
       className={cn(
         "drawer",
-        { "lg:drawer-open": autoExpandDrawer },
+        { "lg:drawer-open": responsive },
         "bg-base-100 mx-auto min-h-dvh max-w-480",
       )}
     >
@@ -43,7 +43,7 @@ export default function Drawer({
               htmlFor={drawerToggleId}
               aria-label="關閉菜單"
               className={cn("btn btn-ghost btn-circle", {
-                "lg:hidden": autoExpandDrawer,
+                "lg:hidden": responsive,
               })}
             >
               <XIcon />

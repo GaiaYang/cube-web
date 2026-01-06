@@ -9,13 +9,13 @@ import ThemeButton from "./ThemeButton";
 
 export type NavbarProps = CommonProps;
 
-export default function Navbar({ autoExpandDrawer }: NavbarProps) {
+export default function Navbar({ responsive }: NavbarProps) {
   return (
     <nav className="navbar">
       <label
         htmlFor={drawerToggleId}
         className={cn("btn btn-ghost btn-circle", {
-          "lg:hidden": autoExpandDrawer,
+          "lg:hidden": responsive,
         })}
       >
         <MenuIcon className="size-6" />
@@ -23,7 +23,7 @@ export default function Navbar({ autoExpandDrawer }: NavbarProps) {
       </label>
       <LogoButton
         className={cn({
-          "lg:hidden": autoExpandDrawer,
+          "lg:hidden": responsive,
         })}
       />
       <div className="grow" />

@@ -7,7 +7,7 @@ import BasicLayout from "@/components/layout/Basic";
 
 export default function Home() {
   return (
-    <BasicLayout autoExpandDrawer={false}>
+    <BasicLayout responsive={false}>
       <main
         className={cn(
           "flex flex-1 flex-col justify-center",

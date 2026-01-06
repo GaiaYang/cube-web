@@ -7,13 +7,13 @@ import Drawer, { type DrawerProps } from "./Drawer";
 export interface BasicLayoutProps extends CommonProps, DrawerProps {}
 
 export default function BasicLayout({
-  autoExpandDrawer = true,
+  responsive = true,
   children,
 }: React.PropsWithChildren<BasicLayoutProps>) {
   return (
-    <Drawer autoExpandDrawer={autoExpandDrawer}>
+    <Drawer responsive={responsive}>
       <Header>
-        <Navbar autoExpandDrawer={autoExpandDrawer} />
+        <Navbar responsive={responsive} />
       </Header>
       {children}
     </Drawer>

@@ -4,5 +4,5 @@ export interface CommonProps {
    *
    * @default true
    * */
-  autoExpandDrawer?: boolean;
+  responsive?: boolean;
 }
