@@ -11,7 +11,7 @@ export default function PLLCase({ pattern, name, category }: PLLCaseProps) {
     <AlgorithmCaseCard
       name={name}
       tag={labels[category]}
-      renderDiagram={<Diagram className="w-full" pattern={pattern} />}
+      renderDiagram={<Diagram pattern={pattern} />}
     />
   );
 }

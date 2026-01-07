@@ -7,6 +7,7 @@ import {
   type F2LCaseId,
 } from "@/contents/cube/333/f2l/definitions";
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
+import Pattern from "@/components/cube/333/diagram/FirstTwoLayersByCase";
 
 type Props = {
   params: Promise<{ id: F2LCaseId }>;
@@ -45,5 +46,5 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return <AlgorithmPanel {...data} />;
+  return <AlgorithmPanel {...data} renderPattern={<Pattern caseId={id} />} />;
 }

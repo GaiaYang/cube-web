@@ -1,3 +1,5 @@
+"use client";
+
 import type { F2LDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 
@@ -7,7 +9,8 @@ import useCubeFaceColor from "./useCubeFaceColor";
 import CubeDiagram, { type CubeDiagramProps } from "./CubeDiagram";
 
 export interface FirstTwoLayersProps
-  extends Omit<CubeDiagramProps, "colorMap">,
+  extends
+    Omit<CubeDiagramProps, "colorMap">,
     Partial<Pick<F2LDefinition, "pattern">> {
   /** 頂層顏色 */
   topColor?: CubeFaceColor;

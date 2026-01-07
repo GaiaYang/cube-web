@@ -1,4 +1,5 @@
 "use client";
+
 import type { OLLDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 

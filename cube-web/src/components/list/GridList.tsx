@@ -45,8 +45,9 @@ export default function GridList<ItemT extends object>({
     <ol
       {...props}
       className={cn(
-        "grid gap-6",
-        "3xl:grid-cols-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5",
+        "grid",
+        "gap-3 md:gap-4 lg:gap-5 xl:gap-6",
+        "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5",
         props.className,
       )}
     >

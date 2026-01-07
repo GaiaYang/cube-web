@@ -7,7 +7,7 @@ import {
   type PLLCaseId,
 } from "@/contents/cube/333/pll/definitions";
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
-import PermutationLastLayerByCase from "@/components/cube/333/diagram/PermutationLastLayerByCase";
+import Pattern from "@/components/cube/333/diagram/PermutationLastLayerByCase";
 
 type Props = {
   params: Promise<{ id: PLLCaseId }>;
@@ -46,10 +46,5 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return (
-    <AlgorithmPanel
-      {...data}
-      renderPattern={<PermutationLastLayerByCase caseId={id} />}
-    />
-  );
+  return <AlgorithmPanel {...data} renderPattern={<Pattern caseId={id} />} />;
 }

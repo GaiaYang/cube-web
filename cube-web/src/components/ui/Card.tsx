@@ -51,13 +51,14 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
               return "card-xs";
             case "sm":
               return "card-sm";
+            case "md":
+              return "card-md";
             case "lg":
               return "card-lg";
             case "xl":
               return "card-xl";
-            case "md":
             default:
-              return "card-md";
+              return "";
           }
         })(),
         className,
