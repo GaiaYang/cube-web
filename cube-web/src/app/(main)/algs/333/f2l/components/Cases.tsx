@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import stringToEnum from "@/utils/stringToEnum";
 import type { F2LDefinition } from "@/types/cube/333";
 import { F2LCategory } from "@/enums/cube/333";
-import { definitions } from "@/contents/cube/333/f2l/definitions";
+import { definitions } from "@/contents/cube/333/f2l";
 
 import OverlayLink from "@/components/ui/OverlayLink";
 import F2LCase from "@/components/gridItems/F2LCase";

@@ -1,7 +1,4 @@
-import {
-  definitions,
-  type OLLCaseId,
-} from "@/contents/cube/333/oll/definitions";
+import { definitions, type OLLCaseId } from "@/contents/cube/333/oll";
 
 import OrientationLastLayer, {
   type OrientationLastLayerProps,

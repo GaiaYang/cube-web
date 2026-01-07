@@ -2,10 +2,7 @@ import { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import {
-  definitions,
-  type F2LCaseId,
-} from "@/contents/cube/333/f2l/definitions";
+import { definitions, type F2LCaseId } from "@/contents/cube/333/f2l";
 import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
 import Pattern from "@/components/cube/333/diagram/FirstTwoLayersByCase";
 
