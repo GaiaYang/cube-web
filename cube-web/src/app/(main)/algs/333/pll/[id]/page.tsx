@@ -13,6 +13,10 @@ type Props = {
   params: Promise<{ id: PLLCaseId }>;
 };
 
+export function generateStaticParams() {
+  return definitions.map((item) => ({ id: item.id }));
+}
+
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
@@ -30,9 +34,6 @@ export async function generateMetadata(
   return {
     title: `PLL ${data.id}` || previousTitle,
     description: data.name,
-    alternates: {
-      canonical: `/algs/333/pll/${id}`,
-    },
   };
 }
 

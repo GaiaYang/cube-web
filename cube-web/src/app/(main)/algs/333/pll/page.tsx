@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import { type Metadata } from "next";
 
+import { SITE_URL } from "@/lib/config";
+
 import Article from "@/components/Article";
 import FilterPanel from "./components/FilterPanel";
 import Cases from "./components/Cases";
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
   title: "PLL 公式列表",
   description:
     "PLL（Permutation of the Last Layer）是CFOP的第四個也是最後一個步驟，目標是排列最後一層的所有方塊使其復原，共 21 種情況。。",
-  alternates: { canonical: "/algs/333/pll" },
+  alternates: { canonical: `${SITE_URL}/algs/333/pll` },
 };
 
 export default function Page() {

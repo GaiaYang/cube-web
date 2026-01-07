@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   title: "轉動代號說明",
   description:
     "完整解說魔術方塊公式中的字母與數字代表的轉動方式，讓你輕鬆理解每個步驟。",
-  alternates: { canonical: "/tutorial/notation" },
 };
 
 export default function Page() {

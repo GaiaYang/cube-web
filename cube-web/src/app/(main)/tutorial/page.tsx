@@ -6,7 +6,6 @@ import DrawerMenuOverview from "@/components/DrawerMenuOverview";
 export const metadata: Metadata = {
   title: "教學總覽",
   description: "整理本站所有教學內容，涵蓋三階方塊為主的完整學習資源。",
-  alternates: { canonical: "/tutorial" },
 };
 
 export default function Page() {

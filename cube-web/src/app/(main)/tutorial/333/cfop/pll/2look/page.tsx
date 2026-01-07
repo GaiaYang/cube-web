@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "兩段式 PLL",
   description:
     "將 PLL 分為兩個階段復原，顯著減少公式數量與判斷難度，適合初學者入門。",
-  alternates: { canonical: "/tutorial/333/cfop/pll/2look" },
 };
 
 export default function Page() {

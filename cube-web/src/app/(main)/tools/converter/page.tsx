@@ -8,7 +8,6 @@ import Converter from "./components/Converter";
 export const metadata: Metadata = {
   title: "公式轉換器",
   description: "提供實用的魔術方塊公式轉換。",
-  alternates: { canonical: "/tools/converter" },
 };
 
 export default function Page() {

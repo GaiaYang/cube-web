@@ -12,6 +12,10 @@ type Props = {
   params: Promise<{ id: F2LCaseId }>;
 };
 
+export function generateStaticParams() {
+  return definitions.map((item) => ({ id: item.id }));
+}
+
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
@@ -29,9 +33,6 @@ export async function generateMetadata(
   return {
     title: `F2L ${data.name}` || previousTitle,
     description: `F2L ${data.name}`,
-    alternates: {
-      canonical: `/algs/333/f2l/${id}`,
-    },
   };
 }
 

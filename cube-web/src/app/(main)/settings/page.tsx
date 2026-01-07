@@ -6,7 +6,6 @@ import SwitchCubeFaceColor from "./components/SwitchCubeFaceColor";
 export const metadata: Metadata = {
   title: "網站設定",
   description: "本網站的一些設定項目。",
-  alternates: { canonical: "/settings" },
 };
 
 export default function Page() {

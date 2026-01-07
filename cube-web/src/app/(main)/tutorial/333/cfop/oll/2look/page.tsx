@@ -28,7 +28,6 @@ export const metadata: Metadata = {
   title: "兩段式 OLL",
   description:
     "將 OLL 分為兩個階段復原，顯著減少公式數量與判斷難度，適合初學者入門。",
-  alternates: { canonical: "/tutorial/333/cfop/oll/2look" },
 };
 
 /** 十字型OLL要獲得的數量 */

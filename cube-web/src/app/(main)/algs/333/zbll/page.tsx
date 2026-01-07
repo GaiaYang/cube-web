@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "ZBLL 公式列表",
   description:
     "ZBLL（Zborowski-Bruchem Last Layer）是 OLL 的公式子集，目標是在頂面形成十字時，使用公式直接還原整個最後一層，通常搭配 ZBLS 使用。",
-  alternates: { canonical: "/algs/333/zbll" },
 };
 
 export default function Page() {

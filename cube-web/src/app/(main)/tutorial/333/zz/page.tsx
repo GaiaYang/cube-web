@@ -6,7 +6,6 @@ import Notices from "@/components/Notices";
 export const metadata: Metadata = {
   title: "ZZ Method",
   description: "ZZ Method是CFOP的變體速解方法，適合用來理解方塊色相的方法。",
-  alternates: { canonical: "/tutorial/333/zz" },
 };
 
 export default function Page() {

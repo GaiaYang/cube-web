@@ -13,32 +13,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/tutorial/333/cross`,
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/tutorial/333/f2l`,
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/tutorial/333/oll`,
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/tutorial/333/pll`,
-      priority: 0.8,
-    },
-    {
       url: `${SITE_URL}/algs/333/f2l`,
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/algs/333/oll`,
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/algs/333/pll`,
-      priority: 0.7,
+      priority: 0.8,
     },
   ];
 }

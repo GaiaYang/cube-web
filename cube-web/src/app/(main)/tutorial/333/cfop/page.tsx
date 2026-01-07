@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   title: "CFOP",
   description:
     "CFOP 是最廣泛使用的三階魔術方塊速解方法，變體眾多、資源豐富，非常適合入門學習速解技巧。",
-  alternates: { canonical: "/tutorial/333/cfop" },
 };
 
 export default function Page() {

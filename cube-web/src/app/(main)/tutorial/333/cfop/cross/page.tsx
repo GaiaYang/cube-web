@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   title: "Cross",
   description:
     "底部十字（Cross）是 CFOP 的第一步，目標是在魔術方塊底部形成一個十字，並使每個底層邊塊同時對齊相鄰的兩個面顏色。",
-  alternates: { canonical: "/tutorial/333/cfop/cross" },
 };
 
 export default function Page() {

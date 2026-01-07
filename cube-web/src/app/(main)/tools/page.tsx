@@ -6,7 +6,6 @@ import DrawerMenuOverview from "@/components/DrawerMenuOverview";
 export const metadata: Metadata = {
   title: "工具總覽",
   description: "本站提供各項實用工具，例如鏡像公式、反轉公式等實用工具",
-  alternates: { canonical: "/tutorial" },
 };
 
 export default function Page() {

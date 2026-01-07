@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   description:
     "提供教學、工具及作者的觀念，不用艱深的技巧跟高價的魔術方塊，即使手速跟反應都不夠快也能在15秒內復原完成。",
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
   verification: { google: "ohw_G7NoQYAvdJw9l8JNTUerponBoJ2c7yIfVH1YoIU" },
 };
 

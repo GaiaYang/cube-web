@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "PLL",
   description:
     "PLL（Permutation of the Last Layer）是 CFOP 的最後一步，目標是排列最後一層的所有方塊，使整個魔術方塊復原。",
-  alternates: { canonical: "/tutorial/333/cfop/pll" },
 };
 
 export default function Page() {
