@@ -2,9 +2,13 @@ import { Suspense } from "react";
 import { type Metadata } from "next";
 
 import { SITE_URL } from "@/lib/config";
+import { options as f2lOptions } from "@/options/cube/333/f2lCategory";
+import { F2LCategory } from "@/enums/cube/333";
 
 import Article from "@/components/Article";
-import FilterPanel from "./components/FilterPanel";
+import AlgorithmsFilterPanel, {
+  AlgorithmsFilterPanelFallback,
+} from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Cases from "./components/Cases";
 
 export const metadata: Metadata = {
@@ -24,8 +28,8 @@ export default function Page() {
       </p>
       <div className="not-prose mt-8 grid gap-6">
         <h2 className="sr-only">搜尋列</h2>
-        <Suspense>
-          <FilterPanel />
+        <Suspense fallback={<AlgorithmsFilterPanelFallback />}>
+          <AlgorithmsFilterPanel options={f2lOptions} enumMap={F2LCategory} />
         </Suspense>
         <h2 className="sr-only">公式列表</h2>
         <Suspense>

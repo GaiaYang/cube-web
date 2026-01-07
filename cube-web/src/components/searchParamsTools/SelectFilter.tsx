@@ -1,13 +1,11 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { RotateCcwIcon } from "lucide-react";
 
 import type { Option } from "@/options/types";
 
 import cn from "@/utils/cn";
-import stringToEnum from "@/utils/stringToEnum";
-import updateSearchParams from "@/utils/updateSearchParams";
+import useSearchParamSelect from "@/hooks/useSearchParamSelect";
 
 export interface SelectFilterProps<
   TEnum extends Record<string, string>,
@@ -35,32 +33,14 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
   ariaLabel = "選擇選項",
   ...props
 }: SelectFilterProps<TEnum>) {
-  const searchParams = useSearchParams();
-
-  const selectedValue = stringToEnum(enumMap, searchParams.get(paramKey)) || "";
-
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
-    if (paramKey) {
-      updateSearchParams(searchParams.toString(), {
-        [paramKey]: event.target.value,
-      });
-    }
-  };
-
-  const handleReset: React.MouseEventHandler<HTMLButtonElement> = () => {
-    if (paramKey) {
-      updateSearchParams(searchParams.toString(), {
-        [paramKey]: undefined,
-      });
-    }
-  };
+  const { value, onChange, reset } = useSearchParamSelect(enumMap, paramKey);
 
   return (
     <div {...props} className={cn("join", props.className)}>
       <select
         aria-label={ariaLabel}
-        value={selectedValue}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
         className="select focus:select-primary join-item"
       >
         <option value="" disabled>
@@ -70,7 +50,7 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
       </select>
       <button
         type="button"
-        onClick={handleReset}
+        onClick={reset}
         title={resetLabel}
         className="join-item btn btn-error btn-square btn-soft"
       >
@@ -88,5 +68,30 @@ function _renderOption<TEnum extends Record<string, string>>(
     <option key={item.id} value={item.value}>
       {item.label}
     </option>
+  );
+}
+
+export interface SelectFilterFallbackProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** 下拉選單的 placeholder */
+  placeholder?: string;
+}
+
+export function SelectFilterFallback({
+  placeholder,
+  ...props
+}: SelectFilterFallbackProps) {
+  return (
+    <div {...props} className={cn("join", props.className)}>
+      <select className="select join-item" disabled>
+        <option>{placeholder}</option>
+      </select>
+      <button
+        type="button"
+        disabled
+        className="join-item btn btn-error btn-square btn-soft"
+      >
+        <span className="loading loading-dots" />
+      </button>
+    </div>
   );
 }

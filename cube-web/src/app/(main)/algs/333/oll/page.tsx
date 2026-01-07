@@ -2,9 +2,13 @@ import { Suspense } from "react";
 import { type Metadata } from "next";
 
 import { SITE_URL } from "@/lib/config";
+import { options as ollOptions } from "@/options/cube/333/ollCategory";
+import { OLLCategory } from "@/enums/cube/333";
 
 import Article from "@/components/Article";
-import FilterPanel from "./components/FilterPanel";
+import AlgorithmsFilterPanel, {
+  AlgorithmsFilterPanelFallback,
+} from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Cases from "./components/Cases";
 
 export const metadata: Metadata = {
@@ -21,8 +25,8 @@ export default function Page() {
       <p>將頂層方塊朝向正確方向，這個步驟完全依靠公式處理，共 57 種情況。</p>
       <div className="not-prose mt-8 grid gap-6">
         <h2 className="sr-only">搜尋列</h2>
-        <Suspense>
-          <FilterPanel />
+        <Suspense fallback={<AlgorithmsFilterPanelFallback />}>
+          <AlgorithmsFilterPanel options={ollOptions} enumMap={OLLCategory} />
         </Suspense>
         <h2 className="sr-only">公式列表</h2>
         <Suspense>
