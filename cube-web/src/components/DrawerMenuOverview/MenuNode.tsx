@@ -16,13 +16,13 @@ export default function MenuNode({
       // menu-title + 子菜單
       return (
         <li>
-          <h2 className="menu-title">{title}</h2>
+          <h2 className="menu-title text-base-content/50">{title}</h2>
           <ul>{submenu.map(_renderNode)}</ul>
         </li>
       );
     } else {
       // menu-title（純文字）
-      return <li className="menu-title">{title}</li>;
+      return <li className="menu-title text-base-content/50">{title}</li>;
     }
   }
 
