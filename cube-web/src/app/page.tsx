@@ -8,7 +8,7 @@ import BasicLayout from "@/components/layout/Basic";
 export default function Home() {
   return (
     <BasicLayout responsive={false}>
-      <main
+      <div
         className={cn(
           "flex flex-col justify-center",
           "mx-auto min-h-[calc(100dvh-4rem)] max-w-2xl",
@@ -39,7 +39,7 @@ export default function Home() {
             公式查詢
           </Link>
         </div>
-      </main>
+      </div>
     </BasicLayout>
   );
 }

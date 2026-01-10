@@ -25,7 +25,7 @@ export default function Drawer({
       )}
     >
       <DrawerToggle />
-      <div className="drawer-content">{children}</div>
+      <main className="drawer-content">{children}</main>
       <div
         id={drawerSideId}
         className={cn("drawer-side z-40", "scroll-pt-20 scroll-smooth")}
