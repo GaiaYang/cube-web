@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { InfoIcon, MoveRightIcon } from "lucide-react";
+import { MoveRightIcon } from "lucide-react";
 
 import cn from "@/utils/cn";
 
@@ -38,14 +38,6 @@ export default function Home() {
           <Link href="/algs/333" className="btn rounded-full">
             公式查詢
           </Link>
-        </div>
-        <div
-          role="alert"
-          aria-hidden
-          className="alert alert-info alert-dash mt-10 self-center text-sm"
-        >
-          <InfoIcon />
-          <span>因作者健康因素，此網站極度緩慢且不定時更新，請見諒。</span>
         </div>
       </main>
     </BasicLayout>
