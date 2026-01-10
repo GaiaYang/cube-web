@@ -26,7 +26,7 @@ export default function Drawer({
       )}
     >
       <DrawerToggle />
-      <main className="drawer-content">{children}</main>
+      <div className="drawer-content">{children}</div>
       <div
         id={drawerSideId}
         className={cn("drawer-side z-40", "scroll-pt-20 scroll-smooth")}
@@ -36,7 +36,7 @@ export default function Drawer({
           aria-label="關閉菜單"
           className="drawer-overlay"
         />
-        <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-80">
+        <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-72">
           <DrawerNavbar>
             <LogoButton />
             <div className="flex-1" />

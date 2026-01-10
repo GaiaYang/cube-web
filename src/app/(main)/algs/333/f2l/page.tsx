@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/config";
 import { options as f2lOptions } from "@/options/cube/333/f2lCategory";
 import { F2LCategory } from "@/enums/cube/333";
 
-import Article from "@/components/Article";
+import Article from "@/components/ui/Article";
 import AlgorithmsFilterPanel, {
   AlgorithmsFilterPanelFallback,
 } from "@/components/searchParamsTools/AlgorithmsFilterPanel";
@@ -20,22 +20,26 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <Article>
-      <h1>F2L 公式列表</h1>
-      <p>
-        將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體，
-        這裡只列出位於頂層以及目標槽位的案例，共有 41 種情況。
-      </p>
-      <div className="not-prose mt-8 grid gap-6">
+    <div className="flex flex-col gap-16">
+      <Article>
+        <h1>F2L 公式列表</h1>
+        <p>
+          將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體，
+          這裡只列出位於頂層以及目標槽位的案例，共有 41 種情況。
+        </p>
+      </Article>
+      <section>
         <h2 className="sr-only">搜尋列</h2>
         <Suspense fallback={<AlgorithmsFilterPanelFallback />}>
           <AlgorithmsFilterPanel options={f2lOptions} enumMap={F2LCategory} />
         </Suspense>
+      </section>
+      <section>
         <h2 className="sr-only">公式列表</h2>
         <Suspense>
           <Cases />
         </Suspense>
-      </div>
-    </Article>
+      </section>
+    </div>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import type { Option } from "@/options/types";
 
-import Article from "@/components/Article";
+import Article from "@/components/ui/Article";
 
 export const metadata: Metadata = {
   title: "CFOP",

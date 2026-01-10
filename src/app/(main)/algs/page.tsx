@@ -1,6 +1,6 @@
 import { type Metadata } from "next";
 
-import Article from "@/components/Article";
+import Article from "@/components/ui/Article";
 import DrawerMenuOverview from "@/components/DrawerMenuOverview";
 
 export const metadata: Metadata = {

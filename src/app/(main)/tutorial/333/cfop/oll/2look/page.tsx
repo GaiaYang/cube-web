@@ -6,7 +6,7 @@ import type { OLLCaseId } from "@/types/cube/333";
 import { definitions } from "@/contents/cube/333/oll";
 import { OLLCategory } from "@/enums/cube/333";
 
-import Article from "@/components/Article";
+import Article from "@/components/ui/Article";
 import OrientationLastLayer, {
   OrientationLastLayerProps,
 } from "@/components/cube/333/diagram/OrientationLastLayer";

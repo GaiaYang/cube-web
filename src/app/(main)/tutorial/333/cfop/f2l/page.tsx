@@ -1,8 +1,8 @@
 import { type Metadata } from "next";
 import { CircleAlertIcon } from "lucide-react";
 
-import Article from "@/components/Article";
-import NewTabLink from "@/components/ui/NewTabLink";
+import Article from "@/components/ui/Article";
+import NewTabLink from "@/components/NewTabLink";
 import Notices from "@/components/Notices";
 
 export const metadata: Metadata = {
