@@ -5,7 +5,7 @@ import { drawerToggleId } from "./config";
 import cn from "@/utils/cn";
 
 import LogoButton from "./LogoButton";
-import ThemeButton from "./ThemeButton";
+import ThemeToggleButton from "./ThemeButton";
 
 export type NavbarProps = CommonProps;
 
@@ -27,7 +27,7 @@ export default function Navbar({ responsive }: NavbarProps) {
         })}
       />
       <div className="grow" />
-      <ThemeButton />
+      <ThemeToggleButton />
     </nav>
   );
 }

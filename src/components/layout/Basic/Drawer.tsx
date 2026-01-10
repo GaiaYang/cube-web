@@ -8,6 +8,7 @@ import DrawerMenu from "./DrawerMenu";
 import LogoButton from "./LogoButton";
 import DrawerToggle from "./DrawerToggle";
 import DrawerNavbar from "./DrawerNavbar";
+import GithubButton from "./GithubButton";
 
 export type DrawerProps = CommonProps;
 
@@ -52,6 +53,14 @@ export default function Drawer({
           <nav aria-label="主選單導覽" className="mt-4">
             <DrawerMenu />
           </nav>
+          <div className="px-4">
+            <div className="bg-base-content/10 mx-4 my-2 h-px" />
+          </div>
+          <ul className="menu menu-horizontal w-full px-4 py-0">
+            <li>
+              <GithubButton />
+            </li>
+          </ul>
           <div className="bg-base-100 pointer-events-none sticky bottom-0 flex h-40 mask-[linear-gradient(transparent,#000000)]" />
         </aside>
       </div>
