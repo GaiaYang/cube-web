@@ -1,6 +1,6 @@
 import type { ListProps } from "@/types/list";
 import cn from "@/utils/cn";
-import getItemKey from "@/utils/list/getItemKey";
+import getListItemKey from "@/utils/getListItemKey";
 
 export interface GridListProps<ItemT>
   extends ListProps<ItemT>, React.HTMLAttributes<HTMLOListElement> {}
@@ -17,7 +17,7 @@ export default function GridList<ItemT extends object>({
 }: GridListProps<ItemT>) {
   function _renderItem(item: ItemT, index: number) {
     const key =
-      keyExtractor?.(item, index) ?? getItemKey(item) ?? index.toString();
+      keyExtractor?.(item, index) ?? getListItemKey(item) ?? index.toString();
     const title = getTitle?.(item);
 
     return (
