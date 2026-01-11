@@ -27,7 +27,7 @@ export type ExtendsMoves = MiddleBlockAliasMove | WideMoveAliases;
 /** 三階擴充轉動代號對照表 */
 export const extendsMovesMap = Object.fromEntries(
   extendsMoves.map((k) => [k, k]),
-);
+) as Record<ExtendsMoves, ExtendsMoves>;
 /** 三階所有轉動代號 */
 export const allMoves = [...basicMoves, ...extendsMoves];
 

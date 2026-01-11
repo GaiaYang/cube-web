@@ -2,19 +2,19 @@ import { basicMoves, basicMovesMap } from "./constants";
 import type { MirrorMap, RotateMap, MoveToken } from "./types";
 
 /** 通用映射處理 */
-function mapMove(
+function mapMove<K extends string, V extends string>(
   item: MoveToken,
-  map: Record<string, string>,
-  reversePrimeFor: string[] = [],
+  map: Record<K, V>,
+  reversePrimeFor: K[] = [],
 ): MoveToken | null {
-  const mapped = map[item.code];
+  const mapped = map[item.code as K];
   if (!mapped) return null;
   const isPrime = item.isPrime ?? false;
   return {
     code: mapped,
     sliceCount: item.sliceCount ?? 1,
     turnCount: item.turnCount ?? 1,
-    isPrime: reversePrimeFor.includes(item.code) ? !isPrime : isPrime,
+    isPrime: reversePrimeFor.includes(item.code as K) ? !isPrime : isPrime,
   };
 }
 

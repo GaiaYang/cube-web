@@ -39,6 +39,11 @@ export function parseMoveByRegex(
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
 
+  // 確保 code 是有效的
+  if (!basicMoves.includes(code as BasicMove)) {
+    return null;
+  }
+
   // 書寫必須從 2 開始
   if ([sliceCountStr, turnStr].some((item) => item === "0" || item === "1")) {
     return null;
@@ -46,7 +51,7 @@ export function parseMoveByRegex(
 
   return {
     sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : 1,
-    code,
+    code: code as BasicMove,
     turnCount: turnStr ? parseInt(turnStr, 10) : 1,
     isPrime: primeMark === PRIME_MARK,
   };
@@ -65,7 +70,11 @@ export function normalizeOfficialMove(
 ): MoveToken | null {
   if (!isPlainObject(token)) return null;
   const { sliceCount = 1, code, turnCount = 1, isPrime = false } = token;
+
+  // 確保 code 是有效的 BasicMove
   if (!basicMoves.includes(code as BasicMove)) return null;
+  // 檢查 sliceCount 是否為有效整數
+  if (!Number.isInteger(sliceCount) || sliceCount < 1) return null;
   // 只有四階以上才能使用 sliceCount
   if (sliceCount > 1) {
     if (cubeLayers && cubeLayers <= 3) return null;
