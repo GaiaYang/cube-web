@@ -12,6 +12,11 @@ export default function Page() {
     <Article>
       <h1>工具總覽</h1>
       <p>本站提供各項實用工具，例如鏡像公式、反轉公式等實用工具</p>
+      <ul>
+        <li>
+          <a href="/tools/converter">公式轉換器</a>
+        </li>
+      </ul>
     </Article>
   );
 }

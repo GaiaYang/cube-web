@@ -1,5 +1,3 @@
-import cn from "@/utils/cn";
-
 import Card from "@/components/ui/Card";
 
 export interface AlgorithmCaseCardProps {
@@ -17,8 +15,8 @@ export default function AlgorithmCaseCard({
   renderDiagram,
 }: AlgorithmCaseCardProps) {
   return (
-    <Card className="card-sm md:card-md">
-      <div className={cn("px-4 md:px-6", "pt-4 md:pt-6")}>
+    <Card>
+      <div className="px-4 pt-4">
         <figure className="aspect-square w-full">
           {renderDiagram ?? (
             <div aria-hidden className="skeleton h-full w-full" />

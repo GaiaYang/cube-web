@@ -25,13 +25,7 @@ export default function Algorithms() {
     return definitions.filter((item) => item.category === category);
   }, [category]);
 
-  return (
-    <GridList
-      data={data}
-      renderItem={_renderItem}
-      getTitle={(item) => item.name}
-    />
-  );
+  return <GridList data={data} renderItem={_renderItem} />;
 }
 
 const _renderItem: GridListProps<F2LDefinition>["renderItem"] = ({ item }) => {
