@@ -27,7 +27,7 @@ import AlgorithmSplitDisplay from "@/components/cube/AlgorithmSplitDisplay";
 export const metadata: Metadata = {
   title: "兩段式 OLL",
   description:
-    "將 OLL 分為兩個階段復原，顯著減少公式數量與判斷難度，適合初學者入門。",
+    "將 OLL 分為兩個階段還原，顯著減少公式數量與判斷難度，適合初學者入門。",
 };
 
 /** 十字型OLL要獲得的數量 */
@@ -39,10 +39,7 @@ export default function Page() {
   return (
     <Article>
       <h1>兩段式 OLL</h1>
-      <p>
-        兩段式 OLL
-        將頂面復原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。
-      </p>
+      <p>將頂面還原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。</p>
       <Notices type="in-progress" />
       <h2>步驟說明</h2>
       <ol>
@@ -52,7 +49,7 @@ export default function Page() {
           <strong>共 3 條公式</strong>
         </li>
         <li>
-          接著使用十字型 OLL 公式完成頂面復原。
+          接著使用十字型 OLL 公式完成頂面還原。
           <br />
           <strong>共 7 條公式</strong>
         </li>
@@ -172,7 +169,7 @@ export default function Page() {
       <h3>錯誤情況</h3>
       <p>十字必定是上面的情況，如果沒有出現以上案例表示方塊裝錯。</p>
       <h2>下一步</h2>
-      <p>現在你完成了頂面，接下來開始完成頂層的排列來復原方塊。</p>
+      <p>現在你完成了頂面，接下來開始完成頂層的排列來還原方塊。</p>
       <ul>
         <li>
           <Link href="/tutorial/333/cfop/pll">PLL</Link>

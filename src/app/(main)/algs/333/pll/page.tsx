@@ -6,15 +6,12 @@ import { options as pllOptions } from "@/options/cube/333/pllCategory";
 import { PLLCategory } from "@/enums/cube/333";
 
 import Article from "@/components/ui/Article";
-import AlgorithmsFilterPanel, {
-  AlgorithmsFilterPanelFallback,
-} from "@/components/searchParamsTools/AlgorithmsFilterPanel";
+import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Cases from "./components/Cases";
 
 export const metadata: Metadata = {
   title: "PLL 公式列表",
-  description:
-    "PLL（Permutation of the Last Layer）是CFOP的第四個也是最後一個步驟，目標是排列最後一層的所有方塊使其復原，共 21 種情況。。",
+  description: "排列頂層方塊使整顆方塊還原，需以公式解決，共 21 種情況。",
   alternates: { canonical: `${SITE_URL}/algs/333/pll` },
 };
 
@@ -24,14 +21,14 @@ export default function Page() {
       <Article>
         <h1>PLL 公式列表</h1>
         <p>
-          歸位最後一層的所有方塊，這個步驟完全依靠公式處理，共有 21 種情況。
+          PLL（Permutation of the Last Layer）是 CFOP
+          法的第四步，也是最後一步，目標是排列頂層方塊使其完全還原，共 21
+          種情況。
         </p>
       </Article>
       <section>
         <h2 className="sr-only">搜尋列</h2>
-        <Suspense fallback={<AlgorithmsFilterPanelFallback />}>
-          <AlgorithmsFilterPanel options={pllOptions} enumMap={PLLCategory} />
-        </Suspense>
+        <AlgorithmsFilterPanel options={pllOptions} enumMap={PLLCategory} />
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>

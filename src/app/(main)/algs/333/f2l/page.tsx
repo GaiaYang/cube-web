@@ -6,15 +6,13 @@ import { options as f2lOptions } from "@/options/cube/333/f2lCategory";
 import { F2LCategory } from "@/enums/cube/333";
 
 import Article from "@/components/ui/Article";
-import AlgorithmsFilterPanel, {
-  AlgorithmsFilterPanelFallback,
-} from "@/components/searchParamsTools/AlgorithmsFilterPanel";
+import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Cases from "./components/Cases";
 
 export const metadata: Metadata = {
   title: "F2L 公式列表",
   description:
-    "將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體，本頁只列出位於頂層以及目標槽位的案例，共有 41 種情況。",
+    "完成方塊底部兩層，每種情況皆有四種變化以避免轉體，這裡只列出位於頂層或目標插槽中的所有組合，共有 41 種情況。",
   alternates: { canonical: `${SITE_URL}/algs/333/f2l` },
 };
 
@@ -24,15 +22,18 @@ export default function Page() {
       <Article>
         <h1>F2L 公式列表</h1>
         <p>
-          將指定邊塊與角塊移動到正確位置，每一組會因為位置不同而有四種變體，
-          這裡只列出位於頂層以及目標槽位的案例，共有 41 種情況。
+          F2L（First Two Layers）是 CFOP
+          法的第二步，目標是完成方塊底部兩層，這裡只列出位於頂層或目標插槽中的所有組合，共有
+          41 種情況。
         </p>
+        <p>
+          每個公式解決一組角塊與邊塊，並將其放入對應位置，因有四個插槽，每種情況皆有四種變化以避免轉體。
+        </p>
+        <p>這步驟比較特別，公式建議只作爲參考，請理解其運作原理。</p>
       </Article>
       <section>
         <h2 className="sr-only">搜尋列</h2>
-        <Suspense fallback={<AlgorithmsFilterPanelFallback />}>
-          <AlgorithmsFilterPanel options={f2lOptions} enumMap={F2LCategory} />
-        </Suspense>
+        <AlgorithmsFilterPanel options={f2lOptions} enumMap={F2LCategory} />
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>

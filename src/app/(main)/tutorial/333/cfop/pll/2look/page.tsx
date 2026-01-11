@@ -7,17 +7,14 @@ import ProportionChart from "@/components/charts/ProportionChart";
 export const metadata: Metadata = {
   title: "兩段式 PLL",
   description:
-    "將 PLL 分為兩個階段復原，顯著減少公式數量與判斷難度，適合初學者入門。",
+    "將 PLL 分為兩個階段還原，顯著減少公式數量與判斷難度，適合初學者入門。",
 };
 
 export default function Page() {
   return (
     <Article>
       <h1>兩段式PLL</h1>
-      <p>
-        兩段式 PLL
-        將頂層復原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。
-      </p>
+      <p>將頂層還原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。</p>
       <Notices type="under-construction" />
       <h2>步驟說明</h2>
       <ol>
@@ -27,14 +24,14 @@ export default function Page() {
           <strong>共 2 條公式</strong>
         </li>
         <li>
-          接著歸位邊塊，使用邊塊相關的 PLL 公式完成頂層復原。
+          接著歸位邊塊，使用邊塊相關的 PLL 公式完成頂層還原。
           <br />
           <strong>共 4 條公式</strong>
         </li>
       </ol>
       <p>
         <strong>總共 6 條公式</strong>
-        就能讓最後一層復原。
+        就能讓最後一層還原。
       </p>
       <ProportionChart
         name="公式量"
