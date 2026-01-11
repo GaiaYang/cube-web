@@ -37,7 +37,7 @@ function SwitchContent() {
       return <FormEntry cubeOrder="nnn" />;
     case 1:
       return (
-        <div>
+        <>
           <h3>三階額外符號</h3>
           <ul className="[&>li>span]:flex [&>li>span]:gap-2">
             <li>
@@ -51,7 +51,7 @@ function SwitchContent() {
           </ul>
           <p>該區塊的轉換器額外支援三階非官方符號及特殊功能轉換</p>
           <FormEntry cubeOrder="333" />
-        </div>
+        </>
       );
     default:
       break;

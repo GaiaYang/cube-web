@@ -21,7 +21,7 @@ export default memo(function StandForm() {
 
     return (
       <Fragment key={item.id}>
-        <h2>{item.title}</h2>
+        <h3>{item.title}</h3>
         <p>{item.description}</p>
         {convert ? (
           <Provider>
@@ -60,7 +60,7 @@ function CoreFormContainer({ onConvert }: CoreFormContainerProps) {
       <form
         onSubmit={form.handleSubmit(_submit)}
         onReset={_reset}
-        className="not-prose grid gap-4"
+        className="not-prose grid gap-3"
       >
         <AlgorithmInput />
         <AlgorithmResult />
