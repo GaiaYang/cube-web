@@ -23,13 +23,14 @@ export interface CommonFormProps {
 }
 
 /** 表單顯示形式 */
-export type FormLayout = "stand" | "in-place";
+export type FormMode = "stand" | "in-place";
 
-export interface TabItem {
-  id: string;
+export interface TabItem<T = string> {
+  id: T;
   label: string;
 }
 
+/** 轉換設定檔 */
 export interface ConversionProfile {
   id: ConversionType;
   title: string;

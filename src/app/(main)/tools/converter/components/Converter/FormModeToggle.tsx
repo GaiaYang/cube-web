@@ -1,27 +1,27 @@
 import { useAtom } from "jotai";
-import { useCallback } from "react";
 
-import { conversionFormLayoutAtom } from "./jotai";
+import cn from "@/utils/cn";
+import { formModeAtom } from "./jotai";
+import { modeTabs } from "./config";
 
 export default function FormModeToggle() {
-  const [formType, setFormType] = useAtom(conversionFormLayoutAtom);
-
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      setFormType(e.target.checked ? "in-place" : "stand");
-    },
-    [setFormType],
-  );
+  const [formMode, setFormMode] = useAtom(formModeAtom);
 
   return (
-    <label className="label">
-      <input
-        type="checkbox"
-        className="toggle checked:toggle-primary"
-        checked={formType === "in-place"}
-        onChange={onChange}
-      />
-      是否為原地複寫模式
-    </label>
+    <div role="tablist" className="tabs tabs-border">
+      {modeTabs.map(({ id, label }) => (
+        <button
+          type="button"
+          role="tab"
+          key={id}
+          onClick={() => {
+            setFormMode(id);
+          }}
+          className={cn("tab", { "tab-active": id === formMode })}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
   );
 }

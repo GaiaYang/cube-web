@@ -1,14 +1,14 @@
 import { useAtom } from "jotai";
 
 import cn from "@/utils/cn";
-import { conversionTabIndexAtom } from "./jotai";
+import { tabIndexAtom } from "./jotai";
 import { tabs } from "./config";
 
 export default function Tabs() {
-  const [tabIndex, setTabIndex] = useAtom(conversionTabIndexAtom);
+  const [tabIndex, setTabIndex] = useAtom(tabIndexAtom);
 
   return (
-    <div role="tablist" className="tabs tabs-box">
+    <div role="tablist" className="tabs tabs-border">
       {tabs.map(({ id, label }, index) => (
         <button
           type="button"

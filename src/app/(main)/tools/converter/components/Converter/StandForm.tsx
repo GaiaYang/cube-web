@@ -1,4 +1,4 @@
-import { Fragment, memo } from "react";
+import { Fragment } from "react";
 
 import { FormProvider, SubmitHandler } from "react-hook-form";
 import { EraserIcon, SendIcon } from "lucide-react";
@@ -13,7 +13,8 @@ import useConverterObject from "./hooks/useConverterObject";
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
 import AlgorithmInput from "./AlgorithmInput";
 
-export default memo(function StandForm() {
+/** 標準轉換表單 */
+export default function StandForm() {
   const { conversionMap, enabledProfiles } = useConverterObject();
 
   function _renderContent(item: ConversionProfile) {
@@ -33,8 +34,9 @@ export default memo(function StandForm() {
   }
 
   return <div>{enabledProfiles.map(_renderContent)}</div>;
-});
+}
 
+/** 公式字串 */
 const algorithmStringAtom = atom("");
 
 interface CoreFormContainerProps {

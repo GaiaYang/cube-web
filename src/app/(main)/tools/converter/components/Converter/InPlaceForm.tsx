@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { RotateCcwIcon } from "lucide-react";
 import { FormProvider, SubmitHandler } from "react-hook-form";
 
@@ -10,7 +9,8 @@ import useConverterObject from "./hooks/useConverterObject";
 
 import AlgorithmInput from "./AlgorithmInput";
 
-export default memo(function InPlaceForm() {
+/** 原地轉換表單 */
+export default function InPlaceForm() {
   const form = useAlgorithmForm();
   const { conversionMap, enabledProfiles } = useConverterObject();
 
@@ -55,4 +55,4 @@ export default memo(function InPlaceForm() {
       </form>
     </FormProvider>
   );
-});
+}

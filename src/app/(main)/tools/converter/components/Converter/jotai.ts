@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 
-import type { FormLayout } from "./types";
+import type { FormMode } from "./types";
 
 /** 選項卡索引 */
-export const conversionTabIndexAtom = atom(0);
+export const tabIndexAtom = atom(0);
 
 /**
  * 表單形式
@@ -12,4 +12,4 @@ export const conversionTabIndexAtom = atom(0);
  *
  * @default "stand"
  * */
-export const conversionFormLayoutAtom = atom<FormLayout>("stand");
+export const formModeAtom = atom<FormMode>("stand");

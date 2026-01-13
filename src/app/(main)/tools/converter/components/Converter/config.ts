@@ -1,4 +1,9 @@
-import type { ConversionFlags, ConversionProfile, TabItem } from "./types";
+import type {
+  ConversionFlags,
+  ConversionProfile,
+  FormMode,
+  TabItem,
+} from "./types";
 
 export const conversionFlags: ConversionFlags = {
   mirror: true,
@@ -8,6 +13,11 @@ export const conversionFlags: ConversionFlags = {
   upper: false,
   lower: false,
 };
+
+export const modeTabs: TabItem<FormMode>[] = [
+  { id: "stand", label: "獨立轉換模式" },
+  { id: "in-place", label: "原地複寫模式" },
+];
 
 export const tabs: TabItem[] = [
   { id: "convert", label: "一般轉換器" },

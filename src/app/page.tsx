@@ -8,7 +8,7 @@ import BasicLayout from "@/components/layout/Basic";
 export default function Home() {
   return (
     <BasicLayout responsive={false}>
-      <div
+      <main
         className={cn(
           "flex flex-col justify-center",
           "mx-auto min-h-[calc(100dvh-4rem)] max-w-2xl",
@@ -24,7 +24,7 @@ export default function Home() {
         >
           Void Cube
         </h1>
-        <p className={cn("text-center text-lg leading-8", "mx-auto mt-6")}>
+        <p className="mt-6 text-center text-lg leading-8">
           提供教學、工具及作者的觀念，不用艱深的技巧跟高價的魔術方塊，即使手速跟反應都不夠快也能在15秒內復原完成。
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -39,7 +39,7 @@ export default function Home() {
             公式查詢
           </Link>
         </div>
-      </div>
+      </main>
     </BasicLayout>
   );
 }

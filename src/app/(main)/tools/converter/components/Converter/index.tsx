@@ -5,7 +5,7 @@ import { Provider, useAtomValue } from "jotai";
 import dynamic from "next/dynamic";
 
 import type { CommonFormProps } from "./types";
-import { conversionFormLayoutAtom, conversionTabIndexAtom } from "./jotai";
+import { formModeAtom, tabIndexAtom } from "./jotai";
 
 import FormModeToggle from "./FormModeToggle";
 import Tabs from "./Tabs";
@@ -30,7 +30,7 @@ export default function Converter() {
 }
 
 function SwitchContent() {
-  const tabIndex = useAtomValue(conversionTabIndexAtom);
+  const tabIndex = useAtomValue(tabIndexAtom);
 
   switch (tabIndex) {
     case 0:
@@ -59,7 +59,7 @@ function SwitchContent() {
 }
 
 function FormEntry({ cubeOrder }: CommonFormProps) {
-  const formType = useAtomValue(conversionFormLayoutAtom);
+  const formType = useAtomValue(formModeAtom);
   const value = useMemo(() => ({ cubeOrder }), [cubeOrder]);
   function _render() {
     switch (formType) {

@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useConverterProps } from "../context";
 import convertMap from "../utils/convertMap";
-
 import { defaultValues, schema, type Schema } from "../form";
+import getOrDefault from "@/utils/getOrDefault";
 
 export default function useAlgorithmForm() {
   const { cubeOrder } = useConverterProps();
@@ -13,8 +13,7 @@ export default function useAlgorithmForm() {
   // 根據 cubeOrder 動態生成 schema
   const dynamicSchema = useMemo(() => {
     return schema.superRefine(({ algorithm }, ctx) => {
-      const { parseAlgorithm } =
-        convertMap[cubeOrder || "nnn"] ?? convertMap["nnn"];
+      const { parseAlgorithm } = getOrDefault(convertMap, "nnn", cubeOrder);
       const parsed = parseAlgorithm(algorithm);
 
       if (parsed.length === 0) {
