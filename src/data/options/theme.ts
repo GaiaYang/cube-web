@@ -1,4 +1,4 @@
-import enumToOptions from "@/options/enumToOptions";
+import enumToOptions from "@/data/options/enumToOptions";
 import { Themes } from "@/enums/theme";
 import { Option } from "./types";
 

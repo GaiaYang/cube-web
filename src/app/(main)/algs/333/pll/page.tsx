@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { type Metadata } from "next";
 
 import { SITE_URL } from "@/lib/config";
-import { options as pllOptions } from "@/options/cube/333/pllCategory";
+import { options as pllOptions } from "@/data/options/cube/333/pllCategory";
 import { PLLCategory } from "@/enums/cube/333";
 
 import Article from "@/components/ui/Article";

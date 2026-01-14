@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import stringToEnum from "@/utils/stringToEnum";
 import type { PLLDefinition } from "@/types/cube/333";
 import { PLLCategory } from "@/enums/cube/333";
-import { definitions } from "@/contents/cube/333/pll";
+import { definitions } from "@/data/cube/333/pll";
 
 import OverlayLink from "@/components/ui/OverlayLink";
 import PLLCase from "@/components/gridItems/PLLCase";

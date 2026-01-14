@@ -1,4 +1,4 @@
-import { definitions, type F2LCaseId } from "@/contents/cube/333/f2l";
+import { definitions, type F2LCaseId } from "@/data/cube/333/f2l";
 
 import FirstTwoLayers, { type FirstTwoLayersProps } from "./FirstTwoLayers";
 

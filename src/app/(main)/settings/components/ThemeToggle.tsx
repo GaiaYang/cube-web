@@ -3,7 +3,7 @@ import { RotateCcwIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import cn from "@/utils/cn";
-import { options, type OptionType } from "@/options/theme";
+import { options, type OptionType } from "@/data/options/theme";
 import useMounted from "@/hooks/useMounted";
 
 import ThemeIcon from "@/components/ThemeIcon";

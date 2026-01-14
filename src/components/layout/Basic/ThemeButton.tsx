@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useTheme } from "next-themes";
 
 import cn from "@/utils/cn";
-import { options } from "@/options/theme";
+import { options } from "@/data/options/theme";
 import useMounted from "@/hooks/useMounted";
 
 import ThemeIcon from "@/components/ThemeIcon";

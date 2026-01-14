@@ -1,4 +1,4 @@
-import enumToOptions from "@/options/enumToOptions";
+import enumToOptions from "@/data/options/enumToOptions";
 import { CubeFaceColors } from "@/enums/cube/color";
 
 const { labels, options } = enumToOptions(CubeFaceColors, {

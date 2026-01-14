@@ -2,7 +2,7 @@
 
 import { RotateCcwIcon } from "lucide-react";
 
-import type { Option } from "@/options/types";
+import type { Option } from "@/data/options/types";
 
 import cn from "@/utils/cn";
 import useSearchParamSelect from "@/hooks/useSearchParamSelect";

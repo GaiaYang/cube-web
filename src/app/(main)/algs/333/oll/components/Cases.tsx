@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import stringToEnum from "@/utils/stringToEnum";
 import type { OLLDefinition } from "@/types/cube/333";
 import { OLLCategory } from "@/enums/cube/333";
-import { definitions } from "@/contents/cube/333/oll";
+import { definitions } from "@/data/cube/333/oll";
 
 import OverlayLink from "@/components/ui/OverlayLink";
 import OLLCase from "@/components/gridItems/OLLCase";

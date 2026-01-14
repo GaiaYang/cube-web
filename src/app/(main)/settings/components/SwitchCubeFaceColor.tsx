@@ -3,12 +3,12 @@ import { RotateCcwIcon } from "lucide-react";
 import { useAtom } from "jotai";
 import { withImmer } from "jotai-immer";
 
-import type { Option } from "@/options/types";
+import type { Option } from "@/data/options/types";
 import { CubeFaceColors } from "@/enums/cube/color";
 
 import cn from "@/utils/cn";
 import getOppositeColor from "@/utils/cube/getOppositeColor";
-import { options } from "@/options/cube/color";
+import { options } from "@/data/options/cube/color";
 import getCubeColor from "@/themes/cube/colors";
 import { cubeFaceColorAtom, store, initialValue } from "@/jotai/settings";
 import useMounted from "@/hooks/useMounted";

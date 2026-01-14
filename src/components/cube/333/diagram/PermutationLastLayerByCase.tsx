@@ -1,4 +1,4 @@
-import { definitions, type PLLCaseId } from "@/contents/cube/333/pll";
+import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
 
 import PermutationLastLayer, {
   type PermutationLastLayerProps,

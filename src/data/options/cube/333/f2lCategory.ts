@@ -1,4 +1,4 @@
-import enumToOptions from "@/options/enumToOptions";
+import enumToOptions from "@/data/options/enumToOptions";
 import { F2LCategory } from "@/enums/cube/333";
 
 const { labels, options } = enumToOptions(F2LCategory, {

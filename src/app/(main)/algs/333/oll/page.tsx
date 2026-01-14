@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { type Metadata } from "next";
 
 import { SITE_URL } from "@/lib/config";
-import { options as ollOptions } from "@/options/cube/333/ollCategory";
+import { options as ollOptions } from "@/data/options/cube/333/ollCategory";
 import { OLLCategory } from "@/enums/cube/333";
 
 import Article from "@/components/ui/Article";

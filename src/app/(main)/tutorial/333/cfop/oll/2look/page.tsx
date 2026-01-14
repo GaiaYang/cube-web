@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import type { OLLCaseId } from "@/types/cube/333";
 
-import { definitions } from "@/contents/cube/333/oll";
+import { definitions } from "@/data/cube/333/oll";
 import { OLLCategory } from "@/enums/cube/333";
 
 import Article from "@/components/ui/Article";
