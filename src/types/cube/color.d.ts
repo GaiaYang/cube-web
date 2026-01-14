@@ -1,9 +1,4 @@
+import { CubeFaceColors } from "@/enums/cube/color";
+
 /** 方塊面塊顏色 */
-export type CubeFaceColor =
-  | "red"
-  | "orange"
-  | "white"
-  | "yellow"
-  | "blue"
-  | "green"
-  | "none";
+export type CubeFaceColor = `${CubeFaceColors}`;
