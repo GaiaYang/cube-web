@@ -1,3 +1,4 @@
+import { createElement } from "react";
 import {
   BookOpenIcon,
   SettingsIcon,
@@ -22,16 +23,24 @@ export default function DrawerMenu() {
 }
 
 const renderIcon: MenuTreeProps["renderIcon"] = (item) => {
+  let _tag;
+
   switch (item.id) {
     case "tutorial":
-      return <BookOpenIcon className={item.className} />;
-    case "algs":
-      return <TableOfContentsIcon className={item.className} />;
-    case "settings":
-      return <SettingsIcon className={item.className} />;
-    case "tools":
-      return <WrenchIcon className={item.className} />;
-    default:
+      _tag = BookOpenIcon;
       break;
+    case "algs":
+      _tag = TableOfContentsIcon;
+      break;
+    case "settings":
+      _tag = SettingsIcon;
+      break;
+    case "tools":
+      _tag = WrenchIcon;
+      break;
+    default:
+      return null;
   }
+
+  return createElement(_tag, { className: item.className });
 };

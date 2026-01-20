@@ -1,5 +1,3 @@
-import { forwardRef } from "react";
-
 import cn from "@/utils/cn";
 
 export interface CardProps extends React.DetailedHTMLProps<
@@ -19,52 +17,42 @@ export interface CardProps extends React.DetailedHTMLProps<
   /**
    * 卡片尺寸
    *
-   * @default "md"
+   * 預設使用 Daisy UI 的 Card 尺寸，若傳入則使用自定義尺寸
+   *
+   * @default undefined
    */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
-  { variant = "border", size = "md", className, ...props },
-  ref,
-) {
+export default function Card({
+  variant = "border",
+  size,
+  className,
+  ...props
+}: CardProps) {
   return (
     <div
       {...props}
-      ref={ref}
       className={cn(
         "card bg-base-100 dark:bg-base-200",
-        (() => {
-          switch (variant) {
-            case "shadow":
-              return "shadow-sm";
-            case "dash-border":
-              return "card-dash border-base-300";
-            case "border":
-            default:
-              return "card-border border-base-300";
-          }
-        })(),
-        (() => {
-          switch (size) {
-            case "xs":
-              return "card-xs";
-            case "sm":
-              return "card-sm";
-            case "md":
-              return "card-md";
-            case "lg":
-              return "card-lg";
-            case "xl":
-              return "card-xl";
-            default:
-              return "";
-          }
-        })(),
+        VARIANT_CLASSES[variant] ?? "",
+        size ? SIZE_CLASSES[size] : "",
         className,
       )}
     />
   );
-});
+}
 
-export default Card;
+const VARIANT_CLASSES: Record<NonNullable<CardProps["variant"]>, string> = {
+  shadow: "shadow-sm",
+  border: "card-border border-base-300",
+  "dash-border": "card-dash border-base-300",
+};
+
+const SIZE_CLASSES: Record<NonNullable<CardProps["size"]>, string> = {
+  xs: "card-xs",
+  sm: "card-sm",
+  md: "card-md",
+  lg: "card-lg",
+  xl: "card-xl",
+};
