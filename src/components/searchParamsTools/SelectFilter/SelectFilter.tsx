@@ -70,28 +70,3 @@ function _renderOption<TEnum extends Record<string, string>>(
     </option>
   );
 }
-
-export interface SelectFilterFallbackProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** 下拉選單的 placeholder */
-  placeholder?: string;
-}
-
-export function SelectFilterFallback({
-  placeholder,
-  ...props
-}: SelectFilterFallbackProps) {
-  return (
-    <div {...props} className={cn("join", props.className)}>
-      <select className="select join-item" disabled>
-        <option>{placeholder}</option>
-      </select>
-      <button
-        type="button"
-        disabled
-        className="join-item btn btn-error btn-square btn-soft"
-      >
-        <span className="loading loading-dots" />
-      </button>
-    </div>
-  );
-}
