@@ -1,10 +1,11 @@
-import type { SVGProps } from "react";
+import { memo, type SVGProps } from "react";
 
 import cn from "@/utils/cn";
 
 import type { CubeBlockPosition3D } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 import getCubeColor from "@/themes/cube/colors";
+import deepEqualForKeys from "@/utils/deepEqualForKeys";
 
 export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
@@ -13,52 +14,57 @@ export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
 }
 
 /** 立體方塊圖 */
-export default function CubeDiagram({
-  size,
-  colorMap,
-  isLoading,
-  // 原生屬性
-  className,
-  ...props
-}: CubeDiagramProps) {
-  function _renderPath(item: PathItem) {
-    return (
-      <path
-        {...item}
-        key={item.id}
-        vectorEffect="non-scaling-stroke"
-        className={cn(
-          "stroke-1",
-          "drak:stroke-slate-300 stroke-slate-400",
-          getCubeColor(colorMap?.[item.id], "fill"),
-        )}
-      />
-    );
-  }
+const CubeDiagram = memo(
+  function CubeDiagram({
+    size,
+    colorMap,
+    isLoading,
+    // 原生屬性
+    className,
+    ...props
+  }: CubeDiagramProps) {
+    function _renderPath(item: PathItem) {
+      return (
+        <path
+          {...item}
+          key={item.id}
+          vectorEffect="non-scaling-stroke"
+          className={cn(
+            "stroke-1",
+            "drak:stroke-slate-300 stroke-slate-400",
+            getCubeColor(colorMap?.[item.id], "fill"),
+          )}
+        />
+      );
+    }
 
-  function _renderGroup(item: GroupItem) {
-    return (
-      <g {...item} key={item.id}>
-        {item.paths.map(_renderPath)}
-      </g>
-    );
-  }
+    function _renderGroup(item: GroupItem) {
+      return (
+        <g {...item} key={item.id}>
+          {item.paths.map(_renderPath)}
+        </g>
+      );
+    }
 
-  return (
-    <svg
-      width={size}
-      height={size}
-      {...props}
-      viewBox="0 0 56 56"
-      aria-hidden
-      pointerEvents="none"
-      shapeRendering="optimizeSpeed"
-      className={cn({ skeleton: isLoading }, className)}
-    >
-      {isLoading ? null : groups.map(_renderGroup)}
-    </svg>
-  );
-}
+    return (
+      <svg
+        width={size}
+        height={size}
+        {...props}
+        viewBox="0 0 56 56"
+        aria-hidden
+        pointerEvents="none"
+        shapeRendering="optimizeSpeed"
+        className={cn({ skeleton: isLoading }, className)}
+      >
+        {isLoading ? null : groups.map(_renderGroup)}
+      </svg>
+    );
+  },
+  deepEqualForKeys(["colorMap"]),
+);
+
+export default CubeDiagram;
 
 interface PathItem extends React.SVGProps<SVGPathElement> {
   id: CubeBlockPosition3D;

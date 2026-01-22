@@ -7,6 +7,8 @@ import createPllColorMap from "@/utils/cube/333/createPllColorMap";
 import useCubeFaceColor from "./useCubeFaceColor";
 
 import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
+import { memo, useMemo } from "react";
+import deepEqualForKeys from "@/utils/deepEqualForKeys";
 
 export interface PermutationLastLayerProps
   extends
@@ -19,22 +21,27 @@ export interface PermutationLastLayerProps
 }
 
 /** PLL顯示圖案 */
-export default function PermutationLastLayer({
-  pattern,
-  topColor,
-  frontColor,
-  ...props
-}: PermutationLastLayerProps) {
-  const cubeFaceColor = useCubeFaceColor();
+const PermutationLastLayer = memo(
+  function PermutationLastLayer({
+    pattern,
+    topColor,
+    frontColor,
+    ...props
+  }: PermutationLastLayerProps) {
+    const cubeFaceColor = useCubeFaceColor();
+    const _colorMap = useMemo(
+      () =>
+        createPllColorMap(
+          pattern,
+          topColor ?? cubeFaceColor.top,
+          frontColor ?? cubeFaceColor.front,
+        ),
+      [pattern, topColor, frontColor, cubeFaceColor.top, cubeFaceColor.front],
+    );
 
-  return (
-    <LastLayer
-      {...props}
-      colorMap={createPllColorMap(
-        pattern,
-        topColor ?? cubeFaceColor.top,
-        frontColor ?? cubeFaceColor.front,
-      )}
-    />
-  );
-}
+    return <LastLayer {...props} colorMap={_colorMap} />;
+  },
+  deepEqualForKeys(["pattern"]),
+);
+
+export default PermutationLastLayer;

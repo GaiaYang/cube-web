@@ -1,10 +1,11 @@
-import type { SVGProps } from "react";
+import { memo, type SVGProps } from "react";
 
 import cn from "@/utils/cn";
 
 import type { CubeFaceletPosition2D } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 import getCubeColor from "@/themes/cube/colors";
+import deepEqualForKeys from "@/utils/deepEqualForKeys";
 
 export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
@@ -13,44 +14,49 @@ export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
 }
 
 /** 最後一層圖案 */
-export default function LastLayerDiagram({
-  size,
-  colorMap,
-  isLoading,
-  // 原生屬性
-  className,
-  ...props
-}: LastLayerDiagramProps) {
-  function _renderItem(item: RectItem) {
-    return (
-      <rect
-        {...item}
-        key={item.id}
-        vectorEffect="non-scaling-stroke"
-        className={cn(
-          "stroke-1",
-          "drak:stroke-slate-300 stroke-slate-400",
-          getCubeColor(colorMap?.[item.id], "fill"),
-        )}
-      />
-    );
-  }
+const LastLayerDiagram = memo(
+  function LastLayerDiagram({
+    size,
+    colorMap,
+    isLoading,
+    // 原生屬性
+    className,
+    ...props
+  }: LastLayerDiagramProps) {
+    function _renderItem(item: RectItem) {
+      return (
+        <rect
+          {...item}
+          key={item.id}
+          vectorEffect="non-scaling-stroke"
+          className={cn(
+            "stroke-1",
+            "drak:stroke-slate-300 stroke-slate-400",
+            getCubeColor(colorMap?.[item.id], "fill"),
+          )}
+        />
+      );
+    }
 
-  return (
-    <svg
-      width={size}
-      height={size}
-      {...props}
-      viewBox="0 0 56 56"
-      aria-hidden
-      pointerEvents="none"
-      shapeRendering="optimizeSpeed"
-      className={cn({ skeleton: isLoading }, className)}
-    >
-      {isLoading ? null : rectangles.map(_renderItem)}
-    </svg>
-  );
-}
+    return (
+      <svg
+        width={size}
+        height={size}
+        {...props}
+        viewBox="0 0 56 56"
+        aria-hidden
+        pointerEvents="none"
+        shapeRendering="optimizeSpeed"
+        className={cn({ skeleton: isLoading }, className)}
+      >
+        {isLoading ? null : rectangles.map(_renderItem)}
+      </svg>
+    );
+  },
+  deepEqualForKeys(["colorMap"]),
+);
+
+export default LastLayerDiagram;
 
 interface RectItem extends React.SVGProps<SVGRectElement> {
   id: CubeFaceletPosition2D;
