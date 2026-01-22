@@ -1,4 +1,3 @@
-"use client";
 import type { SVGProps } from "react";
 
 import cn from "@/utils/cn";
@@ -10,12 +9,16 @@ import getCubeColor from "@/themes/cube/colors";
 export interface LastLayerDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
   colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;
+  isLoading?: boolean;
 }
 
 /** 最後一層圖案 */
 export default function LastLayerDiagram({
   size,
   colorMap,
+  isLoading,
+  // 原生屬性
+  className,
   ...props
 }: LastLayerDiagramProps) {
   function _renderItem(item: RectItem) {
@@ -42,8 +45,9 @@ export default function LastLayerDiagram({
       aria-hidden
       pointerEvents="none"
       shapeRendering="optimizeSpeed"
+      className={cn({ skeleton: isLoading }, className)}
     >
-      {rectangles.map(_renderItem)}
+      {isLoading ? null : rectangles.map(_renderItem)}
     </svg>
   );
 }

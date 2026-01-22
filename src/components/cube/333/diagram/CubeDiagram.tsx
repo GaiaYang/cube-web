@@ -1,4 +1,3 @@
-"use client";
 import type { SVGProps } from "react";
 
 import cn from "@/utils/cn";
@@ -10,12 +9,16 @@ import getCubeColor from "@/themes/cube/colors";
 export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
   size?: number;
   colorMap?: Partial<Record<CubeBlockPosition3D, CubeFaceColor>>;
+  isLoading?: boolean;
 }
 
 /** 立體方塊圖 */
 export default function CubeDiagram({
   size,
   colorMap,
+  isLoading,
+  // 原生屬性
+  className,
   ...props
 }: CubeDiagramProps) {
   function _renderPath(item: PathItem) {
@@ -50,8 +53,9 @@ export default function CubeDiagram({
       aria-hidden
       pointerEvents="none"
       shapeRendering="optimizeSpeed"
+      className={cn({ skeleton: isLoading }, className)}
     >
-      {groups.map(_renderGroup)}
+      {isLoading ? null : groups.map(_renderGroup)}
     </svg>
   );
 }

@@ -1,3 +1,5 @@
+import { InView } from "react-intersection-observer";
+
 import type { PLLDefinition } from "@/types/cube/333";
 import { labels } from "@/data/options/cube/333/pllCategory";
 
@@ -11,7 +13,13 @@ export default function PLLCase({ pattern, name, category }: PLLCaseProps) {
     <AlgorithmCaseCard
       name={name}
       tag={labels[category]}
-      renderDiagram={<Diagram pattern={pattern} />}
+      renderDiagram={
+        <InView>
+          {({ ref, inView }) => (
+            <Diagram ref={ref} pattern={pattern} isLoading={!inView} />
+          )}
+        </InView>
+      }
     />
   );
 }
