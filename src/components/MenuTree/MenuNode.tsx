@@ -32,14 +32,14 @@ export default function MenuNode({ renderIcon, ...item }: MenuNodeProps) {
       // menu-title + 子菜單
       return (
         <li>
-          <h2 className="menu-title text-base-content/50">{_renderContent}</h2>
+          <h2 className="menu-title text-base-content/60">{_renderContent}</h2>
           <ul>{submenu.map(_renderNode)}</ul>
         </li>
       );
     } else {
       // menu-title（純文字）
       return (
-        <li className="menu-title text-base-content/50">{_renderContent}</li>
+        <li className="menu-title text-base-content/60">{_renderContent}</li>
       );
     }
   }

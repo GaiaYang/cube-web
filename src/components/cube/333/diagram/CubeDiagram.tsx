@@ -1,16 +1,19 @@
-import { memo, type SVGProps } from "react";
+"use client";
+
+import { memo, useMemo } from "react";
+import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
 
 import type { CubeBlockPosition3D } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
+import type { CommonDiagramProps } from "./type";
 import getCubeColor from "@/themes/cube/colors";
 import deepEqualForKeys from "@/utils/deepEqualForKeys";
+import { mergeRefs } from "@/utils/mergeRefs";
 
-export interface CubeDiagramProps extends SVGProps<SVGSVGElement> {
-  size?: number;
+export interface CubeDiagramProps extends CommonDiagramProps {
   colorMap?: Partial<Record<CubeBlockPosition3D, CubeFaceColor>>;
-  isLoading?: boolean;
 }
 
 /** 立體方塊圖 */
@@ -18,11 +21,22 @@ const CubeDiagram = memo(
   function CubeDiagram({
     size,
     colorMap,
-    isLoading,
+    loading = "eager",
+    placeholder = "empty",
+    unmountOnExit = false,
     // 原生屬性
+    ref,
     className,
     ...props
   }: CubeDiagramProps) {
+    const { ref: inViewRef, inView } = useInView({
+      triggerOnce: loading === "lazy" && !unmountOnExit,
+      skip: loading === "eager",
+    });
+    /** 是否顯示元素 */
+    const shouldRender = loading === "eager" || inView;
+    const refs = useMemo(() => mergeRefs([ref, inViewRef]), [ref, inViewRef]);
+
     function _renderPath(item: PathItem) {
       return (
         <path
@@ -51,13 +65,17 @@ const CubeDiagram = memo(
         width={size}
         height={size}
         {...props}
+        ref={refs}
         viewBox="0 0 56 56"
         aria-hidden
         pointerEvents="none"
         shapeRendering="optimizeSpeed"
-        className={cn({ skeleton: isLoading }, className)}
+        className={cn(
+          { skeleton: !shouldRender && placeholder === "skeleton" },
+          className,
+        )}
       >
-        {isLoading ? null : groups.map(_renderGroup)}
+        {shouldRender ? groups.map(_renderGroup) : null}
       </svg>
     );
   },
