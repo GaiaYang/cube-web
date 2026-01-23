@@ -38,16 +38,15 @@ const CubeDiagram = memo(
     const refs = useMemo(() => mergeRefs([ref, inViewRef]), [ref, inViewRef]);
 
     function _renderPath(item: PathItem) {
+      const faceColor = colorMap?.[item.id];
       return (
         <path
           {...item}
           key={item.id}
-          vectorEffect="non-scaling-stroke"
-          className={cn(
-            "stroke-1",
-            "drak:stroke-slate-300 stroke-slate-400",
-            getCubeColor(colorMap?.[item.id], "fill"),
-          )}
+          className={cn(getCubeColor(faceColor, "fill"), {
+            "stroke-slate-300 stroke-[0.05] dark:stroke-slate-500":
+              faceColor !== "none",
+          })}
         />
       );
     }
@@ -69,7 +68,6 @@ const CubeDiagram = memo(
         viewBox="0 0 56 56"
         aria-hidden
         pointerEvents="none"
-        shapeRendering="optimizeSpeed"
         className={cn(
           { skeleton: !shouldRender && placeholder === "skeleton" },
           className,

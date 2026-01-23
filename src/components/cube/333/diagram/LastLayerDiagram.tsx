@@ -38,16 +38,15 @@ const LastLayerDiagram = memo(
     const refs = useMemo(() => mergeRefs([ref, inViewRef]), [ref, inViewRef]);
 
     function _renderItem(item: RectItem) {
+      const faceColor = colorMap?.[item.id];
       return (
         <rect
           {...item}
           key={item.id}
-          vectorEffect="non-scaling-stroke"
-          className={cn(
-            "stroke-1",
-            "drak:stroke-slate-300 stroke-slate-400",
-            getCubeColor(colorMap?.[item.id], "fill"),
-          )}
+          className={cn(getCubeColor(faceColor, "fill"), {
+            "stroke-slate-300 stroke-[0.25] dark:stroke-slate-500":
+              faceColor !== "none",
+          })}
         />
       );
     }
@@ -61,7 +60,6 @@ const LastLayerDiagram = memo(
         viewBox="0 0 56 56"
         aria-hidden
         pointerEvents="none"
-        shapeRendering="optimizeSpeed"
         className={cn(
           { skeleton: !shouldRender && placeholder === "skeleton" },
           className,
