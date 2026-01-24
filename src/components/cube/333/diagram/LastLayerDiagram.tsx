@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
@@ -9,7 +9,6 @@ import type { CubeFaceletPosition2D } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 import type { CommonDiagramProps } from "./type";
 import getCubeColor from "@/themes/cube/colors";
-import deepEqualForKeys from "@/utils/deepEqualForKeys";
 import { mergeRefs } from "@/utils/mergeRefs";
 
 export interface LastLayerDiagramProps extends CommonDiagramProps {
@@ -17,62 +16,57 @@ export interface LastLayerDiagramProps extends CommonDiagramProps {
 }
 
 /** 最後一層圖案 */
-const LastLayerDiagram = memo(
-  function LastLayerDiagram({
-    size,
-    colorMap,
-    loading = "eager",
-    placeholder = "empty",
-    unmountOnExit = false,
-    // 原生屬性
-    ref,
-    className,
-    ...props
-  }: LastLayerDiagramProps) {
-    const { ref: inViewRef, inView } = useInView({
-      triggerOnce: loading === "lazy" && !unmountOnExit,
-      skip: loading === "eager",
-    });
-    /** 是否顯示元素 */
-    const shouldRender = loading === "eager" || inView;
-    const refs = useMemo(() => mergeRefs([ref, inViewRef]), [ref, inViewRef]);
+export default function LastLayerDiagram({
+  size,
+  colorMap,
+  loading = "eager",
+  placeholder = "empty",
+  unmountOnExit = false,
+  // 原生屬性
+  ref,
+  className,
+  ...props
+}: LastLayerDiagramProps) {
+  const { ref: inViewRef, inView } = useInView({
+    triggerOnce: loading === "lazy" && !unmountOnExit,
+    skip: loading === "eager",
+  });
+  /** 是否顯示元素 */
+  const shouldRender = loading === "eager" || inView;
+  const refs = useMemo(() => mergeRefs([ref, inViewRef]), [ref, inViewRef]);
 
-    function _renderItem(item: RectItem) {
-      const faceColor = colorMap?.[item.id];
-      return (
-        <rect
-          {...item}
-          key={item.id}
-          className={cn(getCubeColor(faceColor, "fill"), {
-            "stroke-slate-300 stroke-[0.25] dark:stroke-slate-500":
-              faceColor !== "none",
-          })}
-        />
-      );
-    }
-
+  function _renderItem(item: RectItem) {
+    const faceColor = colorMap?.[item.id];
     return (
-      <svg
-        width={size}
-        height={size}
-        {...props}
-        ref={refs}
-        viewBox="0 0 56 56"
-        aria-hidden
-        pointerEvents="none"
-        className={cn(
-          { skeleton: !shouldRender && placeholder === "skeleton" },
-          className,
-        )}
-      >
-        {shouldRender ? rectangles.map(_renderItem) : null}
-      </svg>
+      <rect
+        {...item}
+        key={item.id}
+        className={cn(getCubeColor(faceColor, "fill"), {
+          "stroke-slate-300 stroke-[0.25] dark:stroke-slate-500":
+            faceColor !== "none",
+        })}
+      />
     );
-  },
-  deepEqualForKeys(["colorMap"]),
-);
+  }
 
-export default LastLayerDiagram;
+  return (
+    <svg
+      width={size}
+      height={size}
+      {...props}
+      ref={refs}
+      viewBox="0 0 56 56"
+      aria-hidden
+      pointerEvents="none"
+      className={cn(
+        { skeleton: !shouldRender && placeholder === "skeleton" },
+        className,
+      )}
+    >
+      {shouldRender ? rectangles.map(_renderItem) : null}
+    </svg>
+  );
+}
 
 interface RectItem extends React.SVGProps<SVGRectElement> {
   id: CubeFaceletPosition2D;

@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
 import cn from "@/utils/cn";
@@ -9,7 +9,6 @@ import type { CubeBlockPosition3D } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 import type { CommonDiagramProps } from "./type";
 import getCubeColor from "@/themes/cube/colors";
-import deepEqualForKeys from "@/utils/deepEqualForKeys";
 import { mergeRefs } from "@/utils/mergeRefs";
 
 export interface CubeDiagramProps extends CommonDiagramProps {
@@ -17,70 +16,65 @@ export interface CubeDiagramProps extends CommonDiagramProps {
 }
 
 /** 立體方塊圖 */
-const CubeDiagram = memo(
-  function CubeDiagram({
-    size,
-    colorMap,
-    loading = "eager",
-    placeholder = "empty",
-    unmountOnExit = false,
-    // 原生屬性
-    ref,
-    className,
-    ...props
-  }: CubeDiagramProps) {
-    const { ref: inViewRef, inView } = useInView({
-      triggerOnce: loading === "lazy" && !unmountOnExit,
-      skip: loading === "eager",
-    });
-    /** 是否顯示元素 */
-    const shouldRender = loading === "eager" || inView;
-    const refs = useMemo(() => mergeRefs([ref, inViewRef]), [ref, inViewRef]);
+export default function CubeDiagram({
+  size,
+  colorMap,
+  loading = "eager",
+  placeholder = "empty",
+  unmountOnExit = false,
+  // 原生屬性
+  ref,
+  className,
+  ...props
+}: CubeDiagramProps) {
+  const { ref: inViewRef, inView } = useInView({
+    triggerOnce: loading === "lazy" && !unmountOnExit,
+    skip: loading === "eager",
+  });
+  /** 是否顯示元素 */
+  const shouldRender = loading === "eager" || inView;
+  const refs = useMemo(() => mergeRefs([ref, inViewRef]), [ref, inViewRef]);
 
-    function _renderPath(item: PathItem) {
-      const faceColor = colorMap?.[item.id];
-      return (
-        <path
-          {...item}
-          key={item.id}
-          className={cn(getCubeColor(faceColor, "fill"), {
-            "stroke-slate-300 stroke-[0.05] dark:stroke-slate-500":
-              faceColor !== "none",
-          })}
-        />
-      );
-    }
-
-    function _renderGroup(item: GroupItem) {
-      return (
-        <g {...item} key={item.id}>
-          {item.paths.map(_renderPath)}
-        </g>
-      );
-    }
-
+  function _renderPath(item: PathItem) {
+    const faceColor = colorMap?.[item.id];
     return (
-      <svg
-        width={size}
-        height={size}
-        {...props}
-        ref={refs}
-        viewBox="0 0 56 56"
-        aria-hidden
-        pointerEvents="none"
-        className={cn(
-          { skeleton: !shouldRender && placeholder === "skeleton" },
-          className,
-        )}
-      >
-        {shouldRender ? groups.map(_renderGroup) : null}
-      </svg>
+      <path
+        {...item}
+        key={item.id}
+        className={cn(getCubeColor(faceColor, "fill"), {
+          "stroke-slate-300 stroke-[0.05] dark:stroke-slate-500":
+            faceColor !== "none",
+        })}
+      />
     );
-  },
-  deepEqualForKeys(["colorMap"]),
-);
+  }
 
-export default CubeDiagram;
+  function _renderGroup(item: GroupItem) {
+    return (
+      <g {...item} key={item.id}>
+        {item.paths.map(_renderPath)}
+      </g>
+    );
+  }
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      {...props}
+      ref={refs}
+      viewBox="0 0 56 56"
+      aria-hidden
+      pointerEvents="none"
+      className={cn(
+        { skeleton: !shouldRender && placeholder === "skeleton" },
+        className,
+      )}
+    >
+      {shouldRender ? groups.map(_renderGroup) : null}
+    </svg>
+  );
+}
 
 interface PathItem extends React.SVGProps<SVGPathElement> {
   id: CubeBlockPosition3D;
