@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 
 import type { PLLDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
@@ -27,15 +26,15 @@ export default function PermutationLastLayer({
   ...props
 }: PermutationLastLayerProps) {
   const cubeFaceColor = useCubeFaceColor();
-  const _colorMap = useMemo(
-    () =>
-      createPllColorMap(
+
+  return (
+    <LastLayer
+      {...props}
+      colorMap={createPllColorMap(
         pattern,
         topColor ?? cubeFaceColor.top,
         frontColor ?? cubeFaceColor.front,
-      ),
-    [pattern, topColor, frontColor, cubeFaceColor.top, cubeFaceColor.front],
+      )}
+    />
   );
-
-  return <LastLayer {...props} colorMap={_colorMap} />;
 }

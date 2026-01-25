@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 
 import type { F2LDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
@@ -27,15 +26,15 @@ export default function FirstTwoLayers({
   ...props
 }: FirstTwoLayersProps) {
   const cubeFaceColor = useCubeFaceColor();
-  const _colorMap = useMemo(
-    () =>
-      createF2lColorMap(
+
+  return (
+    <CubeDiagram
+      {...props}
+      colorMap={createF2lColorMap(
         pattern,
         topColor ?? cubeFaceColor.top,
         frontColor ?? cubeFaceColor.front,
-      ),
-    [pattern, topColor, frontColor, cubeFaceColor.top, cubeFaceColor.front],
+      )}
+    />
   );
-
-  return <CubeDiagram {...props} colorMap={_colorMap} />;
 }

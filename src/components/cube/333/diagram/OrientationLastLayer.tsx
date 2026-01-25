@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 
 import type { OLLDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
@@ -24,10 +23,11 @@ export default function OrientationLastLayer({
   ...props
 }: OrientationLastLayerProps) {
   const cubeFaceColor = useCubeFaceColor();
-  const _colorMap = useMemo(
-    () => createOllColorMap(pattern, topColor ?? cubeFaceColor.top),
-    [pattern, topColor, cubeFaceColor.top],
-  );
 
-  return <LastLayer {...props} colorMap={_colorMap} />;
+  return (
+    <LastLayer
+      {...props}
+      colorMap={createOllColorMap(pattern, topColor ?? cubeFaceColor.top)}
+    />
+  );
 }

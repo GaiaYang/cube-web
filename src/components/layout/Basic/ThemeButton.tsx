@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback } from "react";
 import { useTheme } from "next-themes";
 
 import cn from "@/utils/cn";
@@ -20,13 +19,13 @@ export default function ThemeToggleButton() {
   const { theme, setTheme, themes } = useTheme();
 
   /** 循環切換 theme */
-  const handleToggleTheme = useCallback(() => {
+  function handleToggleTheme() {
     setTheme((current) => {
       const index = themes.indexOf(current);
       const nextIndex = (index + 1) % themes.length;
       return themes[nextIndex];
     });
-  }, [setTheme, themes]);
+  }
 
   if (!mounted) {
     return (

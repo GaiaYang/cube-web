@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
 import stringToEnum from "@/utils/stringToEnum";
@@ -17,13 +16,9 @@ export default function Cases() {
   const searchParams = useSearchParams();
   const category = stringToEnum(OLLCategory, searchParams.get("category"));
 
-  const data = useMemo(() => {
-    if (!category) {
-      return definitions;
-    }
-
-    return definitions.filter((item) => item.category === category);
-  }, [category]);
+  const data = category
+    ? definitions.filter((item) => item.category === category)
+    : definitions;
 
   return <GridList data={data} renderItem={_renderItem} />;
 }

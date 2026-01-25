@@ -1,4 +1,4 @@
-import { createElement, useMemo } from "react";
+import { createElement } from "react";
 import { LucideProps, MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
 
 import type { Theme } from "@/types/theme";
@@ -11,7 +11,7 @@ export interface ThemeIconProps
 
 /** 網站主題圖標 */
 export default function ThemeIcon({ theme, ...props }: ThemeIconProps) {
-  const _tag = useMemo(() => {
+  const _tag = (() => {
     switch (theme) {
       case Themes.LIGHT:
         return SunIcon;
@@ -21,7 +21,7 @@ export default function ThemeIcon({ theme, ...props }: ThemeIconProps) {
       default:
         return SunMoonIcon;
     }
-  }, [theme]);
+  })();
 
   return createElement(_tag, props);
 }

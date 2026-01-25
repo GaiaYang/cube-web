@@ -8,10 +8,7 @@ import getOrDefault from "@/utils/getOrDefault";
 
 export default function useConverterObject() {
   const { cubeOrder } = useConverterProps();
-  const conversionMap = useMemo(
-    () => getOrDefault(convert, "nnn", cubeOrder),
-    [cubeOrder],
-  );
+  const conversionMap = getOrDefault(convert, "nnn", cubeOrder);
   const enabledProfiles = useMemo(() => {
     const enabled = produce(conversionFlags, (draft) => {
       if (cubeOrder === "333") {

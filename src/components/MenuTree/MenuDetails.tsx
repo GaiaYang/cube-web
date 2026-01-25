@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
 import { atomEffect } from "jotai-effect";
 
@@ -30,12 +30,9 @@ export default function MenuDetails({ id, ...props }: MenuDetailsProps) {
   );
 
   // 手動操作時獨立開關
-  const onToggle = useCallback<React.ToggleEventHandler<HTMLDetailsElement>>(
-    (event) => {
-      setOpen(event.currentTarget.open);
-    },
-    [],
-  );
+  const onToggle: React.ToggleEventHandler<HTMLDetailsElement> = (event) => {
+    setOpen(event.currentTarget.open);
+  };
 
   return <details {...props} open={open ?? isActive} onToggle={onToggle} />;
 }
