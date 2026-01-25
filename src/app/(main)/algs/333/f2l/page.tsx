@@ -33,7 +33,7 @@ export default function Page() {
       </Article>
       <section>
         <h2 className="sr-only">搜尋列</h2>
-        <AlgorithmsFilterPanel options={f2lOptions} enumMap={F2LCategory} />
+        <AlgorithmsFilterPanel options={f2lOptions} valueMap={F2LCategory} />
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>

@@ -7,16 +7,19 @@ import SelectFilter, { type SelectFilterProps } from "./SelectFilter";
  * */
 export default function AlgorithmsFilterPanel<
   TEnum extends Record<string, string>,
->({ options, enumMap }: Pick<SelectFilterProps<TEnum>, "options" | "enumMap">) {
+>({
+  options,
+  valueMap,
+}: Pick<SelectFilterProps<TEnum>, "options" | "valueMap">) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <SelectFilter
         ariaLabel="選擇分類"
         placeholder="請選擇分類"
         resetLabel="清除分類"
-        paramKey="category"
+        queryKey="category"
         options={options}
-        enumMap={enumMap}
+        valueMap={valueMap}
       />
     </div>
   );

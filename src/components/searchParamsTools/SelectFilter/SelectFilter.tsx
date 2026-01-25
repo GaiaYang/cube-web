@@ -13,9 +13,9 @@ export interface SelectFilterProps<
   /** 選擇器選項 */
   options: Option<TEnum[keyof TEnum]>[];
   /** Enum 物件 */
-  enumMap: TEnum;
+  valueMap: TEnum;
   /** URL 查詢參數名稱 */
-  paramKey: string;
+  queryKey: string;
   /** 下拉選單的 placeholder */
   placeholder?: string;
   /** 重設按鈕的 title / aria-label */
@@ -26,18 +26,19 @@ export interface SelectFilterProps<
 
 export default function SelectFilter<TEnum extends Record<string, string>>({
   options,
-  enumMap,
-  paramKey,
+  valueMap,
+  queryKey,
   placeholder = "請選擇",
   resetLabel = "清除選項",
   ariaLabel = "選擇選項",
   ...props
 }: SelectFilterProps<TEnum>) {
-  const { value, onChange, reset } = useSearchParamSelect(enumMap, paramKey);
+  const { value, onChange, reset } = useSearchParamSelect(valueMap, queryKey);
 
   return (
     <div {...props} className={cn("join", props.className)}>
       <select
+        id={`select-filter-${queryKey}`}
         aria-label={ariaLabel}
         value={value}
         onChange={onChange}

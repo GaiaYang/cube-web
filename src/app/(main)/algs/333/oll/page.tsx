@@ -27,7 +27,7 @@ export default function Page() {
       </Article>
       <section>
         <h2 className="sr-only">搜尋列</h2>
-        <AlgorithmsFilterPanel options={ollOptions} enumMap={OLLCategory} />
+        <AlgorithmsFilterPanel options={ollOptions} valueMap={OLLCategory} />
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>
