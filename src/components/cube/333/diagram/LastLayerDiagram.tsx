@@ -9,7 +9,7 @@ import type { CubeFaceletPosition2D } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
 import type { CommonDiagramProps } from "./type";
 import getCubeColor from "@/themes/cube/colors";
-import { mergeRefs } from "@/utils/mergeRefs";
+import mergeRefs from "@/utils/mergeRefs";
 
 export interface LastLayerDiagramProps extends CommonDiagramProps {
   colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;

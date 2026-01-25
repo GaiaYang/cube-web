@@ -44,7 +44,9 @@ function mergeRefsReact19<T>(refs: (Ref<T> | undefined)[]): Ref<T> {
  * @param refs 待合併的 ref 清單
  * @returns 合併後的 ref
  */
-export const mergeRefs =
+const mergeRefs =
   parseInt(version.split(".")[0]!, 10) >= 19
     ? mergeRefsReact19
     : mergeRefsReact16;
+
+export default mergeRefs;
