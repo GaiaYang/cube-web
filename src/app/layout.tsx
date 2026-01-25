@@ -1,3 +1,4 @@
+import { StrictMode } from "react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Provider as JotaiProvider } from "jotai";
@@ -23,21 +24,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant-TW" suppressHydrationWarning>
-      <body
-        className={clsx(
-          noto_sans_tc.className,
-          noto_sans_tc.variable,
-          noto_serif_tc.variable,
-          noto_sans_mono.variable,
-          "antialiased",
-          "selection:bg-primary selection:text-primary-content",
-        )}
-      >
-        <JotaiProvider>
-          <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
-        </JotaiProvider>
-      </body>
-    </html>
+    <StrictMode>
+      <html lang="zh-Hant-TW" suppressHydrationWarning>
+        <body
+          className={clsx(
+            noto_sans_tc.className,
+            noto_sans_tc.variable,
+            noto_serif_tc.variable,
+            noto_sans_mono.variable,
+            "antialiased",
+            "selection:bg-primary selection:text-primary-content",
+          )}
+        >
+          <JotaiProvider>
+            <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
+          </JotaiProvider>
+        </body>
+      </html>
+    </StrictMode>
   );
 }
