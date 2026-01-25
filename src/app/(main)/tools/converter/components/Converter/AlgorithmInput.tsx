@@ -1,11 +1,10 @@
-import { memo } from "react";
 import { Control, Controller } from "react-hook-form";
 
 import { type Schema } from "./form";
 import cn from "@/utils/cn";
 import { useConverterProps } from "./context";
 
-export default memo(function AlgorithmInput() {
+export default function AlgorithmInput() {
   const { cubeOrder } = useConverterProps();
 
   return (
@@ -38,4 +37,4 @@ export default memo(function AlgorithmInput() {
       }}
     />
   );
-});
+}
