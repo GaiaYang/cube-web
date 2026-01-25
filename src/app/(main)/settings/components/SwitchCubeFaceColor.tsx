@@ -111,6 +111,7 @@ function ColorRadios({
             key={item.id}
             className="relative flex items-center justify-center"
           >
+            <span className="sr-only">{item.label}</span>
             <input
               type="radio"
               name={name}
@@ -121,7 +122,8 @@ function ColorRadios({
               }}
               className="sr-only"
             />
-            <div
+            <span
+              aria-hidden
               className={cn(
                 "size-8 cursor-pointer rounded-full",
                 { "outline-primary outline-2 outline-offset-2": checked },
