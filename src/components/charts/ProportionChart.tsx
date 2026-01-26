@@ -1,4 +1,5 @@
 "use client";
+
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
 import { useTheme } from "next-themes";
 
@@ -19,7 +20,7 @@ export default function ProportionChart({
   const { resolvedTheme } = useTheme();
 
   return (
-    <section className="not-prose rounded-box h-80 w-full overflow-hidden">
+    <section className="not-prose h-80 w-full">
       <ResponsiveRadialBar
         theme={
           chartTheme[(resolvedTheme as "light" | "dark" | undefined) ?? "light"]

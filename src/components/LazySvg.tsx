@@ -41,9 +41,9 @@ export interface LazySvgProps
 
 /** 提供惰性載入 SVG 容器 */
 export default function LazySvg({
-  loading,
-  placeholder,
-  unmountOnExit,
+  loading = "eager",
+  placeholder = "empty",
+  unmountOnExit = false,
   renderElements,
   // 原始屬性
   ref,
