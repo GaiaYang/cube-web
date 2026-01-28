@@ -1,14 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { atom, useAtom, useAtomValue } from "jotai";
-import { atomEffect } from "jotai-effect";
+import { useEffect, useEffectEvent, useMemo, useState } from "react";
+import { atom, useAtomValue } from "jotai";
+import { usePathname } from "next/navigation";
 
-import { openIdsAtom, pathnameAtom } from "./jotai";
+import { openIdsAtom } from "./jotai";
 
 export type MenuDetailsProps = React.DetailsHTMLAttributes<HTMLDetailsElement>;
 
 export default function MenuDetails({ id, ...props }: MenuDetailsProps) {
+  const pathname = usePathname();
   const [open, setOpen] = useState<null | boolean>(null);
   const isActive = useAtomValue(
     useMemo(
@@ -16,18 +17,14 @@ export default function MenuDetails({ id, ...props }: MenuDetailsProps) {
       [id],
     ),
   );
+  const resetOpen = useEffectEvent(() => {
+    setOpen(null);
+  });
 
   // 換頁時重設獨立開關
-  useAtom(
-    useMemo(
-      () =>
-        atomEffect((get) => {
-          get(pathnameAtom);
-          setOpen(null);
-        }),
-      [],
-    ),
-  );
+  useEffect(() => {
+    resetOpen();
+  }, [pathname]);
 
   // 手動操作時獨立開關
   const onToggle: React.ToggleEventHandler<HTMLDetailsElement> = (event) => {

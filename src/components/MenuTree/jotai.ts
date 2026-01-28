@@ -4,13 +4,10 @@ import type { MenuOption } from "@/types/menu";
 
 /** 要開啟的 `id` 列表 */
 export const openIdsAtom = atom<string[]>([]);
-/** 路徑名稱 */
-export const pathnameAtom = atom<string>("");
 /** 更新開啟 `id` 列表 */
 export const updateOpenIdsAtom = atom(
   (get) => get(openIdsAtom),
   (_, set, params: { options: MenuOption[]; pathname: string }) => {
-    set(pathnameAtom, params.pathname);
     set(openIdsAtom, findMatchedPath(params.options, params.pathname));
   },
 );
@@ -19,22 +16,25 @@ export const updateOpenIdsAtom = atom(
 function findMatchedPath(
   options: MenuOption[] = [],
   pathname: string = "",
-  paths: string[] = [],
 ): string[] {
-  if (!pathname || options.length === 0) {
+  if (!pathname || options.length === 0) return [];
+
+  function dfs(menus: MenuOption[], parentPath: string[]): string[] {
+    for (const { id, href, submenu } of menus) {
+      const currentPath = [...parentPath, id];
+
+      if (href === pathname || `/${id}` === pathname) {
+        return currentPath;
+      }
+
+      if (submenu?.length) {
+        const result = dfs(submenu, currentPath);
+        if (result.length) return result;
+      }
+    }
+
     return [];
   }
 
-  for (const option of options) {
-    const currentPath = [...paths, option.id];
-    if (`/${option.id}` === pathname) return currentPath;
-    if (option.href === pathname) return currentPath;
-    if (option.submenu) {
-      const foundPath = findMatchedPath(option.submenu, pathname, currentPath);
-      if (foundPath.length > 0) {
-        return foundPath;
-      }
-    }
-  }
-  return [];
+  return dfs(options, []);
 }
