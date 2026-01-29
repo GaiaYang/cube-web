@@ -11,7 +11,7 @@ export interface CardProps extends React.DetailedHTMLProps<
    * - `border`: 邊框
    * - `dash-border`: 虛線邊框
    *
-   * @default "border"
+   * @default "shadow"
    */
   variant?: "shadow" | "border" | "dash-border";
   /**
@@ -25,7 +25,7 @@ export interface CardProps extends React.DetailedHTMLProps<
 }
 
 export default function Card({
-  variant = "border",
+  variant = "shadow",
   size,
   className,
   ...props
@@ -34,7 +34,7 @@ export default function Card({
     <div
       {...props}
       className={cn(
-        "card bg-base-100 dark:bg-base-200",
+        "card bg-base-100",
         VARIANT_CLASSES[variant] ?? "",
         size ? SIZE_CLASSES[size] : "",
         className,
@@ -44,9 +44,10 @@ export default function Card({
 }
 
 const VARIANT_CLASSES: Record<NonNullable<CardProps["variant"]>, string> = {
-  shadow: "shadow-sm",
-  border: "card-border border-base-300",
-  "dash-border": "card-dash border-base-300",
+  shadow:
+    "shadow-sm dark:bg-[color-mix(in_oklab,var(--color-base-100)_96%,#fff)]",
+  border: "card-border border-base-300 dark:bg-base-200",
+  "dash-border": "card-dash border-base-300 dark:bg-base-200",
 };
 
 const SIZE_CLASSES: Record<NonNullable<CardProps["size"]>, string> = {
