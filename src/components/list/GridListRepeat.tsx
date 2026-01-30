@@ -1,7 +1,3 @@
-"use client";
-
-import { useMemo } from "react";
-
 import GridList, { type GridListProps } from "./GridList";
 
 export interface GridListRepeatProps extends Omit<
@@ -15,9 +11,8 @@ export default function GridListRepeat({
   count,
   ...props
 }: GridListRepeatProps) {
-  const data = useMemo(
-    () => Array.from({ length: count }).map((_, index) => ({ id: index + 1 })),
-    [count],
-  );
+  const data = Array.from({ length: count }).map((_, index) => ({
+    id: index + 1,
+  }));
   return <GridList {...props} data={data} />;
 }
