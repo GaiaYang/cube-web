@@ -9,9 +9,7 @@ export default function Components<TEnum extends Record<string, string>>(
   props: SelectFilterProps<TEnum>,
 ) {
   return (
-    <Suspense
-      fallback={<SelectFilterFallback placeholder={props.placeholder} />}
-    >
+    <Suspense fallback={<SelectFilterFallback />}>
       <SelectFilter {...props} />
     </Suspense>
   );

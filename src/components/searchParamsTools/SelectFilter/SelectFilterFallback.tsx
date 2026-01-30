@@ -1,27 +1,19 @@
 import cn from "@/utils/cn";
 
-export interface SelectFilterFallbackProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** 下拉選單的 placeholder */
-  placeholder?: string;
-}
+export type SelectFilterFallbackProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
 
-export default function SelectFilterFallback({
-  placeholder,
-  ...props
-}: SelectFilterFallbackProps) {
+export default function SelectFilterFallback(props: SelectFilterFallbackProps) {
   return (
-    <div {...props} className={cn("join", props.className)} aria-busy="true">
-      <select className="select join-item" disabled aria-hidden="true">
-        <option>{placeholder}</option>
-      </select>
-      <button
-        type="button"
-        disabled
-        aria-label="載入中"
-        className="join-item btn btn-error btn-square btn-soft"
-      >
-        <span className="loading loading-dots" />
-      </button>
+    <div
+      {...props}
+      className={cn("skeleton", props.className)}
+      aria-busy="true"
+    >
+      <div className="h-[calc(var(--size-field,0.25rem)*10)] w-[clamp(3rem,20rem,100%)]" />
+      <div className="w-[var(--size-field,0.25rem)*10]" />
     </div>
   );
 }
