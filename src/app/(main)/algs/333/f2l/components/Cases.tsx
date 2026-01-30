@@ -6,6 +6,7 @@ import stringToEnum from "@/utils/stringToEnum";
 import type { F2LDefinition } from "@/types/cube/333";
 import { F2LCategory } from "@/enums/cube/333";
 import { definitions } from "@/data/cube/333/f2l";
+import filterCases from "@/utils/filterCases";
 
 import OverlayLink from "@/components/ui/OverlayLink";
 import F2LCase from "@/components/gridItems/F2LCase";
@@ -15,10 +16,7 @@ import GridList, { type GridListProps } from "@/components/list/GridList";
 export default function Algorithms() {
   const searchParams = useSearchParams();
   const category = stringToEnum(F2LCategory, searchParams.get("category"));
-
-  const data = category
-    ? definitions.filter((item) => item.category === category)
-    : definitions;
+  const data = filterCases(definitions, category);
 
   return <GridList data={data} renderItem={_renderItem} />;
 }

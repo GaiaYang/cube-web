@@ -8,6 +8,7 @@ import { PLLCategory } from "@/enums/cube/333";
 import Article from "@/components/ui/Article";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Cases from "./components/Cases";
+import AlgorithmCasesFallback from "@/components/cube/AlgorithmCasesFallback";
 
 export const metadata: Metadata = {
   title: "PLL 公式列表",
@@ -32,7 +33,7 @@ export default function Page() {
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>
-        <Suspense>
+        <Suspense fallback={<AlgorithmCasesFallback />}>
           <Cases />
         </Suspense>
       </section>

@@ -2,6 +2,8 @@
 export interface CommonDefinition {
   /** 公式 ID */
   id: string;
+  /** 分類 */
+  category: string;
   /** 公式名稱 */
   name: string;
   /** 設置公式 */

@@ -6,6 +6,7 @@ import stringToEnum from "@/utils/stringToEnum";
 import type { PLLDefinition } from "@/types/cube/333";
 import { PLLCategory } from "@/enums/cube/333";
 import { definitions } from "@/data/cube/333/pll";
+import filterCases from "@/utils/filterCases";
 
 import OverlayLink from "@/components/ui/OverlayLink";
 import PLLCase from "@/components/gridItems/PLLCase";
@@ -15,10 +16,7 @@ import GridList, { type GridListProps } from "@/components/list/GridList";
 export default function Cases() {
   const searchParams = useSearchParams();
   const category = stringToEnum(PLLCategory, searchParams.get("category"));
-
-  const data = category
-    ? definitions.filter((item) => item.category === category)
-    : definitions;
+  const data = filterCases(definitions, category);
 
   return <GridList data={data} renderItem={_renderItem} />;
 }
