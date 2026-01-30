@@ -12,8 +12,8 @@ export default function SelectFilterFallback(props: SelectFilterFallbackProps) {
       className={cn("skeleton", props.className)}
       aria-busy="true"
     >
-      <div className="h-[calc(var(--size-field,0.25rem)*10)] w-[clamp(3rem,20rem,100%)]" />
-      <div className="w-[var(--size-field,0.25rem)*10]" />
+      <div className="h-10 w-[clamp(3rem,20rem,100%)]" />
+      <div className="w-10" />
     </div>
   );
 }
