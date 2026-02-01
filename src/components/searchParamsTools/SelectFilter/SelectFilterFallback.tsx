@@ -9,11 +9,15 @@ export default function SelectFilterFallback(props: SelectFilterFallbackProps) {
   return (
     <div
       {...props}
-      className={cn("skeleton", props.className)}
+      className={cn("inline-flex items-stretch", props.className)}
       aria-busy="true"
     >
-      <div className="h-10 w-[clamp(3rem,20rem,100%)]" />
-      <div className="w-10" />
+      <div
+        className={cn(
+          "skeleton inline-flex h-10 shrink",
+          "w-[calc(clamp(3rem,20rem,100%)+(var(--spacing)*10))]",
+        )}
+      />
     </div>
   );
 }
