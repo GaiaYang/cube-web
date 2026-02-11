@@ -11,7 +11,7 @@ export default function Home() {
       <main
         className={cn(
           "flex flex-col justify-center",
-          "mx-auto min-h-[calc(100dvh-4rem)] max-w-2xl",
+          "mx-auto min-h-[calc(100dvh-4rem)] w-full max-w-2xl",
           "px-6 lg:px-8",
           "py-24 sm:py-32",
         )}
