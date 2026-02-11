@@ -1,23 +1,23 @@
 import { useAtom } from "jotai";
 
 import cn from "@/utils/cn";
-import { tabIndexAtom } from "./jotai";
-import { tabs } from "./config";
+import { formModeAtom } from "./jotai";
+import { modeTabs } from "./config";
 
-export default function Tabs() {
-  const [tabIndex, setTabIndex] = useAtom(tabIndexAtom);
+export default function ModeTabs() {
+  const [formMode, setFormMode] = useAtom(formModeAtom);
 
   return (
     <div role="tablist" className="tabs tabs-border">
-      {tabs.map(({ id, label }, index) => (
+      {modeTabs.map(({ id, label }) => (
         <button
           type="button"
           role="tab"
           key={id}
           onClick={() => {
-            setTabIndex(index);
+            setFormMode(id);
           }}
-          className={cn("tab", { "tab-active": tabIndex === index })}
+          className={cn("tab", { "tab-active": id === formMode })}
         >
           {label}
         </button>

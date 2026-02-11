@@ -7,8 +7,8 @@ import dynamic from "next/dynamic";
 import type { CommonFormProps } from "./types";
 import { formModeAtom, tabIndexAtom } from "./jotai";
 
-import FormModeToggle from "./FormModeToggle";
-import Tabs from "./Tabs";
+import ModeTabs from "./ModeTabs";
+import ConvertTabs from "./ConvertTabs";
 import CodeSpan from "../CodeSpan";
 import { ConverterPropsContext } from "./context";
 
@@ -20,8 +20,8 @@ export default function Converter() {
     <Provider>
       <section>
         <div className="not-prose grid gap-4">
-          <FormModeToggle />
-          <Tabs />
+          <ModeTabs />
+          <ConvertTabs />
         </div>
         <SwitchContent />
       </section>

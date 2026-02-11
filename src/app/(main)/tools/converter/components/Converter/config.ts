@@ -19,7 +19,7 @@ export const modeTabs: TabItem<FormMode>[] = [
   { id: "in-place", label: "原地複寫模式" },
 ];
 
-export const tabs: TabItem[] = [
+export const convertTabs: TabItem[] = [
   { id: "convert", label: "一般轉換器" },
   { id: "convert-333", label: "三階專屬轉換器" },
 ];
