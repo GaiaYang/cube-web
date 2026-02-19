@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
-export type UseScrolledTarget =
-  | (() => HTMLElement | null)
-  | React.RefObject<HTMLElement>
-  | string;
+export type UseScrolledTarget = string;
 
 /**
  * 判斷指定目標是否滾動超過給定閾值
@@ -11,8 +8,6 @@ export type UseScrolledTarget =
  * @param threshold 觸發滾動的數值，預設為 `0`
  * @param target 可指定目標：
  *  - `string`: 對應元素 id
- *  - `ref`: React Ref
- *  - `() => HTMLElement`: 回傳元素的函式
  *
  * 若未提供目標，預設監聽 `window`
  *
@@ -51,15 +46,10 @@ export default function useScrolled(
 function getScrollTarget(
   target?: UseScrolledTarget,
 ): HTMLElement | Window | null {
-  switch (typeof target) {
-    case "function":
-      return target();
-    case "string":
-      return document.getElementById(target);
-    default:
-      if (target?.current) {
-        return target.current;
-      }
+  let element: HTMLElement | Window | null = null;
+  if (target) {
+    element = document.getElementById(target);
   }
-  return window;
+
+  return element || window;
 }
