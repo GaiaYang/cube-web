@@ -1,19 +1,16 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useState } from "react";
 
-/**
- * 判斷載入情況
- *
- * @returns 是否已經載入組件
- * */
+/** 判斷是否已經載入組件 */
 export default function useMounted(): boolean {
   const [mounted, setMounted] = useState(false);
 
-  const onMount = useEffectEvent(() => {
-    setMounted(true);
-  });
-
   useEffect(() => {
-    onMount();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+
+    return () => {
+      setMounted(false);
+    };
   }, []);
 
   return mounted;
