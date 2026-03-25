@@ -7,7 +7,7 @@ export type ListRenderItem<ItemT> = (
   info: ListRenderItemInfo<ItemT>,
 ) => React.ReactElement | null;
 
-export interface ListProps<ItemT extends ListItemProps> {
+export interface ListProps<ItemT> {
   /** 要渲染的項目的陣列（或類陣列清單）。 */
   data: ItemT[];
   /** 從 `data` 取得一個項目，並將其渲染到清單中。 */
