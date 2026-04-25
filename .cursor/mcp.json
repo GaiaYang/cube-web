@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "daisyui-github": {
+      "url": "https://gitmcp.io/saadeghi/daisyui"
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "inkeepMcp": {
+      "url": "https://mcp.inkeep.com/zod/mcp"
+    }
+  }
+}
