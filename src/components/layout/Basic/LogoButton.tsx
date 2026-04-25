@@ -2,10 +2,7 @@ import Link from "next/link";
 
 import cn from "@/utils/cn";
 
-export type LogoButtonProps = Omit<
-  React.HTMLAttributes<HTMLAnchorElement>,
-  "href"
->;
+export type LogoButtonProps = Omit<React.ComponentProps<"a">, "href">;
 
 export default function LogoButton({ className, ...props }: LogoButtonProps) {
   return (

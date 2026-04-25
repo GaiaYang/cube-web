@@ -2,12 +2,11 @@
 import { RotateCcwIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import cn from "@/utils/cn";
-import { options, type OptionType } from "@/data/options/theme";
-import useMounted from "@/hooks/useMounted";
-
 import ThemeIcon from "@/components/ThemeIcon";
 import Card from "@/components/ui/Card";
+import { options, type OptionType } from "@/data/options/theme";
+import useMounted from "@/hooks/useMounted";
+import cn from "@/utils/cn";
 
 export default function ThemeToggle() {
   const mounted = useMounted();

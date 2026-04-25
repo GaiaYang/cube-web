@@ -1,9 +1,6 @@
 import cn from "@/utils/cn";
 
-export type SelectFilterFallbackProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+export type SelectFilterFallbackProps = React.ComponentProps<"div">;
 
 export default function SelectFilterFallback(props: SelectFilterFallbackProps) {
   return (

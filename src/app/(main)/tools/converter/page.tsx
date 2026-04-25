@@ -1,9 +1,10 @@
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
-import NewTabLink from "@/components/NewTabLink";
 import CodeSpan from "./components/CodeSpan";
 import Converter from "./components/Converter";
+
+import NewTabLink from "@/components/NewTabLink";
+import Article from "@/components/ui/Article";
 
 export const metadata: Metadata = {
   title: "公式轉換器",

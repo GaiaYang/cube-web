@@ -1,11 +1,11 @@
 import { MenuIcon } from "lucide-react";
 
-import type { CommonProps } from "./types";
 import { drawerToggleId } from "./config";
-import cn from "@/utils/cn";
-
 import LogoButton from "./LogoButton";
 import ThemeToggleButton from "./ThemeButton";
+import type { CommonProps } from "./types";
+
+import cn from "@/utils/cn";
 
 export type NavbarProps = CommonProps;
 

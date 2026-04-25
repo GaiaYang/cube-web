@@ -1,8 +1,8 @@
-import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
-
 import PermutationLastLayer, {
   type PermutationLastLayerProps,
 } from "./PermutationLastLayer";
+
+import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
 
 export interface PermutationLastLayerByCaseProps extends Omit<
   PermutationLastLayerProps,

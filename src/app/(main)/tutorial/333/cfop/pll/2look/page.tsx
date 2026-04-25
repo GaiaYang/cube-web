@@ -1,8 +1,8 @@
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
-import Notices from "@/components/Notices";
 import ProportionChart from "@/components/charts/ProportionChart";
+import Notices from "@/components/Notices";
+import Article from "@/components/ui/Article";
 
 export const metadata: Metadata = {
   title: "兩段式 PLL",

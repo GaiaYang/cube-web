@@ -3,9 +3,9 @@ import cn from "@/utils/cn";
 import getListItemKey from "@/utils/getListItemKey";
 
 export interface GridListProps<ItemT>
-  extends ListProps<ItemT>, React.HTMLAttributes<HTMLOListElement> {}
+  extends ListProps<ItemT>, React.ComponentProps<"ol"> {}
 
-export type { ListRenderItemInfo, ListRenderItem } from "@/types/list";
+export type { ListRenderItem, ListRenderItemInfo } from "@/types/list";
 
 export default function GridList<ItemT extends object>({
   data,

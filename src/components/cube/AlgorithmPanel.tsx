@@ -1,8 +1,7 @@
-import type { CommonDefinition } from "@/types/cube/common";
-
-import cn from "@/utils/cn";
-
 import AlgorithmDisplay from "./AlgorithmDisplay";
+
+import type { CommonDefinition } from "@/types/cube/common";
+import cn from "@/utils/cn";
 
 export interface AlgorithmPanelProps extends CommonDefinition {
   renderPattern?: React.ReactNode;

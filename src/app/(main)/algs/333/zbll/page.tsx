@@ -1,8 +1,8 @@
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
 import NewTabLink from "@/components/NewTabLink";
 import Notices from "@/components/Notices";
+import Article from "@/components/ui/Article";
 
 export const metadata: Metadata = {
   title: "ZBLL 公式列表",

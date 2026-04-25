@@ -1,6 +1,6 @@
-import { definitions, type F2LCaseId } from "@/data/cube/333/f2l";
-
 import FirstTwoLayers, { type FirstTwoLayersProps } from "./FirstTwoLayers";
+
+import { definitions, type F2LCaseId } from "@/data/cube/333/f2l";
 
 export interface FirstTwoLayersByCaseProps extends Omit<
   FirstTwoLayersProps,

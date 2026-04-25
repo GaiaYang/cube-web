@@ -1,6 +1,7 @@
+import { Option } from "./types";
+
 import enumToOptions from "@/data/options/enumToOptions";
 import { Themes } from "@/enums/theme";
-import { Option } from "./types";
 
 const { labels, options } = enumToOptions(Themes, {
   [Themes.SYSTEM]: "系統",

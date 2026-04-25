@@ -1,10 +1,9 @@
 import {
   cubeProfile as cubeProfile333,
-  upperAlgorithm,
   lowerAlgorithm,
+  upperAlgorithm,
 } from "./specs/333";
 import { cubeProfile as cubeProfileNNN } from "./specs/nnn";
-
 import type { MoveToken } from "./types";
 
 describe("Rubik's Cube Notation Parser", () => {

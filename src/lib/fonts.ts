@@ -1,4 +1,4 @@
-import { Noto_Sans_TC, Noto_Sans_Mono, Noto_Serif_TC } from "next/font/google";
+import { Noto_Sans_Mono, Noto_Sans_TC, Noto_Serif_TC } from "next/font/google";
 
 export const noto_sans_tc = Noto_Sans_TC({
   subsets: ["latin"],

@@ -1,9 +1,6 @@
 import cn from "@/utils/cn";
 
-export interface CardProps extends React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
-> {
+export interface CardProps extends React.ComponentProps<"div"> {
   /**
    * 卡片樣式
    *

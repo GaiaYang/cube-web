@@ -1,12 +1,11 @@
 "use client";
 
-import type { F2LDefinition } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
-
-import createF2lColorMap from "@/utils/cube/333/createF2lColorMap";
+import CubeDiagram, { type CubeDiagramProps } from "./CubeDiagram";
 import useCubeFaceColor from "./useCubeFaceColor";
 
-import CubeDiagram, { type CubeDiagramProps } from "./CubeDiagram";
+import type { F2LDefinition } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
+import createF2lColorMap from "@/utils/cube/333/createF2lColorMap";
 
 export interface FirstTwoLayersProps
   extends

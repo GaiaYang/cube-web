@@ -1,12 +1,14 @@
+import "./globals.css";
+
 import { StrictMode } from "react";
+import clsx from "clsx";
+import { Provider as JotaiProvider } from "jotai";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Provider as JotaiProvider } from "jotai";
-import "./globals.css";
-import clsx from "clsx";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
-import { noto_sans_tc, noto_serif_tc, noto_sans_mono } from "@/lib/fonts";
 import { SITE_URL } from "@/lib/config";
+import { noto_sans_mono,noto_sans_tc, noto_serif_tc } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -36,9 +38,11 @@ export default function RootLayout({
             "selection:bg-primary selection:text-primary-content",
           )}
         >
-          <JotaiProvider>
-            <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
-          </JotaiProvider>
+          <NuqsAdapter>
+            <JotaiProvider>
+              <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
+            </JotaiProvider>
+          </NuqsAdapter>
         </body>
       </html>
     </StrictMode>

@@ -2,11 +2,10 @@
 
 import { useTheme } from "next-themes";
 
-import cn from "@/utils/cn";
+import ThemeIcon from "@/components/ThemeIcon";
 import { options } from "@/data/options/theme";
 import useMounted from "@/hooks/useMounted";
-
-import ThemeIcon from "@/components/ThemeIcon";
+import cn from "@/utils/cn";
 
 /**
  * 切換網站主題模式的按鈕

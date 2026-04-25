@@ -1,4 +1,5 @@
 import AlgorithmDisplay from "./AlgorithmDisplay";
+
 import NewTabLink from "@/components/NewTabLink";
 
 export interface AlgorithmTableRow<TPattern, TCaseId extends string> {

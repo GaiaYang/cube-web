@@ -7,9 +7,9 @@ import {
 } from "lucide-react";
 
 import { drawerMenuId } from "./config";
-import { drawerMenu } from "@/data/menu";
 
 import MenuTree, { type MenuTreeProps } from "@/components/MenuTree";
+import { drawerMenu } from "@/data/menu";
 
 export default function DrawerMenu() {
   return (

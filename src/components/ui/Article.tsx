@@ -1,9 +1,6 @@
 import cn from "@/utils/cn";
 
-export type ArticleProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLElement>,
-  HTMLElement
->;
+export type ArticleProps = React.ComponentProps<"article">;
 
 export default function Article({
   children,

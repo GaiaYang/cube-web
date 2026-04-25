@@ -1,9 +1,9 @@
 import { isPlainObject } from "es-toolkit";
 
+import getCubeColorMap from "../getCubeColorMap";
+
 import type { CubeFaceletPosition2D, PLLDefinition } from "@/types/cube/333";
 import type { CubeFaceColor } from "@/types/cube/color";
-
-import getCubeColorMap from "../getCubeColorMap";
 
 export type PLLColorMap = Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;
 

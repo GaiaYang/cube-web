@@ -3,9 +3,7 @@ import Link, { type LinkProps } from "next/link";
 import cn from "@/utils/cn";
 
 export interface OverlayLinkProps
-  extends
-    LinkProps,
-    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+  extends LinkProps, Omit<React.ComponentProps<"a">, "href"> {
   /** 連結的標籤文字 */
   label?: string;
 }

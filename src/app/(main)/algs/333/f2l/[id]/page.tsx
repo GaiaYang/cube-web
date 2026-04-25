@@ -2,9 +2,9 @@ import { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import { definitions, type F2LCaseId } from "@/data/cube/333/f2l";
-import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
 import Pattern from "@/components/cube/333/diagram/FirstTwoLayersByCase";
+import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
+import { definitions, type F2LCaseId } from "@/data/cube/333/f2l";
 
 type Props = {
   params: Promise<{ id: F2LCaseId }>;

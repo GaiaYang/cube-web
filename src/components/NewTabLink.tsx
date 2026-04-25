@@ -1,11 +1,11 @@
-import Link, { type LinkProps } from "next/link";
 import { ArrowUpRightIcon, ExternalLinkIcon } from "lucide-react";
+import Link, { type LinkProps } from "next/link";
 import * as z from "zod";
 
 import cn from "@/utils/cn";
 
 export type NewTabLinkProps = Omit<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  React.ComponentProps<"a">,
   keyof LinkProps<unknown>
 > &
   LinkProps<unknown> & {

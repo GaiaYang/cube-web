@@ -1,8 +1,9 @@
 import { useAtom } from "jotai";
 
-import cn from "@/utils/cn";
-import { tabIndexAtom } from "./jotai";
 import { convertTabs } from "./config";
+import { tabIndexAtom } from "./jotai";
+
+import cn from "@/utils/cn";
 
 export default function ConvertTabs() {
   const [tabIndex, setTabIndex] = useAtom(tabIndexAtom);

@@ -1,12 +1,12 @@
 import { isPlainObject } from "es-toolkit";
 
-import type { MoveToken, WideMove, BasicMove } from "./types";
 import {
   basicMoves,
   MOVE_CYCLE_COUNT,
   PRIME_MARK,
   wideMoves,
 } from "./constants";
+import type { BasicMove, MoveToken, WideMove } from "./types";
 
 /**
  * 生成正則表達式

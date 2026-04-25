@@ -1,8 +1,8 @@
-import { definitions, type OLLCaseId } from "@/data/cube/333/oll";
-
 import OrientationLastLayer, {
   type OrientationLastLayerProps,
 } from "./OrientationLastLayer";
+
+import { definitions, type OLLCaseId } from "@/data/cube/333/oll";
 
 export interface OrientationLastLayerByCaseProps extends Omit<
   OrientationLastLayerProps,

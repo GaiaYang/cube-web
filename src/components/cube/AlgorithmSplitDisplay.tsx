@@ -1,7 +1,8 @@
 import { Fragment } from "react";
 
-import cn from "@/utils/cn";
 import AlgorithmDisplay from "./AlgorithmDisplay";
+
+import cn from "@/utils/cn";
 
 export interface AlgorithmSplitDisplayProps {
   /** 所有公式段落文字 */

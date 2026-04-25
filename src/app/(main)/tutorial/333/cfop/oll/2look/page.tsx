@@ -1,28 +1,25 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 
-import type { OLLCaseId } from "@/types/cube/333";
-
-import { definitions } from "@/data/cube/333/oll";
-import { OLLCategory } from "@/enums/cube/333";
-
-import Article from "@/components/ui/Article";
+import ProportionChart from "@/components/charts/ProportionChart";
 import OrientationLastLayer, {
   OrientationLastLayerProps,
 } from "@/components/cube/333/diagram/OrientationLastLayer";
-
+import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
+import AlgorithmSplitDisplay from "@/components/cube/AlgorithmSplitDisplay";
 import AlgorithmsTable, {
   type AlgorithmTableRow,
-  TableContainer,
   Table,
-  TableHead,
   TableBody,
+  TableContainer,
+  TableHead,
   TableRow,
 } from "@/components/cube/AlgorithmsTable";
 import Notices from "@/components/Notices";
-import ProportionChart from "@/components/charts/ProportionChart";
-import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
-import AlgorithmSplitDisplay from "@/components/cube/AlgorithmSplitDisplay";
+import Article from "@/components/ui/Article";
+import { definitions } from "@/data/cube/333/oll";
+import { OLLCategory } from "@/enums/cube/333";
+import type { OLLCaseId } from "@/types/cube/333";
 
 export const metadata: Metadata = {
   title: "兩段式 OLL",

@@ -1,8 +1,8 @@
-import type { MenuOption } from "@/types/menu";
+import MenuDetails from "./MenuDetails";
+import MenuLink from "./MenuLink";
 import type { MenuIconProps } from "./types";
 
-import MenuLink from "./MenuLink";
-import MenuDetails from "./MenuDetails";
+import type { MenuOption } from "@/types/menu";
 
 export interface MenuNodeProps extends MenuOption {
   renderIcon?: (pramas: MenuIconProps) => React.ReactNode;

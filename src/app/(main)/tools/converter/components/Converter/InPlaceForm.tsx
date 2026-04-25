@@ -1,13 +1,11 @@
-import { RotateCcwIcon } from "lucide-react";
 import { FormProvider, SubmitHandler } from "react-hook-form";
+import { RotateCcwIcon } from "lucide-react";
 
-import type { ConversionType } from "./types";
-
-import { type Schema } from "./form";
 import useAlgorithmForm from "./hooks/useAlgorithmForm";
 import useConverterObject from "./hooks/useConverterObject";
-
 import AlgorithmInput from "./AlgorithmInput";
+import { type Schema } from "./form";
+import type { ConversionType } from "./types";
 
 /** 原地轉換表單 */
 export default function InPlaceForm() {

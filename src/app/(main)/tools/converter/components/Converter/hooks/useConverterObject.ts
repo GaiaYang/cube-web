@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { produce } from "immer";
 
-import convert from "../utils/convert";
-import { useConverterProps } from "../context";
 import { conversionFlags, conversionProfiles } from "../config";
+import { useConverterProps } from "../context";
+import convert from "../utils/convert";
+
 import getOrDefault from "@/utils/getOrDefault";
 
 export default function useConverterObject() {

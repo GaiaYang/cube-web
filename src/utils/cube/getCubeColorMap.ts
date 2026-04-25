@@ -1,8 +1,8 @@
-import type { CubeFaceColor } from "@/types/cube/color";
-import type { CubeFaceCode } from "@/types/cube/333";
-
-import getOppositeColor from "./getOppositeColor";
 import getLeftRightColors from "./getLeftRightColors";
+import getOppositeColor from "./getOppositeColor";
+
+import type { CubeFaceCode } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
 
 /** 方塊六面顏色 */
 export type CubeColorMap = Record<CubeFaceCode, CubeFaceColor>;

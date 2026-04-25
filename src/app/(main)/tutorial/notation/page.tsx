@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
 import Notices from "@/components/Notices";
+import Article from "@/components/ui/Article";
 
 export const metadata: Metadata = {
   title: "轉動代號說明",

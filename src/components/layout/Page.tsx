@@ -8,10 +8,7 @@ export default function PageLayout({
   className,
   children,
   ...props
-}: React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->) {
+}: React.ComponentProps<"main">) {
   return (
     <main {...props} className={cn("px-4 sm:px-6 lg:px-8", "py-10", className)}>
       {children}

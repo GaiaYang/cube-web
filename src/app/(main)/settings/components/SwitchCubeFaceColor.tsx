@@ -1,19 +1,17 @@
 "use client";
-import { RotateCcwIcon } from "lucide-react";
 import { useAtom } from "jotai";
 import { withImmer } from "jotai-immer";
-
-import type { Option } from "@/data/options/types";
-import { CubeFaceColors } from "@/enums/cube/color";
-
-import cn from "@/utils/cn";
-import getOppositeColor from "@/utils/cube/getOppositeColor";
-import { options } from "@/data/options/cube/color";
-import getCubeColor from "@/themes/cube/colors";
-import { cubeFaceColorAtom, store, initialValue } from "@/jotai/settings";
-import useMounted from "@/hooks/useMounted";
+import { RotateCcwIcon } from "lucide-react";
 
 import Card from "@/components/ui/Card";
+import { options } from "@/data/options/cube/color";
+import type { Option } from "@/data/options/types";
+import { CubeFaceColors } from "@/enums/cube/color";
+import useMounted from "@/hooks/useMounted";
+import { cubeFaceColorAtom, initialValue,store } from "@/jotai/settings";
+import getCubeColor from "@/themes/cube/colors";
+import cn from "@/utils/cn";
+import getOppositeColor from "@/utils/cube/getOppositeColor";
 
 const notNilOptions = options.filter(({ value }) => value !== "none");
 const immerCubeFaceColorAtom = withImmer(cubeFaceColorAtom);

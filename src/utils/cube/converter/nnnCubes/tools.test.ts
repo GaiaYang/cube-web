@@ -1,9 +1,9 @@
 import {
-  parseMoveByRegex,
-  normalizeOfficialMove,
-  moveTokenToString,
   createRegex,
   ensureValidTurnCount,
+  moveTokenToString,
+  normalizeOfficialMove,
+  parseMoveByRegex,
 } from "./tools";
 import type { MoveToken } from "./types";
 

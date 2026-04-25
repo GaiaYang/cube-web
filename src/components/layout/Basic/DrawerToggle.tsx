@@ -2,7 +2,7 @@
 
 import { useEffect, useEffectEvent, useRef } from "react";
 
-import { drawerToggleId, drawerMenuId } from "./config";
+import { drawerMenuId,drawerToggleId } from "./config";
 
 export default function DrawerToggle() {
   const ref = useRef<HTMLInputElement>(null);

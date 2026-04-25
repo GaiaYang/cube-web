@@ -2,9 +2,9 @@ import { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
-import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
 import Pattern from "@/components/cube/333/diagram/PermutationLastLayerByCase";
+import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
+import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
 
 type Props = {
   params: Promise<{ id: PLLCaseId }>;

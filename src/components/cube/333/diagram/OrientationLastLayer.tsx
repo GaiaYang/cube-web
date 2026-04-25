@@ -1,12 +1,11 @@
 "use client";
 
-import type { OLLDefinition } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
-
-import createOllColorMap from "@/utils/cube/333/createOllColorMap";
+import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
 import useCubeFaceColor from "./useCubeFaceColor";
 
-import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
+import type { OLLDefinition } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
+import createOllColorMap from "@/utils/cube/333/createOllColorMap";
 
 export interface OrientationLastLayerProps
   extends

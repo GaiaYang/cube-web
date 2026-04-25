@@ -1,8 +1,9 @@
 import { useAtom } from "jotai";
 
-import cn from "@/utils/cn";
-import { formModeAtom } from "./jotai";
 import { modeTabs } from "./config";
+import { formModeAtom } from "./jotai";
+
+import cn from "@/utils/cn";
 
 export default function ModeTabs() {
   const [formMode, setFormMode] = useAtom(formModeAtom);

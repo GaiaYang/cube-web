@@ -1,9 +1,9 @@
 "use client";
 
 import { drawerSideId } from "./config";
+import useScrolledClass from "./useScrolledClass";
 
 import cn from "@/utils/cn";
-import useScrolledClass from "./useScrolledClass";
 
 export default function DrawerNavbar({ children }: React.PropsWithChildren) {
   const className = useScrolledClass(drawerSideId);

@@ -1,13 +1,12 @@
 "use client";
 
-import cn from "@/utils/cn";
-
-import type { CubeFaceletPosition2D } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 import type { CommonDiagramProps } from "./type";
-import getCubeColor from "@/themes/cube/colors";
 
 import LazySvg from "@/components/LazySvg";
+import getCubeColor from "@/themes/cube/colors";
+import type { CubeFaceletPosition2D } from "@/types/cube/333";
+import type { CubeFaceColor } from "@/types/cube/color";
+import cn from "@/utils/cn";
 
 export interface LastLayerDiagramProps extends CommonDiagramProps {
   colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;

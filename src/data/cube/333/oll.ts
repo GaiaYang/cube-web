@@ -1,7 +1,7 @@
-import type { OLLDefinition } from "@/types/cube/333";
 import { OLLCategory } from "@/enums/cube/333";
+import type { OLLDefinition } from "@/types/cube/333";
 
-export type { OLLDefinition, OLLCaseId } from "@/types/cube/333";
+export type { OLLCaseId,OLLDefinition } from "@/types/cube/333";
 
 export const definitions: OLLDefinition[] = [
   {

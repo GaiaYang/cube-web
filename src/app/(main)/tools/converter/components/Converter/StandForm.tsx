@@ -1,17 +1,15 @@
 import { Fragment } from "react";
-
 import { FormProvider, SubmitHandler } from "react-hook-form";
-import { EraserIcon, SendIcon } from "lucide-react";
 import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
+import { EraserIcon, SendIcon } from "lucide-react";
 
-import type { ConversionProfile } from "./types";
-
-import { type Schema } from "./form";
 import useAlgorithmForm from "./hooks/useAlgorithmForm";
 import useConverterObject from "./hooks/useConverterObject";
+import AlgorithmInput from "./AlgorithmInput";
+import { type Schema } from "./form";
+import type { ConversionProfile } from "./types";
 
 import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
-import AlgorithmInput from "./AlgorithmInput";
 
 /** 標準轉換表單 */
 export default function StandForm() {

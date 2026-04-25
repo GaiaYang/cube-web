@@ -1,4 +1,5 @@
 import { PartialTheme } from "@nivo/theming";
+
 import daisyTheme, { type Theme } from "@/themes/daisy";
 
 function nivoThemeFromDaisy(theme: Theme): PartialTheme {

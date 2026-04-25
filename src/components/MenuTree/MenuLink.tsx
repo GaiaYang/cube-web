@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import cn from "@/utils/cn";
 
 export interface MenuLinkProps
-  extends LinkProps, Pick<React.HTMLAttributes<HTMLElement>, "className"> {
+  extends LinkProps, Pick<React.ComponentProps<"a">, "className"> {
   children?: React.ReactNode;
 }
 

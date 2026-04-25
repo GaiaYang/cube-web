@@ -1,13 +1,13 @@
 import { Provider } from "jotai";
 
-import type { MenuOption } from "@/types/menu";
+import MenuController from "./MenuController";
+import MenuNode from "./MenuNode";
 import type { MenuIconProps } from "./types";
+
+import type { MenuOption } from "@/types/menu";
 import cn from "@/utils/cn";
 
-import MenuNode from "./MenuNode";
-import MenuController from "./MenuController";
-
-export interface MenuTreeProps extends React.HTMLAttributes<HTMLUListElement> {
+export interface MenuTreeProps extends React.ComponentProps<"ul"> {
   options: MenuOption[];
   renderIcon?: (pramas: MenuIconProps) => React.ReactNode;
 }

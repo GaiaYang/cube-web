@@ -1,5 +1,6 @@
-import { OLLCategory, PLLCategory, F2LCategory } from "@/enums/cube/333";
 import type { CommonDefinition } from "./common";
+
+import { F2LCategory,OLLCategory, PLLCategory } from "@/enums/cube/333";
 
 /** 方塊方位代號 */
 export type CubeFaceCode = "U" | "D" | "L" | "R" | "F" | "B";

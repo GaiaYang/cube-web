@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { usePathname } from "next/navigation";
 
-import type { MenuOption } from "@/types/menu";
 import { updateOpenIdsAtom } from "./jotai";
+
+import type { MenuOption } from "@/types/menu";
 
 export interface MenuControllerProps {
   options: MenuOption[];

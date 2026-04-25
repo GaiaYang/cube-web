@@ -1,8 +1,7 @@
-import type { PLLDefinition } from "@/types/cube/333";
-import { labels } from "@/data/options/cube/333/pllCategory";
-
 import Diagram from "@/components/cube/333/diagram/PermutationLastLayer";
 import AlgorithmCaseCard from "@/components/cube/AlgorithmCaseCard";
+import { labels } from "@/data/options/cube/333/pllCategory";
+import type { PLLDefinition } from "@/types/cube/333";
 
 export type PLLCaseProps = PLLDefinition;
 

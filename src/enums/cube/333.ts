@@ -1,3 +1,4 @@
+/** OLL 公式分類 */
 export enum OLLCategory {
   /** 點型（中心點無其他已正確朝上的邊塊）*/
   DOT_CASE = "DOT_CASE",
@@ -29,6 +30,7 @@ export enum OLLCategory {
   LINE_SHAPES = "LINE_SHAPES",
 }
 
+/** PLL 公式分類 */
 export enum PLLCategory {
   /** 相鄰交換（Adj Swap） */
   ADJ_SWAP = "ADJ_SWAP",
@@ -38,6 +40,7 @@ export enum PLLCategory {
   EPLL = "EPLL",
 }
 
+/** F2L 公式分類 */
 export enum F2LCategory {
   /** 已連接的對組（Connected Pairs） */
   CONNECTED_PAIRS = "CONNECTED_PAIRS",

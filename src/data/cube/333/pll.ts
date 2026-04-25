@@ -1,7 +1,7 @@
-import type { PLLDefinition } from "@/types/cube/333";
 import { PLLCategory } from "@/enums/cube/333";
+import type { PLLDefinition } from "@/types/cube/333";
 
-export type { PLLDefinition, PLLCaseId } from "@/types/cube/333";
+export type { PLLCaseId,PLLDefinition } from "@/types/cube/333";
 
 export const definitions: PLLDefinition[] = [
   {

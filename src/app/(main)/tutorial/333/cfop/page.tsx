@@ -1,9 +1,8 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 
-import type { Option } from "@/data/options/types";
-
 import Article from "@/components/ui/Article";
+import type { Option } from "@/data/options/types";
 
 export const metadata: Metadata = {
   title: "CFOP",

@@ -1,4 +1,4 @@
-import type { FaceMove, WideMove, Rotation, BasicMove } from "./types";
+import type { BasicMove, FaceMove, Rotation, WideMove } from "./types";
 
 /** 基本符號 */
 export const faceMoves: FaceMove[] = ["R", "L", "U", "D", "F", "B"];

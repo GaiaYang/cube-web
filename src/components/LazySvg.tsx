@@ -3,8 +3,8 @@
 import React, { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
-import mergeRefs from "@/utils/mergeRefs";
 import cn from "@/utils/cn";
+import mergeRefs from "@/utils/mergeRefs";
 
 export interface LazySvgOptions {
   /**

@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import cn from "@/utils/cn";
-
 import BackButton from "./components/BackButton";
+
+import cn from "@/utils/cn";
 
 export default function NotFound() {
   return (

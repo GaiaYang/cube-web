@@ -1,7 +1,7 @@
-import type { WideMove, MirrorMap, RotateMap, MoveToken } from "../types";
-import { createCubeProfile } from "../core";
-import { createRegex, parseMoveByRegex, ensureValidTurnCount } from "../tools";
 import { basicMoves } from "../constants";
+import { createCubeProfile } from "../core";
+import { createRegex, ensureValidTurnCount, parseMoveByRegex } from "../tools";
+import type { MirrorMap, MoveToken, RotateMap, WideMove } from "../types";
 
 import notNilMap from "@/utils/notNilMap";
 

@@ -1,21 +1,21 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { parseAsStringEnum, useQueryState } from "nuqs";
 
-import stringToEnum from "@/utils/stringToEnum";
-import type { F2LDefinition } from "@/types/cube/333";
-import { F2LCategory } from "@/enums/cube/333";
-import { definitions } from "@/data/cube/333/f2l";
-import filterCases from "@/utils/filterCases";
-
-import OverlayLink from "@/components/ui/OverlayLink";
 import F2LCase from "@/components/gridItems/F2LCase";
 import GridList, { type GridListProps } from "@/components/list/GridList";
+import OverlayLink from "@/components/ui/OverlayLink";
+import { definitions } from "@/data/cube/333/f2l";
+import { F2LCategory } from "@/enums/cube/333";
+import type { F2LDefinition } from "@/types/cube/333";
+import filterCases from "@/utils/filterCases";
 
 /** F2L公式列表 */
 export default function Algorithms() {
-  const searchParams = useSearchParams();
-  const category = stringToEnum(F2LCategory, searchParams.get("category"));
+  const [category] = useQueryState(
+    "category",
+    parseAsStringEnum<F2LCategory>(Object.values(F2LCategory)),
+  );
   const data = filterCases(definitions, category);
 
   return <GridList data={data} renderItem={_renderItem} />;

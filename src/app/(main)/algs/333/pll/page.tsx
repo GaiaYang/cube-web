@@ -1,14 +1,14 @@
 import { Suspense } from "react";
 import { type Metadata } from "next";
 
-import { SITE_URL } from "@/lib/config";
+import Cases from "./components/Cases";
+
+import AlgorithmCasesFallback from "@/components/cube/AlgorithmCasesFallback";
+import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
+import Article from "@/components/ui/Article";
 import { options as pllOptions } from "@/data/options/cube/333/pllCategory";
 import { PLLCategory } from "@/enums/cube/333";
-
-import Article from "@/components/ui/Article";
-import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
-import Cases from "./components/Cases";
-import AlgorithmCasesFallback from "@/components/cube/AlgorithmCasesFallback";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "PLL 公式列表",
@@ -29,7 +29,7 @@ export default function Page() {
       </Article>
       <section>
         <h2 className="sr-only">搜尋列</h2>
-        <AlgorithmsFilterPanel options={pllOptions} valueMap={PLLCategory} />
+        <AlgorithmsFilterPanel options={pllOptions} enumObject={PLLCategory} />
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>

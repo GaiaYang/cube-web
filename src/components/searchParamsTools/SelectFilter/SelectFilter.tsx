@@ -1,19 +1,21 @@
 "use client";
 
 import { RotateCcwIcon } from "lucide-react";
+import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import type { Option } from "@/data/options/types";
-
 import cn from "@/utils/cn";
-import useSearchParamSelect from "@/hooks/useSearchParamSelect";
+
+type EnumLike = Record<string, string>;
+type EnumValue<E extends EnumLike> = E[keyof E];
 
 export interface SelectFilterProps<
-  TEnum extends Record<string, string>,
-> extends React.HTMLAttributes<HTMLDivElement> {
+  E extends EnumLike,
+> extends React.ComponentProps<"div"> {
   /** 選擇器選項 */
-  options: Option<TEnum[keyof TEnum]>[];
+  options: Option<EnumValue<E>>[];
   /** Enum 物件 */
-  valueMap: TEnum;
+  enumObject: E;
   /** URL 查詢參數名稱 */
   queryKey: string;
   /** 下拉選單的 placeholder */
@@ -24,16 +26,26 @@ export interface SelectFilterProps<
   ariaLabel?: string;
 }
 
-export default function SelectFilter<TEnum extends Record<string, string>>({
+export default function SelectFilter<E extends EnumLike>({
   options,
-  valueMap,
+  enumObject,
   queryKey,
   placeholder = "請選擇",
   resetLabel = "清除選項",
   ariaLabel = "選擇選項",
   ...props
-}: SelectFilterProps<TEnum>) {
-  const { value, onChange, reset } = useSearchParamSelect(valueMap, queryKey);
+}: SelectFilterProps<E>) {
+  const [value, setValue] = useQueryState(
+    queryKey,
+    parseAsStringEnum<EnumValue<E> | "">(
+      Object.values(enumObject) as EnumValue<E>[],
+    )
+      .withOptions({
+        shallow: true,
+        history: "push",
+      })
+      .withDefault(""),
+  );
 
   return (
     <div {...props} className={cn("join", props.className)}>
@@ -41,7 +53,9 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
         id={`select-filter-${queryKey}`}
         aria-label={ariaLabel}
         value={value}
-        onChange={onChange}
+        onChange={(event) => {
+          setValue(event.target.value as EnumValue<E>);
+        }}
         className="select focus:select-primary join-item"
       >
         <option value="" disabled>
@@ -51,7 +65,9 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
       </select>
       <button
         type="button"
-        onClick={reset}
+        onClick={() => {
+          setValue(null);
+        }}
         title={resetLabel}
         className="join-item btn btn-error btn-square btn-soft"
       >
@@ -62,9 +78,7 @@ export default function SelectFilter<TEnum extends Record<string, string>>({
   );
 }
 
-function _renderOption<TEnum extends Record<string, string>>(
-  item: Option<TEnum[keyof TEnum]>,
-) {
+function _renderOption<T extends string>(item: Option<T>) {
   return (
     <option key={item.id} value={item.value}>
       {item.label}

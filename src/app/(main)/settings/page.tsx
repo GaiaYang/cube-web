@@ -1,7 +1,8 @@
 import { type Metadata } from "next";
 
-import ThemeToggle from "./components/ThemeToggle";
 import SwitchCubeFaceColor from "./components/SwitchCubeFaceColor";
+import ThemeToggle from "./components/ThemeToggle";
+
 import Article from "@/components/ui/Article";
 
 export const metadata: Metadata = {

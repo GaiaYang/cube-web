@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { openIdsAtom } from "./jotai";
 
-export type MenuDetailsProps = React.DetailsHTMLAttributes<HTMLDetailsElement>;
+export type MenuDetailsProps = React.ComponentProps<"details">;
 
 export default function MenuDetails({ id, ...props }: MenuDetailsProps) {
   const pathname = usePathname();

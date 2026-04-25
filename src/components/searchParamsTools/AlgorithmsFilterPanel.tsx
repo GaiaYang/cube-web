@@ -9,8 +9,8 @@ export default function AlgorithmsFilterPanel<
   TEnum extends Record<string, string>,
 >({
   options,
-  valueMap,
-}: Pick<SelectFilterProps<TEnum>, "options" | "valueMap">) {
+  enumObject,
+}: Pick<SelectFilterProps<TEnum>, "options" | "enumObject">) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <SelectFilter
@@ -19,7 +19,7 @@ export default function AlgorithmsFilterPanel<
         resetLabel="清除分類"
         queryKey="category"
         options={options}
-        valueMap={valueMap}
+        enumObject={enumObject}
       />
     </div>
   );

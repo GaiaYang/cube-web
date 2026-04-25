@@ -1,7 +1,7 @@
-import type { F2LDefinition } from "@/types/cube/333";
 import { F2LCategory } from "@/enums/cube/333";
+import type { F2LDefinition } from "@/types/cube/333";
 
-export type { F2LDefinition, F2LCaseId } from "@/types/cube/333";
+export type { F2LCaseId,F2LDefinition } from "@/types/cube/333";
 
 /** 固定上色 */
 const fixedPattern: Pick<

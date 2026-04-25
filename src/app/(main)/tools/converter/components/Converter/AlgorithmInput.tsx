@@ -1,8 +1,9 @@
 import { Control, Controller } from "react-hook-form";
 
-import { type Schema } from "./form";
-import cn from "@/utils/cn";
 import { useConverterProps } from "./context";
+import { type Schema } from "./form";
+
+import cn from "@/utils/cn";
 
 export default function AlgorithmInput() {
   const { cubeOrder } = useConverterProps();

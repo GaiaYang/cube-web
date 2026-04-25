@@ -1,5 +1,5 @@
 import { basicMoves, basicMovesMap } from "./constants";
-import type { MirrorMap, RotateMap, MoveToken } from "./types";
+import type { MirrorMap, MoveToken, RotateMap } from "./types";
 
 /** 通用映射處理 */
 function mapMove<K extends string, V extends string>(

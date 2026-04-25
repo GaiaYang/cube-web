@@ -1,12 +1,12 @@
 import { type Metadata } from "next";
 
-import Article from "@/components/ui/Article";
-import GridList, { type ListRenderItem } from "@/components/list/GridList";
-import OverlayLink from "@/components/ui/OverlayLink";
-import Card from "@/components/ui/Card";
 import FirstTwoLayersByCase from "@/components/cube/333/diagram/FirstTwoLayersByCase";
 import OrientationLastLayerByCase from "@/components/cube/333/diagram/OrientationLastLayerByCase";
 import PermutationLastLayerByCase from "@/components/cube/333/diagram/PermutationLastLayerByCase";
+import GridList, { type ListRenderItem } from "@/components/list/GridList";
+import Article from "@/components/ui/Article";
+import Card from "@/components/ui/Card";
+import OverlayLink from "@/components/ui/OverlayLink";
 
 export const metadata: Metadata = {
   title: "三階公式總覽",

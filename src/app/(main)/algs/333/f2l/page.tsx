@@ -1,14 +1,14 @@
 import { Suspense } from "react";
 import { type Metadata } from "next";
 
-import { SITE_URL } from "@/lib/config";
+import Cases from "./components/Cases";
+
+import AlgorithmCasesFallback from "@/components/cube/AlgorithmCasesFallback";
+import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
+import Article from "@/components/ui/Article";
 import { options as f2lOptions } from "@/data/options/cube/333/f2lCategory";
 import { F2LCategory } from "@/enums/cube/333";
-
-import Article from "@/components/ui/Article";
-import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
-import Cases from "./components/Cases";
-import AlgorithmCasesFallback from "@/components/cube/AlgorithmCasesFallback";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "F2L 公式列表",
@@ -34,7 +34,7 @@ export default function Page() {
       </Article>
       <section>
         <h2 className="sr-only">搜尋列</h2>
-        <AlgorithmsFilterPanel options={f2lOptions} valueMap={F2LCategory} />
+        <AlgorithmsFilterPanel options={f2lOptions} enumObject={F2LCategory} />
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>

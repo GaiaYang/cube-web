@@ -1,8 +1,7 @@
-import type { CommonProps } from "./types";
-
-import Navbar from "./Navbar";
-import Header from "./Header";
 import Drawer, { type DrawerProps } from "./Drawer";
+import Header from "./Header";
+import Navbar from "./Navbar";
+import type { CommonProps } from "./types";
 
 export interface BasicLayoutProps extends CommonProps, DrawerProps {}
 

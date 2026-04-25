@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { uniq } from "es-toolkit";
 
 import type { CubeFaceColor } from "@/types/cube/color";
-
 import getOrDefault from "@/utils/getOrDefault";
 
 /** 魔方顏色物件 */
