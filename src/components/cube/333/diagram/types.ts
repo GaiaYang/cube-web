@@ -7,3 +7,4 @@ export interface CommonDiagramProps
   /** 指定固定尺寸 */
   size?: number;
 }
+

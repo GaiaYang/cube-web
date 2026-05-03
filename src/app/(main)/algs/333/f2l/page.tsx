@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 
 import Cases from "./components/Cases";
 
-import AlgorithmCasesFallback from "@/components/cube/AlgorithmCasesFallback";
+import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
 import { options as f2lOptions } from "@/data/options/cube/333/f2lCategory";

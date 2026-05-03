@@ -1,8 +1,15 @@
 import { type Metadata } from "next";
+import dynamic from "next/dynamic";
 
-import ProportionChart from "@/components/charts/ProportionChart";
+import ProportionChartFallback from "@/components/charts/ProportionChartFallback";
 import Notices from "@/components/Notices";
 import Article from "@/components/ui/Article";
+const ProportionChart = dynamic(
+  () => import("@/components/charts/ProportionChart"),
+  {
+    loading: () => <ProportionChartFallback />,
+  },
+);
 
 export const metadata: Metadata = {
   title: "兩段式 PLL",
@@ -13,7 +20,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <Article>
-      <h1>兩段式PLL</h1>
+      <h1>兩段式 PLL</h1>
       <p>將頂層還原分成兩個階段，顯著減少需要記憶的公式數量與判斷難度。</p>
       <Notices type="under-construction" />
       <h2>步驟說明</h2>

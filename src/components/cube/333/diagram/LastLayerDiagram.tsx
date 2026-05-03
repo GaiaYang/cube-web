@@ -1,6 +1,6 @@
 "use client";
 
-import type { CommonDiagramProps } from "./type";
+import type { CommonDiagramProps } from "./types";
 
 import LazySvg from "@/components/LazySvg";
 import getCubeColor from "@/themes/cube/colors";

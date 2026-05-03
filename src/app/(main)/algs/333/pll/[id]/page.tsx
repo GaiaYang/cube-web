@@ -3,7 +3,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import Pattern from "@/components/cube/333/diagram/PermutationLastLayerByCase";
-import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
+import AlgorithmPanel from "@/components/cube/algorithms/AlgorithmPanel";
 import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
 
 type Props = {

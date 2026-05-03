@@ -3,7 +3,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import Pattern from "@/components/cube/333/diagram/OrientationLastLayerByCase";
-import AlgorithmPanel from "@/components/cube/AlgorithmPanel";
+import AlgorithmPanel from "@/components/cube/algorithms/AlgorithmPanel";
 import { definitions, type OLLCaseId } from "@/data/cube/333/oll";
 
 type Props = {

@@ -1,5 +1,5 @@
 import Diagram from "@/components/cube/333/diagram/FirstTwoLayers";
-import AlgorithmCaseCard from "@/components/cube/AlgorithmCaseCard";
+import AlgorithmCaseCard from "@/components/cube/algorithms/AlgorithmCaseCard";
 import { labels } from "@/data/options/cube/333/f2lCategory";
 import type { F2LDefinition } from "@/types/cube/333";
 

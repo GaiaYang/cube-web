@@ -117,3 +117,4 @@ function _renderCell(item: string, index: number, array: string[]) {
     </Fragment>
   );
 }
+

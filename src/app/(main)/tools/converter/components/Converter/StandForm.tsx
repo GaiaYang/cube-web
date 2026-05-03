@@ -9,7 +9,7 @@ import AlgorithmInput from "./AlgorithmInput";
 import { type Schema } from "./form";
 import type { ConversionProfile } from "./types";
 
-import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
+import AlgorithmDisplay from "@/components/cube/algorithms/AlgorithmDisplay";
 
 /** 標準轉換表單 */
 export default function StandForm() {

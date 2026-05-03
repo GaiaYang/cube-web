@@ -1,12 +1,13 @@
 import { type Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import ProportionChart from "@/components/charts/ProportionChart";
+import ProportionChartFallback from "@/components/charts/ProportionChartFallback";
 import OrientationLastLayer, {
   OrientationLastLayerProps,
 } from "@/components/cube/333/diagram/OrientationLastLayer";
-import AlgorithmDisplay from "@/components/cube/AlgorithmDisplay";
-import AlgorithmSplitDisplay from "@/components/cube/AlgorithmSplitDisplay";
+import AlgorithmDisplay from "@/components/cube/algorithms/AlgorithmDisplay";
+import AlgorithmSplitDisplay from "@/components/cube/algorithms/AlgorithmSplitDisplay";
 import AlgorithmsTable, {
   type AlgorithmTableRow,
   Table,
@@ -14,12 +15,16 @@ import AlgorithmsTable, {
   TableContainer,
   TableHead,
   TableRow,
-} from "@/components/cube/AlgorithmsTable";
+} from "@/components/cube/algorithms/AlgorithmsTable";
 import Notices from "@/components/Notices";
 import Article from "@/components/ui/Article";
 import { definitions } from "@/data/cube/333/oll";
 import { OLLCategory } from "@/enums/cube/333";
 import type { OLLCaseId } from "@/types/cube/333";
+const ProportionChart = dynamic(
+  () => import("@/components/charts/ProportionChart"),
+  { loading: () => <ProportionChartFallback /> },
+);
 
 export const metadata: Metadata = {
   title: "兩段式 OLL",
