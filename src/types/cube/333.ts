@@ -1,42 +1,13 @@
 import type { CommonDefinition } from "./common";
 
-import { F2LCategory,OLLCategory, PLLCategory } from "@/enums/cube/333";
+import { F2LCategory, OLLCategory, PLLCategory } from "@/enums/cube/333";
+import type { StringIntRange } from "@/types/utils";
 
 /** 方塊方位代號 */
 export type CubeFaceCode = "U" | "D" | "L" | "R" | "F" | "B";
 
-/** 方塊立體圖位置 */
-export type CubeBlockPosition3D =
-  | "U-TL"
-  | "U-TC"
-  | "U-TR"
-  | "U-CL"
-  | "U-CR"
-  | "U-CC"
-  | "U-BL"
-  | "U-BC"
-  | "U-BR"
-  | "F-TL"
-  | "F-TC"
-  | "F-TR"
-  | "F-CL"
-  | "F-CR"
-  | "F-CC"
-  | "F-BL"
-  | "F-BC"
-  | "F-BR"
-  | "S-TL"
-  | "S-TC"
-  | "S-TR"
-  | "S-CL"
-  | "S-CR"
-  | "S-CC"
-  | "S-BL"
-  | "S-BC"
-  | "S-BR";
-
-/** 方塊平面展開圖位置 */
-export type CubeFaceletPosition2D =
+/** 九宮格面塊位置 */
+type FaceletCell =
   | "TL"
   | "TC"
   | "TR"
@@ -45,79 +16,26 @@ export type CubeFaceletPosition2D =
   | "CC"
   | "BL"
   | "BC"
-  | "BR"
-  | "S-TL"
-  | "S-TC"
-  | "S-TR"
-  | "S-BL"
-  | "S-BC"
-  | "S-BR"
-  | "S-RT"
-  | "S-RC"
-  | "S-RB"
-  | "S-LT"
-  | "S-LC"
-  | "S-LB";
+  | "BR";
+
+/** 側邊面塊位置（不含 CL/CR/CC，另含左右邊） */
+type SideFaceletCell =
+  | Exclude<FaceletCell, "CL" | "CR" | "CC">
+  | "RT"
+  | "RC"
+  | "RB"
+  | "LT"
+  | "LC"
+  | "LB";
+
+/** 方塊立體圖位置 */
+export type CubeBlockPosition3D = `${"U" | "F" | "S"}-${FaceletCell}`;
+
+/** 方塊平面展開圖位置 */
+export type CubeFaceletPosition2D = FaceletCell | `S-${SideFaceletCell}`;
 
 /** OLL 案例 ID */
-export type OLLCaseId =
-  | "1"
-  | "2"
-  | "3"
-  | "4"
-  | "5"
-  | "6"
-  | "7"
-  | "8"
-  | "9"
-  | "10"
-  | "11"
-  | "12"
-  | "13"
-  | "14"
-  | "15"
-  | "16"
-  | "17"
-  | "18"
-  | "19"
-  | "20"
-  | "21"
-  | "22"
-  | "23"
-  | "24"
-  | "25"
-  | "26"
-  | "27"
-  | "28"
-  | "29"
-  | "30"
-  | "31"
-  | "32"
-  | "33"
-  | "34"
-  | "35"
-  | "36"
-  | "37"
-  | "38"
-  | "39"
-  | "40"
-  | "41"
-  | "42"
-  | "43"
-  | "44"
-  | "45"
-  | "46"
-  | "47"
-  | "48"
-  | "49"
-  | "50"
-  | "51"
-  | "52"
-  | "53"
-  | "54"
-  | "55"
-  | "56"
-  | "57";
+export type OLLCaseId = StringIntRange<57>;
 
 /** OLL定義 */
 export interface OLLDefinition extends CommonDefinition {
@@ -166,48 +84,7 @@ export interface PLLDefinition extends CommonDefinition {
 }
 
 /** F2l 案例 ID */
-export type F2LCaseId =
-  | "1"
-  | "2"
-  | "3"
-  | "4"
-  | "5"
-  | "6"
-  | "7"
-  | "8"
-  | "9"
-  | "10"
-  | "11"
-  | "12"
-  | "13"
-  | "14"
-  | "15"
-  | "16"
-  | "17"
-  | "18"
-  | "19"
-  | "20"
-  | "21"
-  | "22"
-  | "23"
-  | "24"
-  | "25"
-  | "26"
-  | "27"
-  | "28"
-  | "29"
-  | "30"
-  | "31"
-  | "32"
-  | "33"
-  | "34"
-  | "35"
-  | "36"
-  | "37"
-  | "38"
-  | "39"
-  | "40"
-  | "41";
+export type F2LCaseId = StringIntRange<41>;
 
 /** F2L定義 */
 export interface F2LDefinition extends CommonDefinition {
