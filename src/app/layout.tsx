@@ -8,7 +8,7 @@ import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { SITE_URL } from "@/lib/config";
-import { noto_sans_mono,noto_sans_tc, noto_serif_tc } from "@/lib/fonts";
+import { noto_sans_mono, noto_sans_tc, noto_serif_tc } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -27,17 +27,19 @@ export default function RootLayout({
 }>) {
   return (
     <StrictMode>
-      <html lang="zh-Hant-TW" suppressHydrationWarning>
-        <body
-          className={clsx(
-            noto_sans_tc.className,
-            noto_sans_tc.variable,
-            noto_serif_tc.variable,
-            noto_sans_mono.variable,
-            "antialiased",
-            "selection:bg-primary selection:text-primary-content",
-          )}
-        >
+      <html
+        lang="zh-Hant-TW"
+        suppressHydrationWarning
+        className={clsx(
+          noto_sans_tc.className,
+          noto_sans_tc.variable,
+          noto_serif_tc.variable,
+          noto_sans_mono.variable,
+          "h-full antialiased",
+          "selection:bg-primary selection:text-primary-content",
+        )}
+      >
+        <body className="flex min-h-full flex-col">
           <NuqsAdapter>
             <JotaiProvider>
               <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
