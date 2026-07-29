@@ -1,27 +1,11 @@
 import { isPlainObject } from "es-toolkit";
 
 /**
- * 取得列表物件的 key
- *
- * 優先取得 id > key
- * @param item 要尋找的物件
+ * 從列表項目取得 React key（優先 `id`，其次 `key`）
  */
 export default function getListItemKey(item: unknown): string | undefined {
-  if (!isPlainObject(item)) {
-    return undefined;
-  }
+  if (!isPlainObject(item)) return undefined;
 
-  let result;
-
-  if ("id" in item) {
-    result = item.id;
-  } else if ("key" in item) {
-    result = item.key;
-  }
-
-  if (typeof result === "string" && result !== "") {
-    return result;
-  }
-
-  return undefined;
+  const value = "id" in item ? item.id : "key" in item ? item.key : undefined;
+  return typeof value === "string" && value !== "" ? value : undefined;
 }

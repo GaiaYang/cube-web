@@ -1,13 +1,9 @@
 /**
- * 從物件中安全取得值，若鍵為 `undefined`/`null` 或鍵不存在，則返回預設鍵的值
- * @param obj 包含值的物件，必須至少有 `defaultKey` 指定的鍵
- * @param defaultKey 預設退回的鍵名稱
- * @param key 要取得的鍵（可選）
- * @returns 物件指定值
+ * 從物件取值；鍵缺失或值為 `null`/`undefined` 時退回 `defaultKey` 的值
  */
 export default function getOrDefault<
   T extends Record<PropertyKey, unknown>,
   K extends keyof T,
 >(obj: T, defaultKey: K, key?: K | null): T[K] {
-  return obj[key ?? defaultKey] ?? obj[defaultKey];
+  return (key != null ? obj[key] : undefined) ?? obj[defaultKey];
 }

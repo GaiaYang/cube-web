@@ -1,10 +1,8 @@
-import { Ref, RefCallback, version } from "react";
+import type { Ref, RefCallback } from "react";
 
 /**
  * 賦值給 ref
- * @param ref 用於賦值的 ref
- * @param value 要賦予 ref 的值
- * @returns 如果存在清理函式(React 19 以後)則回傳該函式
+ * @returns React 19 callback ref 的清理函式（若有）
  */
 export function assignRef<T>(
   ref: Ref<T> | undefined | null,
@@ -17,20 +15,18 @@ export function assignRef<T>(
   }
 }
 
-function mergeRefsReact16<T>(refs: (Ref<T> | undefined)[]): Ref<T> {
-  return (value: T | null) => {
-    for (const ref of refs) assignRef(ref, value);
-  };
-}
-
-function mergeRefsReact19<T>(refs: (Ref<T> | undefined)[]): Ref<T> {
-  return (value: T | null) => {
+/** 將多個 ref 合併為一個（支援 React 19 cleanup） */
+export default function mergeRefs<T>(
+  refs: (Ref<T> | undefined | null)[],
+): RefCallback<T> {
+  return (value) => {
     const cleanups: (() => void)[] = [];
 
     for (const ref of refs) {
       const cleanup = assignRef(ref, value);
-      const isCleanup = typeof cleanup === "function";
-      cleanups.push(isCleanup ? cleanup : () => assignRef(ref, null));
+      cleanups.push(
+        typeof cleanup === "function" ? cleanup : () => assignRef(ref, null),
+      );
     }
 
     return () => {
@@ -38,15 +34,3 @@ function mergeRefsReact19<T>(refs: (Ref<T> | undefined)[]): Ref<T> {
     };
   };
 }
-
-/**
- * 將多個 ref 合併為一個
- * @param refs 待合併的 ref 清單
- * @returns 合併後的 ref
- */
-const mergeRefs =
-  parseInt(version.split(".")[0]!, 10) >= 19
-    ? mergeRefsReact19
-    : mergeRefsReact16;
-
-export default mergeRefs;
