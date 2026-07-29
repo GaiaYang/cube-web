@@ -1,4 +1,3 @@
-import { createStore } from "jotai";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import { focusAtom } from "jotai-optics";
 
@@ -10,8 +9,6 @@ interface Value {
 
 /** 本地儲存 */
 const storage = createJSONStorage<Value>();
-/** 本地儲存的提供者 */
-export const store = createStore();
 
 /** 預設值 */
 export const initialValue: Value = {

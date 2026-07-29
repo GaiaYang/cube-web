@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai";
 
-import { cubeFaceColorAtom, store } from "@/jotai/settings";
+import { cubeFaceColorAtom } from "@/jotai/settings";
 
 export default function useCubeFaceColor() {
-  const cubeFaceColor = useAtomValue(cubeFaceColorAtom, { store });
+  const cubeFaceColor = useAtomValue(cubeFaceColorAtom);
   return cubeFaceColor;
 }

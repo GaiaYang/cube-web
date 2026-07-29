@@ -8,7 +8,7 @@ import { options } from "@/data/options/cube/color";
 import type { Option } from "@/data/options/types";
 import { CubeFaceColors } from "@/enums/cube/color";
 import useMounted from "@/hooks/useMounted";
-import { cubeFaceColorAtom, initialValue,store } from "@/jotai/settings";
+import { cubeFaceColorAtom, initialValue } from "@/jotai/settings";
 import getCubeColor from "@/themes/cube/colors";
 import cn from "@/utils/cn";
 import getOppositeColor from "@/utils/cube/getOppositeColor";
@@ -18,9 +18,7 @@ const immerCubeFaceColorAtom = withImmer(cubeFaceColorAtom);
 
 export default function SwitchCubeFaceColor() {
   const mounted = useMounted();
-  const [cubeFaceColor, setCubeFaceColor] = useAtom(immerCubeFaceColorAtom, {
-    store,
-  });
+  const [cubeFaceColor, setCubeFaceColor] = useAtom(immerCubeFaceColorAtom);
   const bottomColor = getOppositeColor(cubeFaceColor.top);
   const topOptions = notNilOptions;
   const frontOptions = notNilOptions.filter(
