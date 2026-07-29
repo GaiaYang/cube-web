@@ -2,7 +2,7 @@ import { basicMoves, basicMovesMap } from "./constants";
 import type { MirrorMap, MoveToken, RotateMap } from "./types";
 
 /** 通用映射處理 */
-function mapMove<K extends string, V extends string>(
+export function mapMove<K extends string, V extends string>(
   item: MoveToken,
   map: Record<K, V>,
   reversePrimeFor: K[] = [],

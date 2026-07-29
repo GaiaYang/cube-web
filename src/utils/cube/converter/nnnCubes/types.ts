@@ -51,9 +51,6 @@ export interface CubeProfile {
   /** 旋轉公式的單一步驟實作(y2) */
   rotateMove?: (params: MoveToken) => MoveToken | null;
 }
-// 轉換公式
-/** 鏡像方向 */
-export type MirrorDirection = "horizontal" | "vertical";
 /** 鏡像公式對照表 */
 export type MirrorMap<E extends string = BasicMove> = Record<E, E>;
 /** 旋轉公式對照表 */

@@ -95,6 +95,7 @@ export function createCubeProfile(parser?: CubeProfile) {
       if (!Array.isArray(input)) return "";
       const output = notNilMap(input, (item) =>
         typeof item === "string" ? formatMove(item) : formatMoveToken(item),
+        Boolean,
       );
       return output.join(SEPARATE);
     },

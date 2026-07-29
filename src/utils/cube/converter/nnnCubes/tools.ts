@@ -39,11 +39,6 @@ export function parseMoveByRegex(
   if (!match) return null;
   const [, sliceCountStr, code, turnStr, primeMark] = match;
 
-  // 確保 code 是有效的
-  if (!basicMoves.includes(code as BasicMove)) {
-    return null;
-  }
-
   // 書寫必須從 2 開始
   if ([sliceCountStr, turnStr].some((item) => item === "0" || item === "1")) {
     return null;
@@ -51,7 +46,7 @@ export function parseMoveByRegex(
 
   return {
     sliceCount: sliceCountStr ? parseInt(sliceCountStr, 10) : 1,
-    code: code as BasicMove,
+    code,
     turnCount: turnStr ? parseInt(turnStr, 10) : 1,
     isPrime: primeMark === PRIME_MARK,
   };
@@ -85,20 +80,6 @@ export function normalizeOfficialMove(
   if (_turnCount === null) return null;
 
   return { code, sliceCount, turnCount: _turnCount, isPrime };
-}
-
-/**
- * 標準化轉動代號
- *
- * @param moves 轉動代號清單
- * @param code 轉動代號
- * */
-export function ensureValidCode<T extends string>(
-  moves: T[],
-  code: string,
-): T | null {
-  // code 必須是已知代號
-  return moves.includes(code as T) ? (code as T) : null;
 }
 
 /** 驗證並簡化 turnCount */

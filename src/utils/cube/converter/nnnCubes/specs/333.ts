@@ -1,4 +1,5 @@
 import { basicMoves } from "../constants";
+import { mapMove } from "../convert";
 import { createCubeProfile } from "../core";
 import { createRegex, ensureValidTurnCount, parseMoveByRegex } from "../tools";
 import type { MirrorMap, MoveToken, RotateMap, WideMove } from "../types";
@@ -76,27 +77,6 @@ const LOWER_MAP: Record<WideMove, WideMoveAliases> = {
   Bw: "b",
   Fw: "f",
 };
-
-/**
- * 映射轉動代號
- *
- * @param move 移動代號
- * @param map 映射表
- * @param reversePrimeFor 要反向 isPrime 的代號
- * */
-function mapMove(
-  move: MoveToken,
-  map: Record<string, string>,
-  reversePrimeFor: string[] = [],
-): MoveToken | null {
-  const mapped = map[move.code];
-  if (!mapped) return null;
-  return {
-    ...move,
-    code: mapped,
-    isPrime: reversePrimeFor.includes(move.code) ? !move.isPrime : move.isPrime,
-  };
-}
 
 /** 映射擴充轉動代號 */
 function extendsMapMove(move: MoveToken, map: Record<string, string>) {

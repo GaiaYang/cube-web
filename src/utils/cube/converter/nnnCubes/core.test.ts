@@ -146,6 +146,7 @@ describe("Rubik's Cube Notation Parser", () => {
             { sliceCount: 1, code: "Q", turnCount: 1, isPrime: false },
           ]),
         ).toBe("");
+        expect(cubeProfileNNN.formatAlgorithm(["R", "Q"])).toBe("");
         expect(cubeProfile333.formatAlgorithm([])).toBe("");
       });
     });
