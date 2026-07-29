@@ -6,7 +6,7 @@ import Cases from "./components/Cases";
 import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
-import { options as ollOptions } from "@/data/options/cube/333/ollCategory";
+import { options as ollOptions } from "@/data/cube/333/oll";
 import { OLLCategory } from "@/enums/cube/333";
 import { SITE_URL } from "@/lib/config";
 

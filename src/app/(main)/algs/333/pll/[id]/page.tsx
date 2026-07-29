@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import Pattern from "@/components/cube/333/diagram/PermutationLastLayer";
 import AlgorithmPanel from "@/components/cube/algorithms/AlgorithmPanel";
-import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
+import { byId, definitions, type PLLCaseId } from "@/data/cube/333/pll";
 
 type Props = {
   params: Promise<{ id: PLLCaseId }>;
@@ -19,8 +19,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { id } = await params;
-
-  const data = definitions.find((item) => item.id === id);
+  const data = byId[id];
 
   if (!data) {
     notFound();
@@ -36,14 +35,16 @@ export async function generateMetadata(
 
 export default function Page({ params }: Props) {
   const { id } = use(params);
-
-  const data = definitions.find((item) => item.id === id);
+  const data = byId[id];
 
   if (!data) {
     notFound();
   }
 
   return (
-    <AlgorithmPanel {...data} renderPattern={<Pattern pattern={data.pattern} />} />
+    <AlgorithmPanel
+      {...data}
+      renderPattern={<Pattern pattern={data.pattern} />}
+    />
   );
 }

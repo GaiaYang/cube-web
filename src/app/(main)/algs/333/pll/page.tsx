@@ -6,7 +6,7 @@ import Cases from "./components/Cases";
 import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
-import { options as pllOptions } from "@/data/options/cube/333/pllCategory";
+import { options as pllOptions } from "@/data/cube/333/pll";
 import { PLLCategory } from "@/enums/cube/333";
 import { SITE_URL } from "@/lib/config";
 
