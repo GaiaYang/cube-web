@@ -1,22 +1,22 @@
 import { useMemo } from "react";
-import { produce } from "immer";
+import { useAtomValue } from "jotai";
 
 import { conversionFlags, conversionProfiles } from "../config";
-import { useConverterProps } from "../context";
+import { cubeOrderAtom } from "../jotai";
 import convert from "../utils/convert";
 
 import getOrDefault from "@/utils/getOrDefault";
 
 export default function useConverterObject() {
-  const { cubeOrder } = useConverterProps();
+  const cubeOrder = useAtomValue(cubeOrderAtom);
   const conversionMap = getOrDefault(convert, "nnn", cubeOrder);
+
   const enabledProfiles = useMemo(() => {
-    const enabled = produce(conversionFlags, (draft) => {
-      if (cubeOrder === "333") {
-        draft.lower = true;
-        draft.upper = true;
-      }
-    });
+    const enabled =
+      cubeOrder === "333"
+        ? { ...conversionFlags, lower: true, upper: true }
+        : conversionFlags;
+
     return conversionProfiles.filter(({ id }) => enabled[id]);
   }, [cubeOrder]);
 

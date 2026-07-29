@@ -1,6 +1,7 @@
 import type {
   ConversionFlags,
   ConversionProfile,
+  CubeOrder,
   FormMode,
   TabItem,
 } from "./types";
@@ -19,9 +20,9 @@ export const modeTabs: TabItem<FormMode>[] = [
   { id: "in-place", label: "原地複寫模式" },
 ];
 
-export const convertTabs: TabItem[] = [
-  { id: "convert", label: "一般轉換器" },
-  { id: "convert-333", label: "三階專屬轉換器" },
+export const convertTabs: TabItem<CubeOrder>[] = [
+  { id: "nnn", label: "一般轉換器" },
+  { id: "333", label: "三階專屬轉換器" },
 ];
 
 export const conversionProfiles: ConversionProfile[] = [

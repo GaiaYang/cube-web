@@ -1,16 +1,18 @@
-import { Control, Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
+import { useAtomValue } from "jotai";
 
-import { useConverterProps } from "./context";
 import { type Schema } from "./form";
+import { cubeOrderAtom } from "./jotai";
 
 import cn from "@/utils/cn";
 
 export default function AlgorithmInput() {
-  const { cubeOrder } = useConverterProps();
+  const { control } = useFormContext<Schema>();
+  const cubeOrder = useAtomValue(cubeOrderAtom);
 
   return (
     <Controller
-      control={undefined as unknown as Control<Schema>}
+      control={control}
       name="algorithm"
       render={({ field, fieldState: { error } }) => {
         const isError = Boolean(error);
@@ -20,9 +22,7 @@ export default function AlgorithmInput() {
             <input
               {...field}
               type="text"
-              // 關閉自動完成
               autoComplete="off"
-              // 關閉拼字檢查
               spellCheck="false"
               className={cn("input focus:input-primary", "w-full font-mono", {
                 "input-error": isError,

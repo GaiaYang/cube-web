@@ -1,10 +1,9 @@
-import { FormProvider, SubmitHandler } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { RotateCcwIcon } from "lucide-react";
 
 import useAlgorithmForm from "./hooks/useAlgorithmForm";
 import useConverterObject from "./hooks/useConverterObject";
 import AlgorithmInput from "./AlgorithmInput";
-import { type Schema } from "./form";
 import type { ConversionType } from "./types";
 
 /** 原地轉換表單 */
@@ -12,33 +11,33 @@ export default function InPlaceForm() {
   const form = useAlgorithmForm();
   const { conversionMap, enabledProfiles } = useConverterObject();
 
-  function _reset() {
-    form.reset();
+  function convertInPlace(id: ConversionType) {
+    void form.handleSubmit(({ algorithm }) => {
+      const convert = conversionMap[id];
+      if (convert) {
+        form.setValue("algorithm", convert(algorithm));
+      }
+    })();
   }
-
-  const _submit: SubmitHandler<Schema> = ({ algorithm }, event) => {
-    const key = (event?.target as HTMLButtonElement)?.value as ConversionType;
-    let result = "";
-    const convert = conversionMap[key];
-    if (convert) {
-      result = convert(algorithm);
-    }
-
-    form.setValue("algorithm", result);
-  };
 
   return (
     <FormProvider {...form}>
-      <form onReset={_reset} className="not-prose mt-5 grid gap-4">
+      <form
+        onReset={() => {
+          form.reset();
+        }}
+        className="not-prose mt-5 grid gap-4"
+      >
         <AlgorithmInput />
         <div className="flex flex-col gap-4 md:flex-row">
           <div className="join join-vertical md:join-horizontal">
             {enabledProfiles.map(({ subtitle, id }) => (
               <button
                 key={id}
-                value={id}
                 type="button"
-                onClick={form.handleSubmit(_submit)}
+                onClick={() => {
+                  convertInPlace(id);
+                }}
                 className="btn join-item"
               >
                 {subtitle}

@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 
-import type { FormMode } from "./types";
+import type { CubeOrder, FormMode } from "./types";
 
-/** 選項卡索引 */
-export const tabIndexAtom = atom(0);
+/** 目前轉換器對應的方塊階數 */
+export const cubeOrderAtom = atom<CubeOrder>("nnn");
 
 /**
  * 表單形式
@@ -11,5 +11,5 @@ export const tabIndexAtom = atom(0);
  * - in-place: 原地複寫
  *
  * @default "stand"
- * */
+ */
 export const formModeAtom = atom<FormMode>("stand");

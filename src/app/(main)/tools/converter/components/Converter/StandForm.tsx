@@ -1,13 +1,11 @@
-import { Fragment } from "react";
-import { FormProvider, SubmitHandler } from "react-hook-form";
-import { atom, Provider, useAtomValue, useSetAtom } from "jotai";
+import { useState } from "react";
+import { FormProvider, type SubmitHandler } from "react-hook-form";
 import { EraserIcon, SendIcon } from "lucide-react";
 
 import useAlgorithmForm from "./hooks/useAlgorithmForm";
 import useConverterObject from "./hooks/useConverterObject";
 import AlgorithmInput from "./AlgorithmInput";
 import { type Schema } from "./form";
-import type { ConversionProfile } from "./types";
 
 import AlgorithmDisplay from "@/components/cube/algorithms/AlgorithmDisplay";
 
@@ -15,77 +13,61 @@ import AlgorithmDisplay from "@/components/cube/algorithms/AlgorithmDisplay";
 export default function StandForm() {
   const { conversionMap, enabledProfiles } = useConverterObject();
 
-  function _renderContent(item: ConversionProfile) {
-    const convert = conversionMap[item.id];
+  return (
+    <div>
+      {enabledProfiles.map((item) => {
+        const convert = conversionMap[item.id];
+        if (!convert) return null;
 
-    return (
-      <Fragment key={item.id}>
-        <h3>{item.title}</h3>
-        <p>{item.description}</p>
-        {convert ? (
-          <Provider>
-            <CoreFormContainer onConvert={convert} />
-          </Provider>
-        ) : null}
-      </Fragment>
-    );
-  }
-
-  return <div>{enabledProfiles.map(_renderContent)}</div>;
+        return (
+          <section key={item.id}>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <CoreForm onConvert={convert} />
+          </section>
+        );
+      })}
+    </div>
+  );
 }
 
-/** 公式字串 */
-const algorithmStringAtom = atom("");
-
-interface CoreFormContainerProps {
-  onConvert: (params: string) => string;
+interface CoreFormProps {
+  onConvert: (algorithm: string) => string;
 }
 
-function CoreFormContainer({ onConvert }: CoreFormContainerProps) {
-  const setAlgorithmString = useSetAtom(algorithmStringAtom);
+function CoreForm({ onConvert }: CoreFormProps) {
+  const [result, setResult] = useState("");
   const form = useAlgorithmForm();
 
-  const _submit: SubmitHandler<Schema> = (params) => {
-    const result = onConvert(params.algorithm);
-    setAlgorithmString(result);
+  const onSubmit: SubmitHandler<Schema> = ({ algorithm }) => {
+    setResult(onConvert(algorithm));
   };
 
-  const _reset: React.FormEventHandler<HTMLFormElement> = () => {
+  const onReset = () => {
     form.reset();
-    setAlgorithmString("");
+    setResult("");
   };
 
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit(_submit)}
-        onReset={_reset}
+        onSubmit={form.handleSubmit(onSubmit)}
+        onReset={onReset}
         className="not-prose grid gap-3"
       >
         <AlgorithmInput />
-        <AlgorithmResult />
-        <ToolButtons />
+        <AlgorithmDisplay algorithm={result} />
+        <div className="flex gap-2">
+          <button type="submit" className="btn btn-primary">
+            <SendIcon />
+            轉換
+          </button>
+          <button type="reset" className="btn btn-error btn-soft">
+            <EraserIcon />
+            清除
+          </button>
+        </div>
       </form>
     </FormProvider>
   );
-}
-
-function ToolButtons() {
-  return (
-    <div className="flex gap-2">
-      <button type="submit" className="btn btn-primary">
-        <SendIcon />
-        轉換
-      </button>
-      <button type="reset" className="btn btn-error btn-soft">
-        <EraserIcon />
-        清除
-      </button>
-    </div>
-  );
-}
-
-function AlgorithmResult() {
-  const algorithmString = useAtomValue(algorithmStringAtom);
-  return <AlgorithmDisplay algorithm={algorithmString} />;
 }
