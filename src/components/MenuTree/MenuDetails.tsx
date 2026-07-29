@@ -1,35 +1,28 @@
 "use client";
 
-import { useEffect, useEffectEvent, useMemo, useState } from "react";
-import { atom, useAtomValue } from "jotai";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 
-import { openIdsAtom } from "./jotai";
+import { useMenuState } from "./MenuState";
 
-export type MenuDetailsProps = React.ComponentProps<"details">;
+export interface MenuDetailsProps
+  extends Omit<React.ComponentProps<"details">, "id"> {
+  id: string;
+}
 
 export default function MenuDetails({ id, ...props }: MenuDetailsProps) {
-  const pathname = usePathname();
-  const [open, setOpen] = useState<null | boolean>(null);
-  const isActive = useAtomValue(
-    useMemo(
-      () => atom((get) => (id ? get(openIdsAtom).includes(id) : false)),
-      [id],
-    ),
-  );
-  const resetOpen = useEffectEvent(() => {
-    setOpen(null);
-  });
+  const { activeCollapseIds, pathname } = useMenuState();
+  const [manualState, setManualState] = useState<{
+    open: boolean;
+    pathname: string;
+  } | null>(null);
+  const open =
+    manualState?.pathname === pathname
+      ? manualState.open
+      : activeCollapseIds.has(id);
 
-  // 換頁時重設獨立開關
-  useEffect(() => {
-    resetOpen();
-  }, [pathname]);
-
-  // 手動操作時獨立開關
   const onToggle: React.ToggleEventHandler<HTMLDetailsElement> = (event) => {
-    setOpen(event.currentTarget.open);
+    setManualState({ open: event.currentTarget.open, pathname });
   };
 
-  return <details {...props} open={open ?? isActive} onToggle={onToggle} />;
+  return <details {...props} open={open} onToggle={onToggle} />;
 }

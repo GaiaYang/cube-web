@@ -1,33 +1,36 @@
-import { Provider } from "jotai";
-
-import MenuController from "./MenuController";
 import MenuNode from "./MenuNode";
-import type { MenuIconProps } from "./types";
+import { MenuStateProvider } from "./MenuState";
+import type { RenderMenuIcon } from "./types";
 
-import type { MenuOption } from "@/types/menu";
+import type { MenuItem } from "@/types/menu";
 import cn from "@/utils/cn";
 
 export interface MenuTreeProps extends React.ComponentProps<"ul"> {
-  options: MenuOption[];
-  renderIcon?: (pramas: MenuIconProps) => React.ReactNode;
+  items: readonly MenuItem[];
+  renderIcon?: RenderMenuIcon;
 }
 
 export default function MenuTree({
-  options,
+  items,
   renderIcon,
   className,
   ...props
 }: MenuTreeProps) {
-  function _renderNode(item: MenuOption) {
-    return <MenuNode {...item} key={item.id} renderIcon={renderIcon} />;
-  }
-
   return (
-    <Provider>
-      <MenuController options={options} />
+    <MenuStateProvider items={items}>
       <ul {...props} className={cn("menu w-full", className)}>
-        {options.map(_renderNode)}
+        {items.map((item, index) => (
+          <MenuNode
+            item={item}
+            key={
+              item.id ??
+              ("href" in item ? item.href : undefined) ??
+              `${item.type}-${index}`
+            }
+            renderIcon={renderIcon}
+          />
+        ))}
       </ul>
-    </Provider>
+    </MenuStateProvider>
   );
 }

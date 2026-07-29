@@ -15,14 +15,14 @@ export default function DrawerMenu() {
   return (
     <MenuTree
       id={drawerMenuId}
-      options={drawerMenu}
+      items={drawerMenu}
       className="px-4 py-0"
       renderIcon={renderIcon}
     />
   );
 }
 
-const renderIcon: MenuTreeProps["renderIcon"] = (item) => {
+const renderIcon: MenuTreeProps["renderIcon"] = (item, iconProps) => {
   let _tag;
 
   switch (item.id) {
@@ -42,5 +42,5 @@ const renderIcon: MenuTreeProps["renderIcon"] = (item) => {
       return null;
   }
 
-  return createElement(_tag, { className: item.className });
+  return createElement(_tag, iconProps);
 };

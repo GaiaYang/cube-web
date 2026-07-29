@@ -1,46 +1,60 @@
-import createMenuOptions from "@/utils/createMenuOptions";
+import type { MenuItem } from "@/types/menu";
 
 /** 抽屜菜單(側邊欄) */
-export const drawerMenu = createMenuOptions([
+export const drawerMenu = [
   {
+    type: "collapse",
     id: "tutorial",
     title: "教學",
-    submenu: [
+    children: [
       {
+        type: "link",
         title: "轉動代號說明",
         href: "/tutorial/notation",
       },
       {
+        type: "title",
         title: "三階教學",
-        href: "/tutorial/333",
-        submenu: [
+        children: [
           {
+            type: "link",
+            title: "總覽",
+            href: "/tutorial/333",
+          },
+          {
+            type: "link",
             title: "CFOP",
             href: "/tutorial/333/cfop",
-            submenu: [
+            children: [
               {
+                type: "link",
                 title: "Cross",
                 href: "/tutorial/333/cfop/cross",
               },
               {
+                type: "link",
                 title: "F2L",
                 href: "/tutorial/333/cfop/f2l",
               },
               {
+                type: "link",
                 title: "OLL",
                 href: "/tutorial/333/cfop/oll",
-                submenu: [
+                children: [
                   {
+                    type: "link",
                     title: "兩段式OLL",
                     href: "/tutorial/333/cfop/oll/2look",
                   },
                 ],
               },
               {
+                type: "link",
                 title: "PLL",
                 href: "/tutorial/333/cfop/pll",
-                submenu: [
+                children: [
                   {
+                    type: "link",
                     title: "兩段式PLL",
                     href: "/tutorial/333/cfop/pll/2look",
                   },
@@ -49,52 +63,62 @@ export const drawerMenu = createMenuOptions([
             ],
           },
           {
+            type: "link",
             title: "ZZ",
             href: "/tutorial/333/zz",
-            submenu: [
+            children: [
               {
+                type: "link",
                 title: "EO Line",
                 href: "/tutorial/333/zz/eo-line",
               },
             ],
           },
         ],
-        asTitle: true,
       },
     ],
-    collapsible: true,
   },
   {
+    type: "collapse",
     id: "algs",
     title: "公式表",
-    submenu: [
+    children: [
       {
+        type: "title",
         title: "三階公式表",
-        asTitle: true,
-        href: "/algs/333",
-        submenu: [
-          { title: "F2L", href: "/algs/333/f2l" },
-          { title: "OLL", href: "/algs/333/oll" },
-          { title: "PLL", href: "/algs/333/pll" },
+        children: [
+          { type: "link", title: "總覽", href: "/algs/333" },
+          { type: "link", title: "F2L", href: "/algs/333/f2l" },
+          { type: "link", title: "OLL", href: "/algs/333/oll" },
+          { type: "link", title: "PLL", href: "/algs/333/pll" },
           {
+            type: "title",
             title: "進階公式子集",
-            asTitle: true,
-            submenu: [
-              { title: "ZBLL", href: "/algs/333/zbll" },
-              { title: "ZBLS", href: "/algs/333/zbls" },
+            children: [
+              {
+                type: "link",
+                title: "ZBLL",
+                href: "/algs/333/zbll",
+              },
+              {
+                type: "link",
+                title: "ZBLS",
+                href: "/algs/333/zbls",
+              },
             ],
           },
         ],
       },
     ],
-    collapsible: true,
   },
   {
+    type: "collapse",
     id: "tools",
     title: "工具",
-    submenu: [{ title: "公式轉換", href: "/tools/converter" }],
-    collapsible: true,
+    children: [
+      { type: "link", title: "公式轉換", href: "/tools/converter" },
+    ],
   },
-  { divider: true },
-  { id: "settings", title: "網站設定", href: "/settings" },
-]);
+  { type: "divider" },
+  { type: "link", id: "settings", title: "網站設定", href: "/settings" },
+] satisfies readonly MenuItem[];

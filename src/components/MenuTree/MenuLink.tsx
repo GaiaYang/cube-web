@@ -1,7 +1,8 @@
 "use client";
 
 import Link, { type LinkProps } from "next/link";
-import { usePathname } from "next/navigation";
+
+import { useMenuState } from "./MenuState";
 
 import cn from "@/utils/cn";
 
@@ -11,7 +12,7 @@ export interface MenuLinkProps
 }
 
 export default function MenuLink({ className, href, ...props }: MenuLinkProps) {
-  const pathname = usePathname();
+  const { pathname } = useMenuState();
 
   return (
     <Link

@@ -1,73 +1,85 @@
 import MenuDetails from "./MenuDetails";
 import MenuLink from "./MenuLink";
-import type { MenuIconProps } from "./types";
+import type { MenuIconProps, RenderMenuIcon } from "./types";
 
-import type { MenuOption } from "@/types/menu";
+import type { MenuItem } from "@/types/menu";
+import cn from "@/utils/cn";
 
-export interface MenuNodeProps extends MenuOption {
-  renderIcon?: (pramas: MenuIconProps) => React.ReactNode;
+export interface MenuNodeProps {
+  item: MenuItem;
+  renderIcon?: RenderMenuIcon;
 }
 
-const iconProps: Omit<MenuIconProps, keyof MenuOption> = {
+const iconProps: MenuIconProps = {
   className: "size-5",
   size: 24,
 };
 
-export default function MenuNode({ renderIcon, ...item }: MenuNodeProps) {
-  const { id, title, href, submenu, collapsible, asTitle, divider } = item;
+export default function MenuNode({ item, renderIcon }: MenuNodeProps) {
+  if (item.type === "divider") return <li />;
 
-  // 分隔線
-  if (divider) return <li />;
-
-  /** 渲染內容 */
-  const _renderContent = (
+  const content = (
     <>
-      {renderIcon?.({ ...item, ...iconProps }) || null}
-      {title}
+      {renderIcon?.(item, iconProps)}
+      {item.title}
     </>
   );
 
-  if (asTitle) {
-    if (submenu) {
-      // menu-title + 子菜單
+  if (item.type === "title") {
+    if (item.children) {
       return (
         <li>
-          <h2 className="menu-title text-base-content/60">{_renderContent}</h2>
-          <ul>{submenu.map(_renderNode)}</ul>
+          <h2 className="menu-title text-base-content/60">{content}</h2>
+          <ul>{renderChildren(item.children, renderIcon)}</ul>
         </li>
       );
-    } else {
-      // menu-title（純文字）
-      return (
-        <li className="menu-title text-base-content/60">{_renderContent}</li>
-      );
     }
+
+    return (
+      <li className="menu-title text-base-content/60">{content}</li>
+    );
   }
 
-  // 可折疊父層
-  if (collapsible && submenu) {
+  if (item.type === "collapse") {
     return (
       <li>
-        <MenuDetails id={id}>
-          <summary>{_renderContent}</summary>
-          <ul>{submenu.map(_renderNode)}</ul>
+        <MenuDetails id={item.id}>
+          <summary>{content}</summary>
+          <ul>{renderChildren(item.children, renderIcon)}</ul>
         </MenuDetails>
       </li>
     );
   }
 
   return (
-    <li>
-      {href ? (
-        <MenuLink href={href}>{_renderContent}</MenuLink>
+    <li className={cn({ "menu-disabled": item.disabled })}>
+      {item.disabled ? (
+        <a role="link" aria-disabled="true">
+          {content}
+        </a>
       ) : (
-        <span>{_renderContent}</span>
+        <MenuLink href={item.href}>{content}</MenuLink>
       )}
-      {submenu ? <ul>{submenu.map(_renderNode)}</ul> : null}
+      {item.children ? (
+        <ul>{renderChildren(item.children, renderIcon)}</ul>
+      ) : null}
     </li>
   );
 }
 
-function _renderNode(item: MenuOption) {
-  return <MenuNode {...item} key={item.id} />;
+function renderChildren(
+  items: readonly MenuItem[],
+  renderIcon?: RenderMenuIcon,
+) {
+  return items.map((item, index) => (
+    <MenuNode
+      item={item}
+      key={
+        item.id ??
+        ("href" in item ? item.href : undefined) ??
+        `${item.type}-${index}`
+      }
+      renderIcon={renderIcon}
+    />
+  ));
 }

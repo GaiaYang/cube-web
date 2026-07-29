@@ -1,24 +1,33 @@
-export interface MenuOptionBase {
+interface MenuItemBase {
   id?: string;
-  /** 標籤標題 */
-  title?: string;
-  /** 連結網址 */
-  href?: string;
-  /** 是否啟用折疊菜單 */
-  collapsible?: boolean;
-  /** 是否是 `menu-title` */
-  asTitle?: boolean;
-  /** 分隔線 */
-  divider?: boolean;
 }
 
-/** 不含 id 的菜單選項（純資料定義） */
-export interface MenuOptionRaw extends MenuOptionBase {
-  submenu?: MenuOptionRaw[];
+export interface MenuDivider extends MenuItemBase {
+  type: "divider";
 }
 
-/** 含 id 的菜單選項（用於組件與狀態管理） */
-export interface MenuOption extends MenuOptionBase {
+/** daisyUI `menu-title`；不可互動 */
+export interface MenuTitle extends MenuItemBase {
+  type: "title";
+  title: string;
+  children?: readonly MenuItem[];
+}
+
+/** daisyUI collapsible submenu（`<details>`） */
+export interface MenuCollapse extends MenuItemBase {
+  type: "collapse";
   id: string;
-  submenu?: MenuOption[];
+  title: string;
+  children: readonly MenuItem[];
 }
+
+/** daisyUI 一般項目；可選永遠展開的 submenu */
+export interface MenuLink extends MenuItemBase {
+  type: "link";
+  title: string;
+  href: string;
+  children?: readonly MenuItem[];
+  disabled?: boolean;
+}
+
+export type MenuItem = MenuDivider | MenuTitle | MenuCollapse | MenuLink;
