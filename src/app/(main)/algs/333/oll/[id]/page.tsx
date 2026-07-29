@@ -2,7 +2,7 @@ import { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import Pattern from "@/components/cube/333/diagram/OrientationLastLayerByCase";
+import Pattern from "@/components/cube/333/diagram/OrientationLastLayer";
 import AlgorithmPanel from "@/components/cube/algorithms/AlgorithmPanel";
 import { definitions, type OLLCaseId } from "@/data/cube/333/oll";
 
@@ -42,5 +42,7 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return <AlgorithmPanel {...data} renderPattern={<Pattern caseId={id} />} />;
+  return (
+    <AlgorithmPanel {...data} renderPattern={<Pattern pattern={data.pattern} />} />
+  );
 }

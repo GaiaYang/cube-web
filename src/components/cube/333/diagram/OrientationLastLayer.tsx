@@ -1,6 +1,8 @@
 "use client";
 
-import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
+import LastLayerDiagram, {
+  type LastLayerDiagramProps,
+} from "./LastLayerDiagram";
 import useCubeFaceColor from "./useCubeFaceColor";
 
 import type { OLLDefinition } from "@/types/cube/333";
@@ -15,18 +17,18 @@ export interface OrientationLastLayerProps
   topColor?: CubeFaceColor;
 }
 
-/** OLL圖案 */
+/** OLL 圖案 */
 export default function OrientationLastLayer({
   pattern,
   topColor,
   ...props
 }: OrientationLastLayerProps) {
-  const cubeFaceColor = useCubeFaceColor();
+  const { top } = useCubeFaceColor({ topColor });
 
   return (
-    <LastLayer
+    <LastLayerDiagram
       {...props}
-      colorMap={createOllColorMap(pattern, topColor ?? cubeFaceColor.top)}
+      colorMap={createOllColorMap(pattern, top)}
     />
   );
 }

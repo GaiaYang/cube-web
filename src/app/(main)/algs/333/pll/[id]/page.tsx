@@ -2,7 +2,7 @@ import { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import Pattern from "@/components/cube/333/diagram/PermutationLastLayerByCase";
+import Pattern from "@/components/cube/333/diagram/PermutationLastLayer";
 import AlgorithmPanel from "@/components/cube/algorithms/AlgorithmPanel";
 import { definitions, type PLLCaseId } from "@/data/cube/333/pll";
 
@@ -43,5 +43,7 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return <AlgorithmPanel {...data} renderPattern={<Pattern caseId={id} />} />;
+  return (
+    <AlgorithmPanel {...data} renderPattern={<Pattern pattern={data.pattern} />} />
+  );
 }

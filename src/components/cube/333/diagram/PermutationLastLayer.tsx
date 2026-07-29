@@ -1,6 +1,8 @@
 "use client";
 
-import LastLayer, { type LastLayerDiagramProps } from "./LastLayerDiagram";
+import LastLayerDiagram, {
+  type LastLayerDiagramProps,
+} from "./LastLayerDiagram";
 import useCubeFaceColor from "./useCubeFaceColor";
 
 import type { PLLDefinition } from "@/types/cube/333";
@@ -17,23 +19,19 @@ export interface PermutationLastLayerProps
   frontColor?: CubeFaceColor;
 }
 
-/** PLL顯示圖案 */
+/** PLL 顯示圖案 */
 export default function PermutationLastLayer({
   pattern,
   topColor,
   frontColor,
   ...props
 }: PermutationLastLayerProps) {
-  const cubeFaceColor = useCubeFaceColor();
+  const { top, front } = useCubeFaceColor({ topColor, frontColor });
 
   return (
-    <LastLayer
+    <LastLayerDiagram
       {...props}
-      colorMap={createPllColorMap(
-        pattern,
-        topColor ?? cubeFaceColor.top,
-        frontColor ?? cubeFaceColor.front,
-      )}
+      colorMap={createPllColorMap(pattern, top, front)}
     />
   );
 }

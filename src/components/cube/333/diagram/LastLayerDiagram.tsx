@@ -1,5 +1,7 @@
 "use client";
 
+import type { SVGProps } from "react";
+
 import type { CommonDiagramProps } from "./types";
 
 import LazySvg from "@/components/LazySvg";
@@ -12,40 +14,7 @@ export interface LastLayerDiagramProps extends CommonDiagramProps {
   colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;
 }
 
-/** 最後一層圖案 */
-export default function LastLayerDiagram({
-  size,
-  colorMap,
-  ...props
-}: LastLayerDiagramProps) {
-  function _renderItem(item: RectItem) {
-    const faceColor = colorMap?.[item.id];
-    return (
-      <rect
-        {...item}
-        key={item.id}
-        className={cn(getCubeColor(faceColor, "fill"), {
-          "stroke-slate-300 stroke-[0.25] dark:stroke-slate-500":
-            faceColor !== "none",
-        })}
-      />
-    );
-  }
-
-  return (
-    <LazySvg
-      width={size}
-      height={size}
-      {...props}
-      viewBox="0 0 56 56"
-      aria-hidden
-      pointerEvents="none"
-      renderElements={() => rectangles.map(_renderItem)}
-    />
-  );
-}
-
-interface RectItem extends React.SVGProps<SVGRectElement> {
+interface RectItem extends SVGProps<SVGRectElement> {
   id: CubeFaceletPosition2D;
 }
 
@@ -64,7 +33,7 @@ const rectangles: RectItem[] = [
   { id: "S-TR", width: 12, height: 4, x: 36, y: 2, rx: 1, ry: 1 },
   { id: "S-BL", width: 12, height: 4, x: 8, y: 50, rx: 1, ry: 1 },
   { id: "S-BC", width: 12, height: 4, x: 22, y: 50, rx: 1, ry: 1 },
-  { id: "S-BR", width: 12, height: 4, x: 36, y: 50, ry: 1 },
+  { id: "S-BR", width: 12, height: 4, x: 36, y: 50, rx: 1, ry: 1 },
   { id: "S-LT", width: 4, height: 12, x: 2, y: 8, rx: 1, ry: 1 },
   { id: "S-LC", width: 4, height: 12, x: 2, y: 22, rx: 1, ry: 1 },
   { id: "S-LB", width: 4, height: 12, x: 2, y: 36, rx: 1, ry: 1 },
@@ -72,3 +41,36 @@ const rectangles: RectItem[] = [
   { id: "S-RC", width: 4, height: 12, x: 50, y: 22, rx: 1, ry: 1 },
   { id: "S-RB", width: 4, height: 12, x: 50, y: 36, rx: 1, ry: 1 },
 ];
+
+/** 最後一層圖案 */
+export default function LastLayerDiagram({
+  size,
+  colorMap,
+  ...props
+}: LastLayerDiagramProps) {
+  function renderItem({ id, ...rect }: RectItem) {
+    const faceColor = colorMap?.[id];
+    return (
+      <rect
+        {...rect}
+        key={id}
+        className={cn(getCubeColor(faceColor, "fill"), {
+          "stroke-slate-300 stroke-[0.25] dark:stroke-slate-500":
+            faceColor !== "none",
+        })}
+      />
+    );
+  }
+
+  return (
+    <LazySvg
+      width={size}
+      height={size}
+      {...props}
+      viewBox="0 0 56 56"
+      aria-hidden
+      pointerEvents="none"
+      renderElements={() => rectangles.map(renderItem)}
+    />
+  );
+}

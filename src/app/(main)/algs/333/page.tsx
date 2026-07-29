@@ -1,12 +1,16 @@
+import type { ReactNode } from "react";
 import { type Metadata } from "next";
 
-import FirstTwoLayersByCase from "@/components/cube/333/diagram/FirstTwoLayersByCase";
-import OrientationLastLayerByCase from "@/components/cube/333/diagram/OrientationLastLayerByCase";
-import PermutationLastLayerByCase from "@/components/cube/333/diagram/PermutationLastLayerByCase";
+import FirstTwoLayers from "@/components/cube/333/diagram/FirstTwoLayers";
+import OrientationLastLayer from "@/components/cube/333/diagram/OrientationLastLayer";
+import PermutationLastLayer from "@/components/cube/333/diagram/PermutationLastLayer";
 import GridList, { type ListRenderItem } from "@/components/list/GridList";
 import Article from "@/components/ui/Article";
 import Card from "@/components/ui/Card";
 import OverlayLink from "@/components/ui/OverlayLink";
+import { definitions as f2l } from "@/data/cube/333/f2l";
+import { definitions as oll } from "@/data/cube/333/oll";
+import { definitions as pll } from "@/data/cube/333/pll";
 
 export const metadata: Metadata = {
   title: "三階公式總覽",
@@ -16,12 +20,25 @@ export const metadata: Metadata = {
 interface ListData {
   name: string;
   href: string;
+  diagram: ReactNode;
 }
 
 const data: ListData[] = [
-  { name: "F2L", href: "/algs/333/f2l" },
-  { name: "OLL", href: "/algs/333/oll" },
-  { name: "PLL", href: "/algs/333/pll" },
+  {
+    name: "F2L",
+    href: "/algs/333/f2l",
+    diagram: <FirstTwoLayers pattern={f2l[0].pattern} />,
+  },
+  {
+    name: "OLL",
+    href: "/algs/333/oll",
+    diagram: <OrientationLastLayer pattern={oll[0].pattern} />,
+  },
+  {
+    name: "PLL",
+    href: "/algs/333/pll",
+    diagram: <PermutationLastLayer pattern={pll[0].pattern} />,
+  },
 ];
 
 export default function Page() {
@@ -44,20 +61,7 @@ const _renderItem: ListRenderItem<ListData> = ({ item }) => {
     <div className="relative">
       <Card>
         <div className="px-4 pt-4">
-          <figure className="aspect-square w-full">
-            {(() => {
-              switch (item.name) {
-                case "F2L":
-                  return <FirstTwoLayersByCase caseId="1" />;
-                case "OLL":
-                  return <OrientationLastLayerByCase caseId="1" />;
-                case "PLL":
-                  return <PermutationLastLayerByCase caseId="Aa" />;
-                default:
-                  return null;
-              }
-            })()}
-          </figure>
+          <figure className="aspect-square w-full">{item.diagram}</figure>
         </div>
         <div className="card-body">
           <h3 className="card-title">{item.name}</h3>

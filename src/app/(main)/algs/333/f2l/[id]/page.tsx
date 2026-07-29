@@ -2,7 +2,7 @@ import { use } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import Pattern from "@/components/cube/333/diagram/FirstTwoLayersByCase";
+import Pattern from "@/components/cube/333/diagram/FirstTwoLayers";
 import AlgorithmPanel from "@/components/cube/algorithms/AlgorithmPanel";
 import { definitions, type F2LCaseId } from "@/data/cube/333/f2l";
 
@@ -43,5 +43,7 @@ export default function Page({ params }: Props) {
     notFound();
   }
 
-  return <AlgorithmPanel {...data} renderPattern={<Pattern caseId={id} />} />;
+  return (
+    <AlgorithmPanel {...data} renderPattern={<Pattern pattern={data.pattern} />} />
+  );
 }

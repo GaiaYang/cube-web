@@ -17,23 +17,19 @@ export interface FirstTwoLayersProps
   frontColor?: CubeFaceColor;
 }
 
-/** F2L顯示圖案 */
+/** F2L 顯示圖案 */
 export default function FirstTwoLayers({
   pattern,
   topColor,
   frontColor,
   ...props
 }: FirstTwoLayersProps) {
-  const cubeFaceColor = useCubeFaceColor();
+  const { top, front } = useCubeFaceColor({ topColor, frontColor });
 
   return (
     <CubeDiagram
       {...props}
-      colorMap={createF2lColorMap(
-        pattern,
-        topColor ?? cubeFaceColor.top,
-        frontColor ?? cubeFaceColor.front,
-      )}
+      colorMap={createF2lColorMap(pattern, top, front)}
     />
   );
 }
