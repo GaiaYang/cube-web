@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import BackButton from "./components/BackButton";
+import BackButton from "./_components/BackButton";
 
 import cn from "@/utils/cn";
 

@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 
-import SwitchCubeFaceColor from "./components/SwitchCubeFaceColor";
-import ThemeToggle from "./components/ThemeToggle";
+import SwitchCubeFaceColor from "./_components/SwitchCubeFaceColor";
+import ThemeToggle from "./_components/ThemeToggle";
 
 import Article from "@/components/ui/Article";
 

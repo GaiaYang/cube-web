@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 
-import CodeSpan from "./components/CodeSpan";
-import Converter from "./components/Converter";
+import CodeSpan from "./_components/CodeSpan";
+import Converter from "./_components/Converter";
 
 import NewTabLink from "@/components/NewTabLink";
 import Article from "@/components/ui/Article";
