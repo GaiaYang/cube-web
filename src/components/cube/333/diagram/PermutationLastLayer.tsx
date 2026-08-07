@@ -5,8 +5,8 @@ import LastLayerDiagram, {
 } from "./LastLayerDiagram";
 import useCubeFaceColor from "./useCubeFaceColor";
 
+import type { CubeFaceColors } from "@/enums/cube/color";
 import type { PLLDefinition } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 import createPllColorMap from "@/utils/cube/333/createPllColorMap";
 
 export interface PermutationLastLayerProps
@@ -14,9 +14,9 @@ export interface PermutationLastLayerProps
     Omit<LastLayerDiagramProps, "colorMap">,
     Partial<Pick<PLLDefinition, "pattern">> {
   /** 頂層顏色 */
-  topColor?: CubeFaceColor;
+  topColor?: CubeFaceColors;
   /** 前層顏色 */
-  frontColor?: CubeFaceColor;
+  frontColor?: CubeFaceColors;
 }
 
 /** PLL 顯示圖案 */

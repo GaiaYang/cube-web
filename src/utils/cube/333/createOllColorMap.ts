@@ -1,14 +1,14 @@
 import { createEmptyColorMap, FACELET_POSITIONS } from "./colorMap";
 
+import type { CubeFaceColors } from "@/enums/cube/color";
 import type { CubeFaceletPosition2D, OLLDefinition } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 
-export type OLLColorMap = Record<CubeFaceletPosition2D, CubeFaceColor>;
+export type OLLColorMap = Record<CubeFaceletPosition2D, CubeFaceColors>;
 
 /** 建立OLL顏色地圖 */
 export default function createOllColorMap(
   pattern?: OLLDefinition["pattern"],
-  color?: CubeFaceColor,
+  color?: CubeFaceColors,
 ): OLLColorMap | undefined {
   if (!Array.isArray(pattern) || !color) return;
 

@@ -5,13 +5,13 @@ import type { SVGProps } from "react";
 import type { CommonDiagramProps } from "./types";
 
 import LazySvg from "@/components/LazySvg";
+import type { CubeFaceColors } from "@/enums/cube/color";
 import getCubeColor from "@/themes/cube/colors";
 import type { CubeBlockPosition3D } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 import cn from "@/utils/cn";
 
 export interface CubeDiagramProps extends CommonDiagramProps {
-  colorMap?: Partial<Record<CubeBlockPosition3D, CubeFaceColor>>;
+  colorMap?: Partial<Record<CubeBlockPosition3D, CubeFaceColors>>;
 }
 
 /** 立體方塊圖 */

@@ -1,12 +1,12 @@
 import getOppositeColor from "./getOppositeColor";
 
+import type { CubeFaceColors } from "@/enums/cube/color";
 import type { CubeFaceCode } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 
 /** 方塊六面顏色 */
-export type CubeColorMap = Record<CubeFaceCode, CubeFaceColor>;
+export type CubeColorMap = Record<CubeFaceCode, CubeFaceColors>;
 
-type Face = Exclude<CubeFaceColor, "none">;
+type Face = Exclude<CubeFaceColors, "none">;
 type Vec3 = readonly [number, number, number];
 
 /** 六面顏色對應的三維單位向量（右手坐標系） */
@@ -40,8 +40,8 @@ function rightOf(up: Face, front: Face): Face | undefined {
  * 若輸入無效或互為對面顏色，回傳 null
  */
 export default function getCubeColorMap(
-  u?: CubeFaceColor,
-  f?: CubeFaceColor,
+  u?: CubeFaceColors,
+  f?: CubeFaceColors,
 ): CubeColorMap | null {
   if (!u || !f || u === "none" || f === "none" || u === f) {
     return null;

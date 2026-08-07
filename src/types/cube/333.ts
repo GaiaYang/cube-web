@@ -1,6 +1,6 @@
 import type { CommonDefinition } from "./common";
 
-import { F2LCategory, OLLCategory, PLLCategory } from "@/enums/cube/333";
+import type { F2LCategory, OLLCategory, PLLCategory } from "@/enums/cube/333";
 import type { StringIntRange } from "@/types/utils";
 
 /** 方塊方位代號 */

@@ -9,16 +9,16 @@ import {
   SIDE_POSITIONS,
 } from "./colorMap";
 
+import type { CubeFaceColors } from "@/enums/cube/color";
 import type { CubeFaceletPosition2D, PLLDefinition } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 
-export type PLLColorMap = Record<CubeFaceletPosition2D, CubeFaceColor>;
+export type PLLColorMap = Record<CubeFaceletPosition2D, CubeFaceColors>;
 
 /** 建立PLL顏色地圖 */
 export default function createPllColorMap(
   pattern?: PLLDefinition["pattern"],
-  topColor?: CubeFaceColor,
-  frontColor?: CubeFaceColor,
+  topColor?: CubeFaceColors,
+  frontColor?: CubeFaceColors,
 ): PLLColorMap | undefined {
   if (!isPlainObject(pattern)) return;
   const faceColors = getCubeColorMap(topColor, frontColor);

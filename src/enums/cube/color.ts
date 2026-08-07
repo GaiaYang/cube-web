@@ -1,17 +1,20 @@
 /** 方塊面塊顏色 */
-export enum CubeFaceColors {
+export const CubeFaceColors = {
   /** 白色 */
-  "WHITE" = "white",
+  WHITE: "white",
   /** 黃色 */
-  "YELLOW" = "yellow",
+  YELLOW: "yellow",
   /** 綠色 */
-  "GREEN" = "green",
+  GREEN: "green",
   /** 藍色 */
-  "BLUE" = "blue",
+  BLUE: "blue",
   /** 紅色 */
-  "RED" = "red",
+  RED: "red",
   /** 橘色 */
-  "ORANGE" = "orange",
+  ORANGE: "orange",
   /** 無 */
-  "NONE" = "none",
-}
+  NONE: "none",
+} as const;
+
+export type CubeFaceColors =
+  (typeof CubeFaceColors)[keyof typeof CubeFaceColors];

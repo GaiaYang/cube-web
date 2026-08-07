@@ -1,11 +1,11 @@
 import { useShallow } from "zustand/shallow";
 
-import type { CubeFaceColor } from "@/types/cube/color";
+import type { CubeFaceColors } from "@/enums/cube/color";
 import { useSettingsStore } from "@/zustand/providers/settings";
 
 interface ColorOverrides {
-  topColor?: CubeFaceColor;
-  frontColor?: CubeFaceColor;
+  topColor?: CubeFaceColors;
+  frontColor?: CubeFaceColors;
 }
 
 /** 讀取設定中的方塊顏色，可用 props 覆寫 */

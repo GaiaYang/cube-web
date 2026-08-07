@@ -1,20 +1,20 @@
 import { createStore, StateCreator } from "zustand";
 import { combine, createJSONStorage, persist } from "zustand/middleware";
 
-import type { CubeFaceColor } from "@/types/cube/color";
+import type { CubeFaceColors } from "@/enums/cube/color";
 import getOppositeColor from "@/utils/cube/getOppositeColor";
 
 interface SettingsState {
-  cubeFaceColor: Record<"top" | "front", CubeFaceColor>;
+  cubeFaceColor: Record<"top" | "front", CubeFaceColors>;
 }
 
 interface SettingsActions {
-  setCubeFaceTop: (top: CubeFaceColor) => void;
-  setCubeFaceFront: (front: CubeFaceColor) => void;
+  setCubeFaceTop: (top: CubeFaceColors) => void;
+  setCubeFaceFront: (front: CubeFaceColors) => void;
   resetCubeFaceColor: () => void;
 }
 
-/** 可選面色（排除 none），順序與 enum 一致 */
+/** 可選面色（排除 none），順序與 CubeFaceColors 一致 */
 const FACE_COLORS = [
   "white",
   "yellow",
@@ -22,7 +22,7 @@ const FACE_COLORS = [
   "blue",
   "red",
   "orange",
-] as const satisfies CubeFaceColor[];
+] as const satisfies CubeFaceColors[];
 
 export const defaultInitState: SettingsState = {
   cubeFaceColor: {
@@ -33,7 +33,7 @@ export const defaultInitState: SettingsState = {
 
 const actions: StateCreator<SettingsState, [], [], SettingsActions> = (set) => {
   /** 頂面變更時，選第一個不是頂面／對面的顏色當前面 */
-  function pickFrontForTop(top: CubeFaceColor): CubeFaceColor {
+  function pickFrontForTop(top: CubeFaceColors): CubeFaceColors {
     const bottom = getOppositeColor(top);
     return FACE_COLORS.find((color) => color !== top && color !== bottom)!;
   }

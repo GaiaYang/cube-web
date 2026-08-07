@@ -2,11 +2,10 @@ import { createElement } from "react";
 import { LucideProps, MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
 
 import { Themes } from "@/enums/theme";
-import type { Theme } from "@/types/theme";
 
 export interface ThemeIconProps
   extends Omit<LucideProps, "ref">, React.RefAttributes<SVGSVGElement> {
-  theme?: Theme;
+  theme?: Themes;
 }
 
 /** 網站主題圖標 */

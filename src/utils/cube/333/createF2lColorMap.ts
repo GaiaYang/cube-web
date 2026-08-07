@@ -4,15 +4,15 @@ import getCubeColorMap from "../getCubeColorMap";
 
 import { BLOCK_POSITIONS, createEmptyColorMap } from "./colorMap";
 
+import type { CubeFaceColors } from "@/enums/cube/color";
 import type { CubeBlockPosition3D, F2LDefinition } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 
-export type F2LColorMap = Record<CubeBlockPosition3D, CubeFaceColor>;
+export type F2LColorMap = Record<CubeBlockPosition3D, CubeFaceColors>;
 
 export default function createF2lColorMap(
   pattern?: F2LDefinition["pattern"],
-  topColor?: CubeFaceColor,
-  frontColor?: CubeFaceColor,
+  topColor?: CubeFaceColors,
+  frontColor?: CubeFaceColors,
 ): F2LColorMap | undefined {
   if (!isPlainObject(pattern)) return;
   const faceColors = getCubeColorMap(topColor, frontColor);

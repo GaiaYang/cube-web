@@ -1,14 +1,14 @@
 import clsx from "clsx";
 import { uniq } from "es-toolkit";
 
-import type { CubeFaceColor } from "@/types/cube/color";
+import type { CubeFaceColors } from "@/enums/cube/color";
 import getOrDefault from "@/utils/getOrDefault";
 
 /** 魔方顏色物件 */
-export type CubeFaceColorObject = Record<CubeFaceColor, string>;
+export type CubeFaceColorObject = Record<CubeFaceColors, string>;
 
 /** 退回預設選項 */
-function fallback(obj: CubeFaceColorObject, key?: CubeFaceColor | null) {
+function fallback(obj: CubeFaceColorObject, key?: CubeFaceColors | null) {
   return getOrDefault(obj, "none", key);
 }
 
@@ -24,7 +24,7 @@ export const fillColors: CubeFaceColorObject = {
 };
 
 /** 取得填滿顏色 */
-export function getFillColor(params?: CubeFaceColor | null) {
+export function getFillColor(params?: CubeFaceColors | null) {
   return fallback(fillColors, params);
 }
 
@@ -40,7 +40,7 @@ export const strokeColors: CubeFaceColorObject = {
 };
 
 /** 取得線條顏色 */
-export function getStrokeColor(params?: CubeFaceColor | null) {
+export function getStrokeColor(params?: CubeFaceColors | null) {
   return fallback(strokeColors, params);
 }
 
@@ -56,7 +56,7 @@ export const bgColors: CubeFaceColorObject = {
 };
 
 /** 取得背景顏色 */
-export function getBgColor(params?: CubeFaceColor | null) {
+export function getBgColor(params?: CubeFaceColors | null) {
   return fallback(bgColors, params);
 }
 
@@ -72,7 +72,7 @@ export const outlineColors: CubeFaceColorObject = {
 };
 
 /** 取得外框顏色 */
-export function getOutlineColor(params?: CubeFaceColor | null) {
+export function getOutlineColor(params?: CubeFaceColors | null) {
   return fallback(outlineColors, params);
 }
 
@@ -86,7 +86,7 @@ export type CubeColorType = "fill" | "bg" | "stroke" | "outline";
  * @returns 魔方顏色class
  */
 export default function getCubeColor(
-  params: CubeFaceColor | null | undefined,
+  params: CubeFaceColors | null | undefined,
   types: CubeColorType[] | CubeColorType,
 ) {
   if (!params || !types) {

@@ -5,13 +5,13 @@ import type { SVGProps } from "react";
 import type { CommonDiagramProps } from "./types";
 
 import LazySvg from "@/components/LazySvg";
+import type { CubeFaceColors } from "@/enums/cube/color";
 import getCubeColor from "@/themes/cube/colors";
 import type { CubeFaceletPosition2D } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 import cn from "@/utils/cn";
 
 export interface LastLayerDiagramProps extends CommonDiagramProps {
-  colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColor>>;
+  colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColors>>;
 }
 
 interface RectItem extends SVGProps<SVGRectElement> {

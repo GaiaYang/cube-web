@@ -1,8 +1,8 @@
+import type { CubeFaceColors } from "@/enums/cube/color";
 import type {
   CubeBlockPosition3D,
   CubeFaceletPosition2D,
 } from "@/types/cube/333";
-import type { CubeFaceColor } from "@/types/cube/color";
 
 export const FACE_POSITIONS = [
   "TL",
@@ -69,8 +69,8 @@ export const BLOCK_POSITIONS = [
 /** 建立每個位置皆為無色的全新 color map */
 export function createEmptyColorMap<Position extends string>(
   positions: readonly Position[],
-): Record<Position, CubeFaceColor> {
+): Record<Position, CubeFaceColors> {
   return Object.fromEntries(
     positions.map((position) => [position, "none"]),
-  ) as Record<Position, CubeFaceColor>;
+  ) as Record<Position, CubeFaceColors>;
 }
