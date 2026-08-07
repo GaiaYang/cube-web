@@ -2,10 +2,9 @@ import "./globals.css";
 
 import { StrictMode } from "react";
 import clsx from "clsx";
-import { Provider as JotaiProvider } from "jotai";
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
+
+import Providers from "./components/Providers";
 
 import { SITE_URL } from "@/lib/config";
 import { noto_sans_mono, noto_sans_tc, noto_serif_tc } from "@/lib/fonts";
@@ -40,11 +39,7 @@ export default function RootLayout({
         )}
       >
         <body className="flex min-h-full flex-col">
-          <NuqsAdapter>
-            <JotaiProvider>
-              <ThemeProvider defaultTheme="system">{children}</ThemeProvider>
-            </JotaiProvider>
-          </NuqsAdapter>
+          <Providers>{children}</Providers>
         </body>
       </html>
     </StrictMode>

@@ -1,7 +1,7 @@
-import { useAtomValue } from "jotai";
+import { useShallow } from "zustand/shallow";
 
-import { cubeFaceColorAtom } from "@/jotai/settings";
 import type { CubeFaceColor } from "@/types/cube/color";
+import { useSettingsStore } from "@/zustand/providers/settings";
 
 interface ColorOverrides {
   topColor?: CubeFaceColor;
@@ -10,7 +10,7 @@ interface ColorOverrides {
 
 /** 讀取設定中的方塊顏色，可用 props 覆寫 */
 export default function useCubeFaceColor(overrides?: ColorOverrides) {
-  const defaults = useAtomValue(cubeFaceColorAtom);
+  const defaults = useSettingsStore(useShallow((state) => state.cubeFaceColor));
   return {
     top: overrides?.topColor ?? defaults.top,
     front: overrides?.frontColor ?? defaults.front,

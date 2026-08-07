@@ -1,28 +1,42 @@
 "use client";
-import { useAtom } from "jotai";
-import { withImmer } from "jotai-immer";
 import { RotateCcwIcon } from "lucide-react";
+import { useShallow } from "zustand/shallow";
 
 import Card from "@/components/ui/Card";
 import { options } from "@/data/options/cube/color";
 import type { Option } from "@/data/options/types";
 import { CubeFaceColors } from "@/enums/cube/color";
 import useMounted from "@/hooks/useMounted";
-import { cubeFaceColorAtom, initialValue } from "@/jotai/settings";
 import getCubeColor from "@/themes/cube/colors";
 import cn from "@/utils/cn";
 import getOppositeColor from "@/utils/cube/getOppositeColor";
+import { useSettingsStore } from "@/zustand/providers/settings";
 
 const notNilOptions = options.filter(({ value }) => value !== "none");
-const immerCubeFaceColorAtom = withImmer(cubeFaceColorAtom);
 
 export default function SwitchCubeFaceColor() {
   const mounted = useMounted();
-  const [cubeFaceColor, setCubeFaceColor] = useAtom(immerCubeFaceColorAtom);
-  const bottomColor = getOppositeColor(cubeFaceColor.top);
+  const {
+    cubeFaceColorTop,
+    cubeFaceColorFront,
+    setCubeFaceTop,
+    setCubeFaceFront,
+    resetCubeFaceColor,
+  } = useSettingsStore(
+    useShallow((state) => {
+      return {
+        cubeFaceColorTop: state.cubeFaceColor.top,
+        cubeFaceColorFront: state.cubeFaceColor.front,
+        setCubeFaceTop: state.setCubeFaceTop,
+        setCubeFaceFront: state.setCubeFaceFront,
+        resetCubeFaceColor: state.resetCubeFaceColor,
+      };
+    }),
+  );
+  const bottomColor = getOppositeColor(cubeFaceColorTop);
   const topOptions = notNilOptions;
   const frontOptions = notNilOptions.filter(
-    (item) => !(item.value === cubeFaceColor.top || item.value === bottomColor),
+    (item) => !(item.value === cubeFaceColorTop || item.value === bottomColor),
   );
   const isDisabled = !mounted;
 
@@ -36,19 +50,9 @@ export default function SwitchCubeFaceColor() {
             radios={topOptions}
             name="cubeTopColor"
             isDisabled={isDisabled}
-            getChecked={({ value }) => value === cubeFaceColor.top}
+            getChecked={({ value }) => value === cubeFaceColorTop}
             onCheck={({ value }) => {
-              setCubeFaceColor((draft) => {
-                draft.top = value;
-                // 頂面替換預設替換前面顏色
-                draft.front = topOptions.filter(
-                  (item) =>
-                    !(
-                      item.value === value ||
-                      item.value === getOppositeColor(value)
-                    ),
-                )[0].value;
-              });
+              setCubeFaceTop(value);
             }}
           />
         </fieldset>
@@ -58,11 +62,9 @@ export default function SwitchCubeFaceColor() {
             radios={frontOptions}
             name="cubeFrontColor"
             isDisabled={isDisabled}
-            getChecked={({ value }) => value === cubeFaceColor.front}
+            getChecked={({ value }) => value === cubeFaceColorFront}
             onCheck={({ value }) => {
-              setCubeFaceColor((draft) => {
-                draft.front = value;
-              });
+              setCubeFaceFront(value);
             }}
           />
         </fieldset>
@@ -71,9 +73,7 @@ export default function SwitchCubeFaceColor() {
             type="button"
             disabled={isDisabled}
             className="btn btn-soft btn-error"
-            onClick={() => {
-              setCubeFaceColor(initialValue.cubeFaceColor);
-            }}
+            onClick={resetCubeFaceColor}
           >
             <RotateCcwIcon />
             重設顏色
