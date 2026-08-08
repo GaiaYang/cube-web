@@ -1,23 +1,20 @@
 "use client";
 
 import { RotateCcwIcon } from "lucide-react";
-import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import type { Option } from "@/data/options/types";
 import cn from "@/utils/cn";
 
-type EnumLike = Record<string, string>;
-type EnumValue<E extends EnumLike> = E[keyof E];
-
-export interface SelectFilterProps<
-  E extends EnumLike,
-> extends React.ComponentProps<"div"> {
+export interface SelectFilterProps<T extends string>
+  extends React.ComponentProps<"div"> {
   /** 選擇器選項 */
-  options: Option<EnumValue<E>>[];
-  /** Enum 物件 */
-  enumObject: E;
-  /** URL 查詢參數名稱 */
-  queryKey: string;
+  options: Option<T>[];
+  /** 目前選取值；`null` 表示未選 */
+  value: T | null;
+  /** 更新選取值 */
+  onValueChange: (value: T | null) => void;
+  /** 用於 id 的穩定鍵 */
+  idKey: string;
   /** 下拉選單的 placeholder */
   placeholder?: string;
   /** 重設按鈕的 title / aria-label */
@@ -26,35 +23,25 @@ export interface SelectFilterProps<
   ariaLabel?: string;
 }
 
-export default function SelectFilter<E extends EnumLike>({
+export default function SelectFilter<T extends string>({
   options,
-  enumObject,
-  queryKey,
+  value,
+  onValueChange,
+  idKey,
   placeholder = "請選擇",
   resetLabel = "清除選項",
   ariaLabel = "選擇選項",
   ...props
-}: SelectFilterProps<E>) {
-  const [value, setValue] = useQueryState(
-    queryKey,
-    parseAsStringEnum<EnumValue<E> | "">(
-      Object.values(enumObject) as EnumValue<E>[],
-    )
-      .withOptions({
-        shallow: true,
-        history: "push",
-      })
-      .withDefault(""),
-  );
-
+}: SelectFilterProps<T>) {
   return (
     <div {...props} className={cn("join", props.className)}>
       <select
-        id={`select-filter-${queryKey}`}
+        id={`select-filter-${idKey}`}
         aria-label={ariaLabel}
-        value={value}
+        value={value ?? ""}
         onChange={(event) => {
-          setValue(event.target.value as EnumValue<E>);
+          const next = event.target.value;
+          onValueChange(next === "" ? null : (next as T));
         }}
         className="select focus:select-primary join-item"
       >
@@ -66,7 +53,7 @@ export default function SelectFilter<E extends EnumLike>({
       <button
         type="button"
         onClick={() => {
-          setValue(null);
+          onValueChange(null);
         }}
         title={resetLabel}
         className="join-item btn btn-error btn-square btn-soft"

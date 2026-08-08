@@ -2,12 +2,11 @@ import { Suspense } from "react";
 import { type Metadata } from "next";
 
 import Cases from "./_components/Cases";
+import CategoryFilter from "./_components/CategoryFilter";
 
 import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
-import { options as f2lOptions } from "@/data/cube/333/f2l";
-import { F2LCategory } from "@/enums/cube/333";
 import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -33,8 +32,10 @@ export default function Page() {
         <p>這步驟比較特別，公式建議只作爲參考，請理解其運作原理。</p>
       </Article>
       <section>
-        <h2 className="sr-only">搜尋列</h2>
-        <AlgorithmsFilterPanel options={f2lOptions} enumObject={F2LCategory} />
+        <h2 className="sr-only">篩選</h2>
+        <AlgorithmsFilterPanel>
+          <CategoryFilter />
+        </AlgorithmsFilterPanel>
       </section>
       <section>
         <h2 className="sr-only">公式列表</h2>
