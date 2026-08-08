@@ -30,7 +30,7 @@ function define(
 ): F2LDefinition {
   return {
     id,
-    name: id,
+    name: `F2L ${id}`,
     category,
     setupAlgorithm,
     algorithms,
