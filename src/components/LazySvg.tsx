@@ -34,8 +34,10 @@ export interface LazySvgOptions {
 }
 
 export interface LazySvgProps
-  extends React.SVGProps<SVGSVGElement>, LazySvgOptions {
-  /** 要動態渲染的元素 */
+  extends Omit<React.SVGProps<SVGSVGElement>, "children">, LazySvgOptions {
+  /**
+   * 以函式提供 SVG 內容，僅在實際需要渲染時才呼叫，避免使用 `children` 時於父層就先建立整棵子樹
+   */
   renderElements?: () => React.ReactNode;
 }
 
@@ -48,7 +50,6 @@ export default function LazySvg({
   // 原始屬性
   ref,
   className,
-  children,
   ...props
 }: LazySvgProps) {
   const { ref: inViewRef, inView } = useInView({
@@ -71,7 +72,7 @@ export default function LazySvg({
         className,
       )}
     >
-      {(shouldRender ? renderElements?.() : null) ?? children}
+      {shouldRender ? renderElements?.() : null}
     </svg>
   );
 }
