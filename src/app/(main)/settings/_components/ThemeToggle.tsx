@@ -1,6 +1,6 @@
 "use client";
+import { useTheme } from "@wrksz/themes/client";
 import { RotateCcwIcon } from "lucide-react";
-import { useTheme } from "next-themes";
 
 import ThemeIcon from "@/components/ThemeIcon";
 import Card from "@/components/ui/Card";

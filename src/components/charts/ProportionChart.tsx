@@ -1,7 +1,7 @@
 "use client";
 
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
-import { useTheme } from "next-themes";
+import { useTheme } from "@wrksz/themes/client";
 
 import chartTheme from "./utils/theme";
 

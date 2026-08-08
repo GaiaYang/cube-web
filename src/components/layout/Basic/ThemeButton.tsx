@@ -1,11 +1,15 @@
 "use client";
 
-import { useTheme } from "next-themes";
+import { useTheme } from "@wrksz/themes/client";
 
 import ThemeIcon from "@/components/ThemeIcon";
 import { options } from "@/data/options/theme";
+import { Themes } from "@/enums/theme";
 import useMounted from "@/hooks/useMounted";
 import cn from "@/utils/cn";
+
+/** 循環順序（含 system；hook 的 themes 不含） */
+const THEME_CYCLE = Object.values(Themes);
 
 /**
  * 切換網站主題模式的按鈕
@@ -15,14 +19,12 @@ import cn from "@/utils/cn";
  */
 export default function ThemeToggleButton() {
   const mounted = useMounted();
-  const { theme, setTheme, themes } = useTheme();
+  const { theme, setTheme } = useTheme();
 
-  /** 循環切換 theme */
   function handleToggleTheme() {
     setTheme((current) => {
-      const index = themes.indexOf(current);
-      const nextIndex = (index + 1) % themes.length;
-      return themes[nextIndex];
+      const index = THEME_CYCLE.indexOf(current as Themes);
+      return THEME_CYCLE[(index + 1) % THEME_CYCLE.length];
     });
   }
 
