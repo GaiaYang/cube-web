@@ -1,4 +1,4 @@
-import cn from "@/utils/cn";
+import { cn } from "cn"
 
 export interface AlgorithmDisplayProps {
   /** 轉動公式 */

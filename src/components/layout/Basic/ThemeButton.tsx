@@ -1,12 +1,12 @@
 "use client";
 
 import { useTheme } from "@wrksz/themes/client";
+import { cn } from "cn"
 
 import ThemeIcon from "@/components/ThemeIcon";
 import { options } from "@/data/options/theme";
 import { Themes } from "@/enums/theme";
 import useMounted from "@/hooks/useMounted";
-import cn from "@/utils/cn";
 
 /** 循環順序（含 system；hook 的 themes 不含） */
 const THEME_CYCLE = Object.values(Themes);

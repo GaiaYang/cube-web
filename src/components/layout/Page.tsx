@@ -1,4 +1,4 @@
-import cn from "@/utils/cn";
+import { cn } from "cn"
 
 /** 頁面佈局
  *

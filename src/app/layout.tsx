@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import { StrictMode } from "react";
-import clsx from "clsx";
+import { cn } from "cn";
 import type { Metadata } from "next";
 
 import Providers from "./_components/Providers";
@@ -29,7 +29,7 @@ export default function RootLayout({
       <html
         lang="zh-Hant-TW"
         suppressHydrationWarning
-        className={clsx(
+        className={cn(
           noto_sans_tc.className,
           noto_sans_tc.variable,
           noto_serif_tc.variable,

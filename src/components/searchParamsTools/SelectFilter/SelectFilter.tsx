@@ -1,9 +1,9 @@
 "use client";
 
+import { cn } from "cn"
 import { RotateCcwIcon } from "lucide-react";
 
 import type { Option } from "@/data/options/types";
-import cn from "@/utils/cn";
 
 export interface SelectFilterProps<T extends string>
   extends React.ComponentProps<"div"> {

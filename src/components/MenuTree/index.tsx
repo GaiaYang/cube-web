@@ -1,9 +1,10 @@
+import { cn } from "cn"
+
 import MenuNode from "./MenuNode";
 import { MenuStateProvider } from "./MenuState";
 import type { RenderMenuIcon } from "./types";
 
 import type { MenuItem } from "@/types/menu";
-import cn from "@/utils/cn";
 
 export interface MenuTreeProps extends React.ComponentProps<"ul"> {
   items: readonly MenuItem[];

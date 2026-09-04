@@ -1,5 +1,6 @@
+import { cn } from "cn"
+
 import type { ListProps } from "@/types/list";
-import cn from "@/utils/cn";
 import getListItemKey from "@/utils/getListItemKey";
 
 export interface GridListProps<ItemT>

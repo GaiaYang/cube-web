@@ -1,3 +1,4 @@
+import { cn } from "cn"
 import { XIcon } from "lucide-react";
 
 import { drawerId, drawerSideId, drawerToggleId } from "./config";
@@ -7,8 +8,6 @@ import DrawerToggle from "./DrawerToggle";
 import GithubButton from "./GithubButton";
 import LogoButton from "./LogoButton";
 import type { CommonProps } from "./types";
-
-import cn from "@/utils/cn";
 
 export type DrawerProps = CommonProps;
 

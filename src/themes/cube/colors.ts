@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "cn";
 import { uniq } from "es-toolkit";
 
 import type { CubeFaceColors } from "@/enums/cube/color";
@@ -113,5 +113,5 @@ export default function getCubeColor(
         break;
     }
   }
-  return clsx(result);
+  return cn(result);
 }

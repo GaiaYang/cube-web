@@ -1,8 +1,8 @@
+import { cn } from "cn"
 import { MoveRightIcon } from "lucide-react";
 import Link from "next/link";
 
 import BasicLayout from "@/components/layout/Basic";
-import cn from "@/utils/cn";
 
 export default function Home() {
   return (

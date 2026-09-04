@@ -1,6 +1,6 @@
-import type { CommonProps } from "./types";
+import { cn } from "cn"
 
-import cn from "@/utils/cn";
+import type { CommonProps } from "./types";
 
 export type Step = "Cross" | "F2L" | "PLL" | "OLL";
 

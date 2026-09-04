@@ -1,6 +1,6 @@
-import type { TabItem } from "./types";
+import { cn } from "cn"
 
-import cn from "@/utils/cn";
+import type { TabItem } from "./types";
 
 interface BorderTabsProps<T extends string> {
   items: TabItem<T>[];

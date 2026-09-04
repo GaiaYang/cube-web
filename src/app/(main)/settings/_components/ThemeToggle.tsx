@@ -1,12 +1,12 @@
 "use client";
 import { useTheme } from "@wrksz/themes/client";
+import { cn } from "cn"
 import { RotateCcwIcon } from "lucide-react";
 
 import ThemeIcon from "@/components/ThemeIcon";
 import Card from "@/components/ui/Card";
 import { options, type OptionType } from "@/data/options/theme";
 import useMounted from "@/hooks/useMounted";
-import cn from "@/utils/cn";
 
 export default function ThemeToggle() {
   const mounted = useMounted();

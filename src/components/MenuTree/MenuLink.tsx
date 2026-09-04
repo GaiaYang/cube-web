@@ -1,10 +1,9 @@
 "use client";
 
+import { cn } from "cn"
 import Link, { type LinkProps } from "next/link";
 
 import { useMenuState } from "./MenuState";
-
-import cn from "@/utils/cn";
 
 export interface MenuLinkProps
   extends LinkProps, Pick<React.ComponentProps<"a">, "className"> {

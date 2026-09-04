@@ -1,6 +1,5 @@
+import { cn } from "cn"
 import Link from "next/link";
-
-import cn from "@/utils/cn";
 
 export type LogoButtonProps = Omit<React.ComponentProps<"a">, "href">;
 

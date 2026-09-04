@@ -1,6 +1,7 @@
 "use client";
 
 import type { SVGProps } from "react";
+import { cn } from "cn"
 
 import type { CommonDiagramProps } from "./types";
 
@@ -8,7 +9,6 @@ import LazySvg from "@/components/LazySvg";
 import type { CubeFaceColors } from "@/enums/cube/color";
 import getCubeColor from "@/themes/cube/colors";
 import type { CubeFaceletPosition2D } from "@/types/cube/333";
-import cn from "@/utils/cn";
 
 export interface LastLayerDiagramProps extends CommonDiagramProps {
   colorMap?: Partial<Record<CubeFaceletPosition2D, CubeFaceColors>>;

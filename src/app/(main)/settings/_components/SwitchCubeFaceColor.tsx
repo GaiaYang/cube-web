@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "cn"
 import { RotateCcwIcon } from "lucide-react";
 import { useShallow } from "zustand/shallow";
 
@@ -8,7 +9,6 @@ import type { Option } from "@/data/options/types";
 import { CubeFaceColors } from "@/enums/cube/color";
 import useMounted from "@/hooks/useMounted";
 import getCubeColor from "@/themes/cube/colors";
-import cn from "@/utils/cn";
 import getOppositeColor from "@/utils/cube/getOppositeColor";
 import { useSettingsStore } from "@/zustand/providers/settings";
 

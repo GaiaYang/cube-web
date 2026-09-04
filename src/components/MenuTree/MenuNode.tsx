@@ -1,9 +1,10 @@
+import { cn } from "cn"
+
 import MenuDetails from "./MenuDetails";
 import MenuLink from "./MenuLink";
 import type { MenuIconProps, RenderMenuIcon } from "./types";
 
 import type { MenuItem } from "@/types/menu";
-import cn from "@/utils/cn";
 
 export interface MenuNodeProps {
   item: MenuItem;

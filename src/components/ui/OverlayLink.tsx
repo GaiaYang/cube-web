@@ -1,6 +1,5 @@
+import { cn } from "cn"
 import Link, { type LinkProps } from "next/link";
-
-import cn from "@/utils/cn";
 
 export interface OverlayLinkProps
   extends LinkProps, Omit<React.ComponentProps<"a">, "href"> {
