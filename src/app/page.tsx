@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 import { MoveRightIcon } from "lucide-react";
 import Link from "next/link";
 

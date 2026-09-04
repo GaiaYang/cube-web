@@ -75,4 +75,3 @@ function _renderBadge(
 
   return <p className="badge badge-soft badge-primary badge-lg">{param}</p>;
 }
-

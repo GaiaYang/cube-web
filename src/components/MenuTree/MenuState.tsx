@@ -19,10 +19,7 @@ export interface MenuStateProviderProps {
   items: readonly MenuItem[];
 }
 
-export function MenuStateProvider({
-  children,
-  items,
-}: MenuStateProviderProps) {
+export function MenuStateProvider({ children, items }: MenuStateProviderProps) {
   const pathname = usePathname();
   const activeCollapseIds = useMemo(
     () => new Set(findActiveMenuIds(items, pathname)),

@@ -1,0 +1,22 @@
+# Next.js
+.next
+out
+next-env.d.ts
+
+# 相依套件
+node_modules
+
+# 正式建置
+build
+
+# 測試
+coverage
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# lockfile
+pnpm-lock.yaml

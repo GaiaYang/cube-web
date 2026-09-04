@@ -1,5 +1,1 @@
-export {
-  defaultValues,
-  type Schema,
-  schema,
-} from "@/forms/algorithmInput";
+export { defaultValues, type Schema, schema } from "@/forms/algorithmInput";

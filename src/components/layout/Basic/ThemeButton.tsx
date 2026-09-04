@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "@wrksz/themes/client";
-import { cn } from "cn"
+import { cn } from "cn";
 
 import ThemeIcon from "@/components/ThemeIcon";
 import { options } from "@/data/options/theme";

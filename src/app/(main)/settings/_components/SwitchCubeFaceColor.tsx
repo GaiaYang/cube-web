@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "cn"
+import { cn } from "cn";
 import { RotateCcwIcon } from "lucide-react";
 import { useShallow } from "zustand/shallow";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "cn"
+import { cn } from "cn";
 import Link, { type LinkProps } from "next/link";
 
 import { useMenuState } from "./MenuState";

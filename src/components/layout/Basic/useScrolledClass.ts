@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 
 import { SCROLL_THRESHOLD } from "./config";
 import useScrolled, { type UseScrolledTarget } from "./useScrolled";

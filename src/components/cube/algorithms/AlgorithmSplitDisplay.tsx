@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { cn } from "cn"
+import { cn } from "cn";
 
 import AlgorithmDisplay from "./AlgorithmDisplay";
 
@@ -116,4 +116,3 @@ function _renderCell(item: string, index: number, array: string[]) {
     </Fragment>
   );
 }
-

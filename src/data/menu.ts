@@ -115,9 +115,7 @@ export const drawerMenu = [
     type: "collapse",
     id: "tools",
     title: "工具",
-    children: [
-      { type: "link", title: "公式轉換", href: "/tools/converter" },
-    ],
+    children: [{ type: "link", title: "公式轉換", href: "/tools/converter" }],
   },
   { type: "divider" },
   { type: "link", id: "settings", title: "網站設定", href: "/settings" },

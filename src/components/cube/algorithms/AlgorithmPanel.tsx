@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 
 import AlgorithmDisplay from "./AlgorithmDisplay";
 
@@ -49,4 +49,3 @@ export default function AlgorithmPanel({
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 import { ArrowUpRightIcon, ExternalLinkIcon } from "lucide-react";
 import Link, { type LinkProps } from "next/link";
 import * as z from "zod";

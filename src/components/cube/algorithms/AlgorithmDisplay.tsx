@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 
 export interface AlgorithmDisplayProps {
   /** 轉動公式 */
@@ -27,4 +27,3 @@ export default function AlgorithmDisplay({
     </code>
   );
 }
-

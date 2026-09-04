@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 
 import MenuDetails from "./MenuDetails";
 import MenuLink from "./MenuLink";
@@ -36,9 +36,7 @@ export default function MenuNode({ item, renderIcon }: MenuNodeProps) {
       );
     }
 
-    return (
-      <li className="menu-title text-base-content/60">{content}</li>
-    );
+    return <li className="menu-title text-base-content/60">{content}</li>;
   }
 
   if (item.type === "collapse") {

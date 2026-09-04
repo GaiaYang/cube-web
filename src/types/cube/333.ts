@@ -7,16 +7,7 @@ import type { StringIntRange } from "@/types/utils";
 export type CubeFaceCode = "U" | "D" | "L" | "R" | "F" | "B";
 
 /** 九宮格面塊位置 */
-type FaceletCell =
-  | "TL"
-  | "TC"
-  | "TR"
-  | "CL"
-  | "CR"
-  | "CC"
-  | "BL"
-  | "BC"
-  | "BR";
+type FaceletCell = "TL" | "TC" | "TR" | "CL" | "CR" | "CC" | "BL" | "BC" | "BR";
 
 /** 側邊面塊位置（不含 CL/CR/CC，另含左右邊） */
 type SideFaceletCell =

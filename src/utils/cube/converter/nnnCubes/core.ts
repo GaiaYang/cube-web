@@ -93,8 +93,10 @@ export function createCubeProfile(parser?: CubeProfile) {
       input?: readonly MoveToken[] | readonly string[] | null,
     ): string {
       if (!Array.isArray(input)) return "";
-      const output = notNilMap(input, (item) =>
-        typeof item === "string" ? formatMove(item) : formatMoveToken(item),
+      const output = notNilMap(
+        input,
+        (item) =>
+          typeof item === "string" ? formatMove(item) : formatMoveToken(item),
         Boolean,
       );
       return output.join(SEPARATE);

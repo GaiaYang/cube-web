@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "cn"
+import { cn } from "cn";
 
 import { drawerSideId } from "./config";
 import useScrolledClass from "./useScrolledClass";

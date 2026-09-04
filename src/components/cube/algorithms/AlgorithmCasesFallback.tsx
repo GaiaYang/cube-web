@@ -9,4 +9,3 @@ export default function AlgorithmCasesFallback() {
 function renderItem() {
   return <AlgorithmCaseCard isLoading />;
 }
-

@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 import Link from "next/link";
 
 import BackButton from "./_components/BackButton";

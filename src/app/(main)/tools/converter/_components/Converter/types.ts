@@ -1,11 +1,6 @@
 /** 可用的轉換類型 */
 export type ConversionType =
-  | "mirror"
-  | "reverse"
-  | "rotate"
-  | "mirrorRotate"
-  | "upper"
-  | "lower";
+  "mirror" | "reverse" | "rotate" | "mirrorRotate" | "upper" | "lower";
 
 /** 啟用狀態（每種轉換類型是否啟用） */
 export type ConversionFlags = Record<ConversionType, boolean>;

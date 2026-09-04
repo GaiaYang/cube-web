@@ -1,7 +1,7 @@
 "use client";
 
 import type { SVGProps } from "react";
-import { cn } from "cn"
+import { cn } from "cn";
 
 import type { CommonDiagramProps } from "./types";
 

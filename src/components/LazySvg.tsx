@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
-import { cn } from "cn"
+import { cn } from "cn";
 
 import mergeRefs from "@/utils/mergeRefs";
 

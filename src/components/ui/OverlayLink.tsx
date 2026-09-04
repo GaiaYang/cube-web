@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 import Link, { type LinkProps } from "next/link";
 
 export interface OverlayLinkProps

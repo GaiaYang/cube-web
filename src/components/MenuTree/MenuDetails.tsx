@@ -4,8 +4,10 @@ import { useState } from "react";
 
 import { useMenuState } from "./MenuState";
 
-export interface MenuDetailsProps
-  extends Omit<React.ComponentProps<"details">, "id"> {
+export interface MenuDetailsProps extends Omit<
+  React.ComponentProps<"details">,
+  "id"
+> {
   id: string;
 }
 

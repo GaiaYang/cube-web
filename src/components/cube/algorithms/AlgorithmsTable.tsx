@@ -106,4 +106,3 @@ export function TableRow({
     </tr>
   );
 }
-

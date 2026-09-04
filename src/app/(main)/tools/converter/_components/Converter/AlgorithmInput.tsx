@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from "react-hook-form";
-import { cn } from "cn"
+import { cn } from "cn";
 import { useAtomValue } from "jotai";
 
 import { type Schema } from "./form";

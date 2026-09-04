@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 
 import MenuNode from "./MenuNode";
 import { MenuStateProvider } from "./MenuState";

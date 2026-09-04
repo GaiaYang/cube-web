@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 import { MenuIcon } from "lucide-react";
 
 import { drawerToggleId } from "./config";

@@ -1,12 +1,13 @@
 "use client";
 
-import { cn } from "cn"
+import { cn } from "cn";
 import { RotateCcwIcon } from "lucide-react";
 
 import type { Option } from "@/data/options/types";
 
-export interface SelectFilterProps<T extends string>
-  extends React.ComponentProps<"div"> {
+export interface SelectFilterProps<
+  T extends string,
+> extends React.ComponentProps<"div"> {
   /** 選擇器選項 */
   options: Option<T>[];
   /** 目前選取值；`null` 表示未選 */

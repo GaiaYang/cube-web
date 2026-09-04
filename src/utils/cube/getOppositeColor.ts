@@ -12,6 +12,8 @@ const OPPOSITE = {
 } as const satisfies Record<CubeFaceColors, CubeFaceColors>;
 
 /** 取得指定顏色的對面顏色 */
-export default function getOppositeColor(color: CubeFaceColors): CubeFaceColors {
+export default function getOppositeColor(
+  color: CubeFaceColors,
+): CubeFaceColors {
   return OPPOSITE[color];
 }

@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "cn";
 
 import type { ListProps } from "@/types/list";
 import getListItemKey from "@/utils/getListItemKey";
