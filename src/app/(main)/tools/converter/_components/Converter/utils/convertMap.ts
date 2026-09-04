@@ -1,9 +1,0 @@
-import convert333 from "@/utils/cube/converter/nnnCubes/specs/333";
-import convert from "@/utils/cube/converter/nnnCubes/specs/nnn";
-
-const output = {
-  nnn: convert,
-  "333": convert333,
-} as const;
-
-export default output;

@@ -2,8 +2,9 @@ import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "cn";
 import { useAtomValue } from "jotai";
 
-import { type Schema } from "./form";
 import { cubeOrderAtom } from "./jotai";
+
+import { type Schema } from "@/forms/algorithmInput";
 
 export default function AlgorithmInput() {
   const { control } = useFormContext<Schema>();

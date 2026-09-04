@@ -3,10 +3,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtomValue } from "jotai";
 
-import { defaultValues, type Schema, schema } from "../form";
 import { cubeOrderAtom } from "../jotai";
-import convertMap from "../utils/convertMap";
+import { converterCores } from "../utils/converters";
 
+import {
+  defaultValues,
+  type Schema,
+  schema,
+} from "@/forms/algorithmInput";
 import getOrDefault from "@/utils/getOrDefault";
 
 export default function useAlgorithmForm() {
@@ -16,7 +20,11 @@ export default function useAlgorithmForm() {
     () =>
       zodResolver(
         schema.superRefine(({ algorithm }, ctx) => {
-          const { parseAlgorithm } = getOrDefault(convertMap, "nnn", cubeOrder);
+          const { parseAlgorithm } = getOrDefault(
+            converterCores,
+            "nnn",
+            cubeOrder,
+          );
 
           if (parseAlgorithm(algorithm).length === 0) {
             ctx.addIssue({

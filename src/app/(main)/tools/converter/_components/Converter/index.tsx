@@ -1,16 +1,14 @@
 "use client";
 
 import { Provider, useAtom, useAtomValue } from "jotai";
-import dynamic from "next/dynamic";
 
 import CodeSpan from "../CodeSpan";
 
 import BorderTabs from "./BorderTabs";
 import { convertTabs, modeTabs } from "./config";
+import InPlaceForm from "./InPlaceForm";
 import { cubeOrderAtom, formModeAtom } from "./jotai";
-
-const StandForm = dynamic(() => import("./StandForm"));
-const InPlaceForm = dynamic(() => import("./InPlaceForm"));
+import StandForm from "./StandForm";
 
 export default function Converter() {
   return (

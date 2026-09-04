@@ -1,6 +1,11 @@
 /** 可用的轉換類型 */
 export type ConversionType =
-  "mirror" | "reverse" | "rotate" | "mirrorRotate" | "upper" | "lower";
+  | "mirror"
+  | "reverse"
+  | "rotate"
+  | "mirrorRotate"
+  | "upper"
+  | "lower";
 
 /** 啟用狀態（每種轉換類型是否啟用） */
 export type ConversionFlags = Record<ConversionType, boolean>;
@@ -23,3 +28,17 @@ export interface ConversionProfile {
   subtitle: string;
   description: string;
 }
+
+export type CommonConversion = Extract<
+  ConversionType,
+  "mirror" | "reverse" | "rotate" | "mirrorRotate"
+>;
+
+/** 字串 in → 字串 out 的轉換函式表 */
+export type Convert = Record<CommonConversion, (algorithm: string) => string> &
+  Partial<
+    Record<
+      Exclude<ConversionType, CommonConversion>,
+      (algorithm: string) => string
+    >
+  >;

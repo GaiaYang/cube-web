@@ -5,9 +5,9 @@ import { EraserIcon, SendIcon } from "lucide-react";
 import useAlgorithmForm from "./hooks/useAlgorithmForm";
 import useConverterObject from "./hooks/useConverterObject";
 import AlgorithmInput from "./AlgorithmInput";
-import { type Schema } from "./form";
 
 import AlgorithmDisplay from "@/components/cube/algorithms/AlgorithmDisplay";
+import { type Schema } from "@/forms/algorithmInput";
 
 /** 標準轉換表單 */
 export default function StandForm() {
