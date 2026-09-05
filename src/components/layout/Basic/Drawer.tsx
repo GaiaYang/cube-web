@@ -34,10 +34,7 @@ export default function Drawer({
     >
       <DrawerToggle />
       <DrawerContent>{children}</DrawerContent>
-      <DrawerSide
-        id={drawerSideId}
-        className="z-40 scroll-pt-20 scroll-smooth"
-      >
+      <DrawerSide id={drawerSideId} className="z-40 scroll-pt-20 scroll-smooth">
         <DrawerOverlay htmlFor={drawerToggleId} aria-label="關閉菜單" />
         <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-72">
           <DrawerNavbar>

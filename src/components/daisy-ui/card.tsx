@@ -35,7 +35,8 @@ export function Card({
     <div
       {...props}
       className={cn(
-        "card bg-base-100",
+        "card",
+        "bg-base-100 dark:bg-[color-mix(in_oklab,var(--color-base-100)_98%,#fff)]",
         VARIANT_CLASSES[variant],
         size && SIZE_CLASSES[size],
         {
