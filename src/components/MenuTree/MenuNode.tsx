@@ -1,13 +1,16 @@
-import { cn } from "cn";
-
 import MenuDetails from "./MenuDetails";
 import MenuLink from "./MenuLink";
 import type { MenuIconProps, RenderMenuIcon } from "./types";
 
-import type { MenuItem } from "@/types/menu";
+import {
+  MenuItem,
+  MenuTitle,
+  MenuTitleHeading,
+} from "@/components/daisy-ui/menu";
+import type { MenuItem as MenuItemData } from "@/types/menu";
 
 export interface MenuNodeProps {
-  item: MenuItem;
+  item: MenuItemData;
   renderIcon?: RenderMenuIcon;
 }
 
@@ -30,13 +33,17 @@ export default function MenuNode({ item, renderIcon }: MenuNodeProps) {
     if (item.children) {
       return (
         <li>
-          <h2 className="menu-title text-base-content/60">{content}</h2>
+          <MenuTitleHeading className="text-base-content/60">
+            {content}
+          </MenuTitleHeading>
           <ul>{renderChildren(item.children, renderIcon)}</ul>
         </li>
       );
     }
 
-    return <li className="menu-title text-base-content/60">{content}</li>;
+    return (
+      <MenuTitle className="text-base-content/60">{content}</MenuTitle>
+    );
   }
 
   if (item.type === "collapse") {
@@ -51,7 +58,7 @@ export default function MenuNode({ item, renderIcon }: MenuNodeProps) {
   }
 
   return (
-    <li className={cn({ "menu-disabled": item.disabled })}>
+    <MenuItem disabled={item.disabled}>
       {item.disabled ? (
         <a role="link" aria-disabled="true">
           {content}
@@ -62,12 +69,12 @@ export default function MenuNode({ item, renderIcon }: MenuNodeProps) {
       {item.children ? (
         <ul>{renderChildren(item.children, renderIcon)}</ul>
       ) : null}
-    </li>
+    </MenuItem>
   );
 }
 
 function renderChildren(
-  items: readonly MenuItem[],
+  items: readonly MenuItemData[],
   renderIcon?: RenderMenuIcon,
 ) {
   return items.map((item, index) => (

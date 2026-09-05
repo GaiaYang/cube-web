@@ -1,8 +1,10 @@
 "use client";
 
-import { cn } from "cn";
 import { RotateCcwIcon } from "lucide-react";
 
+import { Button } from "@/components/daisy-ui/button";
+import { Join } from "@/components/daisy-ui/join";
+import { Select, SelectOption } from "@/components/daisy-ui/select";
 import type { Option } from "@/data/options/types";
 
 export interface SelectFilterProps<
@@ -32,11 +34,12 @@ export default function SelectFilter<T extends string>({
   placeholder = "請選擇",
   resetLabel = "清除選項",
   ariaLabel = "選擇選項",
+  className,
   ...props
 }: SelectFilterProps<T>) {
   return (
-    <div {...props} className={cn("join", props.className)}>
-      <select
+    <Join {...props} className={className}>
+      <Select
         id={`select-filter-${idKey}`}
         aria-label={ariaLabel}
         value={value ?? ""}
@@ -44,32 +47,36 @@ export default function SelectFilter<T extends string>({
           const next = event.target.value;
           onValueChange(next === "" ? null : (next as T));
         }}
-        className="select focus:select-primary join-item"
+        joinItem
+        className="focus:select-primary"
       >
-        <option value="" disabled>
+        <SelectOption value="" disabled>
           {placeholder}
-        </option>
+        </SelectOption>
         {options.map(_renderOption)}
-      </select>
-      <button
+      </Select>
+      <Button
         type="button"
         onClick={() => {
           onValueChange(null);
         }}
         title={resetLabel}
-        className="join-item btn btn-error btn-square btn-soft"
+        joinItem
+        color="error"
+        shape="square"
+        variant="soft"
       >
         <span className="sr-only">{resetLabel}</span>
         <RotateCcwIcon />
-      </button>
-    </div>
+      </Button>
+    </Join>
   );
 }
 
 function _renderOption<T extends string>(item: Option<T>) {
   return (
-    <option key={item.id} value={item.value}>
+    <SelectOption key={item.id} value={item.value}>
       {item.label}
-    </option>
+    </SelectOption>
   );
 }

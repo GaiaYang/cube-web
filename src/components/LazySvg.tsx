@@ -4,6 +4,7 @@ import React, { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "cn";
 
+import { skeletonClassName } from "@/components/daisy-ui/skeleton";
 import mergeRefs from "@/utils/mergeRefs";
 
 export interface LazySvgOptions {
@@ -68,7 +69,7 @@ export default function LazySvg({
       {...props}
       ref={mergedRef}
       className={cn(
-        { skeleton: !shouldRender && placeholder === "skeleton" },
+        skeletonClassName(!shouldRender && placeholder === "skeleton"),
         className,
       )}
     >

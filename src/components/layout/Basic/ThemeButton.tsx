@@ -3,6 +3,9 @@
 import { useTheme } from "@wrksz/themes/client";
 import { cn } from "cn";
 
+import { Button, buttonVariants } from "@/components/daisy-ui/button";
+import { Loading } from "@/components/daisy-ui/loading";
+import { swapVariants } from "@/components/daisy-ui/swap";
 import ThemeIcon from "@/components/ThemeIcon";
 import { options } from "@/data/options/theme";
 import { Themes } from "@/enums/theme";
@@ -30,28 +33,35 @@ export default function ThemeToggleButton() {
 
   if (!mounted) {
     return (
-      <div className="btn btn-square btn-ghost">
-        <span className="loading loading-ring" aria-hidden />
+      <div
+        className={buttonVariants({ shape: "square", variant: "ghost" })}
+      >
+        <Loading variant="ring" aria-hidden />
       </div>
     );
   }
 
   return (
-    <button
+    <Button
       type="button"
       onClick={handleToggleTheme}
       title="切換網站配色模式"
-      className="btn btn-square btn-ghost swap swap-active swap-rotate"
+      shape="square"
+      variant="ghost"
+      className={swapVariants({ rotate: true, active: true })}
     >
       <span className="sr-only">切換網站配色模式</span>
-      {/* 使用 DaisyUI swap class 控制切換動畫 */}
+      {/* 同一組件只改 class，才能觸發 swap CSS transition；勿在 SwapOn／SwapOff 間條件切換 */}
       {options.map(({ id, value }) => (
         <ThemeIcon
           key={id}
           theme={value}
-          className={cn("size-6", theme === value ? "swap-on" : "swap-off")}
+          className={cn(
+            "size-6",
+            theme === value ? "swap-on" : "swap-off",
+          )}
         />
       ))}
-    </button>
+    </Button>
   );
 }

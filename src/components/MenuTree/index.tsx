@@ -4,6 +4,7 @@ import MenuNode from "./MenuNode";
 import { MenuStateProvider } from "./MenuState";
 import type { RenderMenuIcon } from "./types";
 
+import { Menu } from "@/components/daisy-ui/menu";
 import type { MenuItem } from "@/types/menu";
 
 export interface MenuTreeProps extends React.ComponentProps<"ul"> {
@@ -19,7 +20,7 @@ export default function MenuTree({
 }: MenuTreeProps) {
   return (
     <MenuStateProvider items={items}>
-      <ul {...props} className={cn("menu w-full", className)}>
+      <Menu {...props} className={cn("w-full", className)}>
         {items.map((item, index) => (
           <MenuNode
             item={item}
@@ -31,7 +32,7 @@ export default function MenuTree({
             renderIcon={renderIcon}
           />
         ))}
-      </ul>
+      </Menu>
     </MenuStateProvider>
   );
 }

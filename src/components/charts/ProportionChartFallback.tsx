@@ -1,3 +1,5 @@
+import { Skeleton } from "@/components/daisy-ui/skeleton";
+
 export default function ProportionChartFallback() {
-  return <div className="rounded-box skeleton h-80 w-full" />;
+  return <Skeleton className="rounded-box h-80 w-full" />;
 }

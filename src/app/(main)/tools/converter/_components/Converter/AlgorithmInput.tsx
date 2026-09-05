@@ -4,6 +4,9 @@ import { useAtomValue } from "jotai";
 
 import { cubeOrderAtom } from "./jotai";
 
+import { Fieldset } from "@/components/daisy-ui/fieldset";
+import { Input } from "@/components/daisy-ui/input";
+import { Label } from "@/components/daisy-ui/label";
 import { type Schema } from "@/forms/algorithmInput";
 
 export default function AlgorithmInput() {
@@ -18,22 +21,21 @@ export default function AlgorithmInput() {
         const isError = Boolean(error);
 
         return (
-          <fieldset className="fieldset">
-            <input
+          <Fieldset>
+            <Input
               {...field}
               type="text"
               autoComplete="off"
               spellCheck="false"
-              className={cn("input focus:input-primary", "w-full font-mono", {
-                "input-error": isError,
-              })}
+              color={isError ? "error" : undefined}
+              className="w-full font-mono focus:input-primary"
               placeholder="R U R' U'"
             />
-            <p className={cn("label", { "text-error": isError })}>
+            <Label className={cn({ "text-error": isError })}>
               {error?.message ??
                 (cubeOrder === "nnn" ? "允許官方符號" : "允許官方跟非官方符號")}
-            </p>
-          </fieldset>
+            </Label>
+          </Fieldset>
         );
       }}
     />

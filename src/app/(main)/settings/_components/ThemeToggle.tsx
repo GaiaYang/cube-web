@@ -3,8 +3,16 @@ import { useTheme } from "@wrksz/themes/client";
 import { cn } from "cn";
 import { RotateCcwIcon } from "lucide-react";
 
+import { Button, buttonVariants } from "@/components/daisy-ui/button";
+import {
+  Card,
+  CardActions,
+  CardBody,
+  CardTitle,
+} from "@/components/daisy-ui/card";
+import { Fieldset, FieldsetLegend } from "@/components/daisy-ui/fieldset";
+import { Join } from "@/components/daisy-ui/join";
 import ThemeIcon from "@/components/ThemeIcon";
-import Card from "@/components/ui/Card";
 import { options, type OptionType } from "@/data/options/theme";
 import useMounted from "@/hooks/useMounted";
 
@@ -17,8 +25,11 @@ export default function ThemeToggle() {
     return (
       <label
         key={id}
-        className={cn("btn has-checked:btn-primary join-item", {
-          "btn-disabled": isDisabled,
+        className={buttonVariants({
+          joinItem: true,
+          className: cn("has-checked:btn-primary", {
+            "btn-disabled": isDisabled,
+          }),
         })}
       >
         <input
@@ -39,28 +50,29 @@ export default function ThemeToggle() {
 
   return (
     <Card>
-      <div className="card-body">
-        <h2 className="card-title">基本設定</h2>
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">網站主題色</legend>
-          <div className="join join-vertical sm:join-horizontal">
+      <CardBody>
+        <CardTitle>基本設定</CardTitle>
+        <Fieldset>
+          <FieldsetLegend>網站主題色</FieldsetLegend>
+          <Join className="join-vertical sm:join-horizontal">
             {options.map(_renderButton)}
-          </div>
-        </fieldset>
-        <div className="card-actions mt-6">
-          <button
+          </Join>
+        </Fieldset>
+        <CardActions className="mt-6">
+          <Button
             type="button"
             disabled={isDisabled}
             onClick={() => {
               setTheme("system");
             }}
-            className="btn btn-soft btn-error"
+            variant="soft"
+            color="error"
           >
             <RotateCcwIcon />
             重設主題
-          </button>
-        </div>
-      </div>
+          </Button>
+        </CardActions>
+      </CardBody>
     </Card>
   );
 }

@@ -1,6 +1,7 @@
 import { CircleAlertIcon } from "lucide-react";
 import { type Metadata } from "next";
 
+import { Alert } from "@/components/daisy-ui/alert";
 import NewTabLink from "@/components/NewTabLink";
 import Notices from "@/components/Notices";
 import Article from "@/components/ui/Article";
@@ -20,7 +21,7 @@ export default function Page() {
         魔術方塊的底部前兩層。
       </p>
       <Notices type="under-construction" />
-      <blockquote className="alert not-italic">
+      <Alert className="not-italic">
         <CircleAlertIcon />
         <span>
           四向F2L幾乎沒有必要學， 很堅持不翻面的玩家請左轉出去{" "}
@@ -29,7 +30,7 @@ export default function Page() {
           </NewTabLink>{" "}
           ，本教學會適當的教部分簡單直覺實用的四項入槽。
         </span>
-      </blockquote>
+      </Alert>
     </Article>
   );
 }

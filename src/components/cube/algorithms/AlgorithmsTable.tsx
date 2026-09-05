@@ -1,5 +1,6 @@
 import AlgorithmDisplay from "./AlgorithmDisplay";
 
+import { Table as DaisyTable } from "@/components/daisy-ui/table";
 import NewTabLink from "@/components/NewTabLink";
 
 export interface AlgorithmTableRow<TPattern, TCaseId extends string> {
@@ -61,7 +62,7 @@ export function TableContainer({ children }: React.PropsWithChildren) {
 }
 
 export function Table({ children }: React.PropsWithChildren) {
-  return <table className="table min-w-2xl">{children}</table>;
+  return <DaisyTable className="min-w-2xl">{children}</DaisyTable>;
 }
 
 export function TableBody(

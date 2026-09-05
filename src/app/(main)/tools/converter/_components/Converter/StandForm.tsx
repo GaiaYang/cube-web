@@ -7,6 +7,7 @@ import useConverterObject from "./hooks/useConverterObject";
 import AlgorithmInput from "./AlgorithmInput";
 
 import AlgorithmDisplay from "@/components/cube/algorithms/AlgorithmDisplay";
+import { Button } from "@/components/daisy-ui/button";
 import { type Schema } from "@/forms/algorithmInput";
 
 /** 標準轉換表單 */
@@ -58,14 +59,14 @@ function CoreForm({ onConvert }: CoreFormProps) {
         <AlgorithmInput />
         <AlgorithmDisplay algorithm={result} />
         <div className="flex gap-2">
-          <button type="submit" className="btn btn-primary">
+          <Button type="submit" color="primary">
             <SendIcon />
             轉換
-          </button>
-          <button type="reset" className="btn btn-error btn-soft">
+          </Button>
+          <Button type="reset" color="error" variant="soft">
             <EraserIcon />
             清除
-          </button>
+          </Button>
         </div>
       </form>
     </FormProvider>

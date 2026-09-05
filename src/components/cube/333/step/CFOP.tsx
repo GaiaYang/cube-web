@@ -1,6 +1,6 @@
-import { cn } from "cn";
-
 import type { CommonProps } from "./types";
+
+import { Step as DaisyStep, Steps } from "@/components/daisy-ui/steps";
 
 export type Step = "Cross" | "F2L" | "PLL" | "OLL";
 
@@ -29,24 +29,18 @@ export default function CFOPStep({
 }: CFOPStepProps) {
   function _renderStep(item: StepOption) {
     return (
-      <li
+      <DaisyStep
         key={item.value}
-        className={cn("step", { "steps-primary": item.value === step })}
+        color={item.value === step ? "primary" : undefined}
       >
         {item.label}
-      </li>
+      </DaisyStep>
     );
   }
 
   return (
-    <ul
-      className={cn(
-        "steps",
-        { "steps-vertical": direction === "vertical" },
-        className,
-      )}
-    >
+    <Steps vertical={direction === "vertical"} className={className}>
       {steps.map(_renderStep)}
-    </ul>
+    </Steps>
   );
 }

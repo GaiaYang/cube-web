@@ -3,7 +3,14 @@ import { cn } from "cn";
 import { RotateCcwIcon } from "lucide-react";
 import { useShallow } from "zustand/shallow";
 
-import Card from "@/components/ui/Card";
+import { Button } from "@/components/daisy-ui/button";
+import {
+  Card,
+  CardActions,
+  CardBody,
+  CardTitle,
+} from "@/components/daisy-ui/card";
+import { Fieldset, FieldsetLegend } from "@/components/daisy-ui/fieldset";
 import { options } from "@/data/options/cube/color";
 import type { Option } from "@/data/options/types";
 import { CubeFaceColors } from "@/enums/cube/color";
@@ -42,10 +49,10 @@ export default function SwitchCubeFaceColor() {
 
   return (
     <Card>
-      <div className="card-body">
-        <h2 className="card-title">方塊設定</h2>
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">方塊頂面顏色調整</legend>
+      <CardBody>
+        <CardTitle>方塊設定</CardTitle>
+        <Fieldset>
+          <FieldsetLegend>方塊頂面顏色調整</FieldsetLegend>
           <ColorRadios
             radios={topOptions}
             name="cubeTopColor"
@@ -55,9 +62,9 @@ export default function SwitchCubeFaceColor() {
               setCubeFaceTop(value);
             }}
           />
-        </fieldset>
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">方塊前面顏色調整</legend>
+        </Fieldset>
+        <Fieldset>
+          <FieldsetLegend>方塊前面顏色調整</FieldsetLegend>
           <ColorRadios
             radios={frontOptions}
             name="cubeFrontColor"
@@ -67,19 +74,20 @@ export default function SwitchCubeFaceColor() {
               setCubeFaceFront(value);
             }}
           />
-        </fieldset>
-        <div className="card-actions mt-6">
-          <button
+        </Fieldset>
+        <CardActions className="mt-6">
+          <Button
             type="button"
             disabled={isDisabled}
-            className="btn btn-soft btn-error"
+            variant="soft"
+            color="error"
             onClick={resetCubeFaceColor}
           >
             <RotateCcwIcon />
             重設顏色
-          </button>
-        </div>
-      </div>
+          </Button>
+        </CardActions>
+      </CardBody>
     </Card>
   );
 }

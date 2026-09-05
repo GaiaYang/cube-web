@@ -1,4 +1,11 @@
-import Card from "@/components/ui/Card";
+import { Badge } from "@/components/daisy-ui/badge";
+import {
+  Card,
+  CardBody,
+  CardFigure,
+  CardTitle,
+} from "@/components/daisy-ui/card";
+import { Skeleton } from "@/components/daisy-ui/skeleton";
 
 export interface AlgorithmCaseCardProps {
   isLoading?: boolean;
@@ -19,14 +26,14 @@ export default function AlgorithmCaseCard({
   return (
     <Card>
       <div className="px-4 pt-4">
-        <figure className="aspect-square w-full">
+        <CardFigure className="aspect-square w-full">
           {_renderDiagram(renderDiagram, isLoading)}
-        </figure>
+        </CardFigure>
       </div>
-      <div className="card-body items-center text-center">
+      <CardBody className="items-center text-center">
         {_renderTitle(name, isLoading)}
         {_renderBadge(tag, isLoading)}
-      </div>
+      </CardBody>
     </Card>
   );
 }
@@ -36,7 +43,7 @@ function _renderDiagram(
   isLoading?: boolean,
 ) {
   if (isLoading || param === undefined) {
-    return <div aria-hidden className="skeleton h-full w-full" />;
+    return <Skeleton aria-hidden className="h-full w-full" />;
   }
 
   if (param === null) {
@@ -51,14 +58,14 @@ function _renderTitle(
   isLoading?: boolean,
 ) {
   if (isLoading || param === undefined) {
-    return <div aria-hidden className="skeleton h-4.5 w-full" />;
+    return <Skeleton aria-hidden className="h-4.5 w-full" />;
   }
 
   if (param === null) {
     return null;
   }
 
-  return <h3 className="card-title">{param}</h3>;
+  return <CardTitle>{param}</CardTitle>;
 }
 
 function _renderBadge(
@@ -66,12 +73,16 @@ function _renderBadge(
   isLoading?: boolean,
 ) {
   if (isLoading || param === undefined) {
-    return <div aria-hidden className="skeleton h-7 w-full" />;
+    return <Skeleton aria-hidden className="h-7 w-full" />;
   }
 
   if (param === null) {
     return null;
   }
 
-  return <p className="badge badge-soft badge-primary badge-lg">{param}</p>;
+  return (
+    <Badge variant="soft" color="primary" size="lg">
+      {param}
+    </Badge>
+  );
 }

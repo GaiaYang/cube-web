@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import BackButton from "./_components/BackButton";
 
+import { buttonVariants } from "@/components/daisy-ui/button";
+
 export default function NotFound() {
   return (
     <main
@@ -32,7 +34,11 @@ export default function NotFound() {
           抱歉，我們找不到您要找的頁面。
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Link href="/" replace className="btn btn-primary">
+          <Link
+            href="/"
+            replace
+            className={buttonVariants({ color: "primary" })}
+          >
             回到首頁
           </Link>
           <BackButton />

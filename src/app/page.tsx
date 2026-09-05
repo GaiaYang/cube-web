@@ -2,6 +2,7 @@ import { cn } from "cn";
 import { MoveRightIcon } from "lucide-react";
 import Link from "next/link";
 
+import { buttonVariants } from "@/components/daisy-ui/button";
 import BasicLayout from "@/components/layout/Basic";
 
 export default function Home() {
@@ -29,12 +30,18 @@ export default function Home() {
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link
             href="/tutorial/333/cfop"
-            className="btn btn-primary group rounded-full"
+            className={buttonVariants({
+              color: "primary",
+              className: "group rounded-full",
+            })}
           >
             開始速解
             <MoveRightIcon className="transition-transform group-hover:translate-x-1" />
           </Link>
-          <Link href="/algs/333" className="btn rounded-full">
+          <Link
+            href="/algs/333"
+            className={buttonVariants({ className: "rounded-full" })}
+          >
             公式查詢
           </Link>
         </div>

@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import { Skeleton } from "@/components/daisy-ui/skeleton";
+
 export type SelectFilterFallbackProps = React.ComponentProps<"div">;
 
 export default function SelectFilterFallback(props: SelectFilterFallbackProps) {
@@ -9,9 +11,9 @@ export default function SelectFilterFallback(props: SelectFilterFallbackProps) {
       className={cn("inline-flex items-stretch", props.className)}
       aria-busy="true"
     >
-      <div
+      <Skeleton
         className={cn(
-          "skeleton inline-flex h-10 shrink",
+          "inline-flex h-10 shrink",
           "w-[calc(clamp(3rem,20rem,100%)+(var(--spacing)*10))]",
         )}
       />

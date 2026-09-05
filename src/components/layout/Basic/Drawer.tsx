@@ -1,4 +1,3 @@
-import { cn } from "cn";
 import { XIcon } from "lucide-react";
 
 import { drawerId, drawerSideId, drawerToggleId } from "./config";
@@ -9,6 +8,15 @@ import GithubButton from "./GithubButton";
 import LogoButton from "./LogoButton";
 import type { CommonProps } from "./types";
 
+import { buttonVariants } from "@/components/daisy-ui/button";
+import {
+  Drawer as DaisyDrawer,
+  DrawerContent,
+  DrawerOverlay,
+  DrawerSide,
+} from "@/components/daisy-ui/drawer";
+import { Menu } from "@/components/daisy-ui/menu";
+
 export type DrawerProps = CommonProps;
 
 export default function Drawer({
@@ -16,25 +24,21 @@ export default function Drawer({
   children,
 }: React.PropsWithChildren<DrawerProps>) {
   return (
-    <div
+    <DaisyDrawer
       id={drawerId}
-      className={cn(
-        "drawer",
-        { "lg:drawer-open": responsive },
-        "bg-base-100 mx-auto min-h-dvh max-w-480",
-      )}
+      className={
+        responsive
+          ? "lg:drawer-open bg-base-100 mx-auto min-h-dvh max-w-480"
+          : "bg-base-100 mx-auto min-h-dvh max-w-480"
+      }
     >
       <DrawerToggle />
-      <div className="drawer-content">{children}</div>
-      <div
+      <DrawerContent>{children}</DrawerContent>
+      <DrawerSide
         id={drawerSideId}
-        className={cn("drawer-side z-40", "scroll-pt-20 scroll-smooth")}
+        className="z-40 scroll-pt-20 scroll-smooth"
       >
-        <label
-          htmlFor={drawerToggleId}
-          aria-label="關閉菜單"
-          className="drawer-overlay"
-        />
+        <DrawerOverlay htmlFor={drawerToggleId} aria-label="關閉菜單" />
         <aside aria-label="側邊導航區塊" className="bg-base-100 min-h-dvh w-72">
           <DrawerNavbar>
             <LogoButton />
@@ -42,8 +46,10 @@ export default function Drawer({
             <label
               htmlFor={drawerToggleId}
               aria-label="關閉菜單"
-              className={cn("btn btn-ghost btn-circle", {
-                "lg:hidden": responsive,
+              className={buttonVariants({
+                variant: "ghost",
+                shape: "circle",
+                className: responsive ? "lg:hidden" : undefined,
               })}
             >
               <XIcon />
@@ -55,14 +61,14 @@ export default function Drawer({
           <div className="px-4">
             <div className="bg-base-content/10 mx-4 my-2 h-px" />
           </div>
-          <ul className="menu menu-horizontal w-full px-4 py-0">
+          <Menu horizontal className="w-full px-4 py-0">
             <li>
               <GithubButton />
             </li>
-          </ul>
+          </Menu>
           <div className="bg-base-100 pointer-events-none sticky bottom-0 flex h-40 mask-[linear-gradient(transparent,#000000)]" />
         </aside>
-      </div>
-    </div>
+      </DrawerSide>
+    </DaisyDrawer>
   );
 }

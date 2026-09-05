@@ -4,9 +4,14 @@ import { type Metadata } from "next";
 import FirstTwoLayers from "@/components/cube/333/diagram/FirstTwoLayers";
 import OrientationLastLayer from "@/components/cube/333/diagram/OrientationLastLayer";
 import PermutationLastLayer from "@/components/cube/333/diagram/PermutationLastLayer";
+import {
+  Card,
+  CardBody,
+  CardFigure,
+  CardTitle,
+} from "@/components/daisy-ui/card";
 import GridList, { type ListRenderItem } from "@/components/list/GridList";
 import Article from "@/components/ui/Article";
-import Card from "@/components/ui/Card";
 import OverlayLink from "@/components/ui/OverlayLink";
 import { definitions as f2l } from "@/data/cube/333/f2l";
 import { definitions as oll } from "@/data/cube/333/oll";
@@ -61,11 +66,13 @@ const _renderItem: ListRenderItem<ListData> = ({ item }) => {
     <div className="relative">
       <Card>
         <div className="px-4 pt-4">
-          <figure className="aspect-square w-full">{item.diagram}</figure>
+          <CardFigure className="aspect-square w-full">
+            {item.diagram}
+          </CardFigure>
         </div>
-        <div className="card-body">
-          <h3 className="card-title">{item.name}</h3>
-        </div>
+        <CardBody>
+          <CardTitle>{item.name}</CardTitle>
+        </CardBody>
       </Card>
       <OverlayLink href={item.href} label={item.name} />
     </div>

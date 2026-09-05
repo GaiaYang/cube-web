@@ -4,6 +4,8 @@ import { useEffect, useEffectEvent, useRef } from "react";
 
 import { drawerMenuId, drawerToggleId } from "./config";
 
+import { DrawerToggle as DaisyDrawerToggle } from "@/components/daisy-ui/drawer";
+
 export default function DrawerToggle() {
   const ref = useRef<HTMLInputElement>(null);
   const handleClick = useEffectEvent((ev: PointerEvent) => {
@@ -25,12 +27,5 @@ export default function DrawerToggle() {
     };
   }, []);
 
-  return (
-    <input
-      ref={ref}
-      id={drawerToggleId}
-      type="checkbox"
-      className="drawer-toggle"
-    />
-  );
+  return <DaisyDrawerToggle ref={ref} id={drawerToggleId} />;
 }

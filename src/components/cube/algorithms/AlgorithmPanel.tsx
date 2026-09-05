@@ -2,6 +2,7 @@ import { cn } from "cn";
 
 import AlgorithmDisplay from "./AlgorithmDisplay";
 
+import { Divider } from "@/components/daisy-ui/divider";
 import type { CommonDefinition } from "@/types/cube/common";
 
 export interface AlgorithmPanelProps extends CommonDefinition {
@@ -37,7 +38,7 @@ export default function AlgorithmPanel({
           <AlgorithmDisplay algorithm={setupAlgorithm} />
         </div>
       </div>
-      <div className="divider" />
+      <Divider />
       <h3 className="mb-2 text-xl font-semibold">公式表</h3>
       <ul>
         {algorithms.map((item, index) => (

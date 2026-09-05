@@ -1,6 +1,6 @@
-import { cn } from "cn";
-
 import type { TabItem } from "./types";
+
+import { Tab, Tabs } from "@/components/daisy-ui/tabs";
 
 interface BorderTabsProps<T extends string> {
   items: TabItem<T>[];
@@ -14,21 +14,19 @@ export default function BorderTabs<T extends string>({
   onChange,
 }: BorderTabsProps<T>) {
   return (
-    <div role="tablist" className="tabs tabs-border">
+    <Tabs variant="border">
       {items.map(({ id, label }) => (
-        <button
-          type="button"
-          role="tab"
+        <Tab
           key={id}
           aria-selected={id === value}
+          active={id === value}
           onClick={() => {
             onChange(id);
           }}
-          className={cn("tab", { "tab-active": id === value })}
         >
           {label}
-        </button>
+        </Tab>
       ))}
-    </div>
+    </Tabs>
   );
 }

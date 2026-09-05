@@ -6,6 +6,9 @@ import useConverterObject from "./hooks/useConverterObject";
 import AlgorithmInput from "./AlgorithmInput";
 import type { ConversionType } from "./types";
 
+import { Button } from "@/components/daisy-ui/button";
+import { Join } from "@/components/daisy-ui/join";
+
 /** 原地轉換表單 */
 export default function InPlaceForm() {
   const form = useAlgorithmForm();
@@ -30,24 +33,24 @@ export default function InPlaceForm() {
       >
         <AlgorithmInput />
         <div className="flex flex-col gap-4 md:flex-row">
-          <div className="join join-vertical md:join-horizontal">
+          <Join className="join-vertical md:join-horizontal">
             {enabledProfiles.map(({ subtitle, id }) => (
-              <button
+              <Button
                 key={id}
                 type="button"
+                joinItem
                 onClick={() => {
                   convertInPlace(id);
                 }}
-                className="btn join-item"
               >
                 {subtitle}
-              </button>
+              </Button>
             ))}
-          </div>
-          <button type="reset" className="btn btn-soft btn-error">
+          </Join>
+          <Button type="reset" variant="soft" color="error">
             <RotateCcwIcon />
             重設
-          </button>
+          </Button>
         </div>
       </form>
     </FormProvider>

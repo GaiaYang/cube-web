@@ -1,7 +1,8 @@
-import { cn } from "cn";
 import { ArrowUpRightIcon, ExternalLinkIcon } from "lucide-react";
-import Link, { type LinkProps } from "next/link";
+import NextLink, { type LinkProps } from "next/link";
 import * as z from "zod";
+
+import { Link, linkVariants } from "@/components/daisy-ui/link";
 
 export type NewTabLinkProps = Omit<
   React.ComponentProps<"a">,
@@ -21,34 +22,35 @@ export default function NewTabLink({
 
   if (typeof href === "string" && z.httpUrl().safeParse(href).success) {
     return (
-      <a
+      <Link
         {...props}
         href={href}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        className={cn("link link-info", className)}
+        color="info"
+        className={className}
       >
         {children}
         <span className="ml-0.5 inline-flex">
           <ExternalLinkIcon size={ICON_SIZE} />
         </span>
-      </a>
-    );
-  } else {
-    return (
-      <Link
-        {...props}
-        href={href}
-        target="_blank"
-        className={cn("link link-primary", className)}
-      >
-        {children}
-        <span className="ml-0.5 inline-flex">
-          <ArrowUpRightIcon size={ICON_SIZE} />
-        </span>
       </Link>
     );
   }
+
+  return (
+    <NextLink
+      {...props}
+      href={href}
+      target="_blank"
+      className={linkVariants({ color: "primary", className })}
+    >
+      {children}
+      <span className="ml-0.5 inline-flex">
+        <ArrowUpRightIcon size={ICON_SIZE} />
+      </span>
+    </NextLink>
+  );
 }
 
 /** 圖標尺寸 */
