@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import type { DaisyColor, DaisySize } from "./types";
+
 export interface SelectProps extends Omit<
   React.ComponentProps<"select">,
   "size"
@@ -13,25 +15,15 @@ export interface SelectProps extends Omit<
    * @default "default"
    */
   variant?: "default" | "ghost";
+  /** 下拉選單顏色 */
+  color?: DaisyColor;
+  /** 下拉選單尺寸 */
+  size?: DaisySize;
   /**
-   * 下拉選單顏色
-   */
-  color?:
-    | "neutral"
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "info"
-    | "success"
-    | "warning"
-    | "error";
-  /**
-   * 下拉選單尺寸
+   * 作為 Join 子元素（`join-item`）
    *
-   * @default undefined（使用 DaisyUI 預設）
+   * @default false
    */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
-  /** 作為 Join 子元素（`join-item`） */
   joinItem?: boolean;
 }
 

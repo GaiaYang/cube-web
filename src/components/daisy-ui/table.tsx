@@ -1,17 +1,31 @@
 import { cn } from "cn";
 
+import type { DaisySize } from "./types";
+
 export interface TableProps extends Omit<
   React.ComponentProps<"table">,
   "size"
 > {
-  /** 斑馬紋 */
+  /**
+   * 斑馬紋
+   *
+   * @default false
+   */
   zebra?: boolean;
-  /** 固定列 */
+  /**
+   * 固定列
+   *
+   * @default false
+   */
   pinRows?: boolean;
-  /** 固定欄 */
+  /**
+   * 固定欄
+   *
+   * @default false
+   */
   pinCols?: boolean;
   /** 表格尺寸 */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: DaisySize;
 }
 
 export function Table({

@@ -41,9 +41,7 @@ export default function MenuNode({ item, renderIcon }: MenuNodeProps) {
       );
     }
 
-    return (
-      <MenuTitle className="text-base-content/60">{content}</MenuTitle>
-    );
+    return <MenuTitle className="text-base-content/60">{content}</MenuTitle>;
   }
 
   if (item.type === "collapse") {

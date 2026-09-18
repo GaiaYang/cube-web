@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import type { DaisySize } from "./types";
+
 export interface TabsProps extends Omit<React.ComponentProps<"div">, "color"> {
   /**
    * 分頁樣式
@@ -8,7 +10,7 @@ export interface TabsProps extends Omit<React.ComponentProps<"div">, "color"> {
    */
   variant?: "default" | "box" | "border" | "lift";
   /** 分頁尺寸 */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: DaisySize;
   /** 分頁位置 */
   placement?: "top" | "bottom";
 }
@@ -37,9 +39,17 @@ export function Tabs({
 }
 
 export interface TabProps extends React.ComponentProps<"button"> {
-  /** 是否為作用中分頁 */
+  /**
+   * 是否為作用中分頁
+   *
+   * @default false
+   */
   active?: boolean;
-  /** 是否停用 */
+  /**
+   * 是否停用分頁
+   *
+   * @default false
+   */
   disabledTab?: boolean;
 }
 

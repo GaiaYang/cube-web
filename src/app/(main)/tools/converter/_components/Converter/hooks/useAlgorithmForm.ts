@@ -6,11 +6,7 @@ import { useAtomValue } from "jotai";
 import { cubeOrderAtom } from "../jotai";
 import { converterCores } from "../utils/converters";
 
-import {
-  defaultValues,
-  type Schema,
-  schema,
-} from "@/forms/algorithmInput";
+import { defaultValues, type Schema, schema } from "@/forms/algorithmInput";
 import getOrDefault from "@/utils/getOrDefault";
 
 export default function useAlgorithmForm() {

@@ -11,7 +11,5 @@ export function FieldsetLegend({
   className,
   ...props
 }: React.ComponentProps<"legend">) {
-  return (
-    <legend {...props} className={cn("fieldset-legend", className)} />
-  );
+  return <legend {...props} className={cn("fieldset-legend", className)} />;
 }

@@ -5,9 +5,6 @@ export function skeletonClassName(enabled = true) {
   return enabled ? "skeleton" : undefined;
 }
 
-export function Skeleton({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return <div {...props} className={cn("skeleton", className)} />;
 }

@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import type { DaisyColor, DaisySize } from "./types";
+
 export interface ButtonVariantsProps {
   /**
    * 按鈕樣式
@@ -8,26 +10,34 @@ export interface ButtonVariantsProps {
    */
   variant?: "default" | "outline" | "dash" | "soft" | "ghost" | "link";
   /** 按鈕顏色 */
-  color?:
-    | "neutral"
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "info"
-    | "success"
-    | "warning"
-    | "error";
+  color?: DaisyColor;
   /** 按鈕尺寸 */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: DaisySize;
   /** 按鈕形狀 */
   shape?: "square" | "circle";
-  /** 加寬 */
+  /**
+   * 加寬
+   *
+   * @default false
+   */
   wide?: boolean;
-  /** 區塊寬度 */
+  /**
+   * 區塊寬度
+   *
+   * @default false
+   */
   block?: boolean;
-  /** 啟用態樣式（`btn-active`） */
+  /**
+   * 啟用態樣式（`btn-active`）
+   *
+   * @default false
+   */
   active?: boolean;
-  /** 作為 Join 子元素（`join-item`） */
+  /**
+   * 作為 Join 子元素（`join-item`）
+   *
+   * @default false
+   */
   joinItem?: boolean;
   className?: string;
 }
@@ -61,7 +71,8 @@ export function buttonVariants({
 }
 
 export interface ButtonProps
-  extends Omit<React.ComponentProps<"button">, "color" | "size">,
+  extends
+    Omit<React.ComponentProps<"button">, "color" | "size">,
     ButtonVariantsProps {}
 
 export function Button({
@@ -119,10 +130,7 @@ const COLOR_CLASSES: Record<
   error: "btn-error",
 };
 
-const SIZE_CLASSES: Record<
-  NonNullable<ButtonVariantsProps["size"]>,
-  string
-> = {
+const SIZE_CLASSES: Record<NonNullable<ButtonVariantsProps["size"]>, string> = {
   xs: "btn-xs",
   sm: "btn-sm",
   md: "btn-md",

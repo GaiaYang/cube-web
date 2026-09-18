@@ -1,11 +1,23 @@
 import { cn } from "cn";
 
 export interface SwapVariantsProps {
-  /** 旋轉切換動畫 */
+  /**
+   * 旋轉切換動畫
+   *
+   * @default false
+   */
   rotate?: boolean;
-  /** 翻轉切換動畫 */
+  /**
+   * 翻轉切換動畫
+   *
+   * @default false
+   */
   flip?: boolean;
-  /** 以 class 控制為作用中（`swap-active`） */
+  /**
+   * 以 class 控制為作用中（`swap-active`）
+   *
+   * @default false
+   */
   active?: boolean;
   className?: string;
 }
@@ -31,13 +43,7 @@ export function swapVariants({
 export interface SwapProps
   extends React.ComponentProps<"label">, SwapVariantsProps {}
 
-export function Swap({
-  rotate,
-  flip,
-  active,
-  className,
-  ...props
-}: SwapProps) {
+export function Swap({ rotate, flip, active, className, ...props }: SwapProps) {
   return (
     <label
       {...props}
@@ -46,16 +52,10 @@ export function Swap({
   );
 }
 
-export function SwapOn({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export function SwapOn({ className, ...props }: React.ComponentProps<"div">) {
   return <div {...props} className={cn("swap-on", className)} />;
 }
 
-export function SwapOff({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export function SwapOff({ className, ...props }: React.ComponentProps<"div">) {
   return <div {...props} className={cn("swap-off", className)} />;
 }

@@ -1,9 +1,19 @@
 import { cn } from "cn";
 
 export interface DrawerProps extends React.ComponentProps<"div"> {
-  /** 側欄在右側 */
+  /**
+   * 側欄在右側
+   *
+   * @default false
+   */
   end?: boolean;
-  /** 強制開啟（`drawer-open`）；RWD 請用 className（如 `lg:drawer-open`） */
+  /**
+   * 強制開啟（`drawer-open`）；
+   *
+   * RWD 請用 className（如 `lg:drawer-open`）
+   *
+   * @default false
+   */
   open?: boolean;
 }
 
@@ -34,11 +44,7 @@ export function DrawerToggle({
   ...props
 }: React.ComponentProps<"input">) {
   return (
-    <input
-      {...props}
-      type={type}
-      className={cn("drawer-toggle", className)}
-    />
+    <input {...props} type={type} className={cn("drawer-toggle", className)} />
   );
 }
 
@@ -65,7 +71,5 @@ export function DrawerOverlay({
   className,
   ...props
 }: React.ComponentProps<"label">) {
-  return (
-    <label {...props} className={drawerOverlayVariants(className)} />
-  );
+  return <label {...props} className={drawerOverlayVariants(className)} />;
 }

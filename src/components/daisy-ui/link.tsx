@@ -1,20 +1,16 @@
 import { cn } from "cn";
 
+import type { DaisyColor } from "./types";
+
 export interface LinkVariantsProps {
   /**
    * 僅在 hover 時顯示底線
+   *
+   * @default false
    */
   hover?: boolean;
   /** 連結顏色 */
-  color?:
-    | "neutral"
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "success"
-    | "info"
-    | "warning"
-    | "error";
+  color?: DaisyColor;
   className?: string;
 }
 
@@ -37,24 +33,11 @@ export function linkVariants({
 export interface LinkProps
   extends Omit<React.ComponentProps<"a">, "color">, LinkVariantsProps {}
 
-export function Link({
-  hover,
-  color,
-  className,
-  ...props
-}: LinkProps) {
-  return (
-    <a
-      {...props}
-      className={linkVariants({ hover, color, className })}
-    />
-  );
+export function Link({ hover, color, className, ...props }: LinkProps) {
+  return <a {...props} className={linkVariants({ hover, color, className })} />;
 }
 
-const COLOR_CLASSES: Record<
-  NonNullable<LinkVariantsProps["color"]>,
-  string
-> = {
+const COLOR_CLASSES: Record<NonNullable<LinkVariantsProps["color"]>, string> = {
   neutral: "link-neutral",
   primary: "link-primary",
   secondary: "link-secondary",

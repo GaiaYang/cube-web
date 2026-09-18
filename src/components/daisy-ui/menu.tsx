@@ -1,13 +1,16 @@
 import { cn } from "cn";
 
-export interface MenuProps extends Omit<
-  React.ComponentProps<"ul">,
-  "size"
-> {
-  /** 水平選單 */
+import type { DaisySize } from "./types";
+
+export interface MenuProps extends Omit<React.ComponentProps<"ul">, "size"> {
+  /**
+   * 水平選單
+   *
+   * @default false
+   */
   horizontal?: boolean;
   /** 選單尺寸 */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: DaisySize;
 }
 
 export function Menu({
@@ -29,10 +32,7 @@ export function Menu({
   );
 }
 
-export function MenuTitle({
-  className,
-  ...props
-}: React.ComponentProps<"li">) {
+export function MenuTitle({ className, ...props }: React.ComponentProps<"li">) {
   return <li {...props} className={cn("menu-title", className)} />;
 }
 

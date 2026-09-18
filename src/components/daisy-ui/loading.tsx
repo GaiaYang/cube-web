@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import type { DaisySize } from "./types";
+
 export interface LoadingProps extends Omit<
   React.ComponentProps<"span">,
   "color"
@@ -11,7 +13,7 @@ export interface LoadingProps extends Omit<
    */
   variant?: "spinner" | "dots" | "ring" | "ball" | "bars" | "infinity";
   /** 載入動畫尺寸 */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: DaisySize;
 }
 
 export function Loading({
@@ -33,10 +35,7 @@ export function Loading({
   );
 }
 
-const VARIANT_CLASSES: Record<
-  NonNullable<LoadingProps["variant"]>,
-  string
-> = {
+const VARIANT_CLASSES: Record<NonNullable<LoadingProps["variant"]>, string> = {
   spinner: "loading-spinner",
   dots: "loading-dots",
   ring: "loading-ring",

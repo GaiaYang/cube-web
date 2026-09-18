@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import type { DaisyColor, DaisySize } from "./types";
+
 export interface InputProps extends Omit<
   React.ComponentProps<"input">,
   "size"
@@ -13,24 +15,10 @@ export interface InputProps extends Omit<
    * @default "default"
    */
   variant?: "default" | "ghost";
-  /**
-   * 輸入框顏色
-   */
-  color?:
-    | "neutral"
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "info"
-    | "success"
-    | "warning"
-    | "error";
-  /**
-   * 輸入框尺寸
-   *
-   * @default undefined（使用 DaisyUI 預設）
-   */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  /** 輸入框顏色 */
+  color?: DaisyColor;
+  /** 輸入框尺寸 */
+  size?: DaisySize;
 }
 
 export function Input({

@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import type { DaisyColor, DaisySize } from "./types";
+
 export interface BadgeProps extends Omit<
   React.ComponentProps<"span">,
   "color"
@@ -11,17 +13,9 @@ export interface BadgeProps extends Omit<
    */
   variant?: "default" | "outline" | "dash" | "soft" | "ghost";
   /** 徽章顏色 */
-  color?:
-    | "neutral"
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "info"
-    | "success"
-    | "warning"
-    | "error";
+  color?: DaisyColor;
   /** 徽章尺寸 */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: DaisySize;
 }
 
 export function Badge({

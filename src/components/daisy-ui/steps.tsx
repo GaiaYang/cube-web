@@ -1,15 +1,17 @@
 import { cn } from "cn";
 
+import type { DaisyColor } from "./types";
+
 export interface StepsProps extends React.ComponentProps<"ul"> {
-  /** 垂直排列 */
+  /**
+   * 垂直排列
+   *
+   * @default false
+   */
   vertical?: boolean;
 }
 
-export function Steps({
-  vertical = false,
-  className,
-  ...props
-}: StepsProps) {
+export function Steps({ vertical = false, className, ...props }: StepsProps) {
   return (
     <ul
       {...props}
@@ -18,20 +20,9 @@ export function Steps({
   );
 }
 
-export interface StepProps extends Omit<
-  React.ComponentProps<"li">,
-  "color"
-> {
-  /** 步驟顏色（通常標示已完成） */
-  color?:
-    | "neutral"
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "info"
-    | "success"
-    | "warning"
-    | "error";
+export interface StepProps extends Omit<React.ComponentProps<"li">, "color"> {
+  /** 步驟顏色 */
+  color?: DaisyColor;
 }
 
 export function Step({ color, className, ...props }: StepProps) {

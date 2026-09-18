@@ -1,9 +1,8 @@
 import { cn } from "cn";
 
-export interface AlertProps extends Omit<
-  React.ComponentProps<"div">,
-  "color"
-> {
+import type { DaisyStatusColor } from "./types";
+
+export interface AlertProps extends Omit<React.ComponentProps<"div">, "color"> {
   /**
    * 提示樣式
    *
@@ -11,7 +10,7 @@ export interface AlertProps extends Omit<
    */
   variant?: "default" | "outline" | "dash" | "soft";
   /** 提示顏色 */
-  color?: "info" | "success" | "warning" | "error";
+  color?: DaisyStatusColor;
   /** 排列方向 */
   direction?: "vertical" | "horizontal";
 }

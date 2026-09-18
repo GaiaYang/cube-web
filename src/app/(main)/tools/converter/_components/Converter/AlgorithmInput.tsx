@@ -28,7 +28,7 @@ export default function AlgorithmInput() {
               autoComplete="off"
               spellCheck="false"
               color={isError ? "error" : undefined}
-              className="w-full font-mono focus:input-primary"
+              className="focus:input-primary w-full font-mono"
               placeholder="R U R' U'"
             />
             <Label className={cn({ "text-error": isError })}>

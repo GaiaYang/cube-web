@@ -33,9 +33,7 @@ export default function ThemeToggleButton() {
 
   if (!mounted) {
     return (
-      <div
-        className={buttonVariants({ shape: "square", variant: "ghost" })}
-      >
+      <div className={buttonVariants({ shape: "square", variant: "ghost" })}>
         <Loading variant="ring" aria-hidden />
       </div>
     );
@@ -56,10 +54,7 @@ export default function ThemeToggleButton() {
         <ThemeIcon
           key={id}
           theme={value}
-          className={cn(
-            "size-6",
-            theme === value ? "swap-on" : "swap-off",
-          )}
+          className={cn("size-6", theme === value ? "swap-on" : "swap-off")}
         />
       ))}
     </Button>

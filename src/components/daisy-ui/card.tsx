@@ -1,5 +1,7 @@
 import { cn } from "cn";
 
+import type { DaisySize } from "./types";
+
 export interface CardProps extends React.ComponentProps<"div"> {
   /**
    * 卡片樣式
@@ -11,15 +13,19 @@ export interface CardProps extends React.ComponentProps<"div"> {
    * @default "shadow"
    */
   variant?: "shadow" | "border" | "dash-border";
+  /** 卡片尺寸 */
+  size?: DaisySize;
   /**
-   * 卡片尺寸
+   * 圖片改為側邊配置（`card-side`）
    *
-   * @default undefined
+   * @default false
    */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
-  /** 圖片改為側邊配置（`card-side`） */
   side?: boolean;
-  /** 圖片作為全幅背景（`image-full`） */
+  /**
+   * 圖片作為全幅背景（`image-full`）
+   *
+   * @default false
+   */
   imageFull?: boolean;
 }
 
