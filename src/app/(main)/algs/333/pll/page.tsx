@@ -7,12 +7,11 @@ import CategoryFilter from "./_components/CategoryFilter";
 import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
-import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "PLL 公式列表",
   description: "排列頂層方塊使整顆方塊還原，需以公式解決，共 21 種情況。",
-  alternates: { canonical: `${SITE_URL}/algs/333/pll` },
+  alternates: { canonical: "/algs/333/pll" },
 };
 
 export default function Page() {

@@ -1,4 +1,2 @@
-export const SITE_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://void-cube.vercel.app"
-    : "http://localhost:3000";
+/** 正式站網域；SEO（sitemap / robots / metadataBase）一律用此值。 */
+export const SITE_URL = "https://void-cube.vercel.app";

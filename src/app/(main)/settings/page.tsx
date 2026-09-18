@@ -8,6 +8,7 @@ import Article from "@/components/ui/Article";
 export const metadata: Metadata = {
   title: "網站設定",
   description: "本網站的一些設定項目。",
+  robots: { index: false, follow: false },
 };
 
 export default function Page() {

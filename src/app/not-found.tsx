@@ -1,9 +1,15 @@
 import { cn } from "cn";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import BackButton from "./_components/BackButton";
 
 import { buttonVariants } from "@/components/daisy-ui/button";
+
+export const metadata: Metadata = {
+  title: "找不到頁面",
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

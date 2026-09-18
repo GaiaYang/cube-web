@@ -1,5 +1,5 @@
 import { use } from "react";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import Pattern from "@/components/cube/333/diagram/FirstTwoLayers";
@@ -14,10 +14,7 @@ export function generateStaticParams() {
   return definitions.map((item) => ({ id: item.id }));
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const data = byId[id];
 
@@ -25,11 +22,9 @@ export async function generateMetadata(
     notFound();
   }
 
-  const previousTitle = (await parent).title;
-
   return {
-    title: `F2L ${data.name}` || previousTitle,
-    description: `F2L ${data.name}`,
+    title: data.name,
+    description: `${data.name} 公式與圖示。`,
   };
 }
 

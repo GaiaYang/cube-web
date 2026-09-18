@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   title: "EO Line",
   description:
     "EO（邊塊色相） Line（底層直線），為ZZ法的第一階段也是最精髓的部分。",
-  alternates: { canonical: "/tutorial/333/zz/eo-line" },
 };
 
 export default function Page() {

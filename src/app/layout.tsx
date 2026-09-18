@@ -1,6 +1,5 @@
 import "./globals.css";
 
-import { StrictMode } from "react";
 import { cn } from "cn";
 import type { Metadata } from "next";
 
@@ -17,6 +16,14 @@ export const metadata: Metadata = {
   description:
     "提供教學、工具及作者的觀念，不用艱深的技巧跟高價的魔術方塊，即使手速跟反應都不夠快也能在15秒內復原完成。",
   metadataBase: new URL(SITE_URL),
+  openGraph: {
+    siteName: "Void Cube",
+    locale: "zh_TW",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+  },
 };
 
 export default function RootLayout({
@@ -25,23 +32,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <StrictMode>
-      <html
-        lang="zh-Hant-TW"
-        suppressHydrationWarning
-        className={cn(
-          noto_sans_tc.className,
-          noto_sans_tc.variable,
-          noto_serif_tc.variable,
-          noto_sans_mono.variable,
-          "h-full antialiased",
-          "selection:bg-primary selection:text-primary-content",
-        )}
-      >
-        <body className="flex min-h-full flex-col">
-          <Providers>{children}</Providers>
-        </body>
-      </html>
-    </StrictMode>
+    <html
+      lang="zh-Hant-TW"
+      suppressHydrationWarning
+      className={cn(
+        noto_sans_tc.className,
+        noto_sans_tc.variable,
+        noto_serif_tc.variable,
+        noto_sans_mono.variable,
+        "h-full antialiased",
+        "selection:bg-primary selection:text-primary-content",
+      )}
+    >
+      <body className="flex min-h-full flex-col">
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 }

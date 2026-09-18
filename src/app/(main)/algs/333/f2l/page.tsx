@@ -7,13 +7,12 @@ import CategoryFilter from "./_components/CategoryFilter";
 import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
-import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "F2L 公式列表",
   description:
     "完成方塊底部兩層，每種情況皆有四種變化以避免轉體，這裡只列出位於頂層或目標插槽中的所有組合，共有 41 種情況。",
-  alternates: { canonical: `${SITE_URL}/algs/333/f2l` },
+  alternates: { canonical: "/algs/333/f2l" },
 };
 
 export default function Page() {

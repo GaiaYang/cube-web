@@ -7,12 +7,11 @@ import CategoryFilter from "./_components/CategoryFilter";
 import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
-import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "OLL 公式列表",
   description: "將頂層全部朝同一顏色，需以公式解決，共 57 種情況。",
-  alternates: { canonical: `${SITE_URL}/algs/333/oll` },
+  alternates: { canonical: "/algs/333/oll" },
 };
 
 export default function Page() {
