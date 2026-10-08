@@ -3,6 +3,7 @@ import { cn } from "cn";
 import AlgorithmDisplay from "./AlgorithmDisplay";
 
 import { Divider } from "@/components/daisy-ui/divider";
+import { Skeleton } from "@/components/daisy-ui/skeleton";
 import type { CommonDefinition } from "@/types/cube/common";
 
 export interface AlgorithmPanelProps extends CommonDefinition {
@@ -47,6 +48,20 @@ export default function AlgorithmPanel({
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+export function AlgorithmPanelFallback() {
+  return (
+    <div className="w-full grow px-6" aria-busy="true">
+      <div className="flex items-center gap-6 max-md:flex-col">
+        <Skeleton className="size-40" />
+        <div className="max-md:w-full">
+          <Skeleton className="mb-5 h-10 w-40" />
+          <Skeleton className="h-6 w-64" />
+        </div>
+      </div>
     </div>
   );
 }

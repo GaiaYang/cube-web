@@ -1,9 +1,11 @@
-import { use } from "react";
+import { Suspense, use } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import Pattern from "@/components/cube/333/diagram/FirstTwoLayers";
-import AlgorithmPanel from "@/components/cube/algorithms/AlgorithmPanel";
+import AlgorithmPanel, {
+  AlgorithmPanelFallback,
+} from "@/components/cube/algorithms/AlgorithmPanel";
 import { byId, definitions, type F2LCaseId } from "@/data/cube/333/f2l";
 
 type Props = {
@@ -29,6 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function Page({ params }: Props) {
+  return (
+    <Suspense fallback={<AlgorithmPanelFallback />}>
+      <Case params={params} />
+    </Suspense>
+  );
+}
+
+function Case({ params }: Props) {
   const { id } = use(params);
   const data = byId[id];
 
