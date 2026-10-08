@@ -1,7 +1,7 @@
-import type { CommonDefinition } from "./common";
-
 import type { F2LCategory, OLLCategory, PLLCategory } from "@/enums/cube/333";
 import type { StringIntRange } from "@/types/utils";
+
+import type { CommonDefinition } from "./common";
 
 /** 方塊方位代號 */
 export type CubeFaceCode = "U" | "D" | "L" | "R" | "F" | "B";

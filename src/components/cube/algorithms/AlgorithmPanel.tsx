@@ -1,10 +1,10 @@
 import { cn } from "cn";
 
-import AlgorithmDisplay from "./AlgorithmDisplay";
-
 import { Divider } from "@/components/daisy-ui/divider";
 import { Skeleton } from "@/components/daisy-ui/skeleton";
 import type { CommonDefinition } from "@/types/cube/common";
+
+import AlgorithmDisplay from "./AlgorithmDisplay";
 
 export interface AlgorithmPanelProps extends CommonDefinition {
   renderPattern?: React.ReactNode;

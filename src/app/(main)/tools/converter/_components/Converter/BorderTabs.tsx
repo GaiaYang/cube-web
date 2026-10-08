@@ -1,6 +1,6 @@
-import type { TabItem } from "./types";
-
 import { Tab, Tabs } from "@/components/daisy-ui/tabs";
+
+import type { TabItem } from "./types";
 
 interface BorderTabsProps<T extends string> {
   items: TabItem<T>[];

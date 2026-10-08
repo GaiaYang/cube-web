@@ -1,7 +1,7 @@
-import AlgorithmDisplay from "./AlgorithmDisplay";
-
 import { Table as DaisyTable } from "@/components/daisy-ui/table";
 import NewTabLink from "@/components/NewTabLink";
+
+import AlgorithmDisplay from "./AlgorithmDisplay";
 
 export interface AlgorithmTableRow<TPattern, TCaseId extends string> {
   pattern: TPattern;

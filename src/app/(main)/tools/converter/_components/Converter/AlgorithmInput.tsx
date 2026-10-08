@@ -1,13 +1,13 @@
-import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "cn";
 import { useAtomValue } from "jotai";
-
-import { cubeOrderAtom } from "./jotai";
+import { Controller, useFormContext } from "react-hook-form";
 
 import { Fieldset } from "@/components/daisy-ui/fieldset";
 import { Input } from "@/components/daisy-ui/input";
 import { Label } from "@/components/daisy-ui/label";
 import { type Schema } from "@/forms/algorithmInput";
+
+import { cubeOrderAtom } from "./jotai";
 
 export default function AlgorithmInput() {
   const { control } = useFormContext<Schema>();

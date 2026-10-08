@@ -2,10 +2,10 @@
 
 import { cn } from "cn";
 
+import { Navbar } from "@/components/daisy-ui/navbar";
+
 import { drawerSideId } from "./config";
 import useScrolledClass from "./useScrolledClass";
-
-import { Navbar } from "@/components/daisy-ui/navbar";
 
 export default function DrawerNavbar({ children }: React.PropsWithChildren) {
   const scrolledClassName = useScrolledClass(drawerSideId);

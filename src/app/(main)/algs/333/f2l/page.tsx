@@ -1,12 +1,12 @@
-import { Suspense } from "react";
 import { type Metadata } from "next";
-
-import Cases from "./_components/Cases";
-import CategoryFilter from "./_components/CategoryFilter";
+import { Suspense } from "react";
 
 import AlgorithmCasesFallback from "@/components/cube/algorithms/AlgorithmCasesFallback";
 import AlgorithmsFilterPanel from "@/components/searchParamsTools/AlgorithmsFilterPanel";
 import Article from "@/components/ui/Article";
+
+import Cases from "./_components/Cases";
+import CategoryFilter from "./_components/CategoryFilter";
 
 export const metadata: Metadata = {
   title: "F2L 公式列表",

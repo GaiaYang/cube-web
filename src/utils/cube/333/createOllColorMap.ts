@@ -1,7 +1,7 @@
-import { createEmptyColorMap, FACELET_POSITIONS } from "./colorMap";
-
 import type { CubeFaceColors } from "@/enums/cube/color";
 import type { CubeFaceletPosition2D, OLLDefinition } from "@/types/cube/333";
+
+import { createEmptyColorMap, FACELET_POSITIONS } from "./colorMap";
 
 export type OLLColorMap = Record<CubeFaceletPosition2D, CubeFaceColors>;
 

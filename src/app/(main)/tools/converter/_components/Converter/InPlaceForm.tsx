@@ -1,13 +1,13 @@
-import { FormProvider } from "react-hook-form";
 import { RotateCcwIcon } from "lucide-react";
-
-import useAlgorithmForm from "./hooks/useAlgorithmForm";
-import useConverterObject from "./hooks/useConverterObject";
-import AlgorithmInput from "./AlgorithmInput";
-import type { ConversionType } from "./types";
+import { FormProvider } from "react-hook-form";
 
 import { Button } from "@/components/daisy-ui/button";
 import { Join } from "@/components/daisy-ui/join";
+
+import AlgorithmInput from "./AlgorithmInput";
+import useAlgorithmForm from "./hooks/useAlgorithmForm";
+import useConverterObject from "./hooks/useConverterObject";
+import type { ConversionType } from "./types";
 
 /** 原地轉換表單 */
 export default function InPlaceForm() {

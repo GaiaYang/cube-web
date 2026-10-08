@@ -2,9 +2,9 @@
 
 import { useEffect, useEffectEvent, useRef } from "react";
 
-import { drawerMenuId, drawerToggleId } from "./config";
-
 import { DrawerToggle as DaisyDrawerToggle } from "@/components/daisy-ui/drawer";
+
+import { drawerMenuId, drawerToggleId } from "./config";
 
 export default function DrawerToggle() {
   const ref = useRef<HTMLInputElement>(null);

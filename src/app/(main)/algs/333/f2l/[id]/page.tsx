@@ -1,6 +1,6 @@
-import { Suspense, use } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense, use } from "react";
 
 import Pattern from "@/components/cube/333/diagram/FirstTwoLayers";
 import AlgorithmPanel, {

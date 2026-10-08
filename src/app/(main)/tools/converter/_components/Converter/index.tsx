@@ -3,7 +3,6 @@
 import { Provider, useAtom, useAtomValue } from "jotai";
 
 import CodeSpan from "../CodeSpan";
-
 import BorderTabs from "./BorderTabs";
 import { convertTabs, modeTabs } from "./config";
 import InPlaceForm from "./InPlaceForm";

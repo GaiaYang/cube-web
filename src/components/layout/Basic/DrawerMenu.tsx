@@ -1,15 +1,15 @@
-import { createElement } from "react";
 import {
   BookOpenIcon,
   SettingsIcon,
   TableOfContentsIcon,
   WrenchIcon,
 } from "lucide-react";
-
-import { drawerMenuId } from "./config";
+import { createElement } from "react";
 
 import MenuTree, { type MenuTreeProps } from "@/components/MenuTree";
 import { drawerMenu } from "@/data/menu";
+
+import { drawerMenuId } from "./config";
 
 export default function DrawerMenu() {
   return (

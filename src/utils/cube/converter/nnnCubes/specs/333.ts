@@ -1,10 +1,10 @@
+import notNilMap from "@/utils/notNilMap";
+
 import { basicMoves } from "../constants";
 import { mapMove } from "../convert";
 import { createCubeProfile } from "../core";
 import { createRegex, ensureValidTurnCount, parseMoveByRegex } from "../tools";
 import type { MirrorMap, MoveToken, RotateMap, WideMove } from "../types";
-
-import notNilMap from "@/utils/notNilMap";
 
 /** 非官方「多層轉動」別名 */
 export type WideMoveAliases = "r" | "l" | "u" | "d" | "f" | "b";

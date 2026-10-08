@@ -1,11 +1,11 @@
-import { useMemo } from "react";
 import { useAtomValue } from "jotai";
+import { useMemo } from "react";
+
+import getOrDefault from "@/utils/getOrDefault";
 
 import { conversionFlags, conversionProfiles } from "../config";
 import { cubeOrderAtom } from "../jotai";
 import { stringConverters } from "../utils/converters";
-
-import getOrDefault from "@/utils/getOrDefault";
 
 export default function useConverterObject() {
   const cubeOrder = useAtomValue(cubeOrderAtom);

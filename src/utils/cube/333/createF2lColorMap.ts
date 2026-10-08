@@ -1,11 +1,10 @@
 import { isPlainObject } from "es-toolkit";
 
-import getCubeColorMap from "../getCubeColorMap";
-
-import { BLOCK_POSITIONS, createEmptyColorMap } from "./colorMap";
-
 import type { CubeFaceColors } from "@/enums/cube/color";
 import type { CubeBlockPosition3D, F2LDefinition } from "@/types/cube/333";
+
+import getCubeColorMap from "../getCubeColorMap";
+import { BLOCK_POSITIONS, createEmptyColorMap } from "./colorMap";
 
 export type F2LColorMap = Record<CubeBlockPosition3D, CubeFaceColors>;
 

@@ -3,10 +3,10 @@ import "./globals.css";
 import { cn } from "cn";
 import type { Metadata } from "next";
 
-import Providers from "./_components/Providers";
-
 import { SITE_URL } from "@/lib/config";
 import { noto_sans_mono, noto_sans_tc, noto_serif_tc } from "@/lib/fonts";
+
+import Providers from "./_components/Providers";
 
 export const metadata: Metadata = {
   title: {

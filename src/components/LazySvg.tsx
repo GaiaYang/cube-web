@@ -1,8 +1,8 @@
 "use client";
 
+import { cn } from "cn";
 import React, { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
-import { cn } from "cn";
 
 import { skeletonClassName } from "@/components/daisy-ui/skeleton";
 import mergeRefs from "@/utils/mergeRefs";

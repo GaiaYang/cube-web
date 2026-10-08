@@ -1,13 +1,13 @@
 "use client";
 
+import type { CubeFaceColors } from "@/enums/cube/color";
+import type { PLLDefinition } from "@/types/cube/333";
+import createPllColorMap from "@/utils/cube/333/createPllColorMap";
+
 import LastLayerDiagram, {
   type LastLayerDiagramProps,
 } from "./LastLayerDiagram";
 import useCubeFaceColor from "./useCubeFaceColor";
-
-import type { CubeFaceColors } from "@/enums/cube/color";
-import type { PLLDefinition } from "@/types/cube/333";
-import createPllColorMap from "@/utils/cube/333/createPllColorMap";
 
 export interface PermutationLastLayerProps
   extends

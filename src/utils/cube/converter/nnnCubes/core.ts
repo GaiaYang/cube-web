@@ -1,3 +1,5 @@
+import notNilMap from "@/utils/notNilMap";
+
 import { SEPARATE } from "./constants";
 import { mirrorMove, reverseMove, rotateMove } from "./convert";
 import {
@@ -7,8 +9,6 @@ import {
   parseMoveByRegex,
 } from "./tools";
 import type { CubeProfile, MoveToken } from "./types";
-
-import notNilMap from "@/utils/notNilMap";
 
 /** 官方標準符號正則表達式 */
 const REGEX = createRegex();

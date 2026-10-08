@@ -1,9 +1,9 @@
 import { type Metadata } from "next";
 
+import Article from "@/components/ui/Article";
+
 import SwitchCubeFaceColor from "./_components/SwitchCubeFaceColor";
 import ThemeToggle from "./_components/ThemeToggle";
-
-import Article from "@/components/ui/Article";
 
 export const metadata: Metadata = {
   title: "網站設定",

@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import { type Metadata } from "next";
+import type { ReactNode } from "react";
 
 import FirstTwoLayers from "@/components/cube/333/diagram/FirstTwoLayers";
 import OrientationLastLayer from "@/components/cube/333/diagram/OrientationLastLayer";

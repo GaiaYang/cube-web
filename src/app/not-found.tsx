@@ -2,9 +2,9 @@ import { cn } from "cn";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import BackButton from "./_components/BackButton";
-
 import { buttonVariants } from "@/components/daisy-ui/button";
+
+import BackButton from "./_components/BackButton";
 
 export const metadata: Metadata = {
   title: "找不到頁面",

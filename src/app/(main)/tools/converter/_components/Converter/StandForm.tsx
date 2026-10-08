@@ -1,14 +1,14 @@
+import { EraserIcon, SendIcon } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, type SubmitHandler } from "react-hook-form";
-import { EraserIcon, SendIcon } from "lucide-react";
-
-import useAlgorithmForm from "./hooks/useAlgorithmForm";
-import useConverterObject from "./hooks/useConverterObject";
-import AlgorithmInput from "./AlgorithmInput";
 
 import AlgorithmDisplay from "@/components/cube/algorithms/AlgorithmDisplay";
 import { Button } from "@/components/daisy-ui/button";
 import { type Schema } from "@/forms/algorithmInput";
+
+import AlgorithmInput from "./AlgorithmInput";
+import useAlgorithmForm from "./hooks/useAlgorithmForm";
+import useConverterObject from "./hooks/useConverterObject";
 
 /** 標準轉換表單 */
 export default function StandForm() {

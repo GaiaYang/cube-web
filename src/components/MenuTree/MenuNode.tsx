@@ -1,13 +1,13 @@
-import MenuDetails from "./MenuDetails";
-import MenuLink from "./MenuLink";
-import type { MenuIconProps, RenderMenuIcon } from "./types";
-
 import {
   MenuItem,
   MenuTitle,
   MenuTitleHeading,
 } from "@/components/daisy-ui/menu";
 import type { MenuItem as MenuItemData } from "@/types/menu";
+
+import MenuDetails from "./MenuDetails";
+import MenuLink from "./MenuLink";
+import type { MenuIconProps, RenderMenuIcon } from "./types";
 
 export interface MenuNodeProps {
   item: MenuItemData;

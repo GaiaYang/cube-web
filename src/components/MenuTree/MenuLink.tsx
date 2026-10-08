@@ -3,9 +3,9 @@
 import { cn } from "cn";
 import Link, { type LinkProps } from "next/link";
 
-import { useMenuState } from "./MenuState";
-
 import { menuStateClassName } from "@/components/daisy-ui/menu";
+
+import { useMenuState } from "./MenuState";
 
 export interface MenuLinkProps
   extends LinkProps, Pick<React.ComponentProps<"a">, "className"> {

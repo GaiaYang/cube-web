@@ -1,8 +1,8 @@
-import type { Convert, CubeOrder } from "../types";
-
 import convert333 from "@/utils/cube/converter/nnnCubes/specs/333";
 import convertNnn from "@/utils/cube/converter/nnnCubes/specs/nnn";
 import type { MoveToken } from "@/utils/cube/converter/nnnCubes/types";
+
+import type { Convert, CubeOrder } from "../types";
 
 /** 原始 converter core（含 parse / format），供驗證等底層用途 */
 export const converterCores = {

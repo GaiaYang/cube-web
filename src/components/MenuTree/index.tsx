@@ -1,11 +1,11 @@
 import { cn } from "cn";
 
+import { Menu } from "@/components/daisy-ui/menu";
+import type { MenuItem } from "@/types/menu";
+
 import MenuNode from "./MenuNode";
 import { MenuStateProvider } from "./MenuState";
 import type { RenderMenuIcon } from "./types";
-
-import { Menu } from "@/components/daisy-ui/menu";
-import type { MenuItem } from "@/types/menu";
 
 export interface MenuTreeProps extends React.ComponentProps<"ul"> {
   items: readonly MenuItem[];

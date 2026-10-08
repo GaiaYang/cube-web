@@ -1,6 +1,6 @@
-import type { CommonProps } from "./types";
-
 import { Step as DaisyStep, Steps } from "@/components/daisy-ui/steps";
+
+import type { CommonProps } from "./types";
 
 export type Step = "Cross" | "F2L" | "PLL" | "OLL";
 

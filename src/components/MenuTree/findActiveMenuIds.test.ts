@@ -1,6 +1,6 @@
-import findActiveMenuIds from "./findActiveMenuIds";
-
 import type { MenuItem } from "@/types/menu";
+
+import findActiveMenuIds from "./findActiveMenuIds";
 
 const items = [
   {

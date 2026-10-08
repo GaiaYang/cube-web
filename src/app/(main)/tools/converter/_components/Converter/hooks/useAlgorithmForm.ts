@@ -1,13 +1,13 @@
-import { useMemo } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtomValue } from "jotai";
-
-import { cubeOrderAtom } from "../jotai";
-import { converterCores } from "../utils/converters";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
 
 import { defaultValues, type Schema, schema } from "@/forms/algorithmInput";
 import getOrDefault from "@/utils/getOrDefault";
+
+import { cubeOrderAtom } from "../jotai";
+import { converterCores } from "../utils/converters";
 
 export default function useAlgorithmForm() {
   const cubeOrder = useAtomValue(cubeOrderAtom);

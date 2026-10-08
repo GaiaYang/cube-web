@@ -1,11 +1,11 @@
 "use client";
 
-import { createContext, useContext, useMemo } from "react";
 import { usePathname } from "next/navigation";
-
-import findActiveMenuIds from "./findActiveMenuIds";
+import { createContext, useContext, useMemo } from "react";
 
 import type { MenuItem } from "@/types/menu";
+
+import findActiveMenuIds from "./findActiveMenuIds";
 
 interface MenuStateValue {
   activeCollapseIds: ReadonlySet<string>;

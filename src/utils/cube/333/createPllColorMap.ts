@@ -1,16 +1,15 @@
 import { isPlainObject } from "es-toolkit";
 
-import getCubeColorMap from "../getCubeColorMap";
+import type { CubeFaceColors } from "@/enums/cube/color";
+import type { CubeFaceletPosition2D, PLLDefinition } from "@/types/cube/333";
 
+import getCubeColorMap from "../getCubeColorMap";
 import {
   createEmptyColorMap,
   FACE_POSITIONS,
   FACELET_POSITIONS,
   SIDE_POSITIONS,
 } from "./colorMap";
-
-import type { CubeFaceColors } from "@/enums/cube/color";
-import type { CubeFaceletPosition2D, PLLDefinition } from "@/types/cube/333";
 
 export type PLLColorMap = Record<CubeFaceletPosition2D, CubeFaceColors>;
 

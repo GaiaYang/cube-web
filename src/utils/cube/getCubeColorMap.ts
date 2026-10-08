@@ -1,7 +1,7 @@
-import getOppositeColor from "./getOppositeColor";
-
 import type { CubeFaceColors } from "@/enums/cube/color";
 import type { CubeFaceCode } from "@/types/cube/333";
+
+import getOppositeColor from "./getOppositeColor";
 
 /** 方塊六面顏色 */
 export type CubeColorMap = Record<CubeFaceCode, CubeFaceColors>;

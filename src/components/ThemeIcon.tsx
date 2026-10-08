@@ -1,5 +1,5 @@
-import { createElement } from "react";
 import { LucideProps, MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
+import { createElement } from "react";
 
 import { Themes } from "@/enums/theme";
 
